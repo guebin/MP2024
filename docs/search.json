@@ -4,7 +4,14 @@
     "href": "index.html",
     "title": "기계학습활용 (2024)",
     "section": "",
-    "text": "질문하는 방법\n\n카카오톡: 질문하러 가기\n이메일: guebin@jbnu.ac.kr\n직접방문: 자연과학대학 본관 205호\nZoom: 카카오톡이나 이메일로 미리 시간을 정할 것\nLMS쪽지: https://ieilms.jbnu.ac.kr/\n\n강의노트\n\n\n\n\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nSep 3, 2024\n\n\n01wk-강의소개\n\n\n최규빈 \n\n\n\n\n\nNo matching items"
+    "text": "질문하는 방법\n\n카카오톡: 질문하러 가기\n이메일: guebin@jbnu.ac.kr\n직접방문: 자연과학대학 본관 205호\nZoom: 카카오톡이나 이메일로 미리 시간을 정할 것\nLMS쪽지: https://ieilms.jbnu.ac.kr/\n\n강의노트\n\n\n\n\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nSep 5, 2024\n\n\n01wk-2: Quiz\n\n\n최규빈 \n\n\n\n\nSep 3, 2024\n\n\n01wk-1: 강의소개\n\n\n최규빈 \n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/01wk-2-Quiz.html",
+    "href": "posts/01wk-2-Quiz.html",
+    "title": "01wk-2: Quiz",
+    "section": "",
+    "text": "# {{&lt;video https://youtu.be/playlist?list=PLQqh36zP38-xkTDmutNidYnOkCgn2Zkdk&si=DPIWwBqzxkGHWIAr &gt;}}\n\n\n\n\n\n\n\n\n\n항목\n허용 여부\n비고\n\n\n\n\n강의노트 참고\n허용\n수업 중 제공된 강의노트나 본인이 정리한 자료를 참고 가능\n\n\n구글 검색\n허용\n인터넷을 통한 자료 검색 및 정보 확인 가능\n\n\nGPT 사용\n허용 안함\n인공지능 기반 도구(GPT 등) 사용 불가\n\n\n\n\n\n\n\n\n\nCaution\n\n\n\n\n모든 문항은 부분점수 없음.\n일부문항은 부분문제를 모두 맞출경우만 정답으로 인정함.\n.ipynb 파일 형태로 제출된 답안지만 채점하며 그 외의 형식 (.hwp등)은 채점하지 않음. 즉 0점 처리함. 제출방법 모르면 물어볼것!\n부정행위 (카카오톡 채팅을 통한 코드공유, 생성형모델 사용, 대리시험 등) 적발시 F 처리함.\n퀴즈 중 지각할 경우 지각사실을 기록함. 1\n\n1 일반적으로 지각에 대한 별다른 감점은 부여하지 않을 예정임\n\n\nimport numpy as np\n\n\n1. 20점\n아래의 코드를 관찰하고 올바르게 해석한 학생을 모두 골라라.\n\n올바르게 해석한 학생을 모두 정확하게 맞출경우만 20점으로 인정하고 그 외의는 0점 처리함\n\n\n# 부모 클래스\nclass Animal:\n    def __init__(self, name):\n        self.name = name\n\n    def speak(self):\n        return f\"{self.name} makes a sound.\"\n\n# 자식 클래스\nclass Dog(Animal):\n    def speak(self):\n        return f\"{self.name} barks.\"\n\n# 인스턴스 생성\nmy_dog = Dog(\"Buddy\")\nprint(my_dog.speak())  # Buddy barks.\n\nBuddy barks.\n\n\n명수: Animal 클래스의 __init__ 메서드는 Dog 클래스의 인스턴스가 생성될 때 자동으로 호출된다.\n준하: Dog 클래스는 Animal 클래스를 상속받고 있다.\n재석: Dog 클래스에서 speak 메서드를 재정의하지 않았다면, my_dog.speak()의 출력은 “Buddy makes a sound.“가 될 것이다.\n형돈: my_dog 인스턴스는 speak 메서드를 호출할 때, Animal 클래스의 speak 메서드를 사용한다.\n하하: Animal 클래스는 object 클래스를 상속받는다. 이는 Animal.mro()로 확인할 수 있다."
   },
   {
     "objectID": "about.html",
@@ -14,9 +21,9 @@
     "text": "About this blog"
   },
   {
-    "objectID": "posts/00-강의소개.html",
-    "href": "posts/00-강의소개.html",
-    "title": "01wk-강의소개",
+    "objectID": "posts/01wk-1-강의소개.html",
+    "href": "posts/01wk-1-강의소개.html",
+    "title": "01wk-1: 강의소개",
     "section": "",
     "text": "1. 강의영상\n{{&lt; video:  https://youtu.be/playlist?list=PLQqh36zP38-y_Wv9ErIPPdZwrxdTrerUM&si=lJFCcFxkqf2tKh_c&gt;}}\n\n\n2. 이 수업을 들어야 하는 이유\n\npass\n\n\n\n3. 이 수업을 듣지 말아야 하는 이유\n1. F학점을 줄 수 있음.\n\n모든 퀴즈를 보더라도 성적미달시 F학점 부여\n졸업이 임박한 경우 수강을 권장하지 않음\n\n2. 플립러닝\n\n수업은 비대면수업으로 진행하며, 수업 시간에는 퀴즈를 봄.\n대면 수업에 익숙하고 비대면 수업에 익숙하지 않은 학생들의 경우 수강을 권장하지 않음.\n매주 진행되는 퀴즈가 부담스러운 학생은 수강을 권장하지 않음.\n\n3. 기계학습, 기계학습활용\n\n기계학습활용: 이론적인 설명을 최소화하고, 실습 및 활용에 중점을 둔 수업\n기계학습: 이론과 실습을 같이 배우는 수업\n기계학습활용과 기계학습은 선수과목관계가 아니며, 기계학습활용을 듣지 않고도 기계학습을 이해하는데 문제가 없음.\n\n4. 잘하는 사람들이 많다.\n\n통계학과 고학년, 타학과 고수들\n\n5. 학점이 짜다.\n\n짜게 느껴진다가 더 정확한 표현같아요\n\n6. 파이썬문법이 선행되어야 함.\n\n리스트를 만드는 방법, numpy array가 무엇인지, colab 사용방법 등을 설명하지 않음.\n\n7. cost-effective 하지 않다.\n\n여러가지 이유로..\n이 교과목을 위해서 너무 많은 노력을 해야한다면 드랍하는 것이 좋다고 생각함.\n\n\n\n4. 학점산정방식\n- 강의계획서: 중간40, 기말40, 출석10, 과제10\n- 실제운영: 퀴즈90, 과제10\n\n매주 퀴즈를 보므로 출석은 퀴즈에 포함\n중간/기말 대신 매주 퀴즈로 평가하므로 중간/기말 점수도 퀴즈에 포함된다고 볼 수 있음."
   }
