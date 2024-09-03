@@ -78,9 +78,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-author',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
       
-      searchColumns: ["listing-author"],
+      searchColumns: ["listing-date","listing-title","listing-author"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -212,14 +212,26 @@ window.Quarto = {
 <thead>
 <tr>
 <th>
+Date
+</th>
+<th>
+Title
+</th>
+<th>
 Author
 </th>
 </tr>
 </thead>
 <tbody class="list">
-<tr data-index="0" data-listing-file-modified-sort="1725336449900" data-listing-filename-sort="Untitled-1.ipynb">
+<tr data-index="0" data-listing-date-sort="1725289200000" data-listing-file-modified-sort="1725362240151" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="187" data-listing-title-sort="01wk-강의소개" data-listing-filename-sort="00-강의소개.ipynb">
 <td>
-<span class="listing-author">&nbsp;</span>
+<span class="listing-date">Sep 3, 2024</span>
+</td>
+<td>
+<a href="./posts/00-강의소개.html" class="title listing-title">01wk-강의소개</a>
+</td>
+<td>
+<span class="listing-author">최규빈 </span>
 </td>
 </tr>
 </tbody>
