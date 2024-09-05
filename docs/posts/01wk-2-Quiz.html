@@ -150,7 +150,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#점" id="toc-점" class="nav-link active" data-scroll-target="#점">1. 20점</a></li>
+  <li><a href="#점" id="toc-점" class="nav-link active" data-scroll-target="#점">1. 10점</a></li>
+  <li><a href="#점-1" id="toc-점-1" class="nav-link" data-scroll-target="#점-1">2. 10점</a></li>
+  <li><a href="#점-2" id="toc-점-2" class="nav-link" data-scroll-target="#점-2">3. 20점</a></li>
+  <li><a href="#점-3" id="toc-점-3" class="nav-link" data-scroll-target="#점-3">4. 20점</a></li>
+  <li><a href="#점-4" id="toc-점-4" class="nav-link" data-scroll-target="#점-4">5. 40점</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="01wk-2-Quiz.out.ipynb" download="01wk-2-Quiz.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -189,9 +193,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><a href="https://colab.research.google.com/github/guebin/MP2024/blob/main/posts/01wk-2-Quiz.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" style="text-align: left"></a></p>
-<div id="cell-2" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># {{&lt;video https://youtu.be/playlist?list=PLQqh36zP38-xkTDmutNidYnOkCgn2Zkdk&amp;si=DPIWwBqzxkGHWIAr &gt;}}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <table class="table">
 <colgroup>
 <col style="width: 24%">
@@ -242,41 +243,181 @@ Caution
 </ul>
 </div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<ul>
+<li>50분까지로 안내하였으나 35분까지 풀 것. (그 정도면 다 풀거에요)</li>
+<li>공지있으니 끝나고 다 풀어도 남을 것</li>
+<li>파이썬 숙련도</li>
+<li>GPT허용여부, 난이도</li>
+<li>부정행위에 대하여</li>
+<li>뭐든지 모르면 제발 물어볼것</li>
+<li>지연제출에 대하여</li>
+<li>지각에 대하여</li>
+<li>성적분포에 대하여..</li>
+</ul>
 <section id="점" class="level1">
-<h1>1. 20점</h1>
+<h1>1. 10점</h1>
 <p>아래의 코드를 관찰하고 올바르게 해석한 학생을 모두 골라라.</p>
 <blockquote class="blockquote">
 <p>올바르게 해석한 학생을 모두 정확하게 맞출경우만 20점으로 인정하고 그 외의는 0점 처리함</p>
 </blockquote>
-<div id="cell-9" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 부모 클래스</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Animal:</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name):</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.name <span class="op">=</span> name</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> speak(<span class="va">self</span>):</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss"> makes a sound."</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 자식 클래스</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Dog(Animal):</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> speak(<span class="va">self</span>):</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss"> barks."</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 인스턴스 생성</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>my_dog <span class="op">=</span> Dog(<span class="st">"Buddy"</span>)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(my_dog.speak())  <span class="co"># Buddy barks.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-8" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> double_result(func):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> wrapper(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> func(<span class="op">*</span>args, <span class="op">**</span>kwargs)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result <span class="op">*</span> <span class="dv">2</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> wrapper</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add(a, b):</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">@double_result</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add2(a, b):</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>민수</code>: 데코레이터는 함수 결과를 두 배로 만들어 반환하므로 add2(4, 4)의 결과는 8 * 2 = 16이다. 출력 결과는 16이다.</p>
+<p><code>선철</code>: add(-2, 2) 와 add2(-2, 2)의 출력결과는 같다.</p>
+<p><code>예지</code>: 데코레이터는 매개변수(=함수의 입력값)를 두 배로 해서 함수에 전달한다. 그래서 add2(4, 4)는 (4 * 2) + (4 * 2)가 되어 출력 결과는 16이다.</p>
+<p><code>준현</code>: 데코레이터는 add2 함수의 입력값을 곱해서 리턴하도록 동작한다. 따라서 add2(4, 4)의 결과는 (4 * 4) = 16 이 출력된다.</p>
+</section>
+<section id="점-1" class="level1">
+<h1>2. 10점</h1>
+<p>아래의 코드를 관찰하고 올바르게 해석한 학생을 모두 골라라.</p>
+<blockquote class="blockquote">
+<p>올바르게 해석한 학생을 모두 정확하게 맞출경우만 20점으로 인정하고 그 외의는 0점 처리함</p>
+</blockquote>
+<div id="cell-13" class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> infinite_sequence():</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    num <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">yield</span> num</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        num <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>gen <span class="op">=</span> infinite_sequence()</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">next</span>(gen))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Buddy barks.</code></pre>
+<pre><code>0
+1
+2
+3
+4</code></pre>
 </div>
 </div>
-<p><code>명수</code>: <code>Animal</code> 클래스의 <code>__init__</code> 메서드는 <code>Dog</code> 클래스의 인스턴스가 생성될 때 자동으로 호출된다.</p>
-<p><code>준하</code>: <code>Dog</code> 클래스는 <code>Animal</code> 클래스를 상속받고 있다.</p>
-<p><code>재석</code>: <code>Dog</code> 클래스에서 <code>speak</code> 메서드를 재정의하지 않았다면, <code>my_dog.speak()</code>의 출력은 “Buddy makes a sound.“가 될 것이다.</p>
-<p><code>형돈</code>: <code>my_dog</code> 인스턴스는 <code>speak</code> 메서드를 호출할 때, <code>Animal</code> 클래스의 <code>speak</code> 메서드를 사용한다.</p>
-<p><code>하하</code>: <code>Animal</code> 클래스는 <code>object</code> 클래스를 상속받는다. 이는 <code>Animal.mro()</code>로 확인할 수 있다.</p>
+<div id="cell-14" class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(<span class="bu">dir</span>(gen)) <span class="op">&amp;</span> {<span class="st">'__next__'</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="51">
+<pre><code>{'__next__'}</code></pre>
+</div>
+</div>
+<p><code>토르</code>: infinite_sequence()는 무한 루프를 돌며 num 값을 하나씩 yield로 반환하고, next()로 값을 호출할 때마다 그 값을 증가시킨다. 따라서 이 코드는 (0, 1, 2, 3, 4)를 순서대로 출력한다.</p>
+<p><code>캡틴</code>: infinite_sequence()는 5개의 값을 반환한 후 더 이상 값을 생성하지 않고 종료된다. 즉, 그 이후에 next(gen)을 호출하면 더 이상 값이 반환되지 않고 StopIteration 예외가 발생한다.</p>
+<p><code>위도우</code>: <code>gen</code>은 호출가능한 객체 (<code>callable object</code>) 이다.</p>
+<p><code>헐크</code>: 이 코드에서 추가로 아래의 코드를 실행하면</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">next</span>(gen))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>다음 10개의 값(5, 6, 7, 8, 9, 10, 11, 12, 13, 14)이 순서대로 출력된다.</p>
+</section>
+<section id="점-2" class="level1">
+<h1>3. 20점</h1>
+<p>아래의 코드를 관찰하고 올바르게 해석한 학생을 모두 골라라.</p>
+<blockquote class="blockquote">
+<p>올바르게 해석한 학생을 모두 정확하게 맞출경우만 20점으로 인정하고 그 외의는 0점 처리함</p>
+</blockquote>
+<div id="cell-19" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Dummy:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, a):</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.a <span class="op">=</span> a</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Dummy2(Dummy):</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, a):</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(a)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.a <span class="op">=</span> <span class="va">self</span>.a <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Dummy3(Dummy):</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, a):</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(a)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.a <span class="op">=</span> <span class="va">self</span>.a <span class="op">+</span> <span class="dv">2</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Dummy4(Dummy3, Dummy2):</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, a):</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(Dummy2, <span class="va">self</span>).<span class="fu">__init__</span>(a)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.a <span class="op">=</span> <span class="va">self</span>.a <span class="op">+</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>민지</code>: Dummy4 인스턴스를 생성할 때 <code>super(Dummy2, self).__init__(a)</code>가 호출되어, MRO에 따라 먼저 Dummy3의 <code>__init__</code> 메소드가 실행된다. 그 후 Dummy4의 <code>__init__</code> 에서 <code>self.a = self.a + 3</code> 이 실행된다.</p>
+<p><code>시혁</code>: Dummy4 인스턴스를 생성할 때 <code>super(Dummy2, self).__init__(a)</code>가 호출되면 Dummy2의 <code>__init__</code>이 실행된다. 그 후 Dummy4의 <code>__init__</code> 에서 <code>self.a = self.a + 3</code> 이 실행된다.</p>
+<p><code>희진</code>: Dummy4는 다중 상속을 받았으므로 Dummy2, 3의 <code>__init__</code>이 모두 실행된다. 그 후 Dummy4의 <code>__init__</code> 에서 <code>self.a = self.a + 3</code> 이 실행된다.</p>
+<p><code>팜하니</code>: Dummy4는 다중 상속을 사용하므로 Dummy, Dummy2, Dummy3 의 <code>__init__</code> 순서대로 모두 호출한다. 그리고 마지막으로 Dummy4의 <code>__init__</code> 에서 <code>self.a = self.a + 3</code> 이 실행된다.</p>
+</section>
+<section id="점-3" class="level1">
+<h1>4. 20점</h1>
+<div id="cell-22" class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install datasets <span class="co"># 우선 이걸 실행해서 패키지 설치하세요, 못하겠으면 손들고 저를 부르세요</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>아래의 코드를 관찰하고 올바르게 해석한 학생을 모두 골라라.</p>
+<blockquote class="blockquote">
+<p>올바르게 해석한 학생을 모두 정확하게 맞출경우만 20점으로 인정하고 그 외의는 0점 처리함</p>
+</blockquote>
+<div id="cell-25" class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> load_dataset</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>imdb <span class="op">=</span> load_dataset(<span class="st">"imdb"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/cgb3/anaconda3/envs/hf/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm</code></pre>
+</div>
+</div>
+<p><code>동용</code>: <code>load_dataset</code>은 <code>function</code> 클래스에서 생성된 인스턴스이다.</p>
+<p><code>태한</code>: <code>imdb</code> 는 <code>__len__</code> 메소드를 가지고 있다. 따라서 <code>len(imdb)</code> 는 실행가능한 코드임을 알 수 있다.</p>
+<p><code>대영</code>: <code>imdb['train']</code>, <code>imdb['test']</code> 역시 모두 <code>__len__</code> 메소드를 가지고 있다. 그리고 <code>len(imdb['train']) + len(imdb['train'])</code> 의 값은 <code>len(imbd)</code>의 값과 같다.</p>
+<p><code>현수</code>: <code>imdb['train']</code>는 <code>__iter__</code> 메소드를 가지고 있다. 따라서 아래의 코드가 실행가능하다.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>iterator <span class="op">=</span> <span class="bu">iter</span>(imdb[<span class="st">'train'</span>])</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">next</span>(iterator))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">next</span>(iterator))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="점-4" class="level1">
+<h1>5. 40점</h1>
+<p>주어진 <code>load_dataset()</code> 함수의 도움말에 대한 설명을 보고, 설명이 맞으면 O, 틀리면 X를 선택하라.</p>
+<blockquote class="blockquote">
+<p>모두 맞출 경우만 정답으로 인정</p>
+</blockquote>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>load_dataset?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Signature:</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>load_dataset(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    path: <span class="bu">str</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    name: Optional[<span class="bu">str</span>] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    data_dir: Optional[<span class="bu">str</span>] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    data_files: Union[<span class="bu">str</span>, Sequence[<span class="bu">str</span>], Mapping[<span class="bu">str</span>, Union[<span class="bu">str</span>, Sequence[<span class="bu">str</span>]]], NoneType] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    split: Union[<span class="bu">str</span>, datasets.splits.Split, NoneType] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    cache_dir: Optional[<span class="bu">str</span>] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    features: Optional[datasets.features.features.Features] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    download_config: Optional[datasets.download.download_config.DownloadConfig] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    download_mode: Union[datasets.download.download_manager.DownloadMode, <span class="bu">str</span>, NoneType] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    verification_mode: Union[datasets.utils.info_utils.VerificationMode, <span class="bu">str</span>, NoneType] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    ignore_verifications<span class="op">=</span><span class="st">'deprecated'</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    keep_in_memory: Optional[<span class="bu">bool</span>] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    save_infos: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    revision: Union[<span class="bu">str</span>, datasets.utils.version.Version, NoneType] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    token: Union[<span class="bu">bool</span>, <span class="bu">str</span>, NoneType] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    use_auth_token<span class="op">=</span><span class="st">'deprecated'</span>,</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    task<span class="op">=</span><span class="st">'deprecated'</span>,</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    streaming: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    num_proc: Optional[<span class="bu">int</span>] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    storage_options: Optional[Dict] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    trust_remote_code: <span class="bu">bool</span> <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">**</span>config_kwargs,</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> Union[datasets.dataset_dict.DatasetDict, datasets.arrow_dataset.Dataset, datasets.dataset_dict.IterableDatasetDict, datasets.iterable_dataset.IterableDataset]</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>Docstring:</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>여기서 부터는 너무 기니까 생략<span class="op">~</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>1</code> <code>path</code>는 위치 인자로 전달될 수 있다.</p>
+<p><code>2</code>. <code>name</code> 인자는 함수 호출 시 키워드 인자로 전달될 수 있으며, 기본값은 <code>None</code>이다.</p>
+<p><code>3</code>. <code>load_dataset()</code> 함수는 가변 위치 인자를 허용하지 않는다.</p>
+<p><code>4</code>. <code>config_kwargs</code>는 가변 키워드 인자이며, 추가적인 키워드 인자를 받기 위한 것이다.</p>
+<p><code>5</code>. <code>path</code>의 타입 힌트는 <code>str</code>이다. 하지만 이것이<code>path</code> 인자의 값을 문자열 값만 전달될 수 있다는 의미는 아니다. Python에서 타입 힌트는 강제적인 제약이 아니라 개발자에게 코드의 의도를 알리기 위한 도구일 뿐이다. 따라서 Python에서는 타입 힌트를 무시하고 다른 타입의 값을 전달할 수 있다.</p>
+<p><code>6</code>. <code>split</code> 인자의 타입 힌트는 <code>Union[str, datasets.splits.Split, NoneType]</code>이므로, 문자열(str), datasets.Split 객체, 또는 <strong>None</strong>의 형태를 입력으로 권장한다.</p>
+<p><code>7</code>. <code>download_config</code> 인자는 가변 키워드 인자로 전달된다.</p>
+<p><code>8</code>. <code>data_dir</code>은 위치 인자로도 전달될 수 있다.</p>
+<p><code>9</code>. <code>cache_dir</code> 인자의 타입 힌트는 <code>Optional[str]</code>이므로, 문자열(str) 또는 <strong>None</strong>의 형태를 입력으로 권장한다.</p>
+<p><code>10</code>. <code>**config_kwargs</code>는 함수 호출 시 몇 개의 키워드 인자를 받을 수 있는지 미리 알 필요가 없다.</p>
 
 
 </section>
