@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="최규빈">
-<meta name="dcterms.date" content="2024-09-05">
+<meta name="dcterms.date" content="2024-09-06">
 
-<title>MP2024 - 01wk-3: ㅁㄴㅇㄹ</title>
+<title>MP2024 - 01wk-3: IMDB 자료 살펴보기, 지도학습의 개념</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -146,14 +112,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="01wk-3.out.ipynb" download="01wk-3.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#상상-혹은-경험" id="toc-상상-혹은-경험" class="nav-link active" data-scroll-target="#상상-혹은-경험">1. 상상 혹은 경험</a></li>
+  <li><a href="#감성분석-공부재료" id="toc-감성분석-공부재료" class="nav-link" data-scroll-target="#감성분석-공부재료">2. 감성분석 공부재료</a></li>
+  <li><a href="#install" id="toc-install" class="nav-link" data-scroll-target="#install">3. Install</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="01wk-3.out.ipynb" download="01wk-3.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">01wk-3: ㅁㄴㅇㄹ</h1>
+<h1 class="title">01wk-3: IMDB 자료 살펴보기, 지도학습의 개념</h1>
 </div>
 
 
@@ -170,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 5, 2024</p>
+      <p class="date">September 6, 2024</p>
     </div>
   </div>
   
@@ -182,14 +156,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="op">+</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>2</code></pre>
-</div>
-</div>
+<section id="상상-혹은-경험" class="level1">
+<h1>1. 상상 혹은 경험</h1>
+<p><code>-</code> 데이터 분석을 하고 싶음.</p>
+<ul>
+<li>할 줄 아는 것이 별로 없음.</li>
+<li>이론적으로 처음부터 익히려고 했는데, 도저히 각이 안나옴. (엄두가 나지 않음)</li>
+<li>블로그등을 보면서 데이터를 분석하는 코드를 독학하기로 함.</li>
+<li>전략: (1) 블로그의 코드를 돌려본다. (2) 블로그의 코드를 이해한다. (이론을 이해하는게 아님. 코드의 흐름을 이해하는 것임) (3) 블로그의 코드에서 데이터를 읽는 부분만 내가 사용할 데이터로 바꿔침 (4) 돌려서 결과를 제출.</li>
+</ul>
+<p><code>-</code> 어려울 것이라 예상되는 점.</p>
+<ul>
+<li><code>(1)</code> 안 돌아감. <code>import</code> 부터 잘 안될 것임.</li>
+<li><code>(2)</code> 이해가 안될걸??</li>
+<li><code>(3)</code> 이게 진짜 어려움. 이걸 잘하기 위해서는 파이썬의 기본 문법이 강해야함.</li>
+<li><code>(4)</code> 돌아는 가지만 결과가 좋지 않을 것임.</li>
+</ul>
+<p><code>-</code> 소망: 아래가 되었으면..</p>
+<ul>
+<li>(1)-(4)의 과정이 매끄럽게 진행되면 좋겠다..</li>
+<li>이 과정이 빠르게 반복되면서 여러코드를 최대한 빨리/많이 정리될 수 있다면..</li>
+<li>그래서 비슷한 분석을 나중에 해야 할 일이 있을때 참고할 거리가 많으면…</li>
+<li>나중에는 코드가 동작하는 공통적인 원리를 깨우쳐 스스로 데이터를 보면서 얼개를 잡아나갈수 있고, 어느정도 분석도 할 수 있는 수준이 되었으면..</li>
+</ul>
+<p><code>-</code> 마음가짐: 컨셉을 잘 잡아야함..</p>
+<ul>
+<li>나는 어떠한 코드도 짤 수 있는 사람이다. X</li>
+<li>나는 어떠한 코드도 이해할 수 있는 사람이다. X</li>
+<li>나는 어떠한 코드도 베낄 수 있는 (활용할 수 있는) 사람이다. O</li>
+</ul>
+<blockquote class="blockquote">
+<p>느리지만 정확하게 해결하는것은 옳지 않다. 모든 분석은 시간싸움임. 느려지는 순간 이미 뒤쳐진다. (마라톤을 하는게 아님. 100m 달리기임)</p>
+</blockquote>
+<p><code>-</code> 저는 컴공과 교수가 아니에요.. (그럴만한 실력도 없어요) 그냥 먹고살기 위해서 눈치껏 코딩을 할 뿐입니다..</p>
+<ul>
+<li>그래서 강의노트도 무식하게 만들예정..</li>
+<li>이전에는 예쁘게 만든 편임.. (빅데이터 혁신공유대학 사업.. 서해안권 어쩌고.. 충남대학생들이 들었음)</li>
+</ul>
+</section>
+<section id="감성분석-공부재료" class="level1">
+<h1>2. 감성분석 공부재료</h1>
+<p><code>-</code> 좋은 공부재료 (데이터+분석방법) 를 잘 선정해야함. 이게 사실 어려워요..</p>
+<ul>
+<li>수업시간에 하는 예제는 좋은 예제에요. 고르고 고른 자료들입니다. 분석방법도 선별한 중요한 방법들임 (성능이 좋거나, 최신 유행이거나, 고전적인 상식수준의 알고리즘)</li>
+<li>그 외에는 몇개의 유명한 사이트를 즐겨찾기 해놓고 시간날때마다 공부하는 것이 좋음.</li>
+<li>일단 이번시간에 추천하는 사이트는.. <a href="https://huggingface.co/docs/transformers/index" class="uri">https://huggingface.co/docs/transformers/index</a> 입니다.</li>
+</ul>
+<p><code>-</code> ref: <a href="https://huggingface.co/docs/transformers/tasks/sequence_classification" class="uri">https://huggingface.co/docs/transformers/tasks/sequence_classification</a></p>
+<ul>
+<li>ref는 reference의 약자.</li>
+<li>해당 사이트를 참고했다는 의미.</li>
+<li>원 작가에 대한 예의 + 나중에 공부할때도 좋음. –&gt; 대학생활하면서 숙제하실때도 참고하세요..</li>
+<li>없어보이는 행동이 아님. 더 빛나게 만들어주는 행동이라 생각함..</li>
+</ul>
+<p><code>-</code> 허깅페이스</p>
+<ul>
+<li>대부분의 경진대회 분석은 (1) tabular 를 분석하는 경우 (2) tabular 데이터가 아닌 자료를 분석하는 경우로 나눌 수 있음.</li>
+<li>Tabular 데이터를 분석하는 여러가지 전통적인 방법이 있으나 우승하려면 거의 무조건 XGBoost, LightGBM, CatBoost 중 하나를 써야함. 의사결정나무 기반의 알고리즘을 사용해야합니다. (의사결정나무가 거의 크랙임. 회귀분석, 로지스틱, SVM 등등.. 다 필요없음)</li>
+<li>Tabular 데이터가 아닌 자료를 분석하는 경우는 딥러닝 모형을 사용해야함. 여러가지 모형이 있지만 transformer 기반의 모형이 크랙임.</li>
+<li>허깅페이스는 transformer 기반의 다양한 모델(=분석방법)을 다운로드 하고 사용하기 용이하게 도와주는 사이트(hub)임.</li>
+</ul>
+</section>
+<section id="install" class="level1">
+<h1>3. Install</h1>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
