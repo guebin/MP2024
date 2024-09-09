@@ -268,6 +268,8 @@ Caution
 <p><code>선철</code>: add(-2, 2) 와 add2(-2, 2)의 출력결과는 같다.</p>
 <p><code>예지</code>: 데코레이터는 매개변수(=함수의 입력값)를 두 배로 해서 함수에 전달한다. 그래서 add2(4, 4)는 (4 * 2) + (4 * 2)가 되어 출력 결과는 16이다.</p>
 <p><code>준현</code>: 데코레이터는 add2 함수의 입력값을 곱해서 리턴하도록 동작한다. 따라서 add2(4, 4)의 결과는 (4 * 4) = 16 이 출력된다.</p>
+<p><code>(풀이)</code></p>
+<p>답: 민수, 선철</p>
 </section>
 <section id="점-1" class="level1">
 <h1>2. 10점</h1>
@@ -275,7 +277,7 @@ Caution
 <blockquote class="blockquote">
 <p>올바르게 해석한 학생을 모두 정확하게 맞출경우만 20점으로 인정하고 그 외의는 0점 처리함</p>
 </blockquote>
-<div id="cell-13" class="cell" data-execution_count="46">
+<div id="cell-15" class="cell" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> infinite_sequence():</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    num <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
@@ -294,7 +296,7 @@ Caution
 4</code></pre>
 </div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="51">
+<div id="cell-16" class="cell" data-execution_count="51">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(<span class="bu">dir</span>(gen)) <span class="op">&amp;</span> {<span class="st">'__next__'</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="51">
 <pre><code>{'__next__'}</code></pre>
@@ -307,6 +309,8 @@ Caution
 <div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">next</span>(gen))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>다음 10개의 값(5, 6, 7, 8, 9, 10, 11, 12, 13, 14)이 순서대로 출력된다.</p>
+<p><code>(풀이)</code></p>
+<p>답: 토르, 헐크</p>
 </section>
 <section id="점-2" class="level1">
 <h1>3. 20점</h1>
@@ -314,7 +318,7 @@ Caution
 <blockquote class="blockquote">
 <p>올바르게 해석한 학생을 모두 정확하게 맞출경우만 20점으로 인정하고 그 외의는 0점 처리함</p>
 </blockquote>
-<div id="cell-19" class="cell" data-execution_count="45">
+<div id="cell-23" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Dummy:</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, a):</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.a <span class="op">=</span> a</span>
@@ -338,17 +342,19 @@ Caution
 <p><code>시혁</code>: Dummy4 인스턴스를 생성할 때 <code>super(Dummy2, self).__init__(a)</code>가 호출되면 Dummy2의 <code>__init__</code>이 실행된다. 그 후 Dummy4의 <code>__init__</code> 에서 <code>self.a = self.a + 3</code> 이 실행된다.</p>
 <p><code>희진</code>: Dummy4는 다중 상속을 받았으므로 Dummy2, 3의 <code>__init__</code>이 모두 실행된다. 그 후 Dummy4의 <code>__init__</code> 에서 <code>self.a = self.a + 3</code> 이 실행된다.</p>
 <p><code>팜하니</code>: Dummy4는 다중 상속을 사용하므로 Dummy, Dummy2, Dummy3 의 <code>__init__</code> 순서대로 모두 호출한다. 그리고 마지막으로 Dummy4의 <code>__init__</code> 에서 <code>self.a = self.a + 3</code> 이 실행된다.</p>
+<p><code>(풀이)</code></p>
+<p>답: 모두 틀렸음</p>
 </section>
 <section id="점-3" class="level1">
 <h1>4. 20점</h1>
-<div id="cell-22" class="cell">
+<div id="cell-28" class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install datasets <span class="co"># 우선 이걸 실행해서 패키지 설치하세요, 못하겠으면 손들고 저를 부르세요</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>아래의 코드를 관찰하고 올바르게 해석한 학생을 모두 골라라.</p>
 <blockquote class="blockquote">
 <p>올바르게 해석한 학생을 모두 정확하게 맞출경우만 20점으로 인정하고 그 외의는 0점 처리함</p>
 </blockquote>
-<div id="cell-25" class="cell">
+<div id="cell-31" class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> load_dataset</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>imdb <span class="op">=</span> load_dataset(<span class="st">"imdb"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -358,11 +364,16 @@ Caution
 </div>
 <p><code>동용</code>: <code>load_dataset</code>은 <code>function</code> 클래스에서 생성된 인스턴스이다.</p>
 <p><code>태한</code>: <code>imdb</code> 는 <code>__len__</code> 메소드를 가지고 있다. 따라서 <code>len(imdb)</code> 는 실행가능한 코드임을 알 수 있다.</p>
-<p><code>대영</code>: <code>imdb['train']</code>, <code>imdb['test']</code> 역시 모두 <code>__len__</code> 메소드를 가지고 있다. 그리고 <code>len(imdb['train']) + len(imdb['train'])</code> 의 값은 <code>len(imbd)</code>의 값과 같다.</p>
+<p><code>대영</code>: <code>imdb['train']</code>, <code>imdb['test']</code> 역시 모두 <code>__len__</code> 메소드를 가지고 있다. 그리고 <code>len(imdb['train']) + len(imdb['test'])</code> 의 값은 <code>len(imbd)</code>의 값과 같다.</p>
 <p><code>현수</code>: <code>imdb['train']</code>는 <code>__iter__</code> 메소드를 가지고 있다. 따라서 아래의 코드가 실행가능하다.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>iterator <span class="op">=</span> <span class="bu">iter</span>(imdb[<span class="st">'train'</span>])</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">next</span>(iterator))</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">next</span>(iterator))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>(풀이)</code></p>
+<p>답: 동용, 태한, 현수</p>
+<blockquote class="blockquote">
+<p>채점시 동용과 대영은 틀려도 봐줬습니다. 동용은 개념이 약하면 헷갈릴 수 있다고 생각했고, 대영은 본의아니게 낚시처럼 문제가 되어서요, 실수할수 있다고 생각했습니다.</p>
+</blockquote>
 </section>
 <section id="점-4" class="level1">
 <h1>5. 40점</h1>
@@ -408,6 +419,11 @@ Caution
 <p><code>8</code>. <code>data_dir</code>은 위치 인자로도 전달될 수 있다.</p>
 <p><code>9</code>. <code>cache_dir</code> 인자의 타입 힌트는 <code>Optional[str]</code>이므로, 문자열(str) 또는 <strong>None</strong>의 형태를 입력으로 권장한다.</p>
 <p><code>10</code>. <code>**config_kwargs</code>는 함수 호출 시 몇 개의 키워드 인자를 받을 수 있는지 미리 알 필요가 없다.</p>
+<p><code>(풀이)</code></p>
+<p>7만 틀렸음.</p>
+<blockquote class="blockquote">
+<p>8번은 헷갈릴만 해서 틀려도 봐줬습니다. 8번이외에 한개정도 더 실수한 건 만점드렸습니다.</p>
+</blockquote>
 
 
 </section>
