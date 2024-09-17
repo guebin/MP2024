@@ -600,7 +600,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <div id="cell-65" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Step1 </span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>데이터불러오기 <span class="op">=</span> datasets.load_dataset</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>데이터전처리하기<span class="dv">1</span> <span class="op">=</span> 토크나이저 <span class="op">=</span> AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>) </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>데이터전처리하기<span class="dv">1</span> <span class="op">=</span> 토크나이저 <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>) </span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># str -&gt; {'input_ids': , 'attention_mask': }</span></span>
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> 데이터전처리하기<span class="dv">2</span>(examples):</span>
 <span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> 데이터전처리하기<span class="dv">1</span>(examples[<span class="st">"text"</span>], truncation<span class="op">=</span><span class="va">True</span>)</span>
