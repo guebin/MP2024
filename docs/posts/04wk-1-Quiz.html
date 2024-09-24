@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="최규빈">
+<meta name="dcterms.date" content="2024-09-05">
 
-<title>MP2024 - 기계학습활용 (2024)</title>
+<title>MP2024 - 04wk-1: Quiz</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +22,59 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,67 +102,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -138,7 +114,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">MP2024</span>
     </a>
   </div>
@@ -166,25 +142,45 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(6)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#emotion-자료-탐색-10점" id="toc-emotion-자료-탐색-10점" class="nav-link active" data-scroll-target="#emotion-자료-탐색-10점"><code>1</code>. <code>emotion</code> 자료 탐색 – 10점</a></li>
+  <li><a href="#emotion-자료-감성분석-80점" id="toc-emotion-자료-감성분석-80점" class="nav-link" data-scroll-target="#emotion-자료-감성분석-80점"><code>2</code>. <code>emotion</code> 자료 감성분석 – 80점</a></li>
+  <li><a href="#ox.-10점" id="toc-ox.-10점" class="nav-link" data-scroll-target="#ox.-10점"><code>3</code>. O/X. – 10점</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="04wk-1-Quiz.out.ipynb" download="04wk-1-Quiz.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">기계학습활용 (2024)</h1>
+<h1 class="title">04wk-1: Quiz</h1>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>최규빈 </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 5, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -194,107 +190,212 @@ window.Quarto = {
 </header>
 
 
-<p><strong>질문하는 방법</strong></p>
-<ul>
-<li>카카오톡: <a href="http://pf.kakao.com/_txeIFG/chat">질문하러 가기</a></li>
-<li>이메일: <a href="mailto:guebin@jbnu.ac.kr" class="email">guebin@jbnu.ac.kr</a></li>
-<li>직접방문: 자연과학대학 본관 205호</li>
-<li>Zoom: <em>카카오톡이나 이메일로 미리 시간을 정할 것</em></li>
-<li>LMS쪽지: <a href="https://ieilms.jbnu.ac.kr/" class="uri">https://ieilms.jbnu.ac.kr/</a></li>
-</ul>
-<p><strong>강의노트</strong></p>
-
-
-
-
-<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
-<table class="quarto-listing-table table">
+<p><a href="https://colab.research.google.com/github/guebin/MP2024/blob/main/posts/04wk-1-Quiz.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" style="text-align: left"></a></p>
+<table class="table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 22%">
+<col style="width: 52%">
+</colgroup>
 <thead>
-<tr>
-<th>
-Date
-</th>
-<th>
-Title
-</th>
-<th>
-Author
-</th>
+<tr class="header">
+<th><strong>항목</strong></th>
+<th><strong>허용 여부</strong></th>
+<th><strong>비고</strong></th>
 </tr>
 </thead>
-<tbody class="list">
-<tr data-index="0" data-listing-date-sort="1726671600000" data-listing-file-modified-sort="1727053536363" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1433" data-listing-title-sort="03wk-1: 감성분석 파고들기 (1)" data-listing-filename-sort="03wk-1.ipynb">
-<td>
-<span class="listing-date">Sep 19, 2024</span>
-</td>
-<td>
-<a href="./posts/03wk-1.html" class="title listing-title">03wk-1: 감성분석 파고들기 (1)</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
+<tbody>
+<tr class="odd">
+<td><strong>강의노트 참고</strong></td>
+<td>허용</td>
+<td>수업 중 제공된 강의노트나 본인이 정리한 자료를 참고 가능</td>
 </tr>
-<tr data-index="1" data-listing-date-sort="1726066800000" data-listing-file-modified-sort="1726712050035" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="563" data-listing-title-sort="02wk-1: IMDB 영화평 감성분석" data-listing-filename-sort="02wk-1.ipynb">
-<td>
-<span class="listing-date">Sep 12, 2024</span>
-</td>
-<td>
-<a href="./posts/02wk-1.html" class="title listing-title">02wk-1: IMDB 영화평 감성분석</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
+<tr class="even">
+<td><strong>구글 검색</strong></td>
+<td>허용</td>
+<td>인터넷을 통한 자료 검색 및 정보 확인 가능</td>
 </tr>
-<tr data-index="2" data-listing-date-sort="1725548400000" data-listing-file-modified-sort="1726666767353" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2325" data-listing-title-sort="01wk-3: IMDB 자료 살펴보기, 지도학습의 개념" data-listing-filename-sort="01wk-3.ipynb">
-<td>
-<span class="listing-date">Sep 6, 2024</span>
-</td>
-<td>
-<a href="./posts/01wk-3.html" class="title listing-title">01wk-3: IMDB 자료 살펴보기, 지도학습의 개념</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="3" data-listing-date-sort="1725462000000" data-listing-file-modified-sort="1727053414000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1036" data-listing-title-sort="01wk-2: Quiz" data-listing-filename-sort="01wk-2-Quiz.ipynb">
-<td>
-<span class="listing-date">Sep 5, 2024</span>
-</td>
-<td>
-<a href="./posts/01wk-2-Quiz.html" class="title listing-title">01wk-2: Quiz</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="4" data-listing-date-sort="1725462000000" data-listing-file-modified-sort="1727077667760" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="848" data-listing-title-sort="04wk-1: Quiz" data-listing-filename-sort="04wk-1-Quiz.ipynb">
-<td>
-<span class="listing-date">Sep 5, 2024</span>
-</td>
-<td>
-<a href="./posts/04wk-1-Quiz.html" class="title listing-title">04wk-1: Quiz</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="5" data-listing-date-sort="1725289200000" data-listing-file-modified-sort="1726162346745" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="187" data-listing-title-sort="01wk-1: 강의소개" data-listing-filename-sort="01wk-1-강의소개.ipynb">
-<td>
-<span class="listing-date">Sep 3, 2024</span>
-</td>
-<td>
-<a href="./posts/01wk-1-강의소개.html" class="title listing-title">01wk-1: 강의소개</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
+<tr class="odd">
+<td><strong>생성 모형 사용</strong></td>
+<td>허용 안함</td>
+<td>인공지능 기반 도구(GPT 등) 사용 불가</td>
 </tr>
 </tbody>
 </table>
-<div class="listing-no-matching d-none">
-No matching items
+<section id="emotion-자료-탐색-10점" class="level1">
+<h1><code>1</code>. <code>emotion</code> 자료 탐색 – 10점</h1>
+<blockquote class="blockquote">
+<p>(1)-(2) 모두 부분점수 없음.</p>
+</blockquote>
+<p>아래는 Hugging Face의 <code>emotion</code> 데이터셋을 로드하는 코드이다:</p>
+<div id="1b9d2926-1bab-4922-8cce-dbac3f8ddcc0" class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> load_dataset</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>emotion <span class="op">=</span> load_dataset(<span class="st">'emotion'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div></main> <!-- /main -->
+<p><code>emotion['train'][-2]</code>는 훈련 데이터의 두 번째 마지막 항목을 출력한다. 출력된 샘플은 다음과 같다.</p>
+<div id="cebb76be-9552-4d9f-bc2d-896fa052a877" class="cell" data-execution_count="227">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>emotion[<span class="st">'train'</span>][<span class="op">-</span><span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="227">
+<pre><code>{'text': 'i feel like this was such a rude comment and im glad that t',
+ 'label': 3}</code></pre>
+</div>
+</div>
+<p>출력된 샘플은 딕셔너리 형식으로, text에는 문장 “i feel like this was such a rude comment and im glad that t”이 담겨 있다. 이 문장의 감정은 label 항목에 저장되어 있으며, 값은 3으로 나타난다. label 값은 해당 텍스트가 표현하는 감정을 숫자로 표현한 것이다.</p>
+<p>감정 레이블은 총 6가지로 나뉘며, 각각의 감정은 다음과 같이 정의된다:</p>
+<div id="e39e7b5d-8bde-4bc3-b536-cfd606cb278e" class="cell" data-execution_count="235">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>emotion[<span class="st">'train'</span>].features[<span class="st">'label'</span>].names</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="235">
+<pre><code>['sadness', 'joy', 'love', 'anger', 'fear', 'surprise']</code></pre>
+</div>
+</div>
+<div id="ee94057f-7696-4525-8933-9dde24abea19" class="cell" data-execution_count="236">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>: <span class="st">'sadness'</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>: <span class="st">'joy'</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>: <span class="st">'love'</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span>: <span class="st">'anger'</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">4</span>: <span class="st">'fear'</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="dv">5</span>: <span class="st">'surprise'</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="236">
+<pre><code>{0: 'sadness', 1: 'joy', 2: 'love', 3: 'anger', 4: 'fear', 5: 'surprise'}</code></pre>
+</div>
+</div>
+<p>따라서, 문장 “i feel like this was such a rude comment and im glad that t” 의 감정은 <code>label</code>이 3이므로, “anger”에 해당한다.</p>
+<p><code>(1)</code> <code>emotion</code> 데이터셋의 각 분할(train, validation, test)에서 감정별로 몇 개의 데이터가 있는지를 조사하라. 즉 아래의 표에서 빈칸에 해당하는 숫자를 계산할 수 있는 코드를 제시하라. – 5점</p>
+<table class="table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 13%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dataset</th>
+<th>0:Sadness</th>
+<th>1:Joy</th>
+<th>2:Love</th>
+<th>3:Anger</th>
+<th>4:Fear</th>
+<th>5:Surprise</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Train</td>
+<td>??</td>
+<td>??</td>
+<td>??</td>
+<td>??</td>
+<td>??</td>
+<td>??</td>
+<td>16000</td>
+</tr>
+<tr class="even">
+<td>Validation</td>
+<td>??</td>
+<td>??</td>
+<td>??</td>
+<td>??</td>
+<td>??</td>
+<td>??</td>
+<td>2000</td>
+</tr>
+<tr class="odd">
+<td>Test</td>
+<td>??</td>
+<td>??</td>
+<td>??</td>
+<td>??</td>
+<td>??</td>
+<td>??</td>
+<td>2000</td>
+</tr>
+</tbody>
+</table>
+<p><strong>note:</strong> 정답예시: 아래와 같은 형식으로 출력하는 코드를 작성하면 정답으로 인정</p>
+<pre><code>train
+{0: 4666, 1: 5362, 2: 1304, 3: 2159, 4: 1937, 5: 572}
+--
+validation
+{0: 550, 1: 704, 2: 178, 3: 275, 4: 212, 5: 81}
+--
+test
+{0: 581, 1: 695, 2: 159, 3: 275, 4: 224, 5: 66}
+--</code></pre>
+<p><strong>hint</strong>: 아래중 원하는 형태를 이용하여 풀이하면 편리하다.</p>
+<ul>
+<li><code>emotion['train']['label']</code></li>
+<li><code>emotion['train'].to_dict()</code></li>
+<li><code>emotion['train'].to_pandas()</code></li>
+</ul>
+<p><code>(2)</code> <code>emotion</code> 데이터셋의 <code>test</code>셋에서 각 감정(label)별로 가장 짧은 길이를 가진 텍스트를 출력하는 코드를 작성하라. – 5점</p>
+<p><strong>note</strong>: 정답예시는 아래와 같다.</p>
+<pre><code>['i feels so lame',
+ 'i feel any better',
+ 'i just feel tender',
+ 'i feel so damn agitated',
+ 'i feel alarmed',
+ 'i feel all funny sometimes']</code></pre>
+</section>
+<section id="emotion-자료-감성분석-80점" class="level1">
+<h1><code>2</code>. <code>emotion</code> 자료 감성분석 – 80점</h1>
+<blockquote class="blockquote">
+<p>(1)은 부분점수 있음, (2)는 부분점수 없음.</p>
+</blockquote>
+<p><code>(1)</code> 아래의 reference 를 참고하여 <code>emotion</code>에 대한 감성분석모델을 학습하는 코드를 작성하라. – 60점</p>
+<p>ref:</p>
+<ul>
+<li><a href="https://guebin.github.io/MP2024/posts/02wk-1.html" class="uri">https://guebin.github.io/MP2024/posts/02wk-1.html</a></li>
+<li><a href="https://huggingface.co/docs/transformers/tasks/sequence_classification" class="uri">https://huggingface.co/docs/transformers/tasks/sequence_classification</a></li>
+</ul>
+<p><strong>세부지침</strong> – 세부지침을 따르지 않을시 감점이 있음 (지침1은 30점감점 지침2는 5점감점)</p>
+<p><code>지침1</code>. <code>Trainer</code>생성시 <code>eval_dataset</code>에는 <code>emotion['validation']</code>를 전처리한 데이터를 이용하라. (<code>emotion['test']</code> 가 아니라)</p>
+<p><code>지침2</code>. <code>TrainingArguments</code>에서 <code>num_train_epochs</code>은 1로 설정하라.</p>
+<p><code>(2)</code> <code>1-(2)</code>에서 구해진 text에 대하여 감성분석을 수행하라. – 20점</p>
+<p><strong>힌트</strong> <code>1-(2)</code>를 풀지못하였다면 아래의 코드를 이용하여 강제설정할 것</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>[<span class="st">'i feels so lame'</span>,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a> <span class="st">'i feel any better'</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a> <span class="st">'i just feel tender'</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a> <span class="st">'i feel so damn agitated'</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a> <span class="st">'i feel alarmed'</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a> <span class="st">'i feel all funny sometimes'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="ox.-10점" class="level1">
+<h1><code>3</code>. O/X. – 10점</h1>
+<blockquote class="blockquote">
+<p>모두 맞출경우만 정답으로 인정</p>
+</blockquote>
+<p>아래의 제시문을 읽고 올바르게 해석한 사람을 모두 고르라.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>나는 50,000개의 “텍스트-라벨” 데이터를 인공지능에게 학습시켰다. 학습이 끝난 후, 50,000개의 데이터 중 20개의 샘플을 무작위로 뽑아 테스트한 결과, 인공지능은 20개의 텍스트에 대한 라벨을 모두 정확히 맞췄다. 이 결과만으로 인공지능이 영화 리뷰에 대한 감성 분석(긍정/부정)을 성공적으로 학습했다고 결론을 내려도 될까?</p>
+</div>
+</div>
+<p><code>민지</code>: 제시문에 따르면 50,000개의 훈련 데이터를 사용하여 인공지능을 학습시켰으니, <code>train_data</code>의 크기는 50,000이라고 볼 수 있어.</p>
+<p><code>하니</code>: 50,000개의 데이터 중 일부를 무작위로 샘플링하여 평가하는 것은 올바른 방법이 아니야. 학습에 사용되지 않은 별도의 테스트 데이터를 사용해 성능을 평가해야 인공지능이 제대로 학습했는지 알 수 있어.</p>
+<p><code>다니엘</code>: 하니의 말이 맞아. 50,000개의 데이터 중 20개를 샘플링한 게 아니라, 50,000개의 데이터를 모두 올바르게 맞췄다고 하더라도, 새로운 데이터에 대해 성능이 좋다고 단정할 수는 없어. 중요한 건 새로운 데이터에 대한 예측 성능이지.</p>
+<p><code>해린</code>: 맞아, 훈련 데이터 (=학습 데이터) 를 너무 반복해서 학습하다 보면, 인공지능이 그 데이터에만 지나치게 맞춰져서 새로운 데이터를 잘 처리하지 못할 수 있어. 결국 모델이 학습 데이터에서는 좋은 성능을 내지만, 학습하지 않은 데이터나 실제 환경에서는 성능이 떨어질 위험이 생기는 거야.”</p>
+<p><code>혜인</code>: 그렇구나! 그래서 50,000개의 데이터가 있더라도, 그 중 일부만 학습에 사용하고, 나머지는 평가용으로 따로 남겨두기도 하는 거네. 이렇게 하면 인공지능이 새로운 데이터에서도 잘 작동하는지, 성능을 확인할 수 있는 거잖아?</p>
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
