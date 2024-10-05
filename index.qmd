@@ -19,4 +19,6 @@ title-block-banner: false
 - Zoom: *카카오톡이나 이메일로 미리 시간을 정할 것*
 - LMS쪽지: <https://ieilms.jbnu.ac.kr/>
 
+**Quiz**: <https://guebin.github.io/MP2024/quiz.html>
+
 **강의노트** 

@@ -5,6 +5,8 @@ project:
 website:
   title: "MP2024"
   navbar:
+    left: 
+      - quiz.qmd  
     right:
       - icon: github    
         href: https://github.com/guebin/MP2024

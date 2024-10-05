@@ -1,0 +1,22 @@
+---
+title: "**Quiz**"
+listing:
+  contents: /quiz
+  sort: "date desc"
+  type: table
+  categories: false
+  sort-ui: false
+  filter-ui: false
+  page-size: 9999
+page-layout: full
+title-block-banner: false
+---
+
+기계학습활용은 비대면수업과 대면수업을 병행합니다. 본 페이지는 대면수업을 위한 강의자료입니다.
+
+**공지사항** 
+
+- 퀴즈1은 점수에 포함되지 않습니다. 
+- 퀴즈2의 2-(2)의 채점은 가산점으로 처리합니다. (따라서 퀴즈2는 80점만점)
+
+**퀴즈** 
