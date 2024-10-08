@@ -728,12 +728,13 @@ metrics={'test_loss': 0.0024105568882077932, 'test_accuracy': 1.0, 'test_runtime
 </div>
 </div>
 <p><code>(어려운풀이3)</code></p>
-<div id="cell-56" class="cell" data-execution_count="366">
+<div id="cell-56" class="cell" data-execution_count="387">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>입력정보들_원시텍스트 <span class="op">=</span> 데이터[<span class="st">'test'</span>][::<span class="dv">100</span>][<span class="st">'sms'</span>]</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료 <span class="op">=</span> 토크나이저(입력정보들_원시텍스트,truncation<span class="op">=</span><span class="va">True</span>,return_tensors<span class="op">=</span><span class="st">'pt'</span>,padding<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>인공지능(<span class="op">**</span>정리된숫자들_토큰화된자료.to(<span class="st">"cuda:0"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="366">
-<pre><code>SequenceClassifierOutput(loss=None, logits=tensor([[-2.5482,  2.7301],
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor(데이터[<span class="st">'test'</span>][::<span class="dv">100</span>][<span class="st">'label'</span>]) <span class="co"># 이거 해설할때는 이 line 깜빡하고 빼먹었습니다...</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>인공지능(<span class="op">**</span>정리된숫자들_토큰화된자료.to(<span class="st">"cuda:0"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="387">
+<pre><code>SequenceClassifierOutput(loss=tensor(0.0026, device='cuda:0', grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[-2.5482,  2.7301],
         [ 3.1817, -2.7806],
         [ 3.0224, -2.7368],
         [ 2.9824, -2.5838],
