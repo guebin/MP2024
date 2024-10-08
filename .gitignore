@@ -1,1 +1,13 @@
 /.quarto/
+/.ipynb_checkpoints 
+*.csv
+*.pickle
+*.pkl
+*.pth
+*.pt
+*.npy
+*.pdf
+*.json
+*.wav
+*.RData
+*.safetensors

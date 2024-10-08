@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="최규빈">
-<meta name="dcterms.date" content="2024-09-24">
+<meta name="dcterms.date" content="2024-10-08">
 
 <title>MP2024 - Quiz-3 (2024.10.08) // 범위: 04wk-1 까지</title>
 <style>
@@ -174,7 +174,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 24, 2024</p>
+      <p class="date">October 8, 2024</p>
     </div>
   </div>
   
@@ -218,7 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<div id="cell-3" class="cell" data-execution_count="9">
+<div id="cell-3" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datasets</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> transformers</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> evaluate</span>
@@ -226,16 +226,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch </span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/cgb3/anaconda3/envs/hf/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm</code></pre>
+</div>
 </div>
 <section id="mbti-자료분석-30점" class="level1">
 <h1><code>1</code>. <code>MBTI</code> 자료분석 – 30점</h1>
 <p><strong>Kaggle 링크</strong>: <a href="https://www.kaggle.com/datasets/datasnaek/mbti-type">MBTI 데이터셋</a></p>
 <p>Kaggle에 가입한 후, <code>archive.zip</code> 파일을 다운로드하고 Colab에 업로드한 뒤, 아래 명령어를 실행하여 데이터를 불러오라.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>unzip archive.<span class="bu">zip</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"mbti_1.csv"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df_train, df_test <span class="op">=</span> train_test_split(df, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df_train <span class="op">=</span> df_train.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>df_test <span class="op">=</span> df_test.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>unzip archive.<span class="bu">zip</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"mbti_1.csv"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df_train, df_test <span class="op">=</span> train_test_split(df, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df_train <span class="op">=</span> df_train.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df_test <span class="op">=</span> df_test.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>이 데이터는 Myers-Briggs Type Indicator(MBTI) 성격 유형과 관련된 사람들의 텍스트 데이터를 포함하고 있다. 데이터는 사람들이 작성한 게시물의 내용과 MBTI 성격 유형 간의 관계를 분석할 수 있도록 구성되어 있다.</p>
 <ul>
 <li><strong>총 데이터 수</strong>: 약 8600개의 행
@@ -251,16 +255,103 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul>
 <p><code>(1)</code> 주어진 MBTI 데이터셋을 활용하여 <strong>T(Thinking)</strong> 성향의 사람이 작성한 게시물인지 <strong>F(Feeling)</strong> 성향의 사람이 작성한 게시물인지 구분하는 모델을 학습하라.</p>
-<p><strong>주의</strong> 1. <code>df_train</code>을 훈련자료로, <code>df_test</code>를 검증자료로 사용하라. 2. 검증자료에 대한 정확도가 80%이상일 경우만 정답으로 인정한다.</p>
+<p><strong>주의</strong></p>
+<ol type="1">
+<li><code>df_train</code>을 훈련자료로, <code>df_test</code>를 검증자료로 사용하라.</li>
+<li>검증자료에 대한 정확도가 80%이상일 경우만 정답으로 인정한다.</li>
+</ol>
 <p><code>(2)</code> 학습된 모형을 사용하여 아래의 Text에 대한 분류를 수행하라.</p>
 <div id="cell-8" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>[<span class="st">"I prefer making decisions based on logic and facts. Analyzing situations objectively is more important to me than considering emotions."</span>, </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a> <span class="st">"When making decisions, I think it’s most important to consider how others feel. Understanding and empathizing with the situation is always my top priority. I feel happiest when relationships are harmonious, and I try to maintain an emotional balance in everything I do."</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>[<span class="st">"I prefer making decisions based on logic and facts. Analyzing situations objectively is more important to me than considering emotions."</span>, </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a> <span class="st">"When making decisions, I think it’s most important to consider how others feel. Understanding and empathizing with the situation is always my top priority. I feel happiest when relationships are harmonious, and I try to maintain an emotional balance in everything I do."</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>['I prefer making decisions based on logic and facts. Analyzing situations objectively is more important to me than considering emotions.',
  'When making decisions, I think it’s most important to consider how others feel. Understanding and empathizing with the situation is always my top priority. I feel happiest when relationships are harmonious, and I try to maintain an emotional balance in everything I do.']</code></pre>
 </div>
 </div>
+</section>
+<section id="sms_spam-데이터분석-70점" class="level1">
+<h1><code>2</code>. <code>sms_spam</code> 데이터분석 – 70점</h1>
+<p>아래는 Hugging Face의 <code>sms_spam</code> 데이터셋을 로드하는 코드이다:</p>
+<div id="cell-11" class="cell" data-execution_count="64">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sms_spam <span class="op">=</span> datasets.load_dataset(<span class="st">'sms_spam'</span>)[<span class="st">'train'</span>].train_test_split(test_size<span class="op">=</span><span class="fl">0.2</span>, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sms_spam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="64">
+<pre><code>DatasetDict({
+    train: Dataset({
+        features: ['sms', 'label'],
+        num_rows: 4459
+    })
+    test: Dataset({
+        features: ['sms', 'label'],
+        num_rows: 1115
+    })
+})</code></pre>
+</div>
+</div>
+<p><code>sms_spam['train'][-3]</code> 는 훈련 데이터의 마지막에서 세번째 항목을 출력한다. 출력된 샘플은 다음과 같다.</p>
+<div id="cell-13" class="cell" data-execution_count="65">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sms_spam[<span class="st">'train'</span>][<span class="op">-</span><span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="65">
+<pre><code>{'sms': 'FREE camera phones with linerental from 4.49/month with 750 cross ntwk mins. 1/2 price txt bundle deals also avble. Call 08001950382 or call2optout/J MF\n',
+ 'label': 1}</code></pre>
+</div>
+</div>
+<p>출력된 샘플은 딕셔너리 형식으로, sms 항목에는 “<strong>FREE camera phones with linerental from 4.49/month…</strong>”와 같은 문장이 담겨 있다. 이 문장은 스팸(Spam) 메시지로 분류되며, <code>label</code> 항목에 1로 저장되어 있다.</p>
+<p>label이 나타내는 분류는 다음과 같이 정의된다:</p>
+<div id="cell-16" class="cell" data-execution_count="66">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sms_spam[<span class="st">'train'</span>].features[<span class="st">'label'</span>].names</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="66">
+<pre><code>['ham', 'spam']</code></pre>
+</div>
+</div>
+<p>분류 레이블은 총 2가지로 나누며, 각각의 레이블은 다음과 같이 정의된다:</p>
+<div id="cell-18" class="cell" data-execution_count="68">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>{<span class="dv">0</span>: <span class="st">'ham'</span>, <span class="dv">1</span>: <span class="st">'spam'</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="68">
+<pre><code>{0: 'ham', 1: 'spam'}</code></pre>
+</div>
+</div>
+<p>따라서, 문장 “<strong>FREE camera phones with linerental…</strong>”의 분류는 <code>label</code>이 1이므로, 스팸(Spam)에 해당한다.</p>
+<p><code>(1)</code> 아래의 코드를 참고하여 <code>sms_spam</code> 자료를 전처리하라. – 10점</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>) </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> preprocess_function(examples):</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tokenizer(examples[<span class="st">"sms"</span>], truncation<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>전처리된 결과의 샘플은 아래와 같다.</p>
+<div id="cell-23" class="cell" data-execution_count="169">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sms_spam_preprocessed[<span class="st">'train'</span>][<span class="dv">9</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="169">
+<pre><code>{'sms': 'Headin towards busetop\n',
+ 'label': 0,
+ 'input_ids': [101, 2132, 2378, 2875, 3902, 18903, 2361, 102],
+ 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<p><code>(2)</code> 적절한 모델을 설계하고 <code>sms_spam</code> 데이터를 분석하여 스팸 여부를 판별하는 코드를 작성하라. – 30점</p>
+<ol type="1">
+<li><code>sms_spam['train']</code>을 훈련자료로, <code>sms_spam['test']</code>를 검증자료로 사용하라.</li>
+<li>검증자료에 대한 정확도가 90%이상일 경우만 정답으로 인정한다.</li>
+</ol>
+<p><code>(3)</code> 아래의 자료에 대한 loss를 계산하라. – 30점</p>
+<div id="cell-27" class="cell" data-execution_count="191">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sms_spam_preprocessed['test'][::100]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Note1:</strong> 2-(2)를 풀지 않은상태에서 계산해도 정답으로 인정</p>
+<p><strong>Note2:</strong> <code>loss</code>가 출력되는 어떠한 형태의 답안도 정답으로 인정, 예를들면 아래와 같은 결과를 얻을 경우도 정답으로 인정.</p>
+<pre><code>PredictionOutput(predictions=array([[-2.3364387,  2.866232 ],
+       [ 3.2778776, -2.9869947],
+       [ 3.0951078, -2.8594062],
+       [ 2.7923744, -2.6019576],
+       [ 3.460438 , -3.1327899],
+       [ 3.395659 , -3.091136 ],
+       [ 3.403764 , -3.1232061],
+       [ 3.2923138, -2.9569058],
+       [ 3.1802518, -2.8368335],
+       [ 3.3302088, -2.9617522],
+       [ 3.394341 , -3.0325623],
+       [ 3.1710148, -2.9316459]], dtype=float32),
+label_ids=array([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
+metrics={'test_loss': 0.0024105568882077932, 'test_accuracy': 1.0, 'test_runtime': 1.1632, 'test_samples_per_second': 10.317, 'test_steps_per_second': 0.86})</code></pre>
 
 
 </section>
