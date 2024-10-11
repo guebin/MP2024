@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.533">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="최규빈">
+<meta name="dcterms.date" content="2024-09-06">
+
+<title>MP2024 - 01wk-2: IMDB 자료 살펴보기, 지도학습의 개념</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">MP2024</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../quiz.html"> 
+<span class="menu-text"><strong>Quiz</strong></span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/guebin/MP2024"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.youtube.com/channel/UCQk9RyBNgXc7ORIsYlOfQrg/playlists?view=50&amp;sort=dd&amp;shelf_id=2"> <i class="bi bi-youtube" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#강의영상" id="toc-강의영상" class="nav-link active" data-scroll-target="#강의영상">1. 강의영상</a></li>
+  <li><a href="#상상-혹은-경험" id="toc-상상-혹은-경험" class="nav-link" data-scroll-target="#상상-혹은-경험">2. 상상 혹은 경험</a></li>
+  <li><a href="#감성분석-공부재료" id="toc-감성분석-공부재료" class="nav-link" data-scroll-target="#감성분석-공부재료">3. 감성분석 공부재료</a></li>
+  <li><a href="#install" id="toc-install" class="nav-link" data-scroll-target="#install">4. Install</a></li>
+  <li><a href="#imports" id="toc-imports" class="nav-link" data-scroll-target="#imports">5. Imports</a></li>
+  <li><a href="#load_dataset-함수의-사용방법" id="toc-load_dataset-함수의-사용방법" class="nav-link" data-scroll-target="#load_dataset-함수의-사용방법">6. <code>load_dataset</code> 함수의 사용방법</a></li>
+  <li><a href="#imdb-탐색" id="toc-imdb-탐색" class="nav-link" data-scroll-target="#imdb-탐색">7. <code>IMDB</code> 탐색</a>
+  <ul class="collapse">
+  <li><a href="#a.-imdb" id="toc-a.-imdb" class="nav-link" data-scroll-target="#a.-imdb">A. <code>imdb</code></a></li>
+  <li><a href="#b.-imdbtrain" id="toc-b.-imdbtrain" class="nav-link" data-scroll-target="#b.-imdbtrain">B. <code>imdb['train']</code></a></li>
+  <li><a href="#c.-imdbtest" id="toc-c.-imdbtest" class="nav-link" data-scroll-target="#c.-imdbtest">C. <code>imdb['test']</code></a></li>
+  <li><a href="#d.-imdbunsupervised" id="toc-d.-imdbunsupervised" class="nav-link" data-scroll-target="#d.-imdbunsupervised">D. <code>imdb['unsupervised']</code></a></li>
+  <li><a href="#f.-정리" id="toc-f.-정리" class="nav-link" data-scroll-target="#f.-정리">F. 정리</a></li>
+  </ul></li>
+  <li><a href="#지도학습-흐름" id="toc-지도학습-흐름" class="nav-link" data-scroll-target="#지도학습-흐름">8. 지도학습 흐름</a>
+  <ul class="collapse">
+  <li><a href="#a.-기계학습딥러닝-과업" id="toc-a.-기계학습딥러닝-과업" class="nav-link" data-scroll-target="#a.-기계학습딥러닝-과업">A. 기계학습/딥러닝 과업</a></li>
+  <li><a href="#b.-지도학습" id="toc-b.-지도학습" class="nav-link" data-scroll-target="#b.-지도학습">B. 지도학습</a></li>
+  <li><a href="#c.-traintest-자료의-의미" id="toc-c.-traintest-자료의-의미" class="nav-link" data-scroll-target="#c.-traintest-자료의-의미">C. train/test 자료의 의미</a></li>
+  <li><a href="#d.-trainvaltest-자료의-의미" id="toc-d.-trainvaltest-자료의-의미" class="nav-link" data-scroll-target="#d.-trainvaltest-자료의-의미">D. train/val/test 자료의 의미</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="01wk-2.out.ipynb" download="01wk-2.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">01wk-2: IMDB 자료 살펴보기, 지도학습의 개념</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>최규빈 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 6, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="https://colab.research.google.com/github/guebin/MP2024/blob/main/posts/01wk-2.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" style="text-align: left"></a></p>
+<section id="강의영상" class="level1">
+<h1>1. 강의영상</h1>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/playlist?list=PLQqh36zP38-wy1vTgfZfvKlHsxk3WmqKd&amp;si=s6A2z0idIx48cRdD" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
+<section id="상상-혹은-경험" class="level1">
+<h1>2. 상상 혹은 경험</h1>
+<p><code>-</code> 데이터 분석을 하고 싶음.</p>
+<ul>
+<li>할 줄 아는 것이 별로 없음.</li>
+<li>이론적으로 처음부터 익히려고 했는데, 도저히 각이 안나옴. (엄두가 나지 않음)</li>
+<li>블로그등을 보면서 데이터를 분석하는 코드를 독학하기로 함.</li>
+<li>전략: (1) 블로그의 코드를 돌려본다. (2) 블로그의 코드를 이해한다. (이론을 이해하는게 아님. 코드의 흐름을 이해하는 것임) (3) 블로그의 코드에서 데이터를 읽는 부분만 내가 사용할 데이터로 바꿔침 (4) 돌려서 결과를 제출.</li>
+</ul>
+<p><code>-</code> 어려울 것이라 예상되는 점.</p>
+<ul>
+<li><code>(1)</code> 안 돌아감. <code>import</code> 부터 잘 안될 것임.</li>
+<li><code>(2)</code> 이해가 안될걸??</li>
+<li><code>(3)</code> 이게 진짜 어려움. 이걸 잘하기 위해서는 파이썬의 기본 문법이 강해야함.</li>
+<li><code>(4)</code> 돌아는 가지만 결과가 좋지 않을 것임.</li>
+</ul>
+<p><code>-</code> 소망: 아래가 되었으면..</p>
+<ul>
+<li>(1)-(4)의 과정이 매끄럽게 진행되면 좋겠다..</li>
+<li>이 과정이 빠르게 반복되면서 여러코드를 최대한 빨리/많이 정리될 수 있다면..</li>
+<li>그래서 비슷한 분석을 나중에 해야 할 일이 있을때 참고할 거리가 많으면…</li>
+<li>나중에는 코드가 동작하는 공통적인 원리를 깨우쳐 스스로 데이터를 보면서 얼개를 잡아나갈수 있고, 어느정도 분석도 할 수 있는 수준이 되었으면..</li>
+</ul>
+<p><code>-</code> 마음가짐: 컨셉을 잘 잡아야함..</p>
+<ul>
+<li>나는 어떠한 코드도 짤 수 있는 사람이다. X</li>
+<li>나는 어떠한 코드도 이해할 수 있는 사람이다. X</li>
+<li>나는 어떠한 코드도 베낄 수 있는 (활용할 수 있는) 사람이다. O</li>
+</ul>
+<blockquote class="blockquote">
+<p>느리지만 정확하게 해결하는것은 옳지 않다. 모든 분석은 시간싸움임. 느려지는 순간 이미 뒤쳐진다. (마라톤을 하는게 아님. 100m 달리기임)</p>
+</blockquote>
+<p><code>-</code> 저는 컴공과 교수가 아니에요.. (그럴만한 실력도 없어요) 그냥 먹고살기 위해서 눈치껏 코딩을 할 뿐입니다..</p>
+<ul>
+<li>그래서 강의노트도 무식하게 만들예정..</li>
+<li>이전에는 예쁘게 만든 편임.. (빅데이터 혁신공유대학 사업.. 서해안권 어쩌고.. 충남대학생들이 들었음)</li>
+</ul>
+</section>
+<section id="감성분석-공부재료" class="level1">
+<h1>3. 감성분석 공부재료</h1>
+<p><code>-</code> 좋은 공부재료 (데이터+분석방법) 를 잘 선정해야함. 이게 사실 어려워요..</p>
+<ul>
+<li>수업시간에 하는 예제는 좋은 예제에요. 고르고 고른 자료들입니다. 분석방법도 선별한 중요한 방법들임 (성능이 좋거나, 최신 유행이거나, 고전적인 상식수준의 알고리즘)</li>
+<li>그 외에는 몇개의 유명한 사이트를 즐겨찾기 해놓고 시간날때마다 공부하는 것이 좋음.</li>
+<li>일단 이번시간에 추천하는 사이트는.. <a href="https://huggingface.co/docs/transformers/index" class="uri">https://huggingface.co/docs/transformers/index</a> 입니다.</li>
+</ul>
+<p><code>-</code> ref: <a href="https://huggingface.co/docs/transformers/tasks/sequence_classification" class="uri">https://huggingface.co/docs/transformers/tasks/sequence_classification</a></p>
+<ul>
+<li>ref는 reference의 약자.</li>
+<li>해당 사이트를 참고했다는 의미.</li>
+<li>원 작가에 대한 예의 + 나중에 공부할때도 좋음. –&gt; 대학생활하면서 숙제하실때도 참고하세요..</li>
+<li>없어보이는 행동이 아님. 더 빛나게 만들어주는 행동이라 생각함..</li>
+</ul>
+<p><code>-</code> 허깅페이스</p>
+<ul>
+<li>대부분의 경진대회 분석은 (1) tabular 를 분석하는 경우 (2) tabular 데이터가 아닌 자료를 분석하는 경우로 나눌 수 있음.</li>
+<li>Tabular 데이터를 분석하는 여러가지 전통적인 방법이 있으나 우승하려면 거의 무조건 XGBoost, LightGBM, CatBoost 중 하나를 써야함. 의사결정나무 기반의 알고리즘을 사용해야합니다. (의사결정나무가 거의 크랙임. 회귀분석, 로지스틱, SVM 등등.. 다 필요없음)</li>
+<li>Tabular 데이터가 아닌 자료를 분석하는 경우는 딥러닝 모형을 사용해야함. 여러가지 모형이 있지만 transformer 기반의 모형이 크랙임.</li>
+<li>허깅페이스는 transformer 기반의 다양한 모델(=분석방법)을 다운로드 하고 사용하기 용이하게 도와주는 사이트(hub)임.</li>
+</ul>
+</section>
+<section id="install" class="level1">
+<h1>4. Install</h1>
+<p><code>-</code> Before you begin, make sure you have all the necessary libraries installed:</p>
+<ul>
+<li>아래가 깔려있는지 확인하라는 의미.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pip install transformers datasets evaluate accelerate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>-</code> 저게 뭐하는 코드냐??</p>
+<ul>
+<li>GPT에게 물어보세요 (분이 풀릴때까지)</li>
+</ul>
+<blockquote class="blockquote">
+<p>질문: <code>pip install transformers datasets evaluate accelerate</code> 는 뭐하는 코드야??</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>질문: 코랩에서 저 명령어를 실행하면 어디엣 설치되는거야? 내 윈도우 노트북에 설치되어 있는거야??</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>질문: 그러면 코랩 끄면 다시 설치해야해?</p>
+</blockquote>
+</section>
+<section id="imports" class="level1">
+<h1>5. Imports</h1>
+<div id="cell-23" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> load_dataset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/cgb3/anaconda3/envs/hf/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm</code></pre>
+</div>
+</div>
+<ul>
+<li><code>from datasets import load_dataset</code> 의 의미는 <code>dataset</code> 모듈안에 있는 여러함수들 중에서 <code>load_dataset</code> 이라는 함수만 불러온다는 의미이다.</li>
+<li><code>import dataset</code> 을 한뒤 <code>dataset.load_dataset</code> 와 같은 형식으로 사용해도 무방하지만, 메모리 관리면에서 필요한 함수만 콕 찝어서 불러오는 <code>from datasets import load_dataset</code> 이 더 유리하다.</li>
+</ul>
+</section>
+<section id="load_dataset-함수의-사용방법" class="level1">
+<h1>6. <code>load_dataset</code> 함수의 사용방법</h1>
+<p><em>복습</em>: <a href="https://guebin.github.io/PP2024/posts/14wk-2.html" class="uri">https://guebin.github.io/PP2024/posts/14wk-2.html</a></p>
+<p><code>-</code> <code>load_dataset</code> 이 뭐지?</p>
+<div id="cell-28" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(load_dataset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>function</code></pre>
+</div>
+</div>
+<div id="cell-29" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(<span class="bu">dir</span>(load_dataset)) <span class="op">&amp;</span> {<span class="st">'__call__'</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>{'__call__'}</code></pre>
+</div>
+</div>
+<ul>
+<li>함수네.. 그렇다면 대충 <code>load_dataset(???)</code> 와 같은 방식으로 쓰면 되겠군..</li>
+</ul>
+<p><code>-</code> <code>load_dataset</code>은 어떻게 쓰지??</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>load_dataset?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Signature:</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>load_dataset(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    path: <span class="bu">str</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    name: Optional[<span class="bu">str</span>] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    data_dir: Optional[<span class="bu">str</span>] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    data_files: Union[<span class="bu">str</span>, Sequence[<span class="bu">str</span>], Mapping[<span class="bu">str</span>, Union[<span class="bu">str</span>, Sequence[<span class="bu">str</span>]]], NoneType] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    split: Union[<span class="bu">str</span>, datasets.splits.Split, NoneType] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    cache_dir: Optional[<span class="bu">str</span>] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    features: Optional[datasets.features.features.Features] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    download_config: Optional[datasets.download.download_config.DownloadConfig] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    download_mode: Union[datasets.download.download_manager.DownloadMode, <span class="bu">str</span>, NoneType] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    verification_mode: Union[datasets.utils.info_utils.VerificationMode, <span class="bu">str</span>, NoneType] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    ignore_verifications<span class="op">=</span><span class="st">'deprecated'</span>,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    keep_in_memory: Optional[<span class="bu">bool</span>] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    save_infos: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    revision: Union[<span class="bu">str</span>, datasets.utils.version.Version, NoneType] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    token: Union[<span class="bu">bool</span>, <span class="bu">str</span>, NoneType] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    use_auth_token<span class="op">=</span><span class="st">'deprecated'</span>,</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    task<span class="op">=</span><span class="st">'deprecated'</span>,</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    streaming: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    num_proc: Optional[<span class="bu">int</span>] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    storage_options: Optional[Dict] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    trust_remote_code: <span class="bu">bool</span> <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">**</span>config_kwargs,</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> Union[datasets.dataset_dict.DatasetDict, datasets.arrow_dataset.Dataset, datasets.dataset_dict.IterableDatasetDict, datasets.iterable_dataset.IterableDataset]</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>하나의 위치인자를 가지고 있음. 따라서 <code>load_dataset()</code> 와 같은 형식으로는 쓸 수 없겠음. –&gt; 확인해보니까 진짜 쓸 수 없음.</li>
+<li>타입힌트를 보니까 <code>load_dataset('asdf')</code> 와 같은 방식으로 하나의 위치인자를 문자열로 전달해야 겠네.. (나머지는 알아서 디폴트값으로 전달되겠지..)</li>
+<li>전달한 문자열은 <code>path</code>라는 변수에 저장되겠지??</li>
+<li>난 <code>path</code>에 뭘 써야하지?? –&gt; 생각1: <code>load_dataset</code>은 아마 데이터를 불러오는 함수일텐데, 이 데이터가 저장되는 경로를 <code>path</code>에 명시하라는거 아닌가? // 생각2: 아니면 불러올 데이터가 저장된 <code>path</code>인가? –&gt; GPT문의</li>
+</ul>
+<div id="cell-35" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>imdb <span class="op">=</span> load_dataset(<span class="st">"imdb"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="imdb-탐색" class="level1">
+<h1>7. <code>IMDB</code> 탐색</h1>
+<section id="a.-imdb" class="level2">
+<h2 class="anchored" data-anchor-id="a.-imdb">A. <code>imdb</code></h2>
+<p><code>-</code> 이제 <code>imdb</code>가 뭔지 살펴보자..</p>
+<ul>
+<li>아마 데이터가 있겠죠?</li>
+<li>그런데 이걸 어떻게 보죠??</li>
+</ul>
+<p><code>-</code> 뜯어보자..</p>
+<div id="cell-40" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>imdb <span class="co"># 데이터인듯</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>DatasetDict({
+    train: Dataset({
+        features: ['text', 'label'],
+        num_rows: 25000
+    })
+    test: Dataset({
+        features: ['text', 'label'],
+        num_rows: 25000
+    })
+    unsupervised: Dataset({
+        features: ['text', 'label'],
+        num_rows: 50000
+    })
+})</code></pre>
+</div>
+</div>
+<ul>
+<li>딕셔너리 아니야?</li>
+</ul>
+<p><code>-</code> 딕셔너리는 아님</p>
+<div id="cell-43" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(imdb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>datasets.dataset_dict.DatasetDict</code></pre>
+</div>
+</div>
+<p><code>-</code> 그런데 거의 딕셔너리 비슷한 느낌으로 일단 사용되는것 같음.</p>
+<div id="cell-45" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>imdb.keys()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>dict_keys(['train', 'test', 'unsupervised'])</code></pre>
+</div>
+</div>
+<div id="cell-46" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>imdb[<span class="st">'train'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 25000
+})</code></pre>
+</div>
+</div>
+<div id="cell-47" class="cell" data-execution_count="65">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>imdb[<span class="st">'test'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="65">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 25000
+})</code></pre>
+</div>
+</div>
+<div id="cell-48" class="cell" data-execution_count="66">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>imdb[<span class="st">'unsupervised'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="66">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 50000
+})</code></pre>
+</div>
+</div>
+<p><code>-</code> imdb는 딕셔너리 같은 것이고, <code>imdb['train']</code>와 같은 명령어로 세부항목에 접근가능함. 즉 아래의 구조임.</p>
+<ul>
+<li><code>imdb['train']</code> <span class="math inline">\(\subset\)</span> <code>imdb</code></li>
+<li><code>imdb['test']</code> <span class="math inline">\(\subset\)</span> <code>imdb</code></li>
+<li><code>imdb['unsupervised']</code> <span class="math inline">\(\subset\)</span> <code>imdb</code></li>
+</ul>
+</section>
+<section id="b.-imdbtrain" class="level2">
+<h2 class="anchored" data-anchor-id="b.-imdbtrain">B. <code>imdb['train']</code></h2>
+<p><code>-</code> <code>imdb['train']</code>을 살펴보자..</p>
+<div id="cell-52" class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>imdb[<span class="st">'train'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 25000
+})</code></pre>
+</div>
+</div>
+<p><code>-</code> 이건 딕셔너리 처럼 안되는 것 같네..</p>
+<div id="cell-54" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>imdb[<span class="st">'train'</span>].keys()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>AttributeError: 'Dataset' object has no attribute 'keys'</code></pre>
+</div>
+</div>
+<div id="cell-55" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>imdb[<span class="st">'train'</span>][<span class="st">'features'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>KeyError: "Column features not in the dataset. Current columns in the dataset: ['text', 'label']"</code></pre>
+</div>
+</div>
+<p><code>-</code> 그럼 <code>imdb['train']</code>는 어떻게 쓰라는 것이냐?? <span class="math inline">\(\to\)</span> 쓸만한 기능이 있을지 dir로 체크 <span class="math inline">\(\to\)</span> <code>__getitem__</code>이 있음.. <span class="math inline">\(\to\)</span> <code>imdb['train'][0]</code> 를 써볼 용기가 생김..</p>
+<div id="cell-57" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(<span class="bu">dir</span>(imdb[<span class="st">'train'</span>])) <span class="op">&amp;</span> {<span class="st">'__getitem__'</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<pre><code>{'__getitem__'}</code></pre>
+</div>
+</div>
+<div id="cell-58" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>imdb[<span class="st">'train'</span>][<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>{'text': 'I rented I AM CURIOUS-YELLOW from my video store because of all the controversy that surrounded it when it was first released in 1967. I also heard that at first it was seized by U.S. customs if it ever tried to enter this country, therefore being a fan of films considered "controversial" I really had to see this for myself.&lt;br /&gt;&lt;br /&gt;The plot is centered around a young Swedish drama student named Lena who wants to learn everything she can about life. In particular she wants to focus her attentions to making some sort of documentary on what the average Swede thought about certain political issues such as the Vietnam War and race issues in the United States. In between asking politicians and ordinary denizens of Stockholm about their opinions on politics, she has sex with her drama teacher, classmates, and married men.&lt;br /&gt;&lt;br /&gt;What kills me about I AM CURIOUS-YELLOW is that 40 years ago, this was considered pornographic. Really, the sex and nudity scenes are few and far between, even then it\'s not shot like some cheaply made porno. While my countrymen mind find it shocking, in reality sex and nudity are a major staple in Swedish cinema. Even Ingmar Bergman, arguably their answer to good old boy John Ford, had sex scenes in his films.&lt;br /&gt;&lt;br /&gt;I do commend the filmmakers for the fact that any sex shown in the film is shown for artistic purposes rather than just to shock people and make money to be shown in pornographic theaters in America. I AM CURIOUS-YELLOW is a good film for anyone wanting to study the meat and potatoes (no pun intended) of Swedish cinema. But really, this film doesn\'t have much of a plot.',
+ 'label': 0}</code></pre>
+</div>
+</div>
+<ul>
+<li>실행이 되었음.</li>
+<li>기쁨.</li>
+</ul>
+<p><code>-</code> <code>imdb['train'][1]</code>, <code>imdb['train'][-1]</code>, <code>imdb['train'][:2]</code> 등을 실행해보자..</p>
+<div id="cell-61" class="cell" data-execution_count="64">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>imdb[<span class="st">'train'</span>][:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="64">
+<pre><code>{'text': ['I rented I AM CURIOUS-YELLOW from my video store because of all the controversy that surrounded it when it was first released in 1967. I also heard that at first it was seized by U.S. customs if it ever tried to enter this country, therefore being a fan of films considered "controversial" I really had to see this for myself.&lt;br /&gt;&lt;br /&gt;The plot is centered around a young Swedish drama student named Lena who wants to learn everything she can about life. In particular she wants to focus her attentions to making some sort of documentary on what the average Swede thought about certain political issues such as the Vietnam War and race issues in the United States. In between asking politicians and ordinary denizens of Stockholm about their opinions on politics, she has sex with her drama teacher, classmates, and married men.&lt;br /&gt;&lt;br /&gt;What kills me about I AM CURIOUS-YELLOW is that 40 years ago, this was considered pornographic. Really, the sex and nudity scenes are few and far between, even then it\'s not shot like some cheaply made porno. While my countrymen mind find it shocking, in reality sex and nudity are a major staple in Swedish cinema. Even Ingmar Bergman, arguably their answer to good old boy John Ford, had sex scenes in his films.&lt;br /&gt;&lt;br /&gt;I do commend the filmmakers for the fact that any sex shown in the film is shown for artistic purposes rather than just to shock people and make money to be shown in pornographic theaters in America. I AM CURIOUS-YELLOW is a good film for anyone wanting to study the meat and potatoes (no pun intended) of Swedish cinema. But really, this film doesn\'t have much of a plot.',
+  '"I Am Curious: Yellow" is a risible and pretentious steaming pile. It doesn\'t matter what one\'s political views are because this film can hardly be taken seriously on any level. As for the claim that frontal male nudity is an automatic NC-17, that isn\'t true. I\'ve seen R-rated films with male nudity. Granted, they only offer some fleeting views, but where are the R-rated films with gaping vulvas and flapping labia? Nowhere, because they don\'t exist. The same goes for those crappy cable shows: schlongs swinging in the breeze but not a clitoris in sight. And those pretentious indie movies like The Brown Bunny, in which we\'re treated to the site of Vincent Gallo\'s throbbing johnson, but not a trace of pink visible on Chloe Sevigny. Before crying (or implying) "double-standard" in matters of nudity, the mentally obtuse should take into account one unavoidably obvious anatomical difference between men and women: there are no genitals on display when actresses appears nude, and the same cannot be said for a man. In fact, you generally won\'t see female genitals in an American film in anything short of porn or explicit erotica. This alleged double-standard is less a double standard than an admittedly depressing ability to come to terms culturally with the insides of women\'s bodies.',
+  "If only to avoid making this type of film in the future. This film is interesting as an experiment but tells no cogent story.&lt;br /&gt;&lt;br /&gt;One might feel virtuous for sitting thru it because it touches on so many IMPORTANT issues but it does so without any discernable motive. The viewer comes away with no new perspectives (unless one comes up with one while one's mind wanders, as it will invariably do during this pointless film).&lt;br /&gt;&lt;br /&gt;One might better spend one's time staring out a window at a tree growing.&lt;br /&gt;&lt;br /&gt;",
+  "This film was probably inspired by Godard's Masculin, féminin and I urge you to see that film instead.&lt;br /&gt;&lt;br /&gt;The film has two strong elements and those are, (1) the realistic acting (2) the impressive, undeservedly good, photo. Apart from that, what strikes me most is the endless stream of silliness. Lena Nyman has to be most annoying actress in the world. She acts so stupid and with all the nudity in this film,...it's unattractive. Comparing to Godard's film, intellectuality has been replaced with stupidity. Without going too far on this subject, I would say that follows from the difference in ideals between the French and the Swedish society.&lt;br /&gt;&lt;br /&gt;A movie of its time, and place. 2/10.",
+  'Oh, brother...after hearing about this ridiculous film for umpteen years all I can think of is that old Peggy Lee song..&lt;br /&gt;&lt;br /&gt;"Is that all there is??" ...I was just an early teen when this smoked fish hit the U.S. I was too young to get in the theater (although I did manage to sneak into "Goodbye Columbus"). Then a screening at a local film museum beckoned - Finally I could see this film, except now I was as old as my parents were when they schlepped to see it!!&lt;br /&gt;&lt;br /&gt;The ONLY reason this film was not condemned to the anonymous sands of time was because of the obscenity case sparked by its U.S. release. MILLIONS of people flocked to this stinker, thinking they were going to see a sex film...Instead, they got lots of closeups of gnarly, repulsive Swedes, on-street interviews in bland shopping malls, asinie political pretension...and feeble who-cares simulated sex scenes with saggy, pale actors.&lt;br /&gt;&lt;br /&gt;Cultural icon, holy grail, historic artifact..whatever this thing was, shred it, burn it, then stuff the ashes in a lead box!&lt;br /&gt;&lt;br /&gt;Elite esthetes still scrape to find value in its boring pseudo revolutionary political spewings..But if it weren\'t for the censorship scandal, it would have been ignored, then forgotten.&lt;br /&gt;&lt;br /&gt;Instead, the "I Am Blank, Blank" rhythymed title was repeated endlessly for years as a titilation for porno films (I am Curious, Lavender - for gay films, I Am Curious, Black - for blaxploitation films, etc..) and every ten years or so the thing rises from the dead, to be viewed by a new generation of suckers who want to see that "naughty sex film" that "revolutionized the film industry"...&lt;br /&gt;&lt;br /&gt;Yeesh, avoid like the plague..Or if you MUST see it - rent the video and fast forward to the "dirty" parts, just to get it over with.&lt;br /&gt;&lt;br /&gt;'],
+ 'label': [0, 0, 0, 0, 0]}</code></pre>
+</div>
+</div>
+<div id="cell-62" class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>imdb[<span class="st">'train'</span>][<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="54">
+<pre><code>{'text': 'The story centers around Barry McKenzie who must go to England if he wishes to claim his inheritance. Being about the grossest Aussie shearer ever to set foot outside this great Nation of ours there is something of a culture clash and much fun and games ensue. The songs of Barry McKenzie(Barry Crocker) are highlights.',
+ 'label': 1}</code></pre>
+</div>
+</div>
+<p><code>-</code> <code>imdb['train'][0]</code> 을 구체적으로 살펴보자.</p>
+<div id="cell-64" class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(imdb[<span class="st">'train'</span>][<span class="dv">0</span>][<span class="st">'text'</span>])</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(imdb[<span class="st">'train'</span>][<span class="dv">0</span>][<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>I rented I AM CURIOUS-YELLOW from my video store because of all the controversy that surrounded it when it was first released in 1967. I also heard that at first it was seized by U.S. customs if it ever tried to enter this country, therefore being a fan of films considered "controversial" I really had to see this for myself.&lt;br /&gt;&lt;br /&gt;The plot is centered around a young Swedish drama student named Lena who wants to learn everything she can about life. In particular she wants to focus her attentions to making some sort of documentary on what the average Swede thought about certain political issues such as the Vietnam War and race issues in the United States. In between asking politicians and ordinary denizens of Stockholm about their opinions on politics, she has sex with her drama teacher, classmates, and married men.&lt;br /&gt;&lt;br /&gt;What kills me about I AM CURIOUS-YELLOW is that 40 years ago, this was considered pornographic. Really, the sex and nudity scenes are few and far between, even then it's not shot like some cheaply made porno. While my countrymen mind find it shocking, in reality sex and nudity are a major staple in Swedish cinema. Even Ingmar Bergman, arguably their answer to good old boy John Ford, had sex scenes in his films.&lt;br /&gt;&lt;br /&gt;I do commend the filmmakers for the fact that any sex shown in the film is shown for artistic purposes rather than just to shock people and make money to be shown in pornographic theaters in America. I AM CURIOUS-YELLOW is a good film for anyone wanting to study the meat and potatoes (no pun intended) of Swedish cinema. But really, this film doesn't have much of a plot.
+0</code></pre>
+</div>
+</div>
+<p><code>-</code> <code>imdb['train'][1]</code> 을 구체적으로 살펴보자.</p>
+<div id="cell-66" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(imdb[<span class="st">'train'</span>][<span class="dv">1</span>][<span class="st">'text'</span>])</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(imdb[<span class="st">'train'</span>][<span class="dv">1</span>][<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>"I Am Curious: Yellow" is a risible and pretentious steaming pile. It doesn't matter what one's political views are because this film can hardly be taken seriously on any level. As for the claim that frontal male nudity is an automatic NC-17, that isn't true. I've seen R-rated films with male nudity. Granted, they only offer some fleeting views, but where are the R-rated films with gaping vulvas and flapping labia? Nowhere, because they don't exist. The same goes for those crappy cable shows: schlongs swinging in the breeze but not a clitoris in sight. And those pretentious indie movies like The Brown Bunny, in which we're treated to the site of Vincent Gallo's throbbing johnson, but not a trace of pink visible on Chloe Sevigny. Before crying (or implying) "double-standard" in matters of nudity, the mentally obtuse should take into account one unavoidably obvious anatomical difference between men and women: there are no genitals on display when actresses appears nude, and the same cannot be said for a man. In fact, you generally won't see female genitals in an American film in anything short of porn or explicit erotica. This alleged double-standard is less a double standard than an admittedly depressing ability to come to terms culturally with the insides of women's bodies.
+0</code></pre>
+</div>
+</div>
+<p><code>-</code> <code>imdb['train'][100]</code> 을 구체적으로 살펴보자.</p>
+<div id="cell-68" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(imdb[<span class="st">'train'</span>][<span class="dv">100</span>][<span class="st">'text'</span>])</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(imdb[<span class="st">'train'</span>][<span class="dv">100</span>][<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Terrible movie. Nuff Said.&lt;br /&gt;&lt;br /&gt;These Lines are Just Filler. The movie was bad. Why I have to expand on that I don't know. This is already a waste of my time. I just wanted to warn others. Avoid this movie. The acting sucks and the writing is just moronic. Bad in every way. The only nice thing about the movie are Deniz Akkaya's breasts. Even that was ruined though by a terrible and unneeded rape scene. The movie is a poorly contrived and totally unbelievable piece of garbage.&lt;br /&gt;&lt;br /&gt;OK now I am just going to rag on IMDb for this stupid rule of 10 lines of text minimum. First I waste my time watching this offal. Then feeling compelled to warn others I create an account with IMDb only to discover that I have to write a friggen essay on the film just to express how bad I think it is. Totally unnecessary.
+0</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>영어: Terrible movie. Nuff Said.<br><br>These Lines are Just Filler. The movie was bad. Why I have to expand on that I don’t know. This is already a waste of my time. I just wanted to warn others. Avoid this movie. The acting sucks and the writing is just moronic. Bad in every way. The only nice thing about the movie are Deniz Akkaya’s breasts. Even that was ruined though by a terrible and unneeded rape scene. The movie is a poorly contrived and totally unbelievable piece of garbage.<br><br>OK now I am just going to rag on IMDb for this stupid rule of 10 lines of text minimum. First I waste my time watching this offal. Then feeling compelled to warn others I create an account with IMDb only to discover that I have to write a friggen essay on the film just to express how bad I think it is. Totally unnecessary.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>한글: 끔찍한 영화. 더 할 말 없음. 이 줄들은 그냥 채우기일 뿐이다. 영화가 나빴다. 내가 왜 이걸 더 길게 써야 하는지 모르겠다. 이건 이미 내 시간 낭비다. 나는 그저 다른 사람들에게 경고하고 싶었을 뿐이다. 이 영화를 피하라. 연기도 형편없고, 대본도 완전히 멍청하다. 모든 면에서 나쁜 영화다. 영화에서 유일하게 좋은 것은 데니즈 아카야의 가슴뿐이었다. 하지만 그것조차도 끔찍하고 불필요한 강간 장면 때문에 망쳤다. 이 영화는 조잡하게 만들어졌고, 전혀 믿을 수 없는 쓰레기다. 이제 IMDb에 대한 불만을 좀 말하겠다. 10줄 이상 써야 한다는 이 어리석은 규칙 때문에 말이다. 먼저 이 쓰레기를 보면서 내 시간을 낭비했다. 그리고 다른 사람들에게 경고하려고 IMDb 계정을 만들었더니, 영화에 대해 내가 얼마나 나쁘게 생각하는지를 표현하려면 이 따위 에세이를 써야 한다는 걸 알게 되었다. 완전히 불필요하다.</p>
+</blockquote>
+<ul>
+<li>영화평인듯..</li>
+<li>겁나 뭐라고함.. 부정적임..</li>
+<li>이 text에 대한 label은 0</li>
+</ul>
+<p><code>-</code> <code>imdb['train'][-1]</code> 을 구체적으로 살펴보자.</p>
+<div id="cell-73" class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(imdb[<span class="st">'train'</span>][<span class="op">-</span><span class="dv">1</span>][<span class="st">'text'</span>])</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(imdb[<span class="st">'train'</span>][<span class="op">-</span><span class="dv">1</span>][<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The story centers around Barry McKenzie who must go to England if he wishes to claim his inheritance. Being about the grossest Aussie shearer ever to set foot outside this great Nation of ours there is something of a culture clash and much fun and games ensue. The songs of Barry McKenzie(Barry Crocker) are highlights.
+1</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>영어: The story centers around Barry McKenzie who must go to England if he wishes to claim his inheritance. Being about the grossest Aussie shearer ever to set foot outside this great Nation of ours there is something of a culture clash and much fun and games ensue. The songs of Barry McKenzie(Barry Crocker) are highlights.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>한글: 이 이야기는 유산을 상속받기 위해 영국으로 가야 하는 배리 맥켄지에 초점을 맞추고 있습니다. 배리 맥켄지는 이 위대한 호주를 떠난 사람 중 가장 거친 호주 농부로, 문화적 충돌이 일어나고 다양한 재미와 사건들이 이어집니다. 배리 맥켄지(배리 크로커)가 부르는 노래들이 이 영화의 하이라이트입니다.</p>
+</blockquote>
+<p><code>-</code> 요약: <code>imdb['train']</code> 에는 여러개의 영화평이 있고, 각각 긍정평가와 부정평가를 담고 있음.</p>
+<ul>
+<li>몇개의 영화평이 있냐? 25000</li>
+<li>부정평가는 0, 긍정평가는 1로 라벨링</li>
+</ul>
+<div id="cell-77" class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(imdb[<span class="st">'train'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="49">
+<pre><code>25000</code></pre>
+</div>
+</div>
+<div id="cell-78" class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>imdb[<span class="st">'train'</span>][<span class="dv">24999</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="50">
+<pre><code>{'text': 'The story centers around Barry McKenzie who must go to England if he wishes to claim his inheritance. Being about the grossest Aussie shearer ever to set foot outside this great Nation of ours there is something of a culture clash and much fun and games ensue. The songs of Barry McKenzie(Barry Crocker) are highlights.',
+ 'label': 1}</code></pre>
+</div>
+</div>
+<div id="cell-79" class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>imdb[<span class="st">'train'</span>][<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="51">
+<pre><code>{'text': 'The story centers around Barry McKenzie who must go to England if he wishes to claim his inheritance. Being about the grossest Aussie shearer ever to set foot outside this great Nation of ours there is something of a culture clash and much fun and games ensue. The songs of Barry McKenzie(Barry Crocker) are highlights.',
+ 'label': 1}</code></pre>
+</div>
+</div>
+</section>
+<section id="c.-imdbtest" class="level2">
+<h2 class="anchored" data-anchor-id="c.-imdbtest">C. <code>imdb['test']</code></h2>
+<p><code>-</code> <code>imdb['train']</code> 과 비슷함..</p>
+<div id="cell-82" class="cell" data-execution_count="72">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>imdb[<span class="st">'test'</span>][<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="72">
+<pre><code>{'text': 'I love sci-fi and am willing to put up with a lot. Sci-fi movies/TV are usually underfunded, under-appreciated and misunderstood. I tried to like this, I really did, but it is to good TV sci-fi as Babylon 5 is to Star Trek (the original). Silly prosthetics, cheap cardboard sets, stilted dialogues, CG that doesn\'t match the background, and painfully one-dimensional characters cannot be overcome with a \'sci-fi\' setting. (I\'m sure there are those of you out there who think Babylon 5 is good sci-fi TV. It\'s not. It\'s clichéd and uninspiring.) While US viewers might like emotion and character development, sci-fi is a genre that does not take itself seriously (cf. Star Trek). It may treat important issues, yet not as a serious philosophy. It\'s really difficult to care about the characters here as they are not simply foolish, just missing a spark of life. Their actions and reactions are wooden and predictable, often painful to watch. The makers of Earth KNOW it\'s rubbish as they have to always say "Gene Roddenberry\'s Earth..." otherwise people would not continue watching. Roddenberry\'s ashes must be turning in their orbit as this dull, cheap, poorly edited (watching it without advert breaks really brings this home) trudging Trabant of a show lumbers into space. Spoiler. So, kill off a main character. And then bring him back as another actor. Jeeez! Dallas all over again.',
+ 'label': 0}</code></pre>
+</div>
+</div>
+<div id="cell-83" class="cell" data-execution_count="73">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(imdb[<span class="st">'test'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="73">
+<pre><code>25000</code></pre>
+</div>
+</div>
+</section>
+<section id="d.-imdbunsupervised" class="level2">
+<h2 class="anchored" data-anchor-id="d.-imdbunsupervised">D. <code>imdb['unsupervised']</code></h2>
+<p><code>-</code> <code>imdb['unsupervised']</code> 를 살펴보자.</p>
+<div id="cell-86" class="cell" data-execution_count="78">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>imdb[<span class="st">'unsupervised'</span>][<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="78">
+<pre><code>{'text': "Being that the only foreign films I usually like star a Japanese person in a rubber suit who crushes little tiny buildings and tanks, I had high hopes for this movie. I thought that this was a movie that wouldn't put me to sleep. WRONG! Starts off with a bang, okay, now she's in training, alright, she's an assassin, I'm still with you, oh, now she's having this moral dilemma and she can't decide if she loves her boyfriend or her controller, zzzzz.... Oh well, back to Gamera!",
+ 'label': -1}</code></pre>
+</div>
+</div>
+<ul>
+<li><code>imdb['train']</code>, <code>imdb['test']</code> 와 비슷해 보이지만 살짝 다름.</li>
+<li>label 값이 특이하게 -1</li>
+</ul>
+<p><code>-</code> 혹시 <code>imdb['unsupervised'][??]</code> 의 모든 라벨값이 모두 <code>-1</code>인가?</p>
+<div id="cell-89" class="cell" data-execution_count="85">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>([l[<span class="st">'label'</span>] <span class="cf">for</span> l <span class="kw">in</span> imdb[<span class="st">'unsupervised'</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="85">
+<pre><code>{-1}</code></pre>
+</div>
+</div>
+<ul>
+<li>일단 라벨은 -1 밖에 없음.</li>
+</ul>
+<div id="cell-91" class="cell" data-execution_count="86">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>([l[<span class="st">'label'</span>] <span class="cf">for</span> l <span class="kw">in</span> imdb[<span class="st">'train'</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="86">
+<pre><code>{0, 1}</code></pre>
+</div>
+</div>
+<div id="cell-92" class="cell" data-execution_count="87">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>([l[<span class="st">'label'</span>] <span class="cf">for</span> l <span class="kw">in</span> imdb[<span class="st">'test'</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="87">
+<pre><code>{0, 1}</code></pre>
+</div>
+</div>
+<div id="cell-93" class="cell" data-execution_count="88">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>imdb[<span class="st">'train'</span>],</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="88">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 25000
+})</code></pre>
+</div>
+</div>
+<div id="cell-94" class="cell" data-execution_count="93">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>imdb[<span class="st">'test'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="93">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 25000
+})</code></pre>
+</div>
+</div>
+<p><code>-</code> 느낌상 <code>imdb['unsupervised']</code>는 <code>imdb['train']</code> 와 <code>imdb['test']</code> 에서 text를 합치고, label은 모두 <code>-1</code> 로 바꾼 자료가 아닐까? 하는 의심이 들었음. —&gt; 아니었음..</p>
+<div id="cell-96" class="cell" data-execution_count="106">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>txt0 <span class="op">=</span> imdb[<span class="st">'unsupervised'</span>][<span class="dv">0</span>][<span class="st">'text'</span>]</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>txt0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="106">
+<pre><code>'This is just a precious little diamond. The play, the script are excellent. I cant compare this movie with anything else, maybe except the movie "Leon" wonderfully played by Jean Reno and Natalie Portman. But... What can I say about this one? This is the best movie Anne Parillaud has ever played in (See please "Frankie Starlight", she\'s speaking English there) to see what I mean. The story of young punk girl Nikita, taken into the depraved world of the secret government forces has been exceptionally over used by Americans. Never mind the "Point of no return" and especially the "La femme Nikita" TV series. They cannot compare the original believe me! Trash these videos. Buy this one, do not rent it, BUY it. BTW beware of the subtitles of the LA company which "translate" the US release. What a disgrace! If you cant understand French, get a dubbed version. But you\'ll regret later :)'</code></pre>
+</div>
+</div>
+<div id="cell-97" class="cell" data-execution_count="105">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>[l <span class="cf">for</span> l <span class="kw">in</span> imdb[<span class="st">'train'</span>] <span class="cf">if</span> l[<span class="st">'text'</span>] <span class="op">==</span> txt0]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="105">
+<pre><code>[]</code></pre>
+</div>
+</div>
+<div id="cell-98" class="cell" data-execution_count="107">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>[l <span class="cf">for</span> l <span class="kw">in</span> imdb[<span class="st">'test'</span>] <span class="cf">if</span> l[<span class="st">'text'</span>] <span class="op">==</span> txt0]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="107">
+<pre><code>[]</code></pre>
+</div>
+</div>
+<div id="cell-99" class="cell" data-execution_count="108">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>[l <span class="cf">for</span> l <span class="kw">in</span> imdb[<span class="st">'unsupervised'</span>] <span class="cf">if</span> l[<span class="st">'text'</span>] <span class="op">==</span> txt0]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="108">
+<pre><code>[{'text': 'This is just a precious little diamond. The play, the script are excellent. I cant compare this movie with anything else, maybe except the movie "Leon" wonderfully played by Jean Reno and Natalie Portman. But... What can I say about this one? This is the best movie Anne Parillaud has ever played in (See please "Frankie Starlight", she\'s speaking English there) to see what I mean. The story of young punk girl Nikita, taken into the depraved world of the secret government forces has been exceptionally over used by Americans. Never mind the "Point of no return" and especially the "La femme Nikita" TV series. They cannot compare the original believe me! Trash these videos. Buy this one, do not rent it, BUY it. BTW beware of the subtitles of the LA company which "translate" the US release. What a disgrace! If you cant understand French, get a dubbed version. But you\'ll regret later :)',
+  'label': -1}]</code></pre>
+</div>
+</div>
+</section>
+<section id="f.-정리" class="level2">
+<h2 class="anchored" data-anchor-id="f.-정리">F. 정리</h2>
+<p><code>-</code> 요약:</p>
+<ul>
+<li><code>imdb</code>는 <code>imdb['train']</code>, <code>imdb['test']</code>, <code>imdb['unsupervised']</code> 로 나누어져 있음.</li>
+<li><code>imdb['train']</code>, <code>imdb['test']</code> 에는 각각 (text,label)와 같은 형식으로 정보가 저장되어 있음. 여기에서 label은 0 혹은 1의 값을 가지는데 0은 부정, 1은 긍정을 의미함.</li>
+<li><code>imdb['unsupervised']</code> 에도 조사해보니 각각 (text,label)와 같은 형식으로 정보가 저장되어 있었지만, 여기에서 label값은 모두 -1의 값만 있었음. 따라서 사살상 <code>imdb['unsupervised']</code>는 text에 대한 정보만 있다고 생각해도 무방. 그 text가 영화에 대한 긍정평가인지 부정평가인지 분류가 되어있지 않은 상태.</li>
+</ul>
+<p><code>-</code> 외우세요: <code>train</code>, <code>test</code>, <code>unsupervised</code> 와 같은 단어는 매우 중요한 단어니까 일단 눈여겨보세요</p>
+</section>
+</section>
+<section id="지도학습-흐름" class="level1">
+<h1>8. 지도학습 흐름</h1>
+<section id="a.-기계학습딥러닝-과업" class="level2">
+<h2 class="anchored" data-anchor-id="a.-기계학습딥러닝-과업">A. 기계학습/딥러닝 과업</h2>
+<p><code>-</code> 왜 데이터가 <code>imdb['train']</code>, <code>imdb['test']</code>, <code>imdb['unsupervised']</code> 와 같이 나누어져 있는가?</p>
+<ul>
+<li>개념: 기계학습/딥러닝은 과업은 크게 지도학습과 비지도학습이 있음.</li>
+<li>데이터에서 <code>imdb['train']</code>, <code>imdb['test']</code> 는 지도학습 모델을 배우기 위한 예제데이터이고, <code>imdb['unsupervised']</code>는 비지도학습모델을 배우기 위한 예제데이터임.</li>
+<li>아무튼 우리가 하는 “감성분석”은 지도학습이고, 따라서 우리는 <code>imdb['train']</code>, <code>imdb['test']</code> 에만 관심을 가질 예정임.</li>
+</ul>
+</section>
+<section id="b.-지도학습" class="level2">
+<h2 class="anchored" data-anchor-id="b.-지도학습">B. 지도학습</h2>
+<p><code>-</code> 지도학습이란? (이 예제에 한정하여 설명)</p>
+<ul>
+<li>자료가 “(텍스트, 라벨)” 의 형태로 정리가 되어 있을때, “텍스트”를 입력으로 주면 “라벨”을 출력해주는 함수 <code>f</code>를 찾는 일</li>
+<li>코드로 예를들어 설명하면 적당히 <code>f</code>라는 함수가 존재하여 아래와 같은 동작이 가능하도록 해야함.</li>
+</ul>
+<div class="sourceCode" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>f(<span class="st">"영화가 너무 재미없어요"</span>)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> <span class="st">"부정평가입니다"</span></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>f(<span class="st">"영화, 괜찮은데요??"</span>)</span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> <span class="st">"긍정평가입니다"</span></span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>f(<span class="st">"배우들 연기 진짜 잘함. 영상미도 있음. 그런데 스토리 때문에 망했네."</span>)</span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> <span class="st">"부정평가입니다"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>-</code> 이러한 함수 <code>f</code>를 우리가 잘 정의한다면 좋겠음. (가능한가??)</p>
+<p><code>-</code> 대충 아래와 같은 과정을 거친다고 생각하면 편리함.</p>
+<blockquote class="blockquote">
+<p>정보(숫자,텍스트,이미지,…) <span class="math inline">\(\to\)</span> 숫자 <span class="math inline">\(\to\)</span> 계산 <span class="math inline">\(\to\)</span> 계산된숫자 <span class="math inline">\(\to\)</span> 정보</p>
+</blockquote>
+<p><code>-</code> 예를들면 아래와 같은 방식이 가능</p>
+<div id="cell-112" class="cell" data-execution_count="110">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>긍정단어 <span class="op">=</span> {<span class="st">'좋아'</span>, <span class="st">'재미있었음'</span>, <span class="st">'잘생김'</span>, <span class="st">'예뻐'</span>, <span class="st">'연기훌륭함'</span>}</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>부정단어 <span class="op">=</span> {<span class="st">'지루해'</span>, <span class="st">'재미없었음'</span>, <span class="st">'비추천'</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-113" class="cell" data-execution_count="111">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>txt0 <span class="op">=</span> <span class="st">"남주가 너무 잘생김 여주도 예뻐 영화가 중간에 조금 지루해 그래도 아무튼 재미있었음"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-114" class="cell" data-execution_count="126">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>긍정단어수 <span class="op">=</span> <span class="bu">sum</span>([l <span class="kw">in</span> 긍정단어 <span class="cf">for</span> l <span class="kw">in</span> txt0.split(<span class="st">' '</span>)])</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>부정단어수 <span class="op">=</span> <span class="bu">sum</span>([l <span class="kw">in</span> 부정단어 <span class="cf">for</span> l <span class="kw">in</span> txt0.split(<span class="st">' '</span>)])</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>긍정평가일확률 <span class="op">=</span> 긍정단어수<span class="op">/</span>(긍정단어수<span class="op">+</span>부정단어수)</span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>부정평가일확률 <span class="op">=</span> 부정단어수<span class="op">/</span>(긍정단어수<span class="op">+</span>부정단어수)</span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>긍정평가일확률,부정평가일확률</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="126">
+<pre><code>(0.75, 0.25)</code></pre>
+</div>
+</div>
+<ul>
+<li>긍정평가군!</li>
+</ul>
+<div id="cell-116" class="cell" data-execution_count="149">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(text):</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>    긍정단어수 <span class="op">=</span> <span class="bu">sum</span>([l <span class="kw">in</span> 긍정단어 <span class="cf">for</span> l <span class="kw">in</span> text.split(<span class="st">' '</span>)])</span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>    부정단어수 <span class="op">=</span> <span class="bu">sum</span>([l <span class="kw">in</span> 부정단어 <span class="cf">for</span> l <span class="kw">in</span> text.split(<span class="st">' '</span>)])</span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>    긍정평가일확률 <span class="op">=</span> 긍정단어수<span class="op">/</span>(긍정단어수<span class="op">+</span>부정단어수)</span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>    부정평가일확률 <span class="op">=</span> 부정단어수<span class="op">/</span>(긍정단어수<span class="op">+</span>부정단어수)</span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> 긍정평가일확률 <span class="op">&gt;</span> <span class="fl">0.5</span>:</span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> 긍정평가일확률,<span class="st">"긍정평가"</span></span>
+<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> 부정평가일확률,<span class="st">"부정평가"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-117" class="cell" data-execution_count="140">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>f(<span class="st">"남주가 너무 잘생김 여주도 예뻐 영화가 중간에 조금 지루해 그래도 아무튼 재미있었음"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="140">
+<pre><code>(0.75, '긍정평가')</code></pre>
+</div>
+</div>
+<p><code>-</code> 당연히 현재는 많은 문제점이 있음.</p>
+<div id="cell-119" class="cell" data-execution_count="145">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>f(<span class="st">"남주가 너무 잘생김. 여주도 예뻐. 영화가 중간에 조금 지루해 그래도 아무튼 재미있었음."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="145">
+<pre><code>(1.0, '부정평가')</code></pre>
+</div>
+</div>
+<div id="cell-120" class="cell" data-execution_count="148">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>f(<span class="st">"캐스팅 좋아 여주인공 특히 예뻐 배우들 연기훌륭함 그렇지만 스토리때문에 나는 개인적으로 비추천"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="148">
+<pre><code>(0.75, '긍정평가')</code></pre>
+</div>
+</div>
+<p><code>-</code> 다행인점: 좋은 <code>f</code>를 만들기 위해서 우리가 고민할 필요 없음. (똑똑한 사람들이 다 만들어 놓음. 그리고 만들고 있음.)</p>
+<ul>
+<li>옛날방식: <code>f</code> 를 한땀한땀 설계. 초고수가 밤새 코딩해서 진짜 잘 맞추는 <code>f</code>를 한번에 제시.</li>
+<li>최근방식: <code>f</code> 를 대충 설계. 거의 멍청이 수준의 <code>f</code>임. 그런데 데이터를 줄수록 <code>f</code>가 점점 똑똑해짐. 나중에는 다 맞춤. –&gt; 인공지능???</li>
+</ul>
+</section>
+<section id="c.-traintest-자료의-의미" class="level2">
+<h2 class="anchored" data-anchor-id="c.-traintest-자료의-의미">C. train/test 자료의 의미</h2>
+<p><code>-</code> 초고수가 <code>f</code>를 직접 설계하던 시대에는 별로 문제가 없었음. 그런데 최근 컴퓨터가 데이터를 보고 <code>f</code>를 스스로 수정하기 시작하면서 이상한 방식으로 <code>f</code>가 수정되는 경우가 보고되고 있음. <code>f</code>가 똑똑해 보이는데, 사실 멍청한 상태..</p>
+<ul>
+<li>어떻게 이런일이 가능하지??</li>
+</ul>
+<p><code>-</code> 최규빈 교수의 착각</p>
+<ul>
+<li>상상: 나는 학생들에게 파이썬프로그래밍을 잘 강의하고 싶었다. 나는 학생들에게 다양한 문제를 풀어줬으며, 문제를 풀면서 학생들이 스스로 개념을 깨우치길 원했다. 나는 다양한 예시를 통해서 이해하는 것이 좋다고 생각했기 때문이다. 예시는 많을수록 좋으니까 한 학기동안 총 1000개의 문제를 풀어줬다. 기말고사는 풀어준 문제중에서 약 20문항을 샘플링하여 출제했다. 놀랍게도 학생들이 모두 만점을 받았으며 나는 아주 만족스러웠다. 한 학기 동안 고생한 보람이 있어보였다. 눈물이 흘렀다.</li>
+<li>질문: 최규빈 교수는 잘 평가한 걸까요? 학생들이 진짜 파이썬프로그래밍을 잘 이해했을까요?? (학과교수님들께 자랑해도 될까요?)</li>
+<li>이렇게 질문하고 싶지 않아요?: 1000개의 문제에서 샘플링하여 출제하지 않고, 새로운 문항을 개발하여 학생들에게 제시했다면??</li>
+<li>요령이 있는 교수라면 이렇게 했을거에요: 50000개의 문제세트가 있다고 하자. 수업시간에는 학생들에게 예시로 25000개 정도의 문항을 풀이하며 설명. 기말고사는 수업시간에 풀이하지 않은 25000개의 문항을 출제함.</li>
+<li>만약에 학생들이 수업시간에 풀어준 25000개의 문제를 올바르게 이해했다면, 수업시간에 풀이하지 않은 문항 25000개 역시 잘 풀었을 것임.</li>
+</ul>
+<p><code>-</code> 이 상황을 살짝 말만 바꿔볼게요.</p>
+<ul>
+<li>상상: 나는 인공지능에게 “영화평가 텍스트를 주면 그것이 긍정평가인지 부정평가인지 판단하는 능력”을 잘 학습시키고 싶었다. 나는 인공지능에게 다양한 데이터를 제공했으며, 데이터를 보고 인공지능이 스스로 원리를 깨우치길 원했다. 데이터는 많을수록 좋으니까 약 50000개의 “(텍스트,라벨)” 쌍을 제공했다. 그리고 50000개의 “(텍스트.라벨)” 쌍에서 약 20문항을 샘플링하여 테스트했다. 놀랍게도 인공지능은 20문항을 모두 맞추었다. 나는 아주 만족스러웠다. 눈물이 흘렀다.</li>
+<li>질문: 저는 인공지능을 잘 학습시켰을까요?</li>
+<li>이렇게 하고 싶지 않아요?: 50000개의 데이터중, 25000개의 “(텍스트,라벨)”만 인공지능에게 제공하여 학습시킴. 그리고 나머지 25000개는 평가용으로 테스트해봄.</li>
+<li>만약에 인공지능이 진짜 영화평가 텍스트를 바탕으로 그것이 긍정평가인지 부정평가인지 판단하는 능력을 길렀다면?? 내가 인공지능에게 제공하지 않은 25000개의 데이터에 대해서도 함수 <code>f</code> 가 올바르게 동작해야함.</li>
+</ul>
+<p><code>-</code> train data / test data</p>
+<ul>
+<li>train data 는 인공지능에게 학습용으로 제공하는 데이터</li>
+<li>test data 는 인공지능이 진짜 잘 학습했는지 평가하기 위해 학습시 제공하지 않는 자료</li>
+</ul>
+<div id="cell-127" class="cell" data-execution_count="150">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>imdb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="150">
+<pre><code>DatasetDict({
+    train: Dataset({
+        features: ['text', 'label'],
+        num_rows: 25000
+    })
+    test: Dataset({
+        features: ['text', 'label'],
+        num_rows: 25000
+    })
+    unsupervised: Dataset({
+        features: ['text', 'label'],
+        num_rows: 50000
+    })
+})</code></pre>
+</div>
+</div>
+</section>
+<section id="d.-trainvaltest-자료의-의미" class="level2">
+<h2 class="anchored" data-anchor-id="d.-trainvaltest-자료의-의미">D. train/val/test 자료의 의미</h2>
+<p><code>-</code> 학생들 입장에서 생각해본다면??</p>
+<ul>
+<li>소망: 내가 외우려고 한게 아니고, 하도 공부를 많이 하다보니 문제가 외워졌음. 나도 그러기 싫음. 나도 내가 올바르게 공부했는지 체크하고 싶어.</li>
+<li>아이디어: 교수님이 풀어준 25000개의 문항중, 15000개만 전략적으로 공부함. 그리고 나머지 10000개는 나 스스로 올바르게 공부했는지 체크하는 용도로 삼음.</li>
+<li>진행사항:
+<ul>
+<li>1일차: <code>{15000문항: 50%맞음, 10000문항: 45%맞음}</code><br>
+</li>
+<li>2일차: <code>{15000문항: 90%맞음, 10000문항: 85%맞음}</code></li>
+<li>3일차: <code>{15000문항: 100%맞음, 10000문항: 70%맞음}</code> &lt;— 이런 경험 있어요??</li>
+</ul></li>
+<li>판단: 이게 한 3일차쯤 공부하다보니까 문제를 내가 너무 외운것 같네? 오히려 2일차일때의 느낌이 더 좋음. 그냥 2일차의 느낌으로 시험보러 가자!!</li>
+</ul>
+<p><code>-</code> 이럴경우 아래와 같이 상황이 정리된다.</p>
+<ul>
+<li>원래: 교수가 수업시간에 풀어준 25000문제 = 학생이 공부할 25000문제 = train // 교수가 기말시험으로 제출할 25000문제 = test</li>
+<li>바뀐상황: 학생이 공부할 15000문제 = train / 학생이 자가진단용으로 으로 뺀 10000문제 = test // 교수가 기말시험으로 제출할 25000문제 = 찐test</li>
+</ul>
+<p><code>-</code> 학생이 자가진단용으로 빼둔 10000개의 문항을 보통 validation set 이라고 부른다. 따라서 아래와 같이 정리 가능하다.</p>
+<ul>
+<li>train = 15000문제 = 학생이 스스로 공부</li>
+<li>validation = 10000문제 = 학생이 공부할때 사용하지 않음. 자가진단용.</li>
+<li>test = 25000문제 = 교수가 출제하는 시험</li>
+</ul>
+<p><code>-</code> train / validation / test 에 대한 용어는 엄밀하지 않게 사용되는 경우가 많아 그때그때 상황에 맞게 알아서 해석해야 한다.</p>
+<ul>
+<li>억지상황1: 교수가 시험보지 않음. 그런데 내가 스스로 공부하면서 잘 공부하고 있는지 체크하고 싶어서 1000개의 문제를 구하고 그중 매일 800개만 학습하고 200개는 검증용으로 사용함. 이 경우 200개의 문항을 validation 이라고 부르기도 하고 test 라고 부르기도 함. (엄밀하게는 validation이 맞다고 생각하지만, 외부데이터가 없는 상황이므로 validation과 test의 경계가 흐릿해짐)</li>
+<li>억지상황2: 나 혼자 1000개의 문항을 800/200으로 나누어 매일 공부하고 있었음. 이때 나는 200개의 문항을 test라고 부르기도 하고, validation이라고 부르기도 했음. 그런데 갑자기 교수가 나보고 외부 코딩대회에 나가라고 함. 이 경우 200개의 문항은 validation 이 되고 외부코딩대회에서 출제된 문항이 test가 됨.</li>
+</ul>
+<p><code>-</code> 느낌: 아래가 가장 정확한 설명임</p>
+<ul>
+<li>train: 학습에 사용하는 자료</li>
+<li>validation: 학습에 사용하지 않는 자료. 왜 안써? 더 좋은 훈련을 위한 목적.</li>
+<li>test: 학습에 사용하지 않는 자료. 왜 안써? 올바르게 학습됨을 평가하기 위한 목적.</li>
+</ul>
+<blockquote class="blockquote">
+<p>헷갈리는 이유는 더 좋은 훈련을 위한 목적과 올바르게 학습됨을 평가하기 위한 목적이 무 자르듯이 구분되지 않기 때문.</p>
+</blockquote>
+<p><code>-</code> 이상한 분류법</p>
+<ul>
+<li>데이터를 보통 2개의 셋으로 나누면 train/test 로 3개로 나누면 train/test/validation 으로 많이 표현.</li>
+<li>딱 맞는 정의는 아님. 의미상 구분해야함.</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="guebin/MP2023" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
