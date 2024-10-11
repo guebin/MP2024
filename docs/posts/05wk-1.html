@@ -1210,19 +1210,19 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <span id="cb95-11"><a href="#cb95-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb95-12"><a href="#cb95-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 이미지 확인</span></span>
 <span id="cb95-13"><a href="#cb95-13" aria-hidden="true" tabindex="-1"></a>image.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="cell-113" class="cell" data-execution_count="538">
+<div id="cell-113" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
 <span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> io <span class="im">import</span> BytesIO</span>
 <span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 이미지 URL</span></span>
-<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://i.namu.wiki/i/eYVvNJnEv7iWMzCOChZ0BeQm1HVG2sqOWiEABGD3Q5yUilrg8rtVrTc0MupDB9DtGBzioQ5JLfPSPR_AuajlNWsOJsm6gp-EnrcKzcHjHGvzoldry6NiVpZHrNTF2WM9bY4Y546kCtsE1n1yTv4TUg.webp"</span></span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Shoyu_ramen%2C_at_Kasukabe_Station_%282014.05.05%29_1.jpg/500px-Shoyu_ramen%2C_at_Kasukabe_Station_%282014.05.05%29_1.jpg"</span></span>
 <span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a><span class="co"># URL에서 이미지 불러오기</span></span>
 <span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url)</span>
 <span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> Image.<span class="bu">open</span>(BytesIO(response.content))</span>
 <span id="cb96-11"><a href="#cb96-11" aria-hidden="true" tabindex="-1"></a>image</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="538">
+<div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 <figure class="figure">
 <p><img src="05wk-1_files/figure-html/cell-54-output-1.png" class="img-fluid figure-img"></p>
