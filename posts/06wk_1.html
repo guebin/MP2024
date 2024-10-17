@@ -251,13 +251,13 @@ window.Quarto = {
 <h1>2. ref</h1>
 <p>ref: <a href="https://huggingface.co/docs/transformers/tasks/video_classification" class="uri">https://huggingface.co/docs/transformers/tasks/video_classification</a></p>
 <p><code>-</code> 실행이 되지 않음</p>
-<p><img src="attachment:8ba494e6-6e57-417b-90a1-4476ace582a1.png" class="img-fluid"></p>
+<p><img src="https://github.com/guebin/MP2024/blob/main/posts/fig1.png?raw=true" class="img-fluid"></p>
 <p><code>-</code> 해결방법:</p>
 <ol type="1">
 <li>위의 그림에서 <code>/usr/local/lib/python3.10/dist-packages/pytorchvideo/transforms/augmentations.py</code> 를 클릭</li>
 <li>아래의 그림과 같이 코드를 수정</li>
 </ol>
-<p><img src="attachment:f7dff172-d87e-4a7a-af6b-34c055a11f57.png" class="img-fluid"></p>
+<p><img src="https://github.com/guebin/MP2024/blob/main/posts/fig2.png?raw=true" class="img-fluid"></p>
 </section>
 <section id="예비학습" class="level1">
 <h1>3. 예비학습</h1>
@@ -634,9 +634,6 @@ window.Quarto = {
 <pre><code>True</code></pre>
 </div>
 </div>
-<blockquote class="blockquote">
-<p>요약: <code>with ... as ???:</code> 에서 <code>???</code>의 자리는 <code>.__enter__()</code> 와 <code>__exit__()</code> 이라는 숨겨진 메소드를 가진 오브젝트가 와야하는데, 그렇게 된다면 with문 안의 본래코드가 실행되기전 <code>???.__enter__()</code>이 실행되고, 본래코드가 실행된 이후 <code>???.__exit__()</code>이 실행되며 with문이 종료된다.</p>
-</blockquote>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
