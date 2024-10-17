@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "기계학습활용 (2024)",
     "section": "",
-    "text": "질문하는 방법\n\n카카오톡: 질문하러 가기\n이메일: guebin@jbnu.ac.kr\n직접방문: 자연과학대학 본관 205호\nZoom: 카카오톡이나 이메일로 미리 시간을 정할 것\nLMS쪽지: https://ieilms.jbnu.ac.kr/\n\nQuiz: https://guebin.github.io/MP2024/quiz.html\n강의노트\n\n\n\n\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nOct 4, 2024\n\n\n05wk-1: Food-101 이미지자료의 분류\n\n\n최규빈 \n\n\n\n\nSep 27, 2024\n\n\n04wk-1: 감성분석 파고들기 (2)\n\n\n최규빈 \n\n\n\n\nSep 19, 2024\n\n\n03wk-1: 감성분석 파고들기 (1)\n\n\n최규빈 \n\n\n\n\nSep 12, 2024\n\n\n02wk-1: IMDB 영화평 감성분석\n\n\n최규빈 \n\n\n\n\nSep 6, 2024\n\n\n01wk-2: IMDB 자료 살펴보기, 지도학습의 개념\n\n\n최규빈 \n\n\n\n\nSep 3, 2024\n\n\n01wk-1: 강의소개\n\n\n최규빈 \n\n\n\n\n\nNo matching items"
+    "text": "질문하는 방법\n\n카카오톡: 질문하러 가기\n이메일: guebin@jbnu.ac.kr\n직접방문: 자연과학대학 본관 205호\nZoom: 카카오톡이나 이메일로 미리 시간을 정할 것\nLMS쪽지: https://ieilms.jbnu.ac.kr/\n\nQuiz: https://guebin.github.io/MP2024/quiz.html\n강의노트\n\n\n\n\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nOct 4, 2024\n\n\n06wk-1: 영상 자료 분류\n\n\n최규빈 \n\n\n\n\nOct 4, 2024\n\n\n05wk-1: Food-101 이미지자료의 분류\n\n\n최규빈 \n\n\n\n\nSep 27, 2024\n\n\n04wk-1: 감성분석 파고들기 (2)\n\n\n최규빈 \n\n\n\n\nSep 19, 2024\n\n\n03wk-1: 감성분석 파고들기 (1)\n\n\n최규빈 \n\n\n\n\nSep 12, 2024\n\n\n02wk-1: IMDB 영화평 감성분석\n\n\n최규빈 \n\n\n\n\nSep 6, 2024\n\n\n01wk-2: IMDB 자료 살펴보기, 지도학습의 개념\n\n\n최규빈 \n\n\n\n\nSep 3, 2024\n\n\n01wk-1: 강의소개\n\n\n최규빈 \n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "quiz/Quiz-3.html",
@@ -119,13 +119,6 @@
     "text": "1. 강의영상\n\n\n\n2. 이 수업을 들어야 하는 이유\n\npass\n\n\n\n3. 이 수업을 듣지 말아야 하는 이유\n1. F학점을 줄 수 있음.\n\n모든 퀴즈를 보더라도 성적미달시 F학점 부여\n졸업이 임박한 경우 수강을 권장하지 않음\n\n2. 플립러닝\n\n수업은 비대면수업으로 진행하며, 수업 시간에는 퀴즈를 봄.\n대면 수업에 익숙하고 비대면 수업에 익숙하지 않은 학생들의 경우 수강을 권장하지 않음.\n매주 진행되는 퀴즈가 부담스러운 학생은 수강을 권장하지 않음.\n\n3. 기계학습, 기계학습활용\n\n기계학습활용: 이론적인 설명을 최소화하고, 실습 및 활용에 중점을 둔 수업\n기계학습: 이론과 실습을 같이 배우는 수업\n기계학습활용과 기계학습은 선수과목관계가 아니며, 기계학습활용을 듣지 않고도 기계학습을 이해하는데 문제가 없음.\n\n4. 잘하는 사람들이 많다.\n\n통계학과 고학년, 타학과 고수들\n\n5. 학점이 짜다.\n\n짜게 느껴진다가 더 정확한 표현같아요\n\n6. 파이썬문법이 선행되어야 함.\n\n리스트를 만드는 방법, numpy array가 무엇인지, colab 사용방법 등을 설명하지 않음.\n\n7. cost-effective 하지 않다.\n\n여러가지 이유로..\n이 교과목을 위해서 너무 많은 노력을 해야한다면 드랍하는 것이 좋다고 생각함.\n\n\n\n4. 학점산정방식\n- 강의계획서: 중간40, 기말40, 출석10, 과제10\n- 실제운영: 퀴즈90, 과제10\n\n매주 퀴즈를 보므로 출석은 퀴즈에 포함\n중간/기말 대신 매주 퀴즈로 평가하므로 중간/기말 점수도 퀴즈에 포함된다고 볼 수 있음."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this blog"
-  },
-  {
     "objectID": "posts/04wk-1.html#a.-트레이너의-제1역할-cpu에서-gpu로..",
     "href": "posts/04wk-1.html#a.-트레이너의-제1역할-cpu에서-gpu로..",
     "title": "04wk-1: 감성분석 파고들기 (2)",
@@ -145,6 +138,41 @@
     "title": "04wk-1: 감성분석 파고들기 (2)",
     "section": "C. 트레이너의 제3역할 – 학습 및 결과저장",
     "text": "C. 트레이너의 제3역할 – 학습 및 결과저장\n\n# 학습\n\n트레이너.train()\n\n\n    \n      \n      \n      [3126/3126 11:57, Epoch 2/2]\n    \n    \n\n\n\nEpoch\nTraining Loss\nValidation Loss\nModel Preparation Time\nAccuracy\n\n\n\n\n1\n0.221900\n0.199376\n0.001900\n0.923000\n\n\n2\n0.145700\n0.233206\n0.001900\n0.931000\n\n\n\n\n\n\nTrainOutput(global_step=3126, training_loss=0.20330691871472223, metrics={'train_runtime': 718.1146, 'train_samples_per_second': 69.627, 'train_steps_per_second': 4.353, 'total_flos': 6556904415524352.0, 'train_loss': 0.20330691871472223, 'epoch': 2.0})\n\n\n\n25000 / 16 \n\n1562.5\n\n\n\n1563 * 2 \n\n3126\n\n\n\n\n# 학습후\n- 인공지능이 똑똑해졌을까?\n- 인공지능의 파라메터 상태확인 3\n\n인공지능.classifier.weight\n\nParameter containing:\ntensor([[-0.0230,  0.0279,  0.0239,  ...,  0.0085, -0.0062, -0.0143],\n        [ 0.0084,  0.0007, -0.0097,  ...,  0.0189, -0.0008,  0.0304]],\n       device='cuda:0', requires_grad=True)\n\n\n인공지능의 파라메터 상태확인 2와 비교삿\nParameter containing:\ntensor([[-0.0234,  0.0279,  0.0242,  ...,  0.0091, -0.0063, -0.0133],\n        [ 0.0087,  0.0007, -0.0099,  ...,  0.0183, -0.0007,  0.0295]],\n       device='cuda:0', requires_grad=True)\n숫자들이 바뀐걸 확인 \\(\\to\\) 뭔가 다른 계산결과를 준다는 의미겠지? \\(\\to\\) 진짜 그런지 보자..\n- 인공지능을 이용한 예측 3\n\n확률계산하기(인공지능(**데이터콜렉터([토크나이저(\"This movie was a huge disappointment.\")]).to(\"cuda:0\")))\n\ntensor([[0.9885, 0.0115]], device='cuda:0', grad_fn=&lt;DivBackward0&gt;)\n\n\n\n확률계산하기(인공지능(**데이터콜렉터([토크나이저(\"This was a masterpiece.\")]).to(\"cuda:0\")))\n\ntensor([[0.0219, 0.9781]], device='cuda:0', grad_fn=&lt;DivBackward0&gt;)\n\n\n- 다시 트레이너를 이용하여 train_data, test_data 의 prediction 값을 구해보자.\n\n트레이너.predict(전처리된데이터['train'])\n\n\n\n\nPredictionOutput(predictions=array([[ 1.5927906 , -1.3617778 ],\n       [ 2.36449   , -2.1244614 ],\n       [ 2.1150742 , -1.9663404 ],\n       ...,\n       [-2.690494  ,  2.2624812 ],\n       [ 0.32332823, -0.05149931],\n       [-1.96404   ,  1.7741865 ]], dtype=float32), label_ids=array([0, 0, 0, ..., 1, 1, 1]), metrics={'test_loss': 0.1358911097049713, 'test_model_preparation_time': 0.0008, 'test_accuracy': 0.95244, 'test_runtime': 89.3077, 'test_samples_per_second': 279.931, 'test_steps_per_second': 17.501})\n\n\n\n트레이너.predict(전처리된데이터['test'])\n\nPredictionOutput(predictions=array([[ 2.5778208 , -2.250055  ],\n       [ 1.396875  , -1.2021751 ],\n       [ 2.1249173 , -1.9882215 ],\n       ...,\n       [-0.3729212 ,  0.34651938],\n       [ 0.19383232,  0.01419903],\n       [-1.2160491 ,  1.007748  ]], dtype=float32), label_ids=array([0, 0, 0, ..., 1, 1, 1]), metrics={'test_loss': 0.19937647879123688, 'test_model_preparation_time': 0.0008, 'test_accuracy': 0.923, 'test_runtime': 90.2744, 'test_samples_per_second': 276.933, 'test_steps_per_second': 17.314})\n\n\n- 우리가 가져야할 생각: 신기하다 X // 노가다 많이 했구나.. O"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this blog"
+  },
+  {
+    "objectID": "posts/06wk-1.html#a.-이미지-자료의-이해",
+    "href": "posts/06wk-1.html#a.-이미지-자료의-이해",
+    "title": "06wk-1: 영상 자료 분류",
+    "section": "A. 이미지 자료의 이해",
+    "text": "A. 이미지 자료의 이해\n- plt.imshow(...) 에서 ... 자리에 오는 numpy array의 shape이 (??,??) 와 같이 2차원 꼴이면 흑백이미지를 출력\n\nnp.array([[0, 150], [0,255]])\n\narray([[  0, 150],\n       [  0, 255]])\n\n\n\nplt.imshow(np.array([[0, 150], [0,255]]),cmap='gray')\nplt.colorbar()\n\n\n\n\n\n\n\n\n- plt.imshow(...) 에서 ... 자리에 오는 numpy array의 shape이 (??,??,3) 이러한 형태이면 칼라이미지를 출력\n\nR = np.array([[0,255],\n              [0,255]])\nG = np.array([[255,0],\n              [0,  0]])\nB = np.array([[0,  0],\n              [255,0]])\nplt.imshow(np.stack([R,G,B],axis=-1))\n\n\n\n\n\n\n\n\n- plt.imshow(...)에서 ... 자리에 오는 numpy array 의 dtype이 int인지 float인지에 따라서 시각화 결과가 다름\n\nint일 경우: 0을 최소값, 255를 최대값으로 생각하고 그림을 그려줌.\nfloat일 경우: 0.0을 최소값, 1.0을 최대값으로 생각하고 그림을 그려줌.\n\n\nR = np.array([[0,1],\n              [0,1]])\nG = np.array([[1,0],\n              [0,0]])\nB = np.array([[0,0],\n              [1,0]])\n#plt.imshow(np.stack([R,G,B],axis=-1))\nplt.imshow(np.stack([R,G,B],axis=-1).astype(float))"
+  },
+  {
+    "objectID": "posts/06wk-1.html#b.-tsr.permute",
+    "href": "posts/06wk-1.html#b.-tsr.permute",
+    "title": "06wk-1: 영상 자료 분류",
+    "section": "B. tsr.permute()",
+    "text": "B. tsr.permute()\n- 실수로 R,G,B 를 이상한 방식으로 stack 했다고 가정하자.\n\nR = np.array([[0,255],[0,255]])\nG = np.array([[255,0],[0,0]])\nB = np.array([[0,0],[255,0]])\n# img = np.stack([R,G,B],axis=-1) # &lt;-- 원래는 이걸 하려고 했었음.. \nimg = np.stack([R,G,B]) # &lt;-- 실수로 이렇게 만들었다고 하자... \nimgb.shape\n\n(3, 2, 2)\n\n\n- 차원이 맞지 않아서 plt.imshow(img)이 동작하지 않음. 동작하기 위해서는 plt.imshow(...) 에서 ... 자리에 있는 numpy array가 HWC 와 같은 형식으로 되어야함. (그런데 지금은 CHW 임)\n\nplt.imshow(img)\n\nTypeError: Invalid shape (3, 2, 2) for image data\n\n\n\n\n\n\n\n\n\n- 에러를 피하기 위해서는 차원을 (3,2,2) 에서 (2,2,3) 으로 바꾸어야함.\n\nimg.reshape(2,2,3)\n\narray([[[  0, 255,   0],\n        [255, 255,   0]],\n\n       [[  0,   0,   0],\n        [  0, 255,   0]]])\n\n\n\nplt.imshow(img.reshape(2,2,3)) # ?? 이상한 그림이 나왔음\n\n\n\n\n\n\n\n\n\n우리가 원하는 그림은 아니네??\n왜 이런일이 생기는가??\n\n- 이미지자료의 차원을 바꾸고 싶다면 reshape을 쓰지 말고 np.transpose를 이용하라\n\nimg.reshape(2,2,3),  np.transpose(img,(1,2,0)) \n\n(array([[[  0, 255,   0],\n         [255, 255,   0]],\n \n        [[  0,   0,   0],\n         [  0, 255,   0]]]),\n array([[[  0, 255,   0],\n         [255,   0,   0]],\n \n        [[  0,   0, 255],\n         [255,   0,   0]]]))\n\n\n\n위의 두개의 array는 차원이 같음. \\(\\to\\) 그림자체는 둘다 그려짐\n그렇지만 같은 array는 아님 \\(\\to\\) 당연히 그림도 달라짐\n\n\nfig, ax = plt.subplots(1,2)\nax[0].imshow(img.reshape(2,2,3))\nax[1].imshow(np.transpose(img, (1,2,0)))\nfig.tight_layout()\n\n\n\n\n\n\n\n\n\n왼쪽은 이상한 그림, 오른쪽은 우리가 원하는 그림\n\n- numpy array 가 아니고 pytorch tensor 일 경우에는 아래의 방법으로 변환\n\narr = np.random.rand(2,4,3) \ntsr = torch.tensor(arr)\n\n\nnp.transpose(arr,(2,0,1)) # (2,4,3) --&gt; (3,2,4) \n\narray([[[0.27584702, 0.16815745, 0.25444792, 0.09475079],\n        [0.048859  , 0.65654418, 0.03159763, 0.94437341]],\n\n       [[0.41382948, 0.35974014, 0.65847267, 0.19946487],\n        [0.59239361, 0.01188166, 0.84137569, 0.0137725 ]],\n\n       [[0.06343953, 0.67152107, 0.12494941, 0.59637759],\n        [0.3006623 , 0.03906701, 0.95668485, 0.7986497 ]]])\n\n\n\ntsr.permute(2,0,1) # (2,4,3) --&gt; (3,2,4) \n# np.transpose(tsr,(2,0,1)) # 같은코드\n\ntensor([[[0.2758, 0.1682, 0.2544, 0.0948],\n         [0.0489, 0.6565, 0.0316, 0.9444]],\n\n        [[0.4138, 0.3597, 0.6585, 0.1995],\n         [0.5924, 0.0119, 0.8414, 0.0138]],\n\n        [[0.0634, 0.6715, 0.1249, 0.5964],\n         [0.3007, 0.0391, 0.9567, 0.7986]]], dtype=torch.float64)"
+  },
+  {
+    "objectID": "posts/06wk-1.html#c.-영상-자료-이해",
+    "href": "posts/06wk-1.html#c.-영상-자료-이해",
+    "title": "06wk-1: 영상 자료 분류",
+    "section": "C. 영상 자료 이해",
+    "text": "C. 영상 자료 이해\n- 영상자료 = 여러사진들의 모음 = [사진1, 사진2, 사진3, 사진4, ….]\n\nnp.random.seed(43052)\nv = (np.random.rand(4,60,60,3)*255).astype(\"uint8\")\nv[0,:,:,0] = 255 # 첫번쨰 프레임의 R 채널을 모두 최대치로 설정 \nv[1,:,:,1] = 255 # 두번쨰 프레임의 G 채널을 모두 최대치로 설정 \nv[2,:,:,2] = 255 # 세번째 프레임의 B 채널을 모두 최대치로 설정 \n\n\nfig, ax = plt.subplots(2,2)\n# ax[0][0].imshow(v[0,:,:,:])\n# ax[0][1].imshow(v[1,:,:,:])\n# ax[1][0].imshow(v[2,:,:,:])\n# ax[1][1].imshow(v[3,:,:,:])\nax[0][0].imshow(v[0])\nax[0][1].imshow(v[1])\nax[1][0].imshow(v[2])\nax[1][1].imshow(v[3])\n\n\n\n\n\n\n\n\n\nframes = [frame for frame in v]\n#frames = [사진1, 사진2, 사진3, 사진4] \n\n\nimageio.mimsave(\"sample.gif\",frames)\n\n\nIPython.display.Image(\"sample.gif\")\n\n&lt;IPython.core.display.Image object&gt;"
+  },
+  {
+    "objectID": "posts/06wk-1.html#d.-np.clip",
+    "href": "posts/06wk-1.html#d.-np.clip",
+    "title": "06wk-1: 영상 자료 분류",
+    "section": "D. np.clip()",
+    "text": "D. np.clip()\n\narr = np.array([[300, -20, 150], [400, 100, 0], [255, 500, -100]])\narr\n\narray([[ 300,  -20,  150],\n       [ 400,  100,    0],\n       [ 255,  500, -100]])\n\n\n\nnp.clip(arr,0,255)\n\narray([[255,   0, 150],\n       [255, 100,   0],\n       [255, 255,   0]])"
   },
   {
     "objectID": "posts/02wk-1.html#a.-step1-데이터",
