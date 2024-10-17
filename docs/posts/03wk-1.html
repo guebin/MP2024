@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.533">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="최규빈">
+<meta name="dcterms.date" content="2024-09-19">
+
+<title>MP2024 - 03wk-1: 감성분석 파고들기 (1)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">MP2024</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../quiz.html"> 
+<span class="menu-text"><strong>Quiz</strong></span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/guebin/MP2024"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.youtube.com/channel/UCQk9RyBNgXc7ORIsYlOfQrg/playlists?view=50&amp;sort=dd&amp;shelf_id=2"> <i class="bi bi-youtube" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#강의영상" id="toc-강의영상" class="nav-link active" data-scroll-target="#강의영상">1. 강의영상</a></li>
+  <li><a href="#imports" id="toc-imports" class="nav-link" data-scroll-target="#imports">2. Imports</a></li>
+  <li><a href="#이전코드" id="toc-이전코드" class="nav-link" data-scroll-target="#이전코드">3. 이전코드</a></li>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset">4. DataSet</a></li>
+  <li><a href="#토크나이저" id="toc-토크나이저" class="nav-link" data-scroll-target="#토크나이저">5. 토크나이저</a></li>
+  <li><a href="#인공지능-star" id="toc-인공지능-star" class="nav-link" data-scroll-target="#인공지능-star">6. 인공지능 (<span class="math inline">\(\star\)</span>)</a>
+  <ul class="collapse">
+  <li><a href="#a.-1단계" id="toc-a.-1단계" class="nav-link" data-scroll-target="#a.-1단계">A. 1단계</a></li>
+  <li><a href="#b.-2단계" id="toc-b.-2단계" class="nav-link" data-scroll-target="#b.-2단계">B. 2단계</a></li>
+  <li><a href="#c.-3단계" id="toc-c.-3단계" class="nav-link" data-scroll-target="#c.-3단계">C. 3단계</a></li>
+  <li><a href="#d.-4단계" id="toc-d.-4단계" class="nav-link" data-scroll-target="#d.-4단계">D. 4단계</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="03wk-1.out.ipynb" download="03wk-1.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">03wk-1: 감성분석 파고들기 (1)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>최규빈 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 19, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="https://colab.research.google.com/github/guebin/MP2024/blob/main/posts/03wk-1.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" style="text-align: left"></a></p>
+<section id="강의영상" class="level1">
+<h1>1. 강의영상</h1>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/playlist?list=PLQqh36zP38-xEmEVHYPB2SRE2WCTskicZ&amp;si=cvDVr_m0CHoHNwvU" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
+<section id="imports" class="level1">
+<h1>2. Imports</h1>
+<div id="cell-5" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datasets</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> transformers</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> evaluate</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch <span class="co"># 파이토치</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/cgb3/anaconda3/envs/hf/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm</code></pre>
+</div>
+</div>
+</section>
+<section id="이전코드" class="level1">
+<h1>3. 이전코드</h1>
+<p><code>-</code> Step1~4를 위한 준비</p>
+<div id="cell-8" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Step1 </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터불러오기 = datasets.load_dataset</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터전처리하기1 = 토크나이저 = transformers.AutoTokenizer.from_pretrained("distilbert/distilbert-base-uncased") </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># def 데이터전처리하기2(examples):</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     return 데이터전처리하기1(examples["text"], truncation=True)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Step2 </span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 인공지능생성하기 = transformers.AutoModelForSequenceClassification.from_pretrained</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Step3 </span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터콜렉터 = transformers.DataCollatorWithPadding(tokenizer=토크나이저)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># def 평가하기(eval_pred):</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#     predictions, labels = eval_pred</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#     predictions = np.argmax(predictions, axis=1)</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#     accuracy = evaluate.load("accuracy")</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#     return accuracy.compute(predictions=predictions, references=labels)</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 트레이너세부지침생성기 = transformers.TrainingArguments</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 트레이너생성기 = transformers.Trainer</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Step4 </span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 강인공지능생성하기 = transformers.pipeline</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>-</code> Step 1~4</p>
+<div id="cell-10" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Step1 </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 = 데이터불러오기('imdb')</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 전처리된데이터 = 데이터.map(데이터전처리하기2,batched=True)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 전처리된훈련자료, 전처리된검증자료 = 전처리된데이터['train'], 전처리된데이터['test']</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Step2 </span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 인공지능 = 인공지능생성하기("distilbert/distilbert-base-uncased", num_labels=2)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Step3 </span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 트레이너세부지침 = 트레이너세부지침생성기(</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     output_dir="my_awesome_model",</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#     learning_rate=2e-5,</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#     per_device_train_batch_size=16,</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#     per_device_eval_batch_size=16,</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#     num_train_epochs=2, # 전체문제세트를 2번 공부하라..</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#     weight_decay=0.01,</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#     eval_strategy="epoch",</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     save_strategy="epoch",</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     load_best_model_at_end=True,</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#     push_to_hub=False,</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 트레이너 = 트레이너생성기(</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#     model=인공지능,</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#     args=트레이너세부지침,</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#     train_dataset=전처리된훈련자료,</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#     eval_dataset=전처리된검증자료,</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#     tokenizer=토크나이저,</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">#     data_collator=데이터콜렉터,</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">#     compute_metrics=평가하기,</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 트레이너.train()</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Step4 </span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 강인공지능 = 강인공지능생성하기("sentiment-analysis", model="my_awesome_model/checkpoint-1563")</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co"># print(강인공지능("This movie was a huge disappointment."))</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co"># print(강인공지능("This was a masterpiece."))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="dataset" class="level1">
+<h1>4. DataSet</h1>
+<p><code>-</code> 가장 중요한 원초적 질문: 데이터 셋을 바꿔치기 하려면?</p>
+<p><code>-</code> 내가 원하는 데이터를 아래와 같은 양식(=형태)으로 정리해야함.</p>
+<div id="cell-14" class="cell" data-execution_count="161">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>데이터 <span class="op">=</span> datasets.load_dataset(<span class="st">'imdb'</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>데이터</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="161">
+<pre><code>DatasetDict({
+    train: Dataset({
+        features: ['text', 'label'],
+        num_rows: 25000
+    })
+    test: Dataset({
+        features: ['text', 'label'],
+        num_rows: 25000
+    })
+    unsupervised: Dataset({
+        features: ['text', 'label'],
+        num_rows: 50000
+    })
+})</code></pre>
+</div>
+</div>
+<div id="cell-15" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>데이터, <span class="bu">type</span>(데이터)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>(DatasetDict({
+     train: Dataset({
+         features: ['text', 'label'],
+         num_rows: 25000
+     })
+     test: Dataset({
+         features: ['text', 'label'],
+         num_rows: 25000
+     })
+     unsupervised: Dataset({
+         features: ['text', 'label'],
+         num_rows: 50000
+     })
+ }),
+ datasets.dataset_dict.DatasetDict)</code></pre>
+</div>
+</div>
+<div id="cell-16" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>데이터[<span class="st">'train'</span>], <span class="bu">type</span>(데이터[<span class="st">'train'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>(Dataset({
+     features: ['text', 'label'],
+     num_rows: 25000
+ }),
+ datasets.arrow_dataset.Dataset)</code></pre>
+</div>
+</div>
+<div id="cell-17" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>데이터[<span class="st">'train'</span>][<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>{'text': 'I rented I AM CURIOUS-YELLOW from my video store because of all the controversy that surrounded it when it was first released in 1967. I also heard that at first it was seized by U.S. customs if it ever tried to enter this country, therefore being a fan of films considered "controversial" I really had to see this for myself.&lt;br /&gt;&lt;br /&gt;The plot is centered around a young Swedish drama student named Lena who wants to learn everything she can about life. In particular she wants to focus her attentions to making some sort of documentary on what the average Swede thought about certain political issues such as the Vietnam War and race issues in the United States. In between asking politicians and ordinary denizens of Stockholm about their opinions on politics, she has sex with her drama teacher, classmates, and married men.&lt;br /&gt;&lt;br /&gt;What kills me about I AM CURIOUS-YELLOW is that 40 years ago, this was considered pornographic. Really, the sex and nudity scenes are few and far between, even then it\'s not shot like some cheaply made porno. While my countrymen mind find it shocking, in reality sex and nudity are a major staple in Swedish cinema. Even Ingmar Bergman, arguably their answer to good old boy John Ford, had sex scenes in his films.&lt;br /&gt;&lt;br /&gt;I do commend the filmmakers for the fact that any sex shown in the film is shown for artistic purposes rather than just to shock people and make money to be shown in pornographic theaters in America. I AM CURIOUS-YELLOW is a good film for anyone wanting to study the meat and potatoes (no pun intended) of Swedish cinema. But really, this film doesn\'t have much of a plot.',
+ 'label': 0}</code></pre>
+</div>
+</div>
+<p><code>-</code> <code>datasets.arrow_dataset.Dataset</code> 의 인스턴스 만들기</p>
+<p>아래와 같은 함수가 있음.</p>
+<div id="cell-20" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#datasets.Dataset.from_dict?</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#클래스메소드</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="math inline">\(\star\)</span> <code>datasets.Dataset.from_dict</code> 사용법 (ref: ChatGPT)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>datasets.Dataset.from_dict</code>는 Python의 딕셔너리(<code>dict</code>)를 <code>Dataset</code> 객체로 변환하는 함수입니다. 주로 딕셔너리 형태의 데이터를 빠르게 데이터셋으로 변환할 때 사용됩니다.</p>
+<p><strong>간단한 사용법</strong></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> Dataset</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 딕셔너리를 Dataset으로 변환</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>data_dict <span class="op">=</span> {</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'text'</span>: [<span class="st">"Hello world"</span>, <span class="st">"How are you?"</span>, <span class="st">"Fine, thanks!"</span>],</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'label'</span>: [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Dataset 생성</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> Dataset.from_dict(data_dict)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 출력</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(dataset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>주요 매개변수:</strong></p>
+<ul>
+<li><code>mapping</code>: 필수, 문자열을 키로 하고 리스트 또는 배열을 값으로 하는 딕셔너리.</li>
+<li><code>features</code>: 선택, 데이터셋의 각 필드 타입을 정의.</li>
+<li><code>info</code>: 선택, 데이터셋에 대한 추가 정보(설명, 인용 등).</li>
+<li><code>split</code>: 선택, 데이터셋의 나누기(‘train’, ‘test’ 등).</li>
+</ul>
+<p><strong>반환값:</strong></p>
+<ul>
+<li><code>Dataset</code>: PyArrow 기반의 데이터셋 객체.</li>
+</ul>
+</div>
+</div>
+<div id="cell-22" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>train_dict <span class="op">=</span> {</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'text'</span>: [</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"I prefer making decisions based on logic and objective facts."</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"I always consider how others might feel when making a decision."</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Data and analysis drive most of my decisions."</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"I rely on my empathy and personal values to guide my choices."</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'label'</span>: [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>]  <span class="co"># 0은 T(사고형), 1은 F(감정형)</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>test_dict <span class="op">=</span> {</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'text'</span>: [</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"I find it important to weigh all the pros and cons logically."</span>,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"When making decisions, I prioritize harmony and people's emotions."</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'label'</span>: [<span class="dv">0</span>, <span class="dv">1</span>]  <span class="co"># 0은 T(사고형), 1은 F(감정형)</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-23" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>train_data <span class="op">=</span> datasets.Dataset.from_dict(train_dict)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>test_data <span class="op">=</span> datasets.Dataset.from_dict(test_dict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>-</code> <code>datasets.dataset_dict.DatasetDict</code>의 인스턴스 만들기</p>
+<div id="cell-25" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>나의데이터 <span class="op">=</span> datasets.dataset_dict.DatasetDict({<span class="st">'train'</span>:train_data, <span class="st">'test'</span>:test_data})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-26" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>나의데이터[<span class="st">'train'</span>][<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<pre><code>{'text': 'I prefer making decisions based on logic and objective facts.',
+ 'label': 0}</code></pre>
+</div>
+</div>
+<p><code>-</code> 일단 아래와 같은 형태로 분석할 데이터를 저장할 수 있다면, 나머지 분석은 코드를 복/붙하여 진행할 수 있음.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>train_dict <span class="op">=</span> {</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'text'</span>: [</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"I prefer making decisions based on logic and objective facts."</span>,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"I always consider how others might feel when making a decision."</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Data and analysis drive most of my decisions."</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"I rely on my empathy and personal values to guide my choices."</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'label'</span>: [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>]  <span class="co"># 0은 T(사고형), 1은 F(감정형)</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>test_dict <span class="op">=</span> {</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'text'</span>: [</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"I find it important to weigh all the pros and cons logically."</span>,</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"When making decisions, I prioritize harmony and people's emotions."</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'label'</span>: [<span class="dv">0</span>, <span class="dv">1</span>]  <span class="co"># 0은 T(사고형), 1은 F(감정형)</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="토크나이저" class="level1">
+<h1>5. 토크나이저</h1>
+<p><code>-</code> 토크나이저를 불러오는 코드</p>
+<div id="cell-30" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>토크나이저 <span class="op">=</span> 데이터전처리하기<span class="dv">1</span> <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/cgb3/anaconda3/envs/hf/lib/python3.12/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(</code></pre>
+</div>
+</div>
+<div id="cell-31" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#토크나이저?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="math inline">\(\star\)</span> <code>토크나이저</code> 사용법 (ref: ChatGPT)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>주요 파라미터</strong>:</p>
+<ol type="1">
+<li><strong>text</strong>:
+<ul>
+<li><code>Union[str, List[str], List[List[str]]]</code></li>
+<li>주어진 텍스트를 토큰화합니다. 이 텍스트는 문자열일 수도 있고, 문자열의 리스트 또는 리스트 안의 리스트일 수도 있습니다.</li>
+</ul></li>
+<li><strong>text_pair</strong>:
+<ul>
+<li><code>Union[str, List[str], List[List[str]], NoneType]</code></li>
+<li>두 개의 텍스트를 함께 모델에 입력할 때 사용됩니다. 예를 들어, 질문-답변 쌍 같은 경우 이 두 번째 텍스트를 넣습니다.</li>
+</ul></li>
+<li><strong>text_target</strong>:
+<ul>
+<li><code>Union[str, List[str], List[List[str]]]</code></li>
+<li>토큰화를 할 때 목표(target) 텍스트에 해당하는 부분입니다. 주로 시퀀스 생성 모델에서 활용됩니다.</li>
+</ul></li>
+<li><strong>text_pair_target</strong>:
+<ul>
+<li><code>Union[str, List[str], List[List[str]], NoneType]</code></li>
+<li>위의 <code>text_pair</code>와 유사하게 목표(target) 텍스트의 두 번째 텍스트를 나타냅니다.</li>
+</ul></li>
+<li><strong>add_special_tokens</strong>:
+<ul>
+<li><code>bool</code></li>
+<li>문장의 시작, 끝, 구분자 같은 특별한 토큰을 추가할지 여부를 결정합니다. 기본값은 <code>True</code>입니다.</li>
+</ul></li>
+<li><strong>padding</strong>:
+<ul>
+<li><code>Union[bool, str, transformers.utils.generic.PaddingStrategy]</code></li>
+<li>문장 길이가 다를 때 패딩을 넣어 문장의 길이를 동일하게 맞춥니다. 패딩 전략에는 <code>True</code>, <code>False</code>, <code>'longest'</code>, <code>'max_length'</code> 등이 있습니다.</li>
+</ul></li>
+<li><strong>truncation</strong>:
+<ul>
+<li><code>Union[bool, str, transformers.tokenization_utils_base.TruncationStrategy]</code></li>
+<li>문장이 너무 길 경우 지정된 최대 길이에 맞춰 잘라내는 옵션입니다. 전략에는 <code>True</code>, <code>False</code>, <code>'longest_first'</code>, <code>'only_first'</code>, <code>'only_second'</code> 등이 있습니다.</li>
+</ul></li>
+<li><strong>max_length</strong>:
+<ul>
+<li><code>Optional[int]</code></li>
+<li>문장의 최대 길이를 설정합니다. <code>None</code>일 경우 기본 설정을 따릅니다.</li>
+</ul></li>
+<li><strong>stride</strong>:
+<ul>
+<li><code>int</code></li>
+<li>텍스트를 자를 때 중첩을 만들기 위한 옵션입니다. 즉, 자른 부분과 다음 부분 사이의 겹치는 범위를 설정합니다.</li>
+</ul></li>
+<li><strong>is_split_into_words</strong>:
+<ul>
+<li><code>bool</code></li>
+<li>텍스트가 이미 단어 단위로 분리되어 있는지 여부를 나타냅니다. 기본적으로는 <code>False</code>로, 텍스트가 단어 단위로 분리되지 않았다고 가정합니다.</li>
+</ul></li>
+<li><strong>return_tensors</strong>:
+<ul>
+<li><code>Union[str, transformers.utils.generic.TensorType, NoneType]</code></li>
+<li>출력 형식으로 텐서를 반환할지 여부를 설정합니다. <code>'pt'</code>(PyTorch), <code>'tf'</code>(TensorFlow), <code>'np'</code>(NumPy) 등을 지정할 수 있습니다.</li>
+</ul></li>
+<li><strong>return_token_type_ids</strong>:
+<ul>
+<li><code>Optional[bool]</code></li>
+<li>토큰 타입 ID를 반환할지 여부를 설정합니다. 주로 두 개의 문장을 함께 처리할 때 문장을 구분하기 위해 사용됩니다.</li>
+</ul></li>
+<li><strong>return_attention_mask</strong>:
+<ul>
+<li><code>Optional[bool]</code></li>
+<li><code>attention_mask</code>를 반환할지 여부를 설정합니다. 패딩된 토큰이 모델의 어텐션에 영향을 주지 않도록 마스크를 설정합니다.</li>
+</ul></li>
+<li><strong>return_overflowing_tokens</strong>:
+<ul>
+<li><code>bool</code></li>
+<li>텍스트가 최대 길이를 초과하는 경우, 잘린 토큰을 반환할지 여부를 결정합니다.</li>
+</ul></li>
+<li><strong>return_special_tokens_mask</strong>:
+<ul>
+<li><code>bool</code></li>
+<li>특별한 토큰에 대한 마스크를 반환할지 여부를 설정합니다.</li>
+</ul></li>
+<li><strong>return_offsets_mapping</strong>:
+<ul>
+<li><code>bool</code></li>
+<li>텍스트의 각 토큰이 원본 텍스트에서 어느 위치에 있는지 나타내는 오프셋 맵핑을 반환할지 여부를 설정합니다.</li>
+</ul></li>
+<li><strong>return_length</strong>:
+<ul>
+<li><code>bool</code></li>
+<li>토큰화된 문장의 길이를 반환할지 여부를 설정합니다.</li>
+</ul></li>
+<li><strong>verbose</strong>:
+<ul>
+<li><code>bool</code></li>
+<li>디버깅 메시지를 출력할지 여부를 설정합니다. 기본값은 <code>True</code>로 설정되어 있습니다.</li>
+</ul></li>
+</ol>
+<p><strong>사용 예시</strong>:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> AutoTokenizer</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 토크나이저 불러오기</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> AutoTokenizer.from_pretrained(<span class="st">"bert-base-uncased"</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 텍스트 토큰화</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>encoding <span class="op">=</span> tokenizer(</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    text<span class="op">=</span><span class="st">"Hello, how are you?"</span>,</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    padding<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    truncation<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    max_length<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    return_tensors<span class="op">=</span><span class="st">'pt'</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(encoding)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>이 코드에서는 “Hello, how are you?”라는 텍스트를 <code>bert-base-uncased</code> 토크나이저로 토큰화하고, 패딩과 트렁케이션을 적용하며, PyTorch 텐서 형식으로 반환하도록 설정했습니다.</p>
+<p>이러한 파라미터는 주로 자연어 처리(NLP) 모델을 훈련하거나 추론할 때 데이터 전처리 과정에서 많이 사용됩니다.</p>
+</div>
+</div>
+<p><code>-</code> 기본사용1: 토크나이저의 기능 – (1) 단어별로 다른숫자를 맵핑 (2) 처음과 끝은 각각 <code>101</code>, <code>102</code>라는 숫자로 맵핑</p>
+<div id="cell-34" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>토크나이저(<span class="st">'hi hello'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>{'input_ids': [101, 7632, 7592, 102], 'attention_mask': [1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<div id="cell-35" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>토크나이저(<span class="st">'hi hi hello'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>{'input_ids': [101, 7632, 7632, 7592, 102], 'attention_mask': [1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<div id="cell-36" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>토크나이저(<span class="st">'hi hi hello hello hello hi'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>{'input_ids': [101, 7632, 7632, 7592, 7592, 7592, 7632, 102], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<p><code>-</code> 기본사용2: 여러개의 텍스트도 <code>[텍스트1, 텍스트2, ... ]</code> 꼴로 전달하면 토크나이저가 알아서 잘 처리해준다.</p>
+<div id="cell-38" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>토크나이저([<span class="st">'hi hello'</span>, <span class="st">'hello hello hello'</span>, <span class="st">'hi hi'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>{'input_ids': [[101, 7632, 7592, 102], [101, 7592, 7592, 7592, 102], [101, 7632, 7632, 102]], 'attention_mask': [[1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1]]}</code></pre>
+</div>
+</div>
+<p><code>-</code> <code>truncation=True</code> 의 역할 – 너무 문장이 길면 잘라내는 역할을 한다.</p>
+<div id="cell-40" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>토크나이저(<span class="st">'hi hello '</span><span class="op">*</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="45">
+<pre><code>{'input_ids': [101, 7632, 7592, 7632, 7592, 102], 'attention_mask': [1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<div id="cell-41" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(토크나이저(<span class="st">'hi hello '</span><span class="op">*</span><span class="dv">2</span>)[<span class="st">'input_ids'</span>]), <span class="bu">len</span>(토크나이저(<span class="st">'hi hello '</span><span class="op">*</span><span class="dv">2</span>)[<span class="st">'attention_mask'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>(6, 6)</code></pre>
+</div>
+</div>
+<div id="cell-42" class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(토크나이저(<span class="st">'hi hello '</span><span class="op">*</span><span class="dv">300</span>,truncation<span class="op">=</span><span class="va">True</span>)[<span class="st">'input_ids'</span>]) <span class="co"># 원래는 602가 나와야하는데 짤려서 512만 나옴</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="54">
+<pre><code>512</code></pre>
+</div>
+</div>
+<p><code>-</code> 너무 문장이 짧아서 뭔가를 채우기도 할까? – <code>max_length</code>, <code>padding</code>, <code>attention_mask</code></p>
+<div id="cell-44" class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>토크나이저(<span class="st">'hi hello'</span>, max_length <span class="op">=</span> <span class="dv">10</span>, padding<span class="op">=</span><span class="st">"max_length"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="48">
+<pre><code>{'input_ids': [101, 7632, 7592, 102, 0, 0, 0, 0, 0, 0], 'attention_mask': [1, 1, 1, 1, 0, 0, 0, 0, 0, 0]}</code></pre>
+</div>
+</div>
+</section>
+<section id="인공지능-star" class="level1">
+<h1>6. 인공지능 (<span class="math inline">\(\star\)</span>)</h1>
+<section id="a.-1단계" class="level2">
+<h2 class="anchored" data-anchor-id="a.-1단계">A. 1단계</h2>
+<blockquote class="blockquote">
+<p>인공지능에 대한 이해</p>
+</blockquote>
+<p><code>-</code> 인공지능 불러오기</p>
+<div id="cell-49" class="cell" data-execution_count="141">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">43052</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>인공지능 <span class="op">=</span> model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Some weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
+</div>
+</div>
+<p><code>-</code> 인공지능의 정체? 엄청나게 많은 숫자들이 포함된 어떠한 물체 (엄청나게 많은 파라메터들이 포함된 네트워크)</p>
+<div id="cell-51" class="cell" data-execution_count="134">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>인공지능</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="134">
+<pre><code>DistilBertForSequenceClassification(
+  (distilbert): DistilBertModel(
+    (embeddings): Embeddings(
+      (word_embeddings): Embedding(30522, 768, padding_idx=0)
+      (position_embeddings): Embedding(512, 768)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (transformer): Transformer(
+      (layer): ModuleList(
+        (0-5): 6 x TransformerBlock(
+          (attention): MultiHeadSelfAttention(
+            (dropout): Dropout(p=0.1, inplace=False)
+            (q_lin): Linear(in_features=768, out_features=768, bias=True)
+            (k_lin): Linear(in_features=768, out_features=768, bias=True)
+            (v_lin): Linear(in_features=768, out_features=768, bias=True)
+            (out_lin): Linear(in_features=768, out_features=768, bias=True)
+          )
+          (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+          (ffn): FFN(
+            (dropout): Dropout(p=0.1, inplace=False)
+            (lin1): Linear(in_features=768, out_features=3072, bias=True)
+            (lin2): Linear(in_features=3072, out_features=768, bias=True)
+            (activation): GELUActivation()
+          )
+          (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+        )
+      )
+    )
+  )
+  (pre_classifier): Linear(in_features=768, out_features=768, bias=True)
+  (classifier): Linear(in_features=768, out_features=2, bias=True)
+  (dropout): Dropout(p=0.2, inplace=False)
+)</code></pre>
+</div>
+</div>
+<div id="cell-52" class="cell" data-execution_count="135">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>인공지능.classifier.weight</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="135">
+<pre><code>Parameter containing:
+tensor([[-0.0234,  0.0279,  0.0242,  ...,  0.0091, -0.0063, -0.0133],
+        [ 0.0087,  0.0007, -0.0099,  ...,  0.0183, -0.0007,  0.0295]],
+       requires_grad=True)</code></pre>
+</div>
+</div>
+<div id="cell-53" class="cell" data-execution_count="136">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>인공지능.pre_classifier.weight</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="136">
+<pre><code>Parameter containing:
+tensor([[-0.0122,  0.0030,  0.0301,  ...,  0.0003,  0.0327, -0.0123],
+        [-0.0041,  0.0008,  0.0169,  ..., -0.0163, -0.0117, -0.0135],
+        [ 0.0020, -0.0215, -0.0021,  ...,  0.0016,  0.0102, -0.0483],
+        ...,
+        [-0.0026, -0.0327,  0.0099,  ...,  0.0341, -0.0184, -0.0109],
+        [ 0.0088, -0.0345, -0.0011,  ...,  0.0018,  0.0172, -0.0122],
+        [-0.0148,  0.0147, -0.0184,  ..., -0.0166,  0.0241,  0.0201]],
+       requires_grad=True)</code></pre>
+</div>
+</div>
+<p><code>-</code> 인공지능? “입력정보 -&gt; 정리된숫자 -&gt; 계산 -&gt; 계산된숫자 -&gt; 출력정보” 의 과정에서 “계산”을 담당.</p>
+<ul>
+<li>인공지능이 가지고 있는 숫자들은 “계산”에 사용된다.</li>
+</ul>
+<p><code>-</code> 입력정보에 영화에 대한 부정적 평가에 해당하는 텍스트를 넣는다면?</p>
+<div id="cell-56" class="cell" data-execution_count="137">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>입력정보_원시텍스트 <span class="op">=</span> <span class="st">"This movie was a huge disappointment."</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>정리된숫자_토큰화된자료 <span class="op">=</span> 토크나이저(입력정보_원시텍스트,return_tensors<span class="op">=</span><span class="st">'pt'</span>)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>정리된숫자_토큰화된자료</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="137">
+<pre><code>{'input_ids': tensor([[  101,  2023,  3185,  2001,  1037,  4121, 10520,  1012,   102]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1]])}</code></pre>
+</div>
+</div>
+<div id="cell-57" class="cell" data-execution_count="138">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>인공지능(<span class="op">**</span>정리된숫자_토큰화된자료)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="138">
+<pre><code>SequenceClassifierOutput(loss=None, logits=tensor([[-0.1173,  0.0261]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<div id="cell-58" class="cell" data-execution_count="139">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>계산된숫자_로짓 <span class="op">=</span> 인공지능(<span class="op">**</span>정리된숫자_토큰화된자료).logits.detach().numpy()</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>계산된숫자_로짓</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="139">
+<pre><code>array([[-0.11731046,  0.02610319]], dtype=float32)</code></pre>
+</div>
+</div>
+<div id="cell-59" class="cell" data-execution_count="140">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>출력정보_확률 <span class="op">=</span> np.exp(계산된숫자_로짓)<span class="op">/</span>np.exp(계산된숫자_로짓).<span class="bu">sum</span>() <span class="co"># 0일확률(=부정평가일확률), 1일확률(=긍정평가일확률)</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>출력정보_확률</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="140">
+<pre><code>array([[0.46420792, 0.53579205]], dtype=float32)</code></pre>
+</div>
+</div>
+<div id="cell-60" class="cell" data-execution_count="145">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>출력정보_확률.argmax() <span class="co"># 부정적 영화평가에 대한 인공지능의 예측 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="145">
+<pre><code>1</code></pre>
+</div>
+</div>
+<div id="cell-61" class="cell" data-execution_count="147">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>계산된숫자_로짓.argmax() <span class="co"># 부정적 영화평가에 대한 인공지능의 예측 &lt;-- 이렇게 구해도 됩니다.. 왜??</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="147">
+<pre><code>1</code></pre>
+</div>
+</div>
+<p><code>-</code> 입력정보에 영화에 대한 긍정적 평가에 해당하는 텍스트를 넣는다면?</p>
+<div id="cell-63" class="cell" data-execution_count="148">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>입력정보_원시텍스트 <span class="op">=</span> <span class="st">"This was a masterpiece."</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>정리된숫자_토큰화된자료 <span class="op">=</span> 토크나이저(입력정보_원시텍스트,return_tensors<span class="op">=</span><span class="st">'pt'</span>)</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>정리된숫자_토큰화된자료</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="148">
+<pre><code>{'input_ids': tensor([[  101,  2023,  2001,  1037, 17743,  1012,   102]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1]])}</code></pre>
+</div>
+</div>
+<div id="cell-64" class="cell" data-execution_count="149">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>인공지능(<span class="op">**</span>정리된숫자_토큰화된자료)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="149">
+<pre><code>SequenceClassifierOutput(loss=None, logits=tensor([[-0.1080,  0.0264]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<div id="cell-65" class="cell" data-execution_count="150">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>계산된숫자_로짓 <span class="op">=</span> 인공지능(<span class="op">**</span>정리된숫자_토큰화된자료).logits.detach().numpy()</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>계산된숫자_로짓</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="150">
+<pre><code>array([[-0.10802954,  0.02638793]], dtype=float32)</code></pre>
+</div>
+</div>
+<div id="cell-66" class="cell" data-execution_count="151">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>출력정보_확률 <span class="op">=</span> np.exp(계산된숫자_로짓)<span class="op">/</span>np.exp(계산된숫자_로짓).<span class="bu">sum</span>() <span class="co"># 0일확률(=부정평가일확률), 1일확률(=긍정평가일확률)</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>출력정보_확률</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="151">
+<pre><code>array([[0.46644613, 0.53355384]], dtype=float32)</code></pre>
+</div>
+</div>
+<div id="cell-67" class="cell" data-execution_count="152">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>출력정보_확률.argmax() <span class="co"># 긍정적 영화평가에 대한 인공지능의 예측 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="152">
+<pre><code>1</code></pre>
+</div>
+</div>
+<div id="cell-68" class="cell" data-execution_count="154">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>계산된숫자_로짓.argmax() <span class="co"># 긍정적 영화평가에 대한 인공지능의 예측</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="154">
+<pre><code>1</code></pre>
+</div>
+</div>
+<p><code>-</code> 아무숫자나 뱉어내는 듯 <span class="math inline">\(\to\)</span> 멍청한 인공지능 (옹호: 멍청한건 당연함. 아직 학습전이니까)</p>
+<p><code>-</code> 인공지능에 대한 이해1: 인공지능은 “정리된숫자”를 입력으로 하고 일련의 계산을 거쳐서 “계산된숫자”를 출력해주는 함수라 생각할 수 있음.</p>
+<p><code>-</code> 인공지능에 대한 이해2: 인공지능은 (1) 많은숫자들과 (2) 고유의 계산방식을 가지고 있음.</p>
+<ul>
+<li>인공지능이 내부에 자체적으로 저장하고 있는 숫자들 “파라메터”라고 부름.</li>
+<li>인공지능은 나름의 법칙에 따라 “데이터”와 “파라메터”의 숫자들을 연산함. 즉 인공지능은 자체적으로 데이터와 파라메터를 어떻게 계산할지 알고있는데, 이러한 고유의 계산방식을 “아키텍처”라고 말함.</li>
+</ul>
+<p><code>-</code> 인공지능에 대한 이해3: 두개의 인공지능이 서로 다른 고유의 계산방식을 가지고 있다면 두 인공지능은 “다른 모델” 임.</p>
+<p><code>-</code> 인공지능에 대한 이해3’: 동일한 생성방식으로 만들어진 인공지능들은 모두 같은 모델임. 예를들면 아래의 인공지능1,2는 같은 모델임</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>인공지능<span class="dv">1</span> <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>인공지능<span class="dv">2</span> <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>-</code> 인공지능에 대한 이해4: 두 인공지능이 같은모델이라고 해도, 항상 같은 결과를 주는건 아님. 파라메터에 따라 다른 결과를 줄 수도 있음. (예를들면 위의 인공지능1,2는 같은 모델이지만 다른 파라메터를 가지므로 다른 결과를 줌)</p>
+</section>
+<section id="b.-2단계" class="level2">
+<h2 class="anchored" data-anchor-id="b.-2단계">B. 2단계</h2>
+<blockquote class="blockquote">
+<p>미니배치의 이해</p>
+</blockquote>
+<p><code>-</code> 예비학습</p>
+<div id="cell-78" class="cell" data-execution_count="156">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> np.array([[<span class="dv">1</span>,<span class="dv">2</span>],[<span class="dv">2</span>,<span class="dv">3</span>],[<span class="dv">3</span>,<span class="dv">4</span>]])</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>arr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="156">
+<pre><code>array([[1, 2],
+       [2, 3],
+       [3, 4]])</code></pre>
+</div>
+</div>
+<div id="cell-79" class="cell" data-execution_count="159">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>arr <span class="op">/</span> arr.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="159">
+<pre><code>array([[0.33333333, 0.66666667],
+       [0.4       , 0.6       ],
+       [0.42857143, 0.57142857]])</code></pre>
+</div>
+</div>
+<p><code>-</code> 예비개념1: 인공지능은 사실 영화평을 하나씩 하나씩 처리하지 않는다. 덩어리로 처리한다.</p>
+<p><code>-</code> 예비개념2: 그렇다고 해서 인공지능이 25000개를 모두 덩어리로 처리하는건 아니다 <span class="math inline">\(\to\)</span> 16개씩 혹은 32개씩 묶어서 작은덩어리를 만든 후 처리한다.</p>
+<ul>
+<li>16, 32와 같은 숫자를 <code>batch_size</code> 라고 한다.</li>
+<li>16개, 32개로 모인 작은덩어리를 미니배치라고 한다.</li>
+</ul>
+<p><code>-</code> 16개의 입력정보를 한번에 처리</p>
+<div id="cell-83" class="cell" data-execution_count="175">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>입력정보들_원시텍스트 <span class="op">=</span> 데이터[<span class="st">'train'</span>][:<span class="dv">16</span>][<span class="st">'text'</span>]</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료 <span class="op">=</span> 토크나이저(입력정보들_원시텍스트,truncation<span class="op">=</span><span class="va">True</span>,return_tensors<span class="op">=</span><span class="st">'pt'</span>,padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>계산된숫자들_로짓 <span class="op">=</span> 인공지능(<span class="op">**</span>정리된숫자들_토큰화된자료).logits.detach().numpy()</span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>출력정보들_확률 <span class="op">=</span> np.exp(계산된숫자들_로짓) <span class="op">/</span> np.exp(계산된숫자들_로짓).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>출력정보들_확률</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="175">
+<pre><code>array([[0.47823825, 0.5217617 ],
+       [0.47215328, 0.5278467 ],
+       [0.4804948 , 0.5195052 ],
+       [0.46609667, 0.5339033 ],
+       [0.48814487, 0.5118551 ],
+       [0.48004225, 0.5199578 ],
+       [0.49288097, 0.50711906],
+       [0.49470255, 0.5052974 ],
+       [0.4941453 , 0.50585467],
+       [0.49016201, 0.50983804],
+       [0.495789  , 0.504211  ],
+       [0.48260576, 0.51739424],
+       [0.49386355, 0.5061364 ],
+       [0.49013382, 0.5098662 ],
+       [0.48240176, 0.5175982 ],
+       [0.49301967, 0.5069803 ]], dtype=float32)</code></pre>
+</div>
+</div>
+<div id="cell-84" class="cell" data-execution_count="177">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>계산된숫자들_로짓.argmax(axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># 인공지능의 예측</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="177">
+<pre><code>array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])</code></pre>
+</div>
+</div>
+<p><code>-</code> 기억할 것: <code>정리된숫자들_토큰화된자료</code> 는 모두 길이가 512임. (그렇게 되도록 패딩함)</p>
+<div id="cell-86" class="cell" data-execution_count="182">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료[<span class="st">'input_ids'</span>].shape, 정리된숫자들_토큰화된자료[<span class="st">'attention_mask'</span>].shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="182">
+<pre><code>(torch.Size([16, 512]), torch.Size([16, 512]))</code></pre>
+</div>
+</div>
+<p><code>-</code> 실제 단어수</p>
+<div id="cell-88" class="cell" data-execution_count="190">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료[<span class="st">'attention_mask'</span>].<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="190">
+<pre><code>tensor([363, 304, 133, 185, 495, 154, 143, 388, 512, 297, 365, 171, 192, 173,
+        470, 263])</code></pre>
+</div>
+</div>
+<p><code>-</code> 패딩된단어수</p>
+<div id="cell-90" class="cell" data-execution_count="191">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="dv">512</span><span class="op">-</span>정리된숫자들_토큰화된자료[<span class="st">'attention_mask'</span>].<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="191">
+<pre><code>tensor([149, 208, 379, 327,  17, 358, 369, 124,   0, 215, 147, 341, 320, 339,
+         42, 249])</code></pre>
+</div>
+</div>
+<p><code>-</code> 이러한 변환이 필요한 이유? 인공지능은 항상 <code>(n,m)</code> 차원으로 정리된 숫자들만 입력으로 받을 수 있음.</p>
+<ul>
+<li>왜? 사실 인공지능은 행렬계산을 하도록 설계되어있음.</li>
+<li>그래서 할수없이 padding을 하거나 truncation을 하는 것임. (실제로는 행렬이 아니지만 억지로 행렬을 만들기 위해서)</li>
+</ul>
+</section>
+<section id="c.-3단계" class="level2">
+<h2 class="anchored" data-anchor-id="c.-3단계">C. 3단계</h2>
+<blockquote class="blockquote">
+<p>동적패딩을 이해하자.</p>
+</blockquote>
+<p><code>-</code> 만약에 <code>batch_size=4</code>로 설정하여 처리한다면?</p>
+<div id="cell-95" class="cell" data-execution_count="202">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>입력정보들_원시텍스트 <span class="op">=</span> 데이터[<span class="st">'train'</span>][:<span class="dv">4</span>][<span class="st">'text'</span>]</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료 <span class="op">=</span> 토크나이저(입력정보들_원시텍스트,truncation<span class="op">=</span><span class="va">True</span>,return_tensors<span class="op">=</span><span class="st">'pt'</span>,padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>계산된숫자들_로짓 <span class="op">=</span> 인공지능(<span class="op">**</span>정리된숫자들_토큰화된자료).logits.detach().numpy()</span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>출력정보들_확률 <span class="op">=</span> np.exp(계산된숫자들_로짓) <span class="op">/</span> np.exp(계산된숫자들_로짓).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>출력정보들_확률</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="202">
+<pre><code>array([[0.47823825, 0.5217618 ],
+       [0.47215328, 0.5278467 ],
+       [0.4804948 , 0.5195052 ],
+       [0.46609667, 0.5339033 ]], dtype=float32)</code></pre>
+</div>
+</div>
+<div id="cell-96" class="cell" data-execution_count="203">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>계산된숫자들_로짓.argmax(axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># 인공지능의 예측 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="203">
+<pre><code>array([1, 1, 1, 1])</code></pre>
+</div>
+</div>
+<p><code>-</code> <code>정리된숫자들_토큰화된자료['input_ids']</code> 의 차원은 어떠할까? (4,512)</p>
+<div id="cell-98" class="cell" data-execution_count="204">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료[<span class="st">'input_ids'</span>].shape, 정리된숫자들_토큰화된자료[<span class="st">'attention_mask'</span>].shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="204">
+<pre><code>(torch.Size([4, 363]), torch.Size([4, 363]))</code></pre>
+</div>
+</div>
+<ul>
+<li>끝의 차원이 512가 아니라 363이다.. 왜??</li>
+</ul>
+<p><code>-</code> 덩어리의 상태에 따라서 유동적으로 패딩 <span class="math inline">\(\to\)</span> 이렇게 해도 잘 돌아감</p>
+<div id="cell-101" class="cell" data-execution_count="209">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>입력정보들_원시텍스트 <span class="op">=</span> 데이터[<span class="st">'train'</span>][:<span class="dv">4</span>][<span class="st">'text'</span>]</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료 <span class="op">=</span> 토크나이저(입력정보들_원시텍스트,truncation<span class="op">=</span><span class="va">True</span>,return_tensors<span class="op">=</span><span class="st">'pt'</span>,padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>인공지능(<span class="op">**</span>정리된숫자들_토큰화된자료)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="209">
+<pre><code>SequenceClassifierOutput(loss=None, logits=tensor([[-0.0847,  0.0024],
+        [-0.0830,  0.0285],
+        [-0.0600,  0.0180],
+        [-0.0919,  0.0440]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<div id="cell-102" class="cell" data-execution_count="210">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>입력정보들_원시텍스트 <span class="op">=</span> 데이터[<span class="st">'train'</span>][<span class="dv">4</span>:<span class="dv">8</span>][<span class="st">'text'</span>]</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료 <span class="op">=</span> 토크나이저(입력정보들_원시텍스트,truncation<span class="op">=</span><span class="va">True</span>,return_tensors<span class="op">=</span><span class="st">'pt'</span>,padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>인공지능(<span class="op">**</span>정리된숫자들_토큰화된자료)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="210">
+<pre><code>SequenceClassifierOutput(loss=None, logits=tensor([[-0.0422,  0.0053],
+        [-0.0646,  0.0152],
+        [-0.0172,  0.0112],
+        [-0.0283, -0.0072]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<div id="cell-103" class="cell" data-execution_count="211">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>입력정보들_원시텍스트 <span class="op">=</span> 데이터[<span class="st">'train'</span>][<span class="dv">8</span>:<span class="dv">12</span>][<span class="st">'text'</span>]</span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료 <span class="op">=</span> 토크나이저(입력정보들_원시텍스트,truncation<span class="op">=</span><span class="va">True</span>,return_tensors<span class="op">=</span><span class="st">'pt'</span>,padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>인공지능(<span class="op">**</span>정리된숫자들_토큰화된자료)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="211">
+<pre><code>SequenceClassifierOutput(loss=None, logits=tensor([[-0.0246, -0.0012],
+        [-0.0594, -0.0200],
+        [-0.0240, -0.0071],
+        [-0.0836, -0.0140]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<div id="cell-104" class="cell" data-execution_count="212">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>입력정보들_원시텍스트 <span class="op">=</span> 데이터[<span class="st">'train'</span>][<span class="dv">12</span>:<span class="dv">16</span>][<span class="st">'text'</span>]</span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료 <span class="op">=</span> 토크나이저(입력정보들_원시텍스트,truncation<span class="op">=</span><span class="va">True</span>,return_tensors<span class="op">=</span><span class="st">'pt'</span>,padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>인공지능(<span class="op">**</span>정리된숫자들_토큰화된자료)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="212">
+<pre><code>SequenceClassifierOutput(loss=None, logits=tensor([[-0.0440, -0.0195],
+        [-0.0469, -0.0074],
+        [-0.0542,  0.0162],
+        [-0.0316, -0.0037]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<p><code>-</code> 싹다 maxlen=512로 가정하고 패딩해서 돌린결과와 비교 <span class="math inline">\(\to\)</span> 같음 <span class="math inline">\(\to\)</span> 동적패딩이 효율적</p>
+<div id="cell-106" class="cell" data-execution_count="213">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>입력정보들_원시텍스트 <span class="op">=</span> 데이터[<span class="st">'train'</span>][:<span class="dv">16</span>][<span class="st">'text'</span>]</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료 <span class="op">=</span> 토크나이저(입력정보들_원시텍스트,truncation<span class="op">=</span><span class="va">True</span>,return_tensors<span class="op">=</span><span class="st">'pt'</span>,padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>인공지능(<span class="op">**</span>정리된숫자들_토큰화된자료)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="213">
+<pre><code>SequenceClassifierOutput(loss=None, logits=tensor([[-0.0847,  0.0024],
+        [-0.0830,  0.0285],
+        [-0.0600,  0.0180],
+        [-0.0919,  0.0440],
+        [-0.0422,  0.0053],
+        [-0.0646,  0.0152],
+        [-0.0172,  0.0112],
+        [-0.0283, -0.0072],
+        [-0.0246, -0.0012],
+        [-0.0594, -0.0200],
+        [-0.0240, -0.0071],
+        [-0.0836, -0.0140],
+        [-0.0440, -0.0195],
+        [-0.0469, -0.0074],
+        [-0.0542,  0.0162],
+        [-0.0316, -0.0037]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+</section>
+<section id="d.-4단계" class="level2">
+<h2 class="anchored" data-anchor-id="d.-4단계">D. 4단계</h2>
+<blockquote class="blockquote">
+<p>손실(=loss)의 개념을 이해하자</p>
+</blockquote>
+<p><code>-</code> <code>정리된숫자들_토큰화된자료</code>에서 <code>labels</code>를 추가 전달하면, <code>인공지능(**정리된숫자들_토큰화된자료)</code>의 결과로 <code>loss</code>가 추가계산됨.</p>
+<div id="cell-110" class="cell" data-execution_count="222">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>입력정보들_원시텍스트 <span class="op">=</span> 데이터[<span class="st">'train'</span>][:<span class="dv">4</span>][<span class="st">'text'</span>]</span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료 <span class="op">=</span> 토크나이저(입력정보들_원시텍스트,truncation<span class="op">=</span><span class="va">True</span>,return_tensors<span class="op">=</span><span class="st">'pt'</span>,padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a><span class="co">#데이터['train'][:4]['label'] # 정답확인</span></span>
+<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor([<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>]) <span class="co"># 정답입력</span></span>
+<span id="cb104-5"><a href="#cb104-5" aria-hidden="true" tabindex="-1"></a>인공지능(<span class="op">**</span>정리된숫자들_토큰화된자료)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="222">
+<pre><code>SequenceClassifierOutput(loss=tensor(0.7461, grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[-0.0847,  0.0024],
+        [-0.0830,  0.0285],
+        [-0.0600,  0.0180],
+        [-0.0919,  0.0440]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<p><code>-</code> 정리를 해보자.</p>
+<div id="cell-112" class="cell" data-execution_count="240">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>입력정보들_원시텍스트 <span class="op">=</span> 데이터[<span class="st">'train'</span>][:<span class="dv">4</span>][<span class="st">'text'</span>]</span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료 <span class="op">=</span> 토크나이저(입력정보들_원시텍스트,truncation<span class="op">=</span><span class="va">True</span>,return_tensors<span class="op">=</span><span class="st">'pt'</span>,padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'실제정답: </span><span class="sc">{데이터</span>[<span class="st">'train'</span>][:<span class="dv">4</span>][<span class="st">'label'</span>]<span class="sc">}</span><span class="ss">'</span>) <span class="co"># 정답확인</span></span>
+<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor([<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>]) <span class="co"># 정답입력</span></span>
+<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a>계산된숫자들_로짓 <span class="op">=</span> 인공지능(<span class="op">**</span>정리된숫자들_토큰화된자료).logits.detach().numpy()</span>
+<span id="cb106-6"><a href="#cb106-6" aria-hidden="true" tabindex="-1"></a>출력정보들_확률 <span class="op">=</span> np.exp(계산된숫자들_로짓)<span class="op">/</span>np.exp(계산된숫자들_로짓).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb106-7"><a href="#cb106-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'인공지능의예측: </span><span class="sc">{계산된숫자들</span>_<span class="sc">로짓.</span>argmax(axis<span class="op">=</span><span class="dv">1</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb106-8"><a href="#cb106-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'인공지능의확신정도: </span><span class="sc">{출력정보들</span>_<span class="sc">확률.</span><span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb106-9"><a href="#cb106-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'손실(loss): </span><span class="sc">{인공지능</span>(<span class="op">**</span>정리된숫자들_토큰화된자료)<span class="sc">.</span>loss<span class="sc">.</span>item()<span class="sc">:.6f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>실제정답: [0, 0, 0, 0]
+인공지능의예측: [1 1 1 1]
+인공지능의확신정도: [0.5217618 0.5278467 0.5195052 0.5339033]
+손실(loss): 0.746100</code></pre>
+</div>
+</div>
+<p><code>-</code> loss는 작을수록 주어진 데이터에 대한 정답을 잘 맞추고 있다고 볼 수 있음. (그렇지만 학습이 잘 되었다는걸 보장하지는 못함)</p>
+<p><strong>텍스트0-텍스트3</strong></p>
+<div id="cell-115" class="cell" data-execution_count="244">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"텍스트0 -- 텍스트3"</span>)</span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>입력정보들_원시텍스트 <span class="op">=</span> 데이터[<span class="st">'train'</span>][:<span class="dv">4</span>][<span class="st">'text'</span>]</span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료 <span class="op">=</span> 토크나이저(입력정보들_원시텍스트,truncation<span class="op">=</span><span class="va">True</span>,return_tensors<span class="op">=</span><span class="st">'pt'</span>,padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'실제정답: </span><span class="sc">{데이터</span>[<span class="st">'train'</span>][:<span class="dv">4</span>][<span class="st">'label'</span>]<span class="sc">}</span><span class="ss">'</span>) <span class="co"># 정답확인</span></span>
+<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor(데이터[<span class="st">'train'</span>][:<span class="dv">4</span>][<span class="st">'label'</span>]) <span class="co"># 정답입력</span></span>
+<span id="cb108-6"><a href="#cb108-6" aria-hidden="true" tabindex="-1"></a>계산된숫자들_로짓 <span class="op">=</span> 인공지능(<span class="op">**</span>정리된숫자들_토큰화된자료).logits.detach().numpy()</span>
+<span id="cb108-7"><a href="#cb108-7" aria-hidden="true" tabindex="-1"></a>출력정보들_확률 <span class="op">=</span> np.exp(계산된숫자들_로짓)<span class="op">/</span>np.exp(계산된숫자들_로짓).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb108-8"><a href="#cb108-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'인공지능의예측: </span><span class="sc">{계산된숫자들</span>_<span class="sc">로짓.</span>argmax(axis<span class="op">=</span><span class="dv">1</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb108-9"><a href="#cb108-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'인공지능의확신정도: </span><span class="sc">{출력정보들</span>_<span class="sc">확률.</span><span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb108-10"><a href="#cb108-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'손실(loss): </span><span class="sc">{인공지능</span>(<span class="op">**</span>정리된숫자들_토큰화된자료)<span class="sc">.</span>loss<span class="sc">.</span>item()<span class="sc">:.6f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>텍스트0 -- 텍스트3
+실제정답: [0, 0, 0, 0]
+인공지능의예측: [1 1 1 1]
+인공지능의확신정도: [0.5217618 0.5278467 0.5195052 0.5339033]
+손실(loss): 0.746100</code></pre>
+</div>
+</div>
+<p><strong>텍스트12498-텍스트12501</strong></p>
+<div id="cell-117" class="cell" data-execution_count="247">
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"텍스트12498 -- 텍스트12501"</span>)</span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>입력정보들_원시텍스트 <span class="op">=</span> 데이터[<span class="st">'train'</span>][<span class="dv">12498</span>:<span class="dv">12502</span>][<span class="st">'text'</span>]</span>
+<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료 <span class="op">=</span> 토크나이저(입력정보들_원시텍스트,truncation<span class="op">=</span><span class="va">True</span>,return_tensors<span class="op">=</span><span class="st">'pt'</span>,padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'실제정답: </span><span class="sc">{데이터</span>[<span class="st">'train'</span>][<span class="dv">12498</span>:<span class="dv">12502</span>][<span class="st">'label'</span>]<span class="sc">}</span><span class="ss">'</span>) <span class="co"># 정답확인</span></span>
+<span id="cb110-5"><a href="#cb110-5" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor(데이터[<span class="st">'train'</span>][<span class="dv">12498</span>:<span class="dv">12502</span>][<span class="st">'label'</span>]) <span class="co"># 정답입력</span></span>
+<span id="cb110-6"><a href="#cb110-6" aria-hidden="true" tabindex="-1"></a>계산된숫자들_로짓 <span class="op">=</span> 인공지능(<span class="op">**</span>정리된숫자들_토큰화된자료).logits.detach().numpy()</span>
+<span id="cb110-7"><a href="#cb110-7" aria-hidden="true" tabindex="-1"></a>출력정보들_확률 <span class="op">=</span> np.exp(계산된숫자들_로짓)<span class="op">/</span>np.exp(계산된숫자들_로짓).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb110-8"><a href="#cb110-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'인공지능의예측: </span><span class="sc">{계산된숫자들</span>_<span class="sc">로짓.</span>argmax(axis<span class="op">=</span><span class="dv">1</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb110-9"><a href="#cb110-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'인공지능의확신정도: </span><span class="sc">{출력정보들</span>_<span class="sc">확률.</span><span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb110-10"><a href="#cb110-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'손실(loss): </span><span class="sc">{인공지능</span>(<span class="op">**</span>정리된숫자들_토큰화된자료)<span class="sc">.</span>loss<span class="sc">.</span>item()<span class="sc">:.6f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>텍스트12498 -- 텍스트12501
+실제정답: [0, 0, 1, 1]
+인공지능의예측: [1 1 1 1]
+인공지능의확신정도: [0.52731967 0.5243837  0.51578873 0.5351162 ]
+손실(loss): 0.694952</code></pre>
+</div>
+</div>
+<p><strong>텍스트12502-텍스트12506</strong></p>
+<div id="cell-119" class="cell" data-execution_count="248">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"텍스트12502 -- 텍스트12506"</span>)</span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>입력정보들_원시텍스트 <span class="op">=</span> 데이터[<span class="st">'train'</span>][<span class="dv">12502</span>:<span class="dv">12506</span>][<span class="st">'text'</span>]</span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료 <span class="op">=</span> 토크나이저(입력정보들_원시텍스트,truncation<span class="op">=</span><span class="va">True</span>,return_tensors<span class="op">=</span><span class="st">'pt'</span>,padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'실제정답: </span><span class="sc">{데이터</span>[<span class="st">'train'</span>][<span class="dv">12502</span>:<span class="dv">12506</span>][<span class="st">'label'</span>]<span class="sc">}</span><span class="ss">'</span>) <span class="co"># 정답확인</span></span>
+<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor(데이터[<span class="st">'train'</span>][<span class="dv">12502</span>:<span class="dv">12506</span>][<span class="st">'label'</span>]) <span class="co"># 정답입력</span></span>
+<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a>계산된숫자들_로짓 <span class="op">=</span> 인공지능(<span class="op">**</span>정리된숫자들_토큰화된자료).logits.detach().numpy()</span>
+<span id="cb112-7"><a href="#cb112-7" aria-hidden="true" tabindex="-1"></a>출력정보들_확률 <span class="op">=</span> np.exp(계산된숫자들_로짓)<span class="op">/</span>np.exp(계산된숫자들_로짓).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb112-8"><a href="#cb112-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'인공지능의예측: </span><span class="sc">{계산된숫자들</span>_<span class="sc">로짓.</span>argmax(axis<span class="op">=</span><span class="dv">1</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb112-9"><a href="#cb112-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'인공지능의확신정도: </span><span class="sc">{출력정보들</span>_<span class="sc">확률.</span><span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb112-10"><a href="#cb112-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'손실(loss): </span><span class="sc">{인공지능</span>(<span class="op">**</span>정리된숫자들_토큰화된자료)<span class="sc">.</span>loss<span class="sc">.</span>item()<span class="sc">:.6f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>텍스트12502 -- 텍스트12506
+실제정답: [1, 1, 1, 1]
+인공지능의예측: [1 1 1 1]
+인공지능의확신정도: [0.52180934 0.51908445 0.521884   0.5197189 ]
+손실(loss): 0.652730</code></pre>
+</div>
+</div>
+<p><code>-</code> 똑같이 틀려도 오답에 대한 확신이 강할수록 loss가 크다.</p>
+<div id="cell-121" class="cell" data-execution_count="250">
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"텍스트0 -- 텍스트1"</span>)</span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>입력정보들_원시텍스트 <span class="op">=</span> 데이터[<span class="st">'train'</span>][:<span class="dv">2</span>][<span class="st">'text'</span>]</span>
+<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료 <span class="op">=</span> 토크나이저(입력정보들_원시텍스트,truncation<span class="op">=</span><span class="va">True</span>,return_tensors<span class="op">=</span><span class="st">'pt'</span>,padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'실제정답: </span><span class="sc">{데이터</span>[<span class="st">'train'</span>][:<span class="dv">2</span>][<span class="st">'label'</span>]<span class="sc">}</span><span class="ss">'</span>) <span class="co"># 정답확인</span></span>
+<span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor(데이터[<span class="st">'train'</span>][:<span class="dv">2</span>][<span class="st">'label'</span>]) <span class="co"># 정답입력</span></span>
+<span id="cb114-6"><a href="#cb114-6" aria-hidden="true" tabindex="-1"></a>계산된숫자들_로짓 <span class="op">=</span> 인공지능(<span class="op">**</span>정리된숫자들_토큰화된자료).logits.detach().numpy()</span>
+<span id="cb114-7"><a href="#cb114-7" aria-hidden="true" tabindex="-1"></a>출력정보들_확률 <span class="op">=</span> np.exp(계산된숫자들_로짓)<span class="op">/</span>np.exp(계산된숫자들_로짓).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb114-8"><a href="#cb114-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'인공지능의예측: </span><span class="sc">{계산된숫자들</span>_<span class="sc">로짓.</span>argmax(axis<span class="op">=</span><span class="dv">1</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb114-9"><a href="#cb114-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'인공지능의확신정도: </span><span class="sc">{출력정보들</span>_<span class="sc">확률.</span><span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb114-10"><a href="#cb114-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'손실(loss): </span><span class="sc">{인공지능</span>(<span class="op">**</span>정리된숫자들_토큰화된자료)<span class="sc">.</span>loss<span class="sc">.</span>item()<span class="sc">:.6f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>텍스트0 -- 텍스트1
+실제정답: [0, 0]
+인공지능의예측: [1 1]
+인공지능의확신정도: [0.5217617 0.5278467]
+손실(loss): 0.744049</code></pre>
+</div>
+</div>
+<div id="cell-122" class="cell" data-execution_count="251">
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"텍스트1 -- 텍스트2"</span>)</span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>입력정보들_원시텍스트 <span class="op">=</span> 데이터[<span class="st">'train'</span>][<span class="dv">1</span>:<span class="dv">3</span>][<span class="st">'text'</span>]</span>
+<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료 <span class="op">=</span> 토크나이저(입력정보들_원시텍스트,truncation<span class="op">=</span><span class="va">True</span>,return_tensors<span class="op">=</span><span class="st">'pt'</span>,padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'실제정답: </span><span class="sc">{데이터</span>[<span class="st">'train'</span>][<span class="dv">1</span>:<span class="dv">3</span>][<span class="st">'label'</span>]<span class="sc">}</span><span class="ss">'</span>) <span class="co"># 정답확인</span></span>
+<span id="cb116-5"><a href="#cb116-5" aria-hidden="true" tabindex="-1"></a>정리된숫자들_토큰화된자료[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor(데이터[<span class="st">'train'</span>][<span class="dv">1</span>:<span class="dv">3</span>][<span class="st">'label'</span>]) <span class="co"># 정답입력</span></span>
+<span id="cb116-6"><a href="#cb116-6" aria-hidden="true" tabindex="-1"></a>계산된숫자들_로짓 <span class="op">=</span> 인공지능(<span class="op">**</span>정리된숫자들_토큰화된자료).logits.detach().numpy()</span>
+<span id="cb116-7"><a href="#cb116-7" aria-hidden="true" tabindex="-1"></a>출력정보들_확률 <span class="op">=</span> np.exp(계산된숫자들_로짓)<span class="op">/</span>np.exp(계산된숫자들_로짓).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb116-8"><a href="#cb116-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'인공지능의예측: </span><span class="sc">{계산된숫자들</span>_<span class="sc">로짓.</span>argmax(axis<span class="op">=</span><span class="dv">1</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb116-9"><a href="#cb116-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'인공지능의확신정도: </span><span class="sc">{출력정보들</span>_<span class="sc">확률.</span><span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb116-10"><a href="#cb116-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'손실(loss): </span><span class="sc">{인공지능</span>(<span class="op">**</span>정리된숫자들_토큰화된자료)<span class="sc">.</span>loss<span class="sc">.</span>item()<span class="sc">:.6f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>텍스트1 -- 텍스트2
+실제정답: [0, 0]
+인공지능의예측: [1 1]
+인공지능의확신정도: [0.5278467 0.5195052]
+손실(loss): 0.741695</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="math inline">\(\star\star\star\)</span> 학습이 가능한 이유 (대충 아이디어만)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>1</code>. 랜덤으로 하나의 인공지능을 생성한다. (아래의 코드로 가능)</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>인공지능 <span class="op">=</span> 인공지능생성기()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>2</code>. 하나의 미니배치를 선택한다.</p>
+<p><code>3</code>. 인공지능의 파라메터중 하나의 숫자를 선택한다. 예를들면 아래와 같은 상황이 있다고 하자.</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>인공지능.classifier.weight</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>Parameter containing:
+tensor([[-0.0234,  0.0279,  0.0242,  ...,  0.0091, -0.0063, -0.0133],
+        [ 0.0087,  0.0007, -0.0099,  ...,  0.0183, -0.0007,  0.0295]],
+       requires_grad=True)</code></pre>
+<p>하나의 숫자 <code>-0.0234</code>를 선택한다.</p>
+<p><code>4</code>. <code>-0.0234</code>의 값을 아주 조금 변화시킨다. 예를들면 <code>-0.0233</code>, <code>-0.0235</code> 와 같은 숫자로 바꾼다. 2에서 고정된 미니배치에 대하여 <code>-0.0234</code>, <code>-0.0233</code>, <code>-0.0235</code> 에 대한 loss를 계산해보고 비교한다.</p>
+<ul>
+<li><code>-0.0234</code>이 최저 loss라면? 값을 안바꾸는게 좋겠음.</li>
+<li><code>-0.0233</code>이 최저 loss라면?? 값을 <code>-0.0233</code>으로 바꿈.</li>
+<li><code>-0.0235</code>이 최저 loss라면?? 값을 <code>-0.0235</code>으로 바꿈.</li>
+</ul>
+<p><code>5</code>. 다음은 다른 모든 파라메터에 대하여 3-4을 반복한다. (과정을 반복할수록 loss는 작아지겠죠, 즉 인공지능은 정답을 잘 맞추겠죠)</p>
+<p><code>6</code>. 다른 미니배치에 대하여 2-5를 반복한다.</p>
+</div>
+</div>
+<p><code>-</code> 인공지능의 학습은 마법같은 신비한 현상이 아니고, 극한의 노가다를 통해 얻어지는 산물일 뿐이다.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="guebin/MP2023" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
