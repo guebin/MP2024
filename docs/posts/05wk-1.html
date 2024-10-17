@@ -251,7 +251,7 @@ window.Quarto = {
 </section>
 <section id="imports" class="level1">
 <h1>3. imports</h1>
-<div id="cell-7" class="cell" data-execution_count="2">
+<div id="cell-7" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datasets</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> transformers</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision.transforms</span>
@@ -265,7 +265,7 @@ window.Quarto = {
 </section>
 <section id="코드정리1" class="level1">
 <h1>4. 코드정리1</h1>
-<div id="cell-9" class="cell" data-execution_count="3">
+<div id="cell-9" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Step1 </span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">### A. 데이터불러오기</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>food <span class="op">=</span> datasets.load_dataset(<span class="st">"food101"</span>, split<span class="op">=</span><span class="st">"train[:5000]"</span>)</span>
@@ -349,7 +349,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
     <div>
       
       <progress value="186" max="186" style="width:300px; height:20px; vertical-align: middle;"></progress>
-      [186/186 02:21, Epoch 2/3]
+      [186/186 02:24, Epoch 2/3]
     </div>
     
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -364,25 +364,25 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <tbody>
 <tr class="odd">
 <td>0</td>
-<td>2.789800</td>
-<td>2.609763</td>
-<td>0.813000</td>
+<td>2.700500</td>
+<td>2.499640</td>
+<td>0.831000</td>
 </tr>
 <tr class="even">
 <td>2</td>
-<td>1.631300</td>
-<td>1.665686</td>
-<td>0.883000</td>
+<td>1.596500</td>
+<td>1.608850</td>
+<td>0.886000</td>
 </tr>
 </tbody>
 </table>
 <p>
 </p></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>TrainOutput(global_step=186, training_loss=2.4969451658187376, metrics={'train_runtime': 142.3212, 'train_samples_per_second': 84.316, 'train_steps_per_second': 1.307, 'total_flos': 9.232831524962304e+17, 'train_loss': 2.4969451658187376, 'epoch': 2.976})</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>TrainOutput(global_step=186, training_loss=2.4097511845250286, metrics={'train_runtime': 144.9439, 'train_samples_per_second': 82.791, 'train_steps_per_second': 1.283, 'total_flos': 9.232831524962304e+17, 'train_loss': 2.4097511845250286, 'epoch': 2.976})</code></pre>
 </div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="4">
+<div id="cell-10" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step4 </span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> transformers.pipeline(<span class="st">"image-classification"</span>, model<span class="op">=</span><span class="st">"my_awesome_food_model/checkpoint-186"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -1210,7 +1210,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <span id="cb95-11"><a href="#cb95-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb95-12"><a href="#cb95-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 이미지 확인</span></span>
 <span id="cb95-13"><a href="#cb95-13" aria-hidden="true" tabindex="-1"></a>image.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="cell-113" class="cell" data-execution_count="1">
+<div id="cell-113" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
 <span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> io <span class="im">import</span> BytesIO</span>
@@ -1222,7 +1222,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url)</span>
 <span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> Image.<span class="bu">open</span>(BytesIO(response.content))</span>
 <span id="cb96-11"><a href="#cb96-11" aria-hidden="true" tabindex="-1"></a>image</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 <figure class="figure">
 <p><img src="05wk-1_files/figure-html/cell-54-output-1.png" class="img-fluid figure-img"></p>
@@ -1230,14 +1230,14 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 </div>
 </div>
-<div id="cell-114" class="cell" data-execution_count="540">
+<div id="cell-114" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb97"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>classifier(image)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="540">
-<pre><code>[{'label': 'ramen', 'score': 0.9660526514053345},
- {'label': 'hamburger', 'score': 0.648557722568512},
- {'label': 'beignets', 'score': 0.6234114170074463},
- {'label': 'prime_rib', 'score': 0.5963582992553711},
- {'label': 'bruschetta', 'score': 0.5791028141975403}]</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>[{'label': 'ramen', 'score': 0.9681490659713745},
+ {'label': 'prime_rib', 'score': 0.6358652710914612},
+ {'label': 'pork_chop', 'score': 0.6315569877624512},
+ {'label': 'beignets', 'score': 0.6056348085403442},
+ {'label': 'hamburger', 'score': 0.603554904460907}]</code></pre>
 </div>
 </div>
 </section>
