@@ -1,0 +1,10 @@
+{
+  "listingMap": {
+    "quiz.qmd": [
+      "/quiz"
+    ],
+    "index.qmd": [
+      "posts"
+    ]
+  }
+}
