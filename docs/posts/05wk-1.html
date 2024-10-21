@@ -261,7 +261,7 @@ window.Quarto = {
 </section>
 <section id="코드정리1" class="level1">
 <h1>4. 코드정리1</h1>
-<div id="cell-9" class="cell" data-execution_count="8">
+<div id="cell-9" class="cell" data-execution_count="59">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Step1 </span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">### A. 데이터불러오기</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>food <span class="op">=</span> datasets.load_dataset(<span class="st">"food101"</span>, split<span class="op">=</span><span class="st">"train[:5000]"</span>)</span>
@@ -345,8 +345,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 
     <div>
       
-      <progress value="25" max="186" style="width:300px; height:20px; vertical-align: middle;"></progress>
-      [ 25/186 00:14 &lt; 01:42, 1.56 it/s, Epoch 0.38/3]
+      <progress value="186" max="186" style="width:300px; height:20px; vertical-align: middle;"></progress>
+      [186/186 02:18, Epoch 2/3]
     </div>
     
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -355,15 +355,28 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <th data-quarto-table-cell-role="th">Epoch</th>
 <th data-quarto-table-cell-role="th">Training Loss</th>
 <th data-quarto-table-cell-role="th">Validation Loss</th>
+<th data-quarto-table-cell-role="th">Accuracy</th>
 </tr>
 </thead>
 <tbody>
+<tr class="odd">
+<td>0</td>
+<td>2.678500</td>
+<td>2.525543</td>
+<td>0.814000</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>1.571600</td>
+<td>1.601845</td>
+<td>0.893000</td>
+</tr>
 </tbody>
 </table>
 <p>
 </p></div>
-<div class="cell-output cell-output-error">
-<pre><code>KeyboardInterrupt: </code></pre>
+<div class="cell-output cell-output-display" data-execution_count="59">
+<pre><code>TrainOutput(global_step=186, training_loss=2.4154545312286704, metrics={'train_runtime': 139.0707, 'train_samples_per_second': 86.287, 'train_steps_per_second': 1.337, 'total_flos': 9.232831524962304e+17, 'train_loss': 2.4154545312286704, 'epoch': 2.976})</code></pre>
 </div>
 </div>
 <div id="cell-10" class="cell" data-execution_count="9">
