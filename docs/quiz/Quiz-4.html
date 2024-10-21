@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -184,8 +218,52 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+<div id="5a2a7249" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datasets</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> transformers</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision.transforms</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> evaluate</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/cgb3/anaconda3/envs/hf/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm</code></pre>
+</div>
+</div>
+<p>아래는 <code>datasets</code> 라이브러리의 <code>load_dataset</code> 함수를 사용하여 <code>beans</code>라는 데이터셋을 불러오는 코드이다.</p>
+<div id="0be76a63" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>beans <span class="op">=</span> datasets.load_dataset(<span class="st">'beans'</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>beans</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>DatasetDict({
+    train: Dataset({
+        features: ['image_file_path', 'image', 'labels'],
+        num_rows: 1034
+    })
+    validation: Dataset({
+        features: ['image_file_path', 'image', 'labels'],
+        num_rows: 133
+    })
+    test: Dataset({
+        features: ['image_file_path', 'image', 'labels'],
+        num_rows: 128
+    })
+})</code></pre>
+</div>
+</div>
+<p><code>beans</code> 데이터셋은 <strong>train</strong>(1034개), <strong>validation</strong>(133개), <strong>test</strong>(128개)로 나뉘며, 각각 모델 학습, 검증, 성능 평가에 사용된다. 각 데이터셋은 이미지 파일 경로(<code>image_file_path</code>), 실제 이미지 데이터(<code>image</code>), 그리고 이미지에 대한 질병 라벨(<code>labels</code>)로 구성되어 있다. 이 라벨은 각 이미지가 어떤 질병을 나타내는지에 대한 정보를 제공한다.</p>
+<p>라벨 0은 “각진 잎 반점(angular_leaf_spot)”이라는 질병으로, 이는 콩 잎에 특정 형태의 반점이 생기는 현상을 의미한다. 라벨 1은 “콩 녹병(bean_rust)”으로, 콩 잎에 붉은 녹병이 나타나는 질병이다. 마지막으로 라벨 2는 “healthy(건강한 잎)”을 나타내며, 이 라벨이 붙은 이미지는 질병 없이 건강한 콩 잎을 뜻한다. 이러한 라벨을 통해 데이터셋의 각 이미지가 어떤 질병을 가지고 있는지 쉽게 파악할 수 있다.</p>
+<div id="b3452dd5-dcc8-4ca7-b6f2-377fe8eda705" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>id2label <span class="op">=</span> {<span class="dv">0</span>: <span class="st">'angular_leaf_spot'</span>, <span class="dv">1</span>: <span class="st">'bean_rust'</span>, <span class="dv">2</span>: <span class="st">'healthy'</span>}</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>label2id <span class="op">=</span> {<span class="st">'angular_leaf_spot'</span>: <span class="dv">0</span>, <span class="st">'bean_rust'</span>: <span class="dv">1</span>, <span class="st">'healthy'</span>: <span class="dv">2</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="beans-자료분석-100점" class="level1">
+<h1>1. <code>beans</code> 자료분석 – 100점</h1>
+<blockquote class="blockquote">
+<p>배점: (1),(2),(3),(4) – 5점, (5),(6) – 30점 (7),(8) – 10점</p>
+</blockquote>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
