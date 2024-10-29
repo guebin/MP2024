@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.533">
+<meta name="generator" content="quarto-1.4.520">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -108,33 +108,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -297,9 +270,9 @@ window.Quarto = {
 </blockquote>
 <p><code>(1)</code> <code>beans['train'][10]</code> 에 포함된 이미지의 크기와 라벨을 확인하라.</p>
 <p><code>(풀이)</code></p>
-<div id="ba18b60f-ecdf-4355-9be2-9e3b85817099" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>beans[<span class="st">'train'</span>][<span class="dv">0</span>][<span class="st">'image'</span>].size, beans[<span class="st">'train'</span>][<span class="dv">0</span>][<span class="st">'labels'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div id="ba18b60f-ecdf-4355-9be2-9e3b85817099" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>beans[<span class="st">'train'</span>][<span class="dv">10</span>][<span class="st">'image'</span>].size, beans[<span class="st">'train'</span>][<span class="dv">10</span>][<span class="st">'labels'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
 <pre><code>((500, 500), 0)</code></pre>
 </div>
 </div>
@@ -619,28 +592,6 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <pre><code>ImageClassifierOutput(loss=tensor(0.7825, grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[ 0.3677,  0.1649, -0.6252]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-(5)번 코드 그대로 돌렸는데 에러가 났다면? 구글 검색하지 말고 이걸 읽어주세요!
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><code>(5)</code>번에서 작성한 코드를 그대로 사용해도 당연히 동작하지 않겠죠? 그 이유는, 학습을 시작하기 전에는 데이터와 모델의 파라미터가 모두 <code>cpu</code>에 있지만, 학습이 끝난 후에는 <strong>모델의 파라미터가</strong> <code>cuda</code>(GPU)로 올라가 있기 때문입니다. (하지만 <strong>데이터는</strong> 여전히 <code>cpu</code>에 남아 있습니다.)</p>
-<p>이 상태에서 코드를 실행하려면 두 가지 방법이 있습니다:</p>
-<ol type="1">
-<li>데이터를 <code>cuda</code>로 옮기기</li>
-<li>모델을 <code>cpu</code>로 다시 내리기</li>
-</ol>
-<p>이 문제에서는 <strong>2. 모델을 <code>cpu</code>로 내리는 방법</strong>이 더 간편합니다. 이를 위해 <code>model.to("cpu")</code> 코드를 사용하면, 모델의 모든 파라미터를 <code>cpu</code>로 옮길 수 있습니다. 즉, 학습이 끝난 후에는 모델을 <code>cpu</code>로 이동시켜야만, 데이터와 모델이 동일한 장치에서 계산되기 때문에 코드가 문제없이 작동합니다.</p>
-<blockquote class="blockquote">
-<p><strong>힌트 요약:</strong> <strong>(5)번을 해결하셨다면</strong>, (5)번의 코드에서 <code>model.to("cpu")</code>를 적당한 위치에 추가하세요!</p>
-</blockquote>
-</div>
-</div>
 
 
 </section>
@@ -774,6 +725,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
@@ -788,14 +760,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             break;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
+        typesetMath(container);
         return container.innerHTML
       } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
+        typesetMath(note);
         return note.innerHTML;
       }
     } else {
@@ -804,9 +772,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
+      typesetMath(note);
       return note.innerHTML;
     }
   }
