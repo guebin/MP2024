@@ -239,11 +239,12 @@ window.Quarto = {
 <p><a href="https://colab.research.google.com/github/guebin/MP2024/blob/main/posts/08wk-1.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" style="text-align: left"></a></p>
 <section id="강의영상" class="level1">
 <h1>1. 강의영상</h1>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/playlist?list=PLQqh36zP38-wMSwEnrqdaQTsgmCkf2tA_&amp;si=vMFG0C78I3pn7_AX" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
 <section id="내가-만든-좋은-함수" class="level1">
 <h1>2. 내가 만든 좋은 함수</h1>
 <p><code># 예시1</code> – <code>my_show_list()</code></p>
-<div id="cell-5" class="cell" data-execution_count="8">
+<div id="cell-6" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>lst <span class="op">=</span> [</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>]<span class="op">*</span><span class="dv">500</span>,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">dict</span>(a<span class="op">=</span>[<span class="dv">2</span>]<span class="op">*</span><span class="dv">100</span>,b<span class="op">=</span><span class="st">'123'</span>),</span>
@@ -253,7 +254,7 @@ window.Quarto = {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#lst</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>-</code> 리스트의구조를 잘 살펴볼 수 있는 함수를 만들어보자..</p>
-<div id="cell-7" class="cell" data-execution_count="9">
+<div id="cell-8" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections.abc <span class="im">import</span> Iterable</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_show_list(item, max_depth<span class="op">=</span><span class="dv">2</span>, max_items<span class="op">=</span><span class="dv">5</span>):</span>
@@ -307,7 +308,7 @@ window.Quarto = {
 <span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(sub_info)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>-</code> 사용해보자.</p>
-<div id="cell-9" class="cell" data-outputid="f2f2514a-0eeb-4708-b1c3-404c16950bac" data-execution_count="10">
+<div id="cell-10" class="cell" data-outputid="f2f2514a-0eeb-4708-b1c3-404c16950bac" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>my_show_list(lst)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Level 1 - Type: list, Length: 4, Content: [[1, 1, 1, 1, 1, 1, 1, 1, ... 'python', (1, 2, [3, 4])]
@@ -317,7 +318,7 @@ window.Quarto = {
      Level 2 - Type: tuple, Length: 3, Content: (1, 2, [3, 4])</code></pre>
 </div>
 </div>
-<div id="cell-10" class="cell" data-outputid="5114f6b1-13ff-4999-af73-59d5fdfc5908" data-execution_count="14">
+<div id="cell-11" class="cell" data-outputid="5114f6b1-13ff-4999-af73-59d5fdfc5908" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>my_show_list(lst[<span class="op">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Level 1 - Type: tuple, Length: 3, Content: (1, 2, [3, 4])
@@ -328,7 +329,7 @@ window.Quarto = {
 </div>
 <p><code>#</code></p>
 <p><code># 예제2</code> – <code>my_show_dict()</code></p>
-<div id="cell-13" class="cell" data-execution_count="16">
+<div id="cell-14" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>dct <span class="op">=</span> <span class="bu">dict</span>(</span>
@@ -339,7 +340,7 @@ window.Quarto = {
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#dct</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="17">
+<div id="cell-15" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_show_dict(dct):</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Dictionary Overview:"</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Total keys: </span><span class="sc">{</span><span class="bu">len</span>(dct.keys())<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -363,7 +364,7 @@ window.Quarto = {
 <span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"   - Values: </span><span class="sc">{</span>display_values<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>()  <span class="co"># 공백 줄 추가</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-15" class="cell" data-outputid="bd762599-6500-43e1-a605-c505fee213c2" data-execution_count="18">
+<div id="cell-16" class="cell" data-outputid="bd762599-6500-43e1-a605-c505fee213c2" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>my_show_dict(dct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Dictionary Overview:
@@ -395,11 +396,11 @@ Keys: ['lst', 'tpl', 'np_array', 'torch']
 </div>
 <p><code>#</code></p>
 <p><code># 예제3</code> – imdb</p>
-<div id="cell-18" class="cell" data-execution_count="21">
+<div id="cell-19" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> transformers</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datasets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-19" class="cell" data-outputid="0708eab7-572a-4eb9-9df7-46533d6369b6" data-execution_count="22">
+<div id="cell-20" class="cell" data-outputid="0708eab7-572a-4eb9-9df7-46533d6369b6" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>imdb <span class="op">=</span> datasets.load_dataset(<span class="st">'imdb'</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>imdb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -462,7 +463,7 @@ Please note that authentication is recommended but still optional to access publ
 })</code></pre>
 </div>
 </div>
-<div id="cell-20" class="cell" data-outputid="429ccece-2843-446f-913a-e450f8c32987" data-execution_count="25">
+<div id="cell-21" class="cell" data-outputid="429ccece-2843-446f-913a-e450f8c32987" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>my_show_dict(imdb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Dictionary Overview:
@@ -495,7 +496,7 @@ Keys: ['train', 'test', 'unsupervised']
 </code></pre>
 </div>
 </div>
-<div id="cell-21" class="cell" data-outputid="550d68a8-4eca-45f1-a201-480876b0eae7" data-execution_count="30">
+<div id="cell-22" class="cell" data-outputid="550d68a8-4eca-45f1-a201-480876b0eae7" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>my_show_list(imdb[<span class="st">'train'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Level 1 - Type: Dataset, Length: 25000, Content: Dataset({
@@ -512,7 +513,7 @@ Keys: ['train', 'test', 'unsupervised']
      Level 2 - Type: dict, Length: 2, Content: {'text': 'The story cente ... highlights.', 'label': 1}</code></pre>
 </div>
 </div>
-<div id="cell-22" class="cell" data-outputid="5c8e91fe-50e7-4530-ff72-a96acdc748df" data-execution_count="32">
+<div id="cell-23" class="cell" data-outputid="5c8e91fe-50e7-4530-ff72-a96acdc748df" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>my_show_dict(imdb[<span class="st">'train'</span>][<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Dictionary Overview:
@@ -542,17 +543,17 @@ Keys: ['text', 'label']
 <p><code>-</code> 방법2를 살펴보자.</p>
 <section id="a.-위치" class="level2">
 <h2 class="anchored" data-anchor-id="a.-위치">A. 위치</h2>
-<div id="cell-28" class="cell">
+<div id="cell-29" class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!pip install git+https://github.com/guebin/mp2024pkg.git</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>-</code> numpy가 설치된 위치를 알아보자.</p>
-<div id="cell-30" class="cell" data-execution_count="35">
+<div id="cell-31" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># '/usr/local/lib/python3.10/dist-packages/numpy'</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 여기에 있음..</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>-</code> numpy폴더는 있고 mp2024pkg 폴더는 없음..</p>
 <p><code>-</code> 그래서 numpy는 임포트되는데 mp2024pkg는 임포트되지 않음</p>
-<div id="cell-33" class="cell" data-outputid="a29df70e-5cdc-482c-b53b-9d9b2f645ce5" data-execution_count="36">
+<div id="cell-34" class="cell" data-outputid="a29df70e-5cdc-482c-b53b-9d9b2f645ce5" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mp2024pkg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>ModuleNotFoundError: No module named 'mp2024pkg'</code></pre>
@@ -562,7 +563,7 @@ Keys: ['text', 'label']
 <section id="b.-설치" class="level2">
 <h2 class="anchored" data-anchor-id="b.-설치">B. 설치</h2>
 <p><code>-</code> <code>mp2024pkg</code> install (=download)</p>
-<div id="cell-36" class="cell" data-outputid="f1b7a387-ce62-4fcb-85bf-17d2675339c6" data-execution_count="40">
+<div id="cell-37" class="cell" data-outputid="f1b7a387-ce62-4fcb-85bf-17d2675339c6" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install git<span class="op">+</span>https:<span class="op">//</span>github.com<span class="op">/</span>guebin<span class="op">/</span>mp2024pkg.git</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 이걸 실행하면</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># '/usr/local/lib/python3.10/dist-packages'</span></span>
@@ -575,7 +576,7 @@ Keys: ['text', 'label']
   Preparing metadata (setup.py) ... done</code></pre>
 </div>
 </div>
-<div id="cell-37" class="cell" data-outputid="689ba4a1-a63d-407a-eb80-0e706f49ba61" data-execution_count="38">
+<div id="cell-38" class="cell" data-outputid="689ba4a1-a63d-407a-eb80-0e706f49ba61" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!pip uninstall mp2024pkg -y</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 이걸 실행하면 위에서 생긴 폴더가 삭제</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -586,11 +587,11 @@ Uninstalling mp2024pkg-1.0:
 </div>
 <p><code>-</code> 생성된 <code>mp2024pkg</code> 폴더의 내용 – 깃허브에 있는 폴더 그대로 다운로드됨..</p>
 <p><code>-</code> import</p>
-<div id="cell-40" class="cell" data-execution_count="41">
+<div id="cell-41" class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mp2024pkg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>-</code> 사용</p>
-<div id="cell-42" class="cell" data-outputid="9e2693bc-d755-48c3-b368-af3f8a35f32a" data-execution_count="42">
+<div id="cell-43" class="cell" data-outputid="9e2693bc-d755-48c3-b368-af3f8a35f32a" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>mp2024pkg.show_list(lst)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Level 1 - Type: list, Length: 4, Content: [[1, 1, 1, 1, 1, 1, 1, 1, ... 'python', (1, 2, [3, 4])]
@@ -600,7 +601,7 @@ Uninstalling mp2024pkg-1.0:
      Level 2 - Type: tuple, Length: 3, Content: (1, 2, [3, 4])</code></pre>
 </div>
 </div>
-<div id="cell-43" class="cell" data-outputid="d6fbf2bc-5689-4ab5-c968-7fca9c870e22" data-execution_count="44">
+<div id="cell-44" class="cell" data-outputid="d6fbf2bc-5689-4ab5-c968-7fca9c870e22" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>mp2024pkg.show_dict(dct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Dictionary Overview:
@@ -635,7 +636,7 @@ Keys: ['lst', 'tpl', 'np_array', 'torch']
 <h2 class="anchored" data-anchor-id="c.-변경">C. 변경</h2>
 <p><code>-</code> <code>mp2024pkg</code> 폴더로 <code>show_list</code> 함수가 정의된 부분 변경</p>
 <p><img src="https://github.com/guebin/MP2024/blob/main/posts/08wk1fig.png?raw=true" class="img-fluid"></p>
-<div id="cell-47" class="cell" data-outputid="16a9222b-deba-4c2c-cdf3-af5fdb1ecfb6" data-execution_count="3">
+<div id="cell-48" class="cell" data-outputid="16a9222b-deba-4c2c-cdf3-af5fdb1ecfb6" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>mp2024pkg.show_list([<span class="dv">1</span>,<span class="dv">2</span>,[<span class="dv">3</span>,<span class="dv">4</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>이거 최규빈이 만들었음 2024.11.1
@@ -646,11 +647,11 @@ Level 1 - Type: list, Length: 3, Content: [1, 2, [3, 4]]
 </div>
 </div>
 <p><code>-</code> 커널재시작후 다시 import</p>
-<div id="cell-49" class="cell" data-execution_count="4">
+<div id="cell-50" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mp2024pkg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>-</code> 변경된 내용 확인</p>
-<div id="cell-51" class="cell" data-outputid="71b6bf75-c0d3-4275-f67b-5f852742fdfb" data-execution_count="5">
+<div id="cell-52" class="cell" data-outputid="71b6bf75-c0d3-4275-f67b-5f852742fdfb" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>mp2024pkg.show_list([<span class="dv">1</span>,<span class="dv">2</span>,[<span class="dv">3</span>,<span class="dv">4</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>이거 최규빈이 만들었음 2024.11.1
@@ -663,18 +664,18 @@ Level 1 - Type: list, Length: 3, Content: [1, 2, [3, 4]]
 </section>
 <section id="d.-로드" class="level2">
 <h2 class="anchored" data-anchor-id="d.-로드">D. 로드</h2>
-<div id="cell-53" class="cell">
+<div id="cell-54" class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># !rm -rf /usr/local/lib/python3.10/dist-packages/mp2024pkg</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># !rm -rf /usr/local/lib/python3.10/dist-packages/mp2024pkg-1.0.dist-info</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-54" class="cell" data-execution_count="6">
+<div id="cell-55" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!pip install git+https://github.com/guebin/mp2024pkg.git</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code># 예시1</code></p>
-<div id="cell-56" class="cell" data-execution_count="3">
+<div id="cell-57" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mp2024pkg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-57" class="cell" data-outputid="54e5d5fd-3821-42ee-bc38-dea380639cde" data-execution_count="4">
+<div id="cell-58" class="cell" data-outputid="54e5d5fd-3821-42ee-bc38-dea380639cde" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>mp2024pkg.show_dict({<span class="st">'a'</span>:[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>],<span class="st">'b'</span>:[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Dictionary Overview:
@@ -693,7 +694,7 @@ Keys: ['a', 'b']
 </code></pre>
 </div>
 </div>
-<div id="cell-58" class="cell" data-outputid="e87ef123-662a-4f7c-d3f7-05774fe95b67" data-execution_count="5">
+<div id="cell-59" class="cell" data-outputid="e87ef123-662a-4f7c-d3f7-05774fe95b67" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>mp2024pkg.show_list([[<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">2</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Level 1 - Type: list, Length: 2, Content: [[1], [1, 2]]
@@ -701,7 +702,7 @@ Keys: ['a', 'b']
      Level 2 - Type: list, Length: 2, Content: [1, 2]</code></pre>
 </div>
 </div>
-<div id="cell-59" class="cell" data-outputid="12fbcede-6875-4ee5-a1e8-e11e68198929" data-execution_count="7">
+<div id="cell-60" class="cell" data-outputid="12fbcede-6875-4ee5-a1e8-e11e68198929" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>show_list([[<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">2</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>NameError: name 'show_list' is not defined</code></pre>
@@ -709,16 +710,16 @@ Keys: ['a', 'b']
 </div>
 <p><code>#</code></p>
 <p><code># 예시2</code></p>
-<div id="cell-62" class="cell" data-execution_count="3">
+<div id="cell-63" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mp2024pkg <span class="im">import</span> show_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-63" class="cell" data-outputid="35c67d67-7d30-4203-937d-91606443118c" data-execution_count="4">
+<div id="cell-64" class="cell" data-outputid="35c67d67-7d30-4203-937d-91606443118c" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>mp2024pkg.show_list([[<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">2</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>NameError: name 'mp2024pkg' is not defined</code></pre>
 </div>
 </div>
-<div id="cell-64" class="cell" data-outputid="d4b3c093-574a-4a0b-cc07-e825c5d1b224" data-execution_count="5">
+<div id="cell-65" class="cell" data-outputid="d4b3c093-574a-4a0b-cc07-e825c5d1b224" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>show_list([[<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">2</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Level 1 - Type: list, Length: 2, Content: [[1], [1, 2]]
@@ -728,22 +729,22 @@ Keys: ['a', 'b']
 </div>
 <p><code>#</code></p>
 <p><code># 예시3</code></p>
-<div id="cell-67" class="cell" data-execution_count="4">
+<div id="cell-68" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mp2024pkg <span class="im">as</span> mp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-68" class="cell" data-outputid="96419e4e-fd70-48b9-ed03-010e67079e72" data-execution_count="5">
+<div id="cell-69" class="cell" data-outputid="96419e4e-fd70-48b9-ed03-010e67079e72" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>mp2024pkg.show_list([[<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">2</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>NameError: name 'mp2024pkg' is not defined</code></pre>
 </div>
 </div>
-<div id="cell-69" class="cell" data-outputid="94504c92-7238-4f83-c034-be763cfdb496" data-execution_count="6">
+<div id="cell-70" class="cell" data-outputid="94504c92-7238-4f83-c034-be763cfdb496" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>show_list([[<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">2</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>NameError: name 'show_list' is not defined</code></pre>
 </div>
 </div>
-<div id="cell-70" class="cell" data-outputid="a8bed828-9479-4e0c-834d-8918941518d8" data-execution_count="7">
+<div id="cell-71" class="cell" data-outputid="a8bed828-9479-4e0c-834d-8918941518d8" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>mp.show_dict({<span class="st">'a'</span>:[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>],<span class="st">'b'</span>:[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Dictionary Overview:
@@ -762,7 +763,7 @@ Keys: ['a', 'b']
 </code></pre>
 </div>
 </div>
-<div id="cell-71" class="cell" data-outputid="5f1aafc7-8be6-4c27-b779-4247219fd9d4" data-execution_count="8">
+<div id="cell-72" class="cell" data-outputid="5f1aafc7-8be6-4c27-b779-4247219fd9d4" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>mp.show_list([[<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">2</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Level 1 - Type: list, Length: 2, Content: [[1], [1, 2]]
@@ -772,10 +773,10 @@ Keys: ['a', 'b']
 </div>
 <p><code>#</code></p>
 <p><code># 예시5</code></p>
-<div id="cell-74" class="cell" data-execution_count="1">
+<div id="cell-75" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mp2024pkg <span class="im">import</span> <span class="op">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-75" class="cell" data-outputid="fd3a3e47-d4a7-4b98-ae56-47d2ab3ed7c5" data-execution_count="2">
+<div id="cell-76" class="cell" data-outputid="fd3a3e47-d4a7-4b98-ae56-47d2ab3ed7c5" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>show_dict({<span class="st">'a'</span>:[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>],<span class="st">'b'</span>:[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Dictionary Overview:
@@ -794,7 +795,7 @@ Keys: ['a', 'b']
 </code></pre>
 </div>
 </div>
-<div id="cell-76" class="cell" data-outputid="0c3dbf09-8bba-4607-bf15-49cee8e3382a" data-execution_count="3">
+<div id="cell-77" class="cell" data-outputid="0c3dbf09-8bba-4607-bf15-49cee8e3382a" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>show_list([[<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">2</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Level 1 - Type: list, Length: 2, Content: [[1], [1, 2]]
@@ -804,10 +805,10 @@ Keys: ['a', 'b']
 </div>
 <p><code>#</code></p>
 <p><code># 예시6</code></p>
-<div id="cell-79" class="cell" data-execution_count="1">
+<div id="cell-80" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mp2024pkg <span class="im">import</span> show_dict <span class="im">as</span> sd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-80" class="cell" data-outputid="4bb0dd6f-7d4b-40ba-b4ee-baad26a6cf43" data-execution_count="3">
+<div id="cell-81" class="cell" data-outputid="4bb0dd6f-7d4b-40ba-b4ee-baad26a6cf43" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>sd({<span class="st">'a'</span>:[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>],<span class="st">'b'</span>:[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Dictionary Overview:
@@ -828,11 +829,11 @@ Keys: ['a', 'b']
 </div>
 <p><code>#</code></p>
 <p><code># 예시7</code></p>
-<div id="cell-83" class="cell" data-execution_count="1">
+<div id="cell-84" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mp2024pkg <span class="im">import</span> show_dict <span class="im">as</span> sd</span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mp2024pkg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-84" class="cell" data-outputid="bf20eb10-b1af-48a2-8aef-d0f87797280f" data-execution_count="2">
+<div id="cell-85" class="cell" data-outputid="bf20eb10-b1af-48a2-8aef-d0f87797280f" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>sd({<span class="st">'a'</span>:[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>],<span class="st">'b'</span>:[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Dictionary Overview:
@@ -851,7 +852,7 @@ Keys: ['a', 'b']
 </code></pre>
 </div>
 </div>
-<div id="cell-85" class="cell" data-outputid="14f05436-f5ee-4b9f-af85-fab644b57bc5" data-execution_count="3">
+<div id="cell-86" class="cell" data-outputid="14f05436-f5ee-4b9f-af85-fab644b57bc5" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>mp2024pkg.show_dict({<span class="st">'a'</span>:[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>],<span class="st">'b'</span>:[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Dictionary Overview:
@@ -870,7 +871,7 @@ Keys: ['a', 'b']
 </code></pre>
 </div>
 </div>
-<div id="cell-86" class="cell" data-outputid="8f05c047-0fd4-44d7-8aad-31321f9b6c9c" data-execution_count="4">
+<div id="cell-87" class="cell" data-outputid="8f05c047-0fd4-44d7-8aad-31321f9b6c9c" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>mp2024pkg.show_list([<span class="dv">1</span>,<span class="dv">2</span>,[<span class="dv">3</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Level 1 - Type: list, Length: 3, Content: [1, 2, [3]]
@@ -885,7 +886,7 @@ Keys: ['a', 'b']
 <section id="모듈-패키지-라이브러리" class="level1">
 <h1>4. 모듈, 패키지, 라이브러리??</h1>
 <p><code>-</code> 모듈은 import를 하여 생기게 되는 오브젝트를 의미한다.</p>
-<div id="cell-90" class="cell" data-outputid="7cb67286-dd2d-4189-c73d-a9be33afc064" data-execution_count="5">
+<div id="cell-91" class="cell" data-outputid="7cb67286-dd2d-4189-c73d-a9be33afc064" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(np)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
