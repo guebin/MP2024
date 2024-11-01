@@ -268,218 +268,22 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="a.-공통점">A. 공통점</h2>
 <p><code>-</code> 기본마인드: numpy에서 가능한건 torch에서도 가능하다고 생각하면 된다.</p>
 <p><code>-</code> 벡터선언 후 브로드캐스팅</p>
-<div id="cell-13" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tsr <span class="op">=</span> torch.tensor([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>tsr <span class="op">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
-<pre><code>tensor([2, 3, 4])</code></pre>
-</div>
-</div>
-<div id="cell-14" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> np.array([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>arr <span class="op">+</span> <span class="dv">1</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>array([2, 3, 4])</code></pre>
-</div>
-</div>
 <p><code>-</code> 형태변환</p>
-<div id="cell-16" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>tsr <span class="op">=</span> torch.tensor([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"텐서값 = </span><span class="sc">{</span>tsr<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"shape = </span><span class="sc">{</span>tsr<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>텐서값 = tensor([1, 2, 3])
-shape = torch.Size([3])</code></pre>
-</div>
-</div>
-<div id="cell-17" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tsr2 <span class="op">=</span> tsr.reshape(<span class="dv">3</span>,<span class="dv">1</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"텐서값 = </span><span class="sc">{</span>tsr2<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"shape = </span><span class="sc">{</span>tsr2<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>텐서값 = tensor([[1],
-        [2],
-        [3]])
-shape = torch.Size([3, 1])</code></pre>
-</div>
-</div>
-<div id="cell-18" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tsr3 <span class="op">=</span> tsr.reshape(<span class="dv">1</span>,<span class="dv">3</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"텐서값 = </span><span class="sc">{</span>tsr3<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"shape = </span><span class="sc">{</span>tsr3<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>텐서값 = tensor([[1, 2, 3]])
-shape = torch.Size([1, 3])</code></pre>
-</div>
-</div>
 <p><code>-</code> 기타함수들도 비슷하게 운용됨</p>
-<div id="cell-20" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>tsr1 <span class="op">=</span> torch.tensor([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>tsr2 <span class="op">=</span> torch.tensor([<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-21" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>torch.stack([tsr1,tsr2],axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>tensor([[1, 4],
-        [2, 5],
-        [3, 6]])</code></pre>
-</div>
-</div>
-<div id="cell-22" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>torch.stack([tsr1,tsr2],axis<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>tensor([[1, 2, 3],
-        [4, 5, 6]])</code></pre>
-</div>
-</div>
 </section>
 <section id="b.-차이점1-기본자료형" class="level2">
 <h2 class="anchored" data-anchor-id="b.-차이점1-기본자료형">B. 차이점1 – 기본자료형</h2>
 <p><code>-</code> <code>1/3</code>와 같은 숫자를 저장할때 넘파이의 경우 기본 data type은 float64임.</p>
-<div id="cell-25" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.array(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>a, a.dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>(array(0.33333333), dtype('float64'))</code></pre>
-</div>
-</div>
-<div id="cell-26" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"값: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"dtype: </span><span class="sc">{</span>a<span class="sc">.</span>dtype<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>값: 0.3333333333333333
-dtype: float64</code></pre>
-</div>
-</div>
 <p><code>-</code> 그런데 텐서는 기본 data type이 float32임. (그래서 정확하게 저장되지 않음)</p>
-<div id="cell-28" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>a, a.dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>(tensor(0.3333), torch.float32)</code></pre>
-</div>
-</div>
-<div id="cell-29" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"값: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"dtype: </span><span class="sc">{</span>a<span class="sc">.</span>dtype<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>값: 0.3333333432674408
-dtype: torch.float32</code></pre>
-</div>
-</div>
 <p><code>-</code> 억지로 저장할 수는 있음 (그런데 이럴 경우 <code>dtype</code> 꼬리표가 붙음)</p>
-<div id="cell-31" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>,dtype<span class="op">=</span>torch.float64) <span class="co"># 텐서인데 억지로 float64형태로 저장</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>tensor(0.3333, dtype=torch.float64)</code></pre>
-</div>
-</div>
-<div id="cell-32" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.array(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>,dtype<span class="op">=</span>np.float32) <span class="co"># numpy인데 억지로 float32형태로 저장</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
-<pre><code>array(0.33333334, dtype=float32)</code></pre>
-</div>
-</div>
 <p><code>-</code> 자료형 변환시 이러한 기분나쁜 꼬리표가 붙을 수 있음</p>
 <p><code># 예시1</code></p>
-<div id="cell-35" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.array(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
-<pre><code>array(0.33333333)</code></pre>
-</div>
-</div>
-<div id="cell-36" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>torch.tensor(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
-<pre><code>tensor(0.3333, dtype=torch.float64)</code></pre>
-</div>
-</div>
 <p><code>#</code></p>
 <p><code># 예시2</code></p>
-<div id="cell-39" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
-<pre><code>tensor(0.3333)</code></pre>
-</div>
-</div>
-<div id="cell-40" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>np.array(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
-<pre><code>array(0.33333334, dtype=float32)</code></pre>
-</div>
-</div>
 <p><code>#</code></p>
 <p><code>-</code> torch의 경우 float64로 저장되면 모델이 안돌아갈 수 있으니 (메모리를 많이 차지해서) 반드시 dtype을 float32로 바꾸는 습관을 가지면 좋음</p>
-<div id="cell-43" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.array(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>)</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>tsr <span class="op">=</span> torch.tensor(a)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>tsr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
-<pre><code>tensor(0.3333, dtype=torch.float64)</code></pre>
-</div>
-</div>
-<div id="cell-44" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>tsr.<span class="bu">float</span>() <span class="co"># 바꾸는 방법1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>tensor(0.3333)</code></pre>
-</div>
-</div>
-<div id="cell-45" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>tsr.to(torch.float32) <span class="co"># 바꾸는 방법2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
-<pre><code>tensor(0.3333)</code></pre>
-</div>
-</div>
 <p><code>-</code> numpy는 할줄알죠?</p>
-<div id="cell-47" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> np.array(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>,dtype<span class="op">=</span>np.float32)</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>arr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
-<pre><code>array(0.33333334, dtype=float32)</code></pre>
-</div>
-</div>
-<div id="cell-48" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>arr.astype(np.float64)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="24">
-<pre><code>array(0.33333334)</code></pre>
-</div>
-</div>
-<p><code>-</code> torch에서 data type을 바꿔주는 메소드는 상당히 유용합니다. (중요하거든요)</p>
-<div id="cell-50" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor([<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>])</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>a, a.<span class="bu">float</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="25">
-<pre><code>(tensor([1, 0, 1]), tensor([1., 0., 1.]))</code></pre>
-</div>
-</div>
-<div id="cell-51" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor([<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>])</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>a, a.<span class="bu">bool</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="26">
-<pre><code>(tensor([1, 0, 1]), tensor([ True, False,  True]))</code></pre>
-</div>
-</div>
-<div id="cell-52" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor([<span class="fl">1.0</span>, <span class="dv">0</span>, <span class="dv">1</span>])</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>a, a.<span class="bu">long</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="27">
-<pre><code>(tensor([1., 0., 1.]), tensor([1, 0, 1]))</code></pre>
-</div>
-</div>
+<p><code>-</code> torch에서 data type을 바꿔주는 메소드는 상당히 유용합니다. (아까 말했듯이 형식을 잘 못 맞추면 코드가 안돌아가요)</p>
 <p><code>-</code> torch에서 data type 이 중요한이유?</p>
 <ul>
 <li>의미상 맞는 코드인데, <code>dtype</code>이 안맞으면 실행이 안될 수 있다.</li>
@@ -488,634 +292,114 @@ dtype: torch.float32</code></pre>
 <section id="c.-차이점2-메소드차이" class="level2">
 <h2 class="anchored" data-anchor-id="c.-차이점2-메소드차이">C. 차이점2 – 메소드차이</h2>
 <p><code>-</code> <code>torch</code> 와 <code>numpy</code>의 메소드(=자료에 내장된 특수함수)들이 완전히 같지는 않음.</p>
-<div id="cell-56" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>tsr <span class="op">=</span> torch.tensor([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>tsr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="28">
-<pre><code>tensor([1, 2, 3])</code></pre>
-</div>
-</div>
-<div id="cell-57" class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>tsr.numpy() <span class="co"># np.array로 바꿔주는 메소드</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="29">
-<pre><code>array([1, 2, 3])</code></pre>
-</div>
-</div>
-<div id="cell-58" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>tsr.<span class="bu">float</span>() <span class="co"># 자료형을 바꿔주는 메소드</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="30">
-<pre><code>tensor([1., 2., 3.])</code></pre>
-</div>
-</div>
-<p><code>-</code> 차원변환 관련 메소드</p>
 </section>
 <section id="d.-차이점3-미분연산지원-star" class="level2">
 <h2 class="anchored" data-anchor-id="d.-차이점3-미분연산지원-star">D. 차이점3 – 미분연산지원 (<span class="math inline">\(\star\)</span>)</h2>
 <p><code># 예제1</code> – 파이썬을 기본문법을 이용한 미분</p>
-<div id="cell-62" class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-63" class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>h<span class="op">=</span><span class="fl">0.001</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>a<span class="op">=</span><span class="dv">2</span></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>(f(a<span class="op">+</span>h)<span class="op">-</span>f(a))<span class="op">/</span>h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="32">
-<pre><code>4.000999999999699</code></pre>
-</div>
-</div>
 <p><code>#</code></p>
 <p><code># 예제2</code> – <code>torch</code>를 이용한 미분</p>
-<div id="cell-66" class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span> </span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor(<span class="fl">2.0</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> f(a)</span>
-<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>b.backward()</span>
-<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>a.grad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="33">
-<pre><code>tensor(4.)</code></pre>
-</div>
-</div>
 <p><code>#</code></p>
 <p><code># 예제3</code></p>
-<div id="cell-69" class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor(<span class="fl">3.0</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>a <span class="co"># 토치텐서.. 그런데 이제 미분꼬리표를 곁들인.. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="34">
-<pre><code>tensor(3., requires_grad=True)</code></pre>
-</div>
-</div>
-<div id="cell-70" class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a.grad) <span class="co"># a에서의 미분값</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>None</code></pre>
-</div>
-</div>
-<div id="cell-71" class="cell" data-execution_count="36">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> f(a) <span class="co"># 여기에서도 뭔가 붙어있음.. </span></span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="36">
-<pre><code>tensor(9., grad_fn=&lt;PowBackward0&gt;)</code></pre>
-</div>
-</div>
-<div id="cell-72" class="cell" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-73" class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>c.backward() <span class="co"># c=2b=2f(a) 를 미분하세요.. 뭐로?? 미분꼬리표의 근원인 a로! </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-74" class="cell" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>a.grad <span class="co"># 2'f(a) </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="39">
-<pre><code>tensor(12.)</code></pre>
-</div>
-</div>
 <p><code>#</code></p>
 <p><code># 예제4</code></p>
-<div id="cell-77" class="cell" data-execution_count="40">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor(<span class="fl">3.0</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>a <span class="co"># 토치텐서.. 그런데 이제 미분꼬리표를 곁들인.. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="40">
-<pre><code>tensor(3., requires_grad=True)</code></pre>
-</div>
-</div>
-<div id="cell-78" class="cell" data-execution_count="41">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a.grad) <span class="co"># a에서의 미분값</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>None</code></pre>
-</div>
-</div>
-<div id="cell-79" class="cell" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> f(a) <span class="co"># 여기에서도 뭔가 붙어있음.. </span></span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="42">
-<pre><code>tensor(9., grad_fn=&lt;PowBackward0&gt;)</code></pre>
-</div>
-</div>
-<div id="cell-80" class="cell" data-execution_count="43">
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-81" class="cell" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>b.backward() <span class="co"># b=f(a) 를 미분하세요.. 뭐로?? 미분꼬리표의 근원인 a로! </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-82" class="cell" data-execution_count="45">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>a.grad <span class="co"># f'(a) </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="45">
-<pre><code>tensor(6.)</code></pre>
-</div>
-</div>
 <p><code>#</code></p>
 <p><code># 예제5</code></p>
-<div id="cell-85" class="cell" data-execution_count="55">
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor(<span class="fl">3.0</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>a <span class="co"># 토치텐서.. 미분꼬리표가 있음</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="55">
-<pre><code>tensor(3., requires_grad=True)</code></pre>
-</div>
-</div>
-<div id="cell-86" class="cell" data-execution_count="56">
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> f(a) </span>
-<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>b <span class="co"># 추적됨..</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="56">
-<pre><code>tensor(9., grad_fn=&lt;PowBackward0&gt;)</code></pre>
-</div>
-</div>
-<div id="cell-87" class="cell" data-execution_count="57">
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>b </span>
-<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>c <span class="co"># 여기까지 추적됨..</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="57">
-<pre><code>tensor(18., grad_fn=&lt;MulBackward0&gt;)</code></pre>
-</div>
-</div>
-<div id="cell-88" class="cell" data-execution_count="58">
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> c.detach()</span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>c <span class="co"># 꼬리표제거! </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="58">
-<pre><code>tensor(18.)</code></pre>
-</div>
-</div>
-<div id="cell-89" class="cell" data-execution_count="59">
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>c.backward() <span class="co"># c=2b=2f(a) 를 미분하세요.. 뭐로?? .. 모르는데??</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn</code></pre>
-</div>
-</div>
-<div id="cell-90" class="cell" data-execution_count="60">
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>b.backward() <span class="co"># 이건가능함..</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-91" class="cell" data-execution_count="61">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>a.grad <span class="co"># f'(a) 를 a로 미분한 값이 여기에 있음</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="61">
-<pre><code>tensor(6.)</code></pre>
-</div>
-</div>
 <p><code>#</code></p>
 </section>
 <section id="e.-차이점4-cuda-차이-star" class="level2">
 <h2 class="anchored" data-anchor-id="e.-차이점4-cuda-차이-star">E. 차이점4 – <code>cuda</code> 차이 (<span class="math inline">\(\star\)</span>)</h2>
 <p><code>-</code> <code>torch</code>는 <code>cuda</code>을 지원해서 좋다.. (그런데 쓰는 입장에선 불편하다)</p>
-<div id="cell-95" class="cell" data-execution_count="62">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor([<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>])</span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.tensor([<span class="fl">2.0</span>, <span class="fl">3.0</span>, <span class="fl">4.0</span>])</span>
-<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>a,b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="62">
-<pre><code>(tensor([1., 2., 3.]), tensor([2., 3., 4.]))</code></pre>
-</div>
-</div>
-<div id="cell-96" class="cell" data-execution_count="63">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>a_cuda <span class="op">=</span> a.to(<span class="st">"cuda"</span>)</span>
-<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>b_cuda <span class="op">=</span> b.to(<span class="st">"cuda"</span>) <span class="co"># 각각의 값을 쿠다로 전달</span></span>
-<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>a_cuda,b_cuda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="63">
-<pre><code>(tensor([1., 2., 3.], device='cuda:0'), tensor([2., 3., 4.], device='cuda:0'))</code></pre>
-</div>
-</div>
-<div id="cell-97" class="cell" data-execution_count="64">
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>a,b,a_cuda,b_cuda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="64">
-<pre><code>(tensor([1., 2., 3.]),
- tensor([2., 3., 4.]),
- tensor([1., 2., 3.], device='cuda:0'),
- tensor([2., 3., 4.], device='cuda:0'))</code></pre>
-</div>
-</div>
-<div id="cell-98" class="cell" data-execution_count="65">
-<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>a_cuda.to(<span class="st">"cpu"</span>), b_cuda.to(<span class="st">"cpu"</span>) <span class="co"># 쿠다의 값은 to("cpu") 로 다시 쿠다에서 내릴 수 있음 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="65">
-<pre><code>(tensor([1., 2., 3.]), tensor([2., 3., 4.]))</code></pre>
-</div>
-</div>
-<p><code>-</code> 구분을 위해서 아래와 같이 정의하자.</p>
-<div id="cell-100" class="cell" data-execution_count="66">
-<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>a_cpu <span class="op">=</span> torch.tensor([<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>])</span>
-<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>b_cpu <span class="op">=</span> torch.tensor([<span class="fl">2.0</span>, <span class="fl">3.0</span>, <span class="fl">4.0</span>])</span>
-<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>a_cuda <span class="op">=</span> torch.tensor([<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>]).to(<span class="st">"cuda"</span>)</span>
-<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>b_cuda <span class="op">=</span> torch.tensor([<span class="fl">2.0</span>, <span class="fl">3.0</span>, <span class="fl">4.0</span>]).to(<span class="st">"cuda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-101" class="cell" data-execution_count="67">
-<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>a_cpu,b_cpu,a_cuda,b_cuda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="67">
-<pre><code>(tensor([1., 2., 3.]),
- tensor([2., 3., 4.]),
- tensor([1., 2., 3.], device='cuda:0'),
- tensor([2., 3., 4.], device='cuda:0'))</code></pre>
-</div>
-</div>
+<p><code>-</code> 구분을 위해서 변수이름을 <code>*_cpu</code>, <code>*_cuda</code>와 같이정의하자.</p>
 <p><code>-</code> cuda는 cuda끼리, cpu는 cpu끼리 연산가능</p>
-<div id="cell-103" class="cell" data-execution_count="68">
-<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>a_cpu <span class="op">+</span> b_cpu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="68">
-<pre><code>tensor([3., 5., 7.])</code></pre>
-</div>
-</div>
-<ul>
-<li>cpu끼리 연산하면 결과도 cpu에…</li>
-</ul>
-<div id="cell-105" class="cell" data-execution_count="69">
-<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>a_cpu <span class="op">+</span> b_cuda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!</code></pre>
-</div>
-</div>
-<div id="cell-106" class="cell" data-execution_count="70">
-<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>a_cuda <span class="op">+</span> b_cpu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!</code></pre>
-</div>
-</div>
-<div id="cell-107" class="cell" data-execution_count="71">
-<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>a_cuda <span class="op">+</span> b_cuda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="71">
-<pre><code>tensor([3., 5., 7.], device='cuda:0')</code></pre>
-</div>
-</div>
-<ul>
-<li>cuda끼리 연산하면 결과도 cuda에..</li>
-</ul>
 </section>
 </section>
 <section id="자료형차원" class="level1">
 <h1>3. 자료형,차원</h1>
 <p><code># 예제1</code> – 자료형이 안맞으면 <strong>맞는 코드 같은데</strong> 에러가 나는 경우가 많다.</p>
-<div id="cell-111" class="cell" data-execution_count="72">
-<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 올바른코드</span></span>
-<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
-<span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span> </span>
-<span id="cb119-4"><a href="#cb119-4" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor(<span class="fl">2.0</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb119-5"><a href="#cb119-5" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> f(a)</span>
-<span id="cb119-6"><a href="#cb119-6" aria-hidden="true" tabindex="-1"></a>b.backward()</span>
-<span id="cb119-7"><a href="#cb119-7" aria-hidden="true" tabindex="-1"></a>a.grad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="72">
-<pre><code>tensor(4.)</code></pre>
-</div>
-</div>
-<div id="cell-112" class="cell" data-execution_count="73">
-<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 틀린코드</span></span>
-<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
-<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span> </span>
-<span id="cb121-4"><a href="#cb121-4" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor(<span class="dv">2</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb121-5"><a href="#cb121-5" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> f(a)</span>
-<span id="cb121-6"><a href="#cb121-6" aria-hidden="true" tabindex="-1"></a>b.backward()</span>
-<span id="cb121-7"><a href="#cb121-7" aria-hidden="true" tabindex="-1"></a>a.grad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>RuntimeError: Only Tensors of floating point and complex dtype can require gradients</code></pre>
-</div>
-</div>
-<div id="cell-113" class="cell" data-execution_count="74">
-<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor(<span class="dv">2</span>, requires_grad<span class="op">=</span><span class="va">True</span>) <span class="co"># 이게 실행안되어서..</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>RuntimeError: Only Tensors of floating point and complex dtype can require gradients</code></pre>
-</div>
-</div>
-<div id="cell-114" class="cell" data-execution_count="75">
-<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor(<span class="fl">2.0</span>, requires_grad<span class="op">=</span><span class="va">True</span>) <span class="co"># 이렇게 해야함.. -- 미분꼬리표를 사용하려면 float 이어야함</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <blockquote class="blockquote">
-<p>코드잘짜는 사람은 이런 형식을 잘 맞춥니다.. 물론 제 생각일 뿐이에요..</p>
+<p>코드잘짜는 사람은 이런 형식을 잘 맞추는 듯 합니다..</p>
 </blockquote>
 <p><code>#</code></p>
 <p><code># 예제2</code> – IMDB자료에서의 모델을 다시 살펴보자..</p>
-<div id="cell-118" class="cell" data-execution_count="76">
-<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>imdb <span class="op">=</span> datasets.load_dataset(<span class="st">"imdb"</span>)</span>
-<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a>model_path <span class="op">=</span> <span class="st">"distilbert/distilbert-base-uncased"</span></span>
-<span id="cb126-3"><a href="#cb126-3" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(model_path)</span>
-<span id="cb126-4"><a href="#cb126-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(</span>
-<span id="cb126-5"><a href="#cb126-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span></span>
-<span id="cb126-6"><a href="#cb126-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Some weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']
-You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
-</div>
-</div>
-<div id="cell-119" class="cell" data-execution_count="77">
-<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="co">#np.array([len(l) for l in imdb['train']['text']]).argmin()</span></span>
-<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a>sigle_observation <span class="op">=</span> imdb[<span class="st">'train'</span>][<span class="dv">10925</span>]</span>
-<span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a>sigle_observation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="77">
-<pre><code>{'text': 'This movie is terrible but it has some good effects.', 'label': 0}</code></pre>
-</div>
-</div>
 <p><code>-</code> 전처리</p>
-<div id="cell-121" class="cell" data-execution_count="78">
-<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>mp2024pkg.show_dict(</span>
-<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a>    tokenizer(sigle_observation[<span class="st">'text'</span>])</span>
-<span id="cb130-3"><a href="#cb130-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Dictionary Overview:
-Total keys: 2
-Keys: ['input_ids', 'attention_mask']
-
-1. Key: 'input_ids'
-   - Type: list
-   - Length: 13
-   - Values: [101, 2023, 3185, 2003, 6659, 2021, 2009, 2038, 2070, 2204, 3896, 1012, 102]
-
-2. Key: 'attention_mask'
-   - Type: list
-   - Length: 13
-   - Values: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-</code></pre>
-</div>
-</div>
 <p><code>-</code> 모델인풋1 – 차원이 맞지 않음.. (모델은 배치형태 입력을 기대해요)</p>
-<div id="cell-123" class="cell" data-execution_count="79">
-<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>model_input <span class="op">=</span> {</span>
-<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'input_ids'</span>: torch.tensor([<span class="dv">101</span>, <span class="dv">2023</span>, <span class="dv">3185</span>, <span class="dv">2003</span>, <span class="dv">6659</span>, <span class="dv">2021</span>, <span class="dv">2009</span>, <span class="dv">2038</span>, <span class="dv">2070</span>, <span class="dv">2204</span>, <span class="dv">3896</span>, <span class="dv">1012</span>, <span class="dv">102</span>]), </span>
-<span id="cb132-3"><a href="#cb132-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'attention_mask'</span>: torch.tensor([<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]),</span>
-<span id="cb132-4"><a href="#cb132-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'labels'</span>: torch.tensor(<span class="dv">0</span>) </span>
-<span id="cb132-5"><a href="#cb132-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb132-6"><a href="#cb132-6" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>model_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>RuntimeError: The size of tensor a (13) must match the size of tensor b (512) at non-singleton dimension 1</code></pre>
-</div>
-</div>
 <p><code>-</code> 모델인풋2 – 이걸 기대함</p>
-<div id="cell-125" class="cell" data-execution_count="80">
-<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>model_input <span class="op">=</span> {</span>
-<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'input_ids'</span>: torch.tensor([[<span class="dv">101</span>, <span class="dv">2023</span>, <span class="dv">3185</span>, <span class="dv">2003</span>, <span class="dv">6659</span>, <span class="dv">2021</span>, <span class="dv">2009</span>, <span class="dv">2038</span>, <span class="dv">2070</span>, <span class="dv">2204</span>, <span class="dv">3896</span>, <span class="dv">1012</span>, <span class="dv">102</span>]]),</span>
-<span id="cb134-3"><a href="#cb134-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#'input_ids': torch.stack([torch.tensor([101, 2023, 3185, 2003, 6659, 2021, 2009, 2038, 2070, 2204, 3896, 1012, 102])]),</span></span>
-<span id="cb134-4"><a href="#cb134-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'attention_mask'</span>: torch.tensor([[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]]),</span>
-<span id="cb134-5"><a href="#cb134-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#'attention_mask': torch.stack([torch.tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])]),</span></span>
-<span id="cb134-6"><a href="#cb134-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'labels'</span>: torch.tensor([<span class="dv">0</span>]) </span>
-<span id="cb134-7"><a href="#cb134-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb134-8"><a href="#cb134-8" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>model_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="80">
-<pre><code>SequenceClassifierOutput(loss=tensor(0.6666, grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[-0.0287, -0.0824]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
-</div>
-</div>
 <p><code>-</code> 모델인풋3 – 틀린듯한데 그냥 해주는듯</p>
-<div id="cell-127" class="cell" data-execution_count="81">
-<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>model_input <span class="op">=</span> {</span>
-<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'input_ids'</span>: torch.tensor([[<span class="dv">101</span>, <span class="dv">2023</span>, <span class="dv">3185</span>, <span class="dv">2003</span>, <span class="dv">6659</span>, <span class="dv">2021</span>, <span class="dv">2009</span>, <span class="dv">2038</span>, <span class="dv">2070</span>, <span class="dv">2204</span>, <span class="dv">3896</span>, <span class="dv">1012</span>, <span class="dv">102</span>]]),</span>
-<span id="cb136-3"><a href="#cb136-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'attention_mask'</span>: torch.tensor([[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]]),</span>
-<span id="cb136-4"><a href="#cb136-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'labels'</span>: torch.tensor(<span class="dv">0</span>) </span>
-<span id="cb136-5"><a href="#cb136-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb136-6"><a href="#cb136-6" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>model_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="81">
-<pre><code>SequenceClassifierOutput(loss=tensor(0.6666, grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[-0.0287, -0.0824]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
-</div>
-</div>
 <p><code>-</code> 모델인풋4 – 라벨은 int형이어야 한다는 강제가 있었음</p>
-<div id="cell-129" class="cell" data-execution_count="82">
-<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a>model_input <span class="op">=</span> {</span>
-<span id="cb138-2"><a href="#cb138-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'input_ids'</span>: torch.tensor([[<span class="dv">101</span>, <span class="dv">2023</span>, <span class="dv">3185</span>, <span class="dv">2003</span>, <span class="dv">6659</span>, <span class="dv">2021</span>, <span class="dv">2009</span>, <span class="dv">2038</span>, <span class="dv">2070</span>, <span class="dv">2204</span>, <span class="dv">3896</span>, <span class="dv">1012</span>, <span class="dv">102</span>]]),</span>
-<span id="cb138-3"><a href="#cb138-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'attention_mask'</span>: torch.tensor([[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]]),</span>
-<span id="cb138-4"><a href="#cb138-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'labels'</span>: torch.tensor([<span class="fl">0.0</span>])</span>
-<span id="cb138-5"><a href="#cb138-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb138-6"><a href="#cb138-6" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>model_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>RuntimeError: expected scalar type Long but found Float</code></pre>
-</div>
-</div>
 <p><code>-</code> 모델인풋5 – <code>input_ids</code>도 마찬가지로 제약이 있음</p>
-<div id="cell-131" class="cell" data-execution_count="83">
-<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>model_input <span class="op">=</span> {</span>
-<span id="cb140-2"><a href="#cb140-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'input_ids'</span>: torch.tensor([[<span class="fl">101.0</span>, <span class="dv">2023</span>, <span class="dv">3185</span>, <span class="dv">2003</span>, <span class="dv">6659</span>, <span class="dv">2021</span>, <span class="dv">2009</span>, <span class="dv">2038</span>, <span class="dv">2070</span>, <span class="dv">2204</span>, <span class="dv">3896</span>, <span class="dv">1012</span>, <span class="dv">102</span>]]),</span>
-<span id="cb140-3"><a href="#cb140-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'attention_mask'</span>: torch.tensor([[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]]),</span>
-<span id="cb140-4"><a href="#cb140-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'labels'</span>: torch.tensor([<span class="dv">0</span>])</span>
-<span id="cb140-5"><a href="#cb140-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb140-6"><a href="#cb140-6" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>model_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>RuntimeError: Expected tensor for argument #1 'indices' to have one of the following scalar types: Long, Int; but got torch.FloatTensor instead (while checking arguments for embedding)</code></pre>
-</div>
-</div>
-<ul>
-<li><code>attention_mask</code>는 제약없음. 추측하건데 이건 내부적으로 bool로 바꾸는 로직이 있는듯함</li>
-</ul>
 <p><code>#</code></p>
 </section>
 <section id="cuda-관리" class="level1">
 <h1>4. <code>cuda</code> 관리</h1>
 <p><code># 예제1</code></p>
-<div id="cell-136" class="cell" data-execution_count="84">
-<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a>imdb <span class="op">=</span> datasets.load_dataset(<span class="st">"imdb"</span>)</span>
-<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a>model_path <span class="op">=</span> <span class="st">"distilbert/distilbert-base-uncased"</span></span>
-<span id="cb142-3"><a href="#cb142-3" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(model_path)</span>
-<span id="cb142-4"><a href="#cb142-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(</span>
-<span id="cb142-5"><a href="#cb142-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span></span>
-<span id="cb142-6"><a href="#cb142-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb142-7"><a href="#cb142-7" aria-hidden="true" tabindex="-1"></a>model_input <span class="op">=</span> {</span>
-<span id="cb142-8"><a href="#cb142-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'input_ids'</span>: torch.tensor([[<span class="dv">101</span>, <span class="dv">2023</span>, <span class="dv">3185</span>, <span class="dv">2003</span>, <span class="dv">6659</span>, <span class="dv">2021</span>, <span class="dv">2009</span>, <span class="dv">2038</span>, <span class="dv">2070</span>, <span class="dv">2204</span>, <span class="dv">3896</span>, <span class="dv">1012</span>, <span class="dv">102</span>]]),</span>
-<span id="cb142-9"><a href="#cb142-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'attention_mask'</span>: torch.tensor([[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]]),</span>
-<span id="cb142-10"><a href="#cb142-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'labels'</span>: torch.tensor([<span class="dv">0</span>]) </span>
-<span id="cb142-11"><a href="#cb142-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-99" class="cell" data-execution_count="84">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>imdb <span class="op">=</span> datasets.load_dataset(<span class="st">"imdb"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>model_path <span class="op">=</span> <span class="st">"distilbert/distilbert-base-uncased"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(model_path)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>model_input <span class="op">=</span> {</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'input_ids'</span>: torch.tensor([[<span class="dv">101</span>, <span class="dv">2023</span>, <span class="dv">3185</span>, <span class="dv">2003</span>, <span class="dv">6659</span>, <span class="dv">2021</span>, <span class="dv">2009</span>, <span class="dv">2038</span>, <span class="dv">2070</span>, <span class="dv">2204</span>, <span class="dv">3896</span>, <span class="dv">1012</span>, <span class="dv">102</span>]]),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'attention_mask'</span>: torch.tensor([[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]]),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'labels'</span>: torch.tensor([<span class="dv">0</span>]) </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Some weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
 </div>
 </div>
-<div id="cell-137" class="cell" data-execution_count="85">
-<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>model_input) <span class="co"># 이게 계산되는 이유는 모델에 포함된 숫자들과 model_input에 포함된 숫자들이 둘다 cpu에 있어서..</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="85">
-<pre><code>SequenceClassifierOutput(loss=tensor(0.7304, grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[-0.0381,  0.0351]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
-</div>
-</div>
-<div id="cell-138" class="cell" data-execution_count="86">
-<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="bu">next</span>(model.parameters()) <span class="co"># 이 숫자들에 미분꼬리표가 있음..</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="86">
-<pre><code>Parameter containing:
-tensor([[-0.0166, -0.0666, -0.0163,  ..., -0.0200, -0.0514, -0.0264],
-        [-0.0132, -0.0673, -0.0161,  ..., -0.0227, -0.0554, -0.0260],
-        [-0.0176, -0.0709, -0.0144,  ..., -0.0246, -0.0596, -0.0232],
-        ...,
-        [-0.0231, -0.0588, -0.0105,  ..., -0.0195, -0.0262, -0.0212],
-        [-0.0490, -0.0561, -0.0047,  ..., -0.0107, -0.0180, -0.0219],
-        [-0.0065, -0.0915, -0.0025,  ..., -0.0151, -0.0504,  0.0460]],
-       requires_grad=True)</code></pre>
-</div>
-</div>
-<div id="cell-139" class="cell" data-execution_count="87">
-<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a>model.to(<span class="st">"cuda"</span>)</span>
-<span id="cb148-2"><a href="#cb148-2" aria-hidden="true" tabindex="-1"></a><span class="bu">next</span>(model.parameters()) <span class="co"># 이 숫자들이 쿠다로 갔음..</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="87">
-<pre><code>Parameter containing:
-tensor([[-0.0166, -0.0666, -0.0163,  ..., -0.0200, -0.0514, -0.0264],
-        [-0.0132, -0.0673, -0.0161,  ..., -0.0227, -0.0554, -0.0260],
-        [-0.0176, -0.0709, -0.0144,  ..., -0.0246, -0.0596, -0.0232],
-        ...,
-        [-0.0231, -0.0588, -0.0105,  ..., -0.0195, -0.0262, -0.0212],
-        [-0.0490, -0.0561, -0.0047,  ..., -0.0107, -0.0180, -0.0219],
-        [-0.0065, -0.0915, -0.0025,  ..., -0.0151, -0.0504,  0.0460]],
-       device='cuda:0', requires_grad=True)</code></pre>
-</div>
-</div>
-<ul>
-<li>주의: <code>data.to("cuda")</code>는 <code>data</code>자체를 변화시키지 않지만 <code>model.to("cuda")</code> 는 <code>model</code> 자체를 변화시킴</li>
-</ul>
-<div id="cell-141" class="cell" data-execution_count="88">
-<div class="sourceCode cell-code" id="cb150"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>model_input) <span class="co"># 이제 계산할 수 없음 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking argument for argument index in method wrapper_CUDA__index_select)</code></pre>
-</div>
-</div>
-<div id="cell-142" class="cell" data-execution_count="89">
-<div class="sourceCode cell-code" id="cb152"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a>model.to(<span class="st">"cpu"</span>) <span class="co"># 모델의 파라메터를 다시 cpu로 내려줌</span></span>
-<span id="cb152-2"><a href="#cb152-2" aria-hidden="true" tabindex="-1"></a><span class="bu">next</span>(model.parameters())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="89">
-<pre><code>Parameter containing:
-tensor([[-0.0166, -0.0666, -0.0163,  ..., -0.0200, -0.0514, -0.0264],
-        [-0.0132, -0.0673, -0.0161,  ..., -0.0227, -0.0554, -0.0260],
-        [-0.0176, -0.0709, -0.0144,  ..., -0.0246, -0.0596, -0.0232],
-        ...,
-        [-0.0231, -0.0588, -0.0105,  ..., -0.0195, -0.0262, -0.0212],
-        [-0.0490, -0.0561, -0.0047,  ..., -0.0107, -0.0180, -0.0219],
-        [-0.0065, -0.0915, -0.0025,  ..., -0.0151, -0.0504,  0.0460]],
-       requires_grad=True)</code></pre>
-</div>
-</div>
-<div id="cell-143" class="cell" data-execution_count="90">
-<div class="sourceCode cell-code" id="cb154"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>model_input) <span class="co"># 이제 다시 계산가능함</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="90">
-<pre><code>SequenceClassifierOutput(loss=tensor(0.7304, grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[-0.0381,  0.0351]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
-</div>
-</div>
+<hr>
+<p><code>-</code> 원래사용방식</p>
+<p><code>-</code> 모델의 파라메터는 어디에?</p>
+<p><code>-</code> 모델의 파라메터를 cuda로..</p>
+<p><code>-</code> 아까 계산되던 코드가 거짓말처럼 동작하지 않음</p>
+<p><code>-</code> 다시 모델의 파라메터를 cpu로..</p>
+<p><code>-</code> 이제 또 계산가능함..</p>
 <p><code>-</code> 정리해보자..</p>
-<div id="cell-145" class="cell" data-execution_count="91">
-<div class="sourceCode cell-code" id="cb156"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(</span>
-<span id="cb156-2"><a href="#cb156-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span></span>
-<span id="cb156-3"><a href="#cb156-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb156-4"><a href="#cb156-4" aria-hidden="true" tabindex="-1"></a>model_input <span class="op">=</span> {</span>
-<span id="cb156-5"><a href="#cb156-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'input_ids'</span>: torch.tensor([[<span class="dv">101</span>, <span class="dv">2023</span>, <span class="dv">3185</span>, <span class="dv">2003</span>, <span class="dv">6659</span>, <span class="dv">2021</span>, <span class="dv">2009</span>, <span class="dv">2038</span>, <span class="dv">2070</span>, <span class="dv">2204</span>, <span class="dv">3896</span>, <span class="dv">1012</span>, <span class="dv">102</span>]]),</span>
-<span id="cb156-6"><a href="#cb156-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'attention_mask'</span>: torch.tensor([[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]]),</span>
-<span id="cb156-7"><a href="#cb156-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'labels'</span>: torch.tensor([<span class="dv">0</span>])</span>
-<span id="cb156-8"><a href="#cb156-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb156-9"><a href="#cb156-9" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>model_input) <span class="co"># 모델_cpu(데이터_cpu)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Some weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']
-You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="91">
-<pre><code>SequenceClassifierOutput(loss=tensor(0.6807, grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[0.1461, 0.1211]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
-</div>
-</div>
-<div id="cell-146" class="cell" data-execution_count="92">
-<div class="sourceCode cell-code" id="cb159"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(</span>
-<span id="cb159-2"><a href="#cb159-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span></span>
-<span id="cb159-3"><a href="#cb159-3" aria-hidden="true" tabindex="-1"></a>).to(<span class="st">"cuda"</span>)</span>
-<span id="cb159-4"><a href="#cb159-4" aria-hidden="true" tabindex="-1"></a>model_input <span class="op">=</span> {</span>
-<span id="cb159-5"><a href="#cb159-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'input_ids'</span>: torch.tensor([[<span class="dv">101</span>, <span class="dv">2023</span>, <span class="dv">3185</span>, <span class="dv">2003</span>, <span class="dv">6659</span>, <span class="dv">2021</span>, <span class="dv">2009</span>, <span class="dv">2038</span>, <span class="dv">2070</span>, <span class="dv">2204</span>, <span class="dv">3896</span>, <span class="dv">1012</span>, <span class="dv">102</span>]]).to(<span class="st">"cuda"</span>),</span>
-<span id="cb159-6"><a href="#cb159-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'attention_mask'</span>: torch.tensor([[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]]).to(<span class="st">"cuda"</span>),</span>
-<span id="cb159-7"><a href="#cb159-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'labels'</span>: torch.tensor([<span class="dv">0</span>]).to(<span class="st">"cuda"</span>) </span>
-<span id="cb159-8"><a href="#cb159-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb159-9"><a href="#cb159-9" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>model_input) <span class="co"># 모델_cuda(데이터_cuda)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Some weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']
-You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="92">
-<pre><code>SequenceClassifierOutput(loss=tensor(0.7588, device='cuda:0', grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[-0.0113,  0.1159]], device='cuda:0', grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
-</div>
-</div>
-<div id="cell-147" class="cell" data-execution_count="93">
-<div class="sourceCode cell-code" id="cb162"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(</span>
-<span id="cb162-2"><a href="#cb162-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span></span>
-<span id="cb162-3"><a href="#cb162-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb162-4"><a href="#cb162-4" aria-hidden="true" tabindex="-1"></a>model_input <span class="op">=</span> {</span>
-<span id="cb162-5"><a href="#cb162-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'input_ids'</span>: torch.tensor([[<span class="dv">101</span>, <span class="dv">2023</span>, <span class="dv">3185</span>, <span class="dv">2003</span>, <span class="dv">6659</span>, <span class="dv">2021</span>, <span class="dv">2009</span>, <span class="dv">2038</span>, <span class="dv">2070</span>, <span class="dv">2204</span>, <span class="dv">3896</span>, <span class="dv">1012</span>, <span class="dv">102</span>]]).to(<span class="st">"cuda"</span>),</span>
-<span id="cb162-6"><a href="#cb162-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'attention_mask'</span>: torch.tensor([[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]]).to(<span class="st">"cuda"</span>),</span>
-<span id="cb162-7"><a href="#cb162-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'labels'</span>: torch.tensor([<span class="dv">0</span>]).to(<span class="st">"cuda"</span>) </span>
-<span id="cb162-8"><a href="#cb162-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb162-9"><a href="#cb162-9" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>model_input) <span class="co"># 모델_cpu(데이터_cuda)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Some weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']
-You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cpu and cuda:0! (when checking argument for argument index in method wrapper_CUDA__index_select)</code></pre>
-</div>
-</div>
-<div id="cell-148" class="cell" data-execution_count="94">
-<div class="sourceCode cell-code" id="cb165"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb165-1"><a href="#cb165-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(</span>
-<span id="cb165-2"><a href="#cb165-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span></span>
-<span id="cb165-3"><a href="#cb165-3" aria-hidden="true" tabindex="-1"></a>).to(<span class="st">"cuda"</span>)</span>
-<span id="cb165-4"><a href="#cb165-4" aria-hidden="true" tabindex="-1"></a>model_input <span class="op">=</span> {</span>
-<span id="cb165-5"><a href="#cb165-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'input_ids'</span>: torch.tensor([[<span class="dv">101</span>, <span class="dv">2023</span>, <span class="dv">3185</span>, <span class="dv">2003</span>, <span class="dv">6659</span>, <span class="dv">2021</span>, <span class="dv">2009</span>, <span class="dv">2038</span>, <span class="dv">2070</span>, <span class="dv">2204</span>, <span class="dv">3896</span>, <span class="dv">1012</span>, <span class="dv">102</span>]]),</span>
-<span id="cb165-6"><a href="#cb165-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'attention_mask'</span>: torch.tensor([[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]]),</span>
-<span id="cb165-7"><a href="#cb165-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'labels'</span>: torch.tensor([<span class="dv">0</span>])</span>
-<span id="cb165-8"><a href="#cb165-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb165-9"><a href="#cb165-9" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>model_input) <span class="co"># 모델_cuda(데이터_cpu)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Some weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']
-You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking argument for argument index in method wrapper_CUDA__index_select)</code></pre>
-</div>
-</div>
 <p><code>#</code></p>
 </section>
 <section id="grad-관리" class="level1">
 <h1>5. <code>grad</code> 관리</h1>
 <p><code># 예제1</code> – 미분꼬리표 제거하고 싶음..</p>
-<div id="cell-152" class="cell" data-execution_count="95">
-<div class="sourceCode cell-code" id="cb168"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor(<span class="fl">3.0</span>,requires_grad<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb168-2"><a href="#cb168-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.tensor([<span class="fl">1.0</span>]<span class="op">*</span><span class="dv">10</span>)</span>
-<span id="cb168-3"><a href="#cb168-3" aria-hidden="true" tabindex="-1"></a>a<span class="op">*</span>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>-</code> <code>a</code>에는 꼬리표O, <code>b</code>에는 꼬리표X, <code>a*b</code>는 <code>a</code>로 인한 꼬리표가 유지</p>
+<div id="cell-118" class="cell" data-execution_count="95">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor(<span class="fl">3.0</span>,requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.tensor([<span class="fl">1.0</span>]<span class="op">*</span><span class="dv">10</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>a<span class="op">*</span>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="95">
 <pre><code>tensor([3., 3., 3., 3., 3., 3., 3., 3., 3., 3.], grad_fn=&lt;MulBackward0&gt;)</code></pre>
 </div>
 </div>
-<div id="cell-153" class="cell" data-execution_count="96">
-<div class="sourceCode cell-code" id="cb170"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb170-1"><a href="#cb170-1" aria-hidden="true" tabindex="-1"></a>plt.plot(b,<span class="st">'--o'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="08wk-2_files/figure-html/cell-90-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="cell-154" class="cell" data-execution_count="97">
-<div class="sourceCode cell-code" id="cb171"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a>plt.plot(a<span class="op">*</span>b,<span class="st">'--o'</span>) <span class="co"># 에러남</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>RuntimeError: Can't call numpy() on Tensor that requires grad. Use tensor.detach().numpy() instead.</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="08wk-2_files/figure-html/cell-91-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="cell-155" class="cell" data-execution_count="98">
-<div class="sourceCode cell-code" id="cb173"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb173-1"><a href="#cb173-1" aria-hidden="true" tabindex="-1"></a>plt.plot(a.detach()<span class="op">*</span>b,<span class="st">'--o'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="08wk-2_files/figure-html/cell-92-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
+<p><code>-</code> 꼬리표가 없는 <code>b</code>는 <code>plt.plot</code>이 동작하지만 꼬리표가 있는 <code>a*b</code>는 <code>plt.plot</code>이 동작하지 않음</p>
+<p><code>-</code> <code>a</code>의 꼬리표를 제거하고 돌리자…</p>
 <p><code>#</code></p>
 <p><code># 예제2</code> – 미분꼬리표를 제거하는 또다른 기능</p>
 <p><code>-</code> 예제1을 아래처럼 실수로 풀었다.</p>
-<div id="cell-159" class="cell" data-execution_count="99">
-<div class="sourceCode cell-code" id="cb174"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb174-1"><a href="#cb174-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor(<span class="fl">3.0</span>,requires_grad<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb174-2"><a href="#cb174-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.tensor([<span class="fl">1.0</span>]<span class="op">*</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-126" class="cell" data-execution_count="99">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor(<span class="fl">3.0</span>,requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.tensor([<span class="fl">1.0</span>]<span class="op">*</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-160" class="cell" data-execution_count="100">
-<div class="sourceCode cell-code" id="cb175"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb175-1"><a href="#cb175-1" aria-hidden="true" tabindex="-1"></a>plt.plot(a<span class="op">*</span>b.detach(),<span class="st">'--o'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-127" class="cell" data-execution_count="100">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plt.plot(a<span class="op">*</span>b.detach(),<span class="st">'--o'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>RuntimeError: Can't call numpy() on Tensor that requires grad. Use tensor.detach().numpy() instead.</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="08wk-2_files/figure-html/cell-94-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="08wk-2_files/figure-html/cell-56-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><code>-</code> 아래와 같이 했어야 했는데, 섬세함이 부족했다..</p>
-<div id="cell-162" class="cell" data-execution_count="114">
-<div class="sourceCode cell-code" id="cb177"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb177-1"><a href="#cb177-1" aria-hidden="true" tabindex="-1"></a>plt.plot((a<span class="op">*</span>b).detach(),<span class="st">'--o'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-129" class="cell" data-execution_count="114">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.plot((a<span class="op">*</span>b).detach(),<span class="st">'--o'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="08wk-2_files/figure-html/cell-95-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="08wk-2_files/figure-html/cell-57-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1124,136 +408,27 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <li>앞으로 섬세하게 코딩하자??</li>
 </ul>
 <p><code>-</code> 앞으로 섬세하기 싫다면?? <span class="math inline">\(\to\)</span> <code>torch.set_grad_enabled()</code> 이용</p>
-<div id="cell-165" class="cell" data-execution_count="102">
-<div class="sourceCode cell-code" id="cb178"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb178-1"><a href="#cb178-1" aria-hidden="true" tabindex="-1"></a>torch.is_grad_enabled() <span class="co"># 미분꼬리표 정상적으로 부착되는 계산..</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="102">
-<pre><code>True</code></pre>
-</div>
-</div>
-<div id="cell-166" class="cell" data-execution_count="103">
-<div class="sourceCode cell-code" id="cb180"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb180-1"><a href="#cb180-1" aria-hidden="true" tabindex="-1"></a>torch.set_grad_enabled(<span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="103">
-<pre><code>&lt;torch.autograd.grad_mode.set_grad_enabled at 0x7da93d507110&gt;</code></pre>
-</div>
-</div>
-<div id="cell-167" class="cell" data-execution_count="105">
-<div class="sourceCode cell-code" id="cb182"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb182-1"><a href="#cb182-1" aria-hidden="true" tabindex="-1"></a>torch.is_grad_enabled() <span class="co"># 꼬리표 계산안하는 모드..</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="105">
-<pre><code>False</code></pre>
-</div>
-</div>
-<div id="cell-168" class="cell" data-execution_count="106">
-<div class="sourceCode cell-code" id="cb184"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb184-1"><a href="#cb184-1" aria-hidden="true" tabindex="-1"></a>a,b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="106">
-<pre><code>(tensor(3., requires_grad=True),
- tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.]))</code></pre>
-</div>
-</div>
-<div id="cell-169" class="cell" data-execution_count="108">
-<div class="sourceCode cell-code" id="cb186"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb186-1"><a href="#cb186-1" aria-hidden="true" tabindex="-1"></a>a<span class="op">*</span>b <span class="co"># 꼬리표가 계산안됨!!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="108">
-<pre><code>tensor([3., 3., 3., 3., 3., 3., 3., 3., 3., 3.])</code></pre>
-</div>
-</div>
-<div id="cell-170" class="cell" data-execution_count="112">
-<div class="sourceCode cell-code" id="cb188"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb188-1"><a href="#cb188-1" aria-hidden="true" tabindex="-1"></a>plt.plot(a<span class="op">*</span>b,<span class="st">'--o'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="08wk-2_files/figure-html/cell-101-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="cell-171" class="cell" data-execution_count="113">
-<div class="sourceCode cell-code" id="cb189"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb189-1"><a href="#cb189-1" aria-hidden="true" tabindex="-1"></a>torch.set_grad_enabled(<span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="113">
-<pre><code>&lt;torch.autograd.grad_mode.set_grad_enabled at 0x7da953542780&gt;</code></pre>
-</div>
-</div>
-<div id="cell-172" class="cell" data-execution_count="116">
-<div class="sourceCode cell-code" id="cb191"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb191-1"><a href="#cb191-1" aria-hidden="true" tabindex="-1"></a>torch.is_grad_enabled() <span class="co"># 다시 원상복귀</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="116">
-<pre><code>True</code></pre>
-</div>
-</div>
-<div id="cell-173" class="cell" data-execution_count="118">
-<div class="sourceCode cell-code" id="cb193"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb193-1"><a href="#cb193-1" aria-hidden="true" tabindex="-1"></a>plt.plot(a<span class="op">*</span>b,<span class="st">'--o'</span>) <span class="co"># 잘 안된다..</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>RuntimeError: Can't call numpy() on Tensor that requires grad. Use tensor.detach().numpy() instead.</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="08wk-2_files/figure-html/cell-104-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
+<p><em>모드확인</em></p>
+<p><em>모드변경</em></p>
+<p><em>다시 모드확인</em></p>
+<p><em>a,b상태 출력</em></p>
+<p><em>계산</em></p>
+<p><em>plot</em></p>
+<p><em>다시모드변경</em></p>
+<p><em>모드변경확인</em></p>
+<p><em>plot – 이제 못그림</em></p>
 <p><code>#</code></p>
 <p><code># 예제3</code></p>
-<div id="cell-176" class="cell" data-execution_count="119">
-<div class="sourceCode cell-code" id="cb195"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb195-1"><a href="#cb195-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(</span>
-<span id="cb195-2"><a href="#cb195-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span></span>
-<span id="cb195-3"><a href="#cb195-3" aria-hidden="true" tabindex="-1"></a>).to(<span class="st">"cuda"</span>)</span>
-<span id="cb195-4"><a href="#cb195-4" aria-hidden="true" tabindex="-1"></a>model_input <span class="op">=</span> {</span>
-<span id="cb195-5"><a href="#cb195-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'input_ids'</span>: torch.tensor([[<span class="dv">101</span>, <span class="dv">2023</span>, <span class="dv">3185</span>, <span class="dv">2003</span>, <span class="dv">6659</span>, <span class="dv">2021</span>, <span class="dv">2009</span>, <span class="dv">2038</span>, <span class="dv">2070</span>, <span class="dv">2204</span>, <span class="dv">3896</span>, <span class="dv">1012</span>, <span class="dv">102</span>]]).to(<span class="st">"cuda"</span>),</span>
-<span id="cb195-6"><a href="#cb195-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'attention_mask'</span>: torch.tensor([[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]]).to(<span class="st">"cuda"</span>),</span>
-<span id="cb195-7"><a href="#cb195-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'labels'</span>: torch.tensor([<span class="dv">0</span>]).to(<span class="st">"cuda"</span>) </span>
-<span id="cb195-8"><a href="#cb195-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb195-9"><a href="#cb195-9" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>model_input) <span class="co"># 모델_cuda(데이터_cuda)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Some weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']
-You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="119">
-<pre><code>SequenceClassifierOutput(loss=tensor(0.6561, device='cuda:0', grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[ 0.0653, -0.0102]], device='cuda:0', grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
-</div>
-</div>
-<div id="cell-177" class="cell" data-execution_count="120">
-<div class="sourceCode cell-code" id="cb198"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb198-1"><a href="#cb198-1" aria-hidden="true" tabindex="-1"></a>mp2024pkg.show_list(</span>
-<span id="cb198-2"><a href="#cb198-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(model.parameters())</span>
-<span id="cb198-3"><a href="#cb198-3" aria-hidden="true" tabindex="-1"></a> ) <span class="co"># detach()를 쓰려면 104개를 다 제거해야겠는뎅.. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Level 1 - Type: list, Length: 104, Content: [Parameter containing:
-te ... :0', requires_grad=True)]
-     Level 2 - Type: Parameter, Length: 30522, Content: Parameter containing:
-ten ... a:0', requires_grad=True)
-     Level 2 - Type: Parameter, Length: 512, Content: Parameter containing:
-ten ... a:0', requires_grad=True)
-     ...
-     Level 2 - Type: Parameter, Length: 768, Content: Parameter containing:
-ten ... a:0', requires_grad=True)
-     Level 2 - Type: Parameter, Length: 768, Content: Parameter containing:
-ten ...       requires_grad=True)
-     Level 2 - Type: Parameter, Length: 768, Content: Parameter containing:
-ten ... a:0', requires_grad=True)
-     Level 2 - Type: Parameter, Length: 2, Content: Parameter containing:
-ten ... a:0', requires_grad=True)
-     Level 2 - Type: Parameter, Length: 2, Content: Parameter containing:
-ten ... a:0', requires_grad=True)</code></pre>
-</div>
-</div>
-<div id="cell-178" class="cell" data-execution_count="126">
-<div class="sourceCode cell-code" id="cb200"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb200-1"><a href="#cb200-1" aria-hidden="true" tabindex="-1"></a>torch.set_grad_enabled(<span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="126">
-<pre><code>&lt;torch.autograd.grad_mode.set_grad_enabled at 0x7da93e13e960&gt;</code></pre>
-</div>
-</div>
-<div id="cell-179" class="cell" data-execution_count="127">
-<div class="sourceCode cell-code" id="cb202"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb202-1"><a href="#cb202-1" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>model_input) <span class="co"># 꼬리표제거.. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="127">
-<pre><code>SequenceClassifierOutput(loss=tensor(0.6561, device='cuda:0'), logits=tensor([[ 0.0653, -0.0102]], device='cuda:0'), hidden_states=None, attentions=None)</code></pre>
-</div>
-</div>
-<div id="cell-180" class="cell" data-execution_count="128">
-<div class="sourceCode cell-code" id="cb204"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb204-1"><a href="#cb204-1" aria-hidden="true" tabindex="-1"></a>torch.set_grad_enabled(<span class="va">True</span>) <span class="co"># 다시 원상복귀..</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="128">
-<pre><code>&lt;torch.autograd.grad_mode.set_grad_enabled at 0x7da90af56780&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>: </code></pre>
-</div>
+<div id="cell-152" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>model_input <span class="op">=</span> {</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'input_ids'</span>: torch.tensor([[<span class="dv">101</span>, <span class="dv">2023</span>, <span class="dv">3185</span>, <span class="dv">2003</span>, <span class="dv">6659</span>, <span class="dv">2021</span>, <span class="dv">2009</span>, <span class="dv">2038</span>, <span class="dv">2070</span>, <span class="dv">2204</span>, <span class="dv">3896</span>, <span class="dv">1012</span>, <span class="dv">102</span>]]),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'attention_mask'</span>: torch.tensor([[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]]),</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'labels'</span>: torch.tensor([<span class="dv">0</span>])</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>model_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>#</code></p>
 

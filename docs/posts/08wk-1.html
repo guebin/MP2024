@@ -335,113 +335,6 @@ window.Quarto = {
 <section id="a.-위치" class="level2">
 <h2 class="anchored" data-anchor-id="a.-위치">A. 위치</h2>
 <p><code>-</code> numpy가 설치된 위치를 알아보자.</p>
-<div id="cell-19" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>np?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Type:        module
-String form: &lt;module 'numpy' from '/home/cgb3/anaconda3/envs/hf/lib/python3.12/site-packages/numpy/__init__.py'&gt;
-File:        ~/anaconda3/envs/hf/lib/python3.12/site-packages/numpy/__init__.py
-Docstring:  
-NumPy
-=====
-
-Provides
-  1. An array object of arbitrary homogeneous items
-  2. Fast mathematical operations over arrays
-  3. Linear Algebra, Fourier Transforms, Random Number Generation
-
-How to use the documentation
-----------------------------
-Documentation is available in two forms: docstrings provided
-with the code, and a loose standing reference guide, available from
-`the NumPy homepage &lt;https://numpy.org&gt;`_.
-
-We recommend exploring the docstrings using
-`IPython &lt;https://ipython.org&gt;`_, an advanced Python shell with
-TAB-completion and introspection capabilities.  See below for further
-instructions.
-
-The docstring examples assume that `numpy` has been imported as ``np``::
-
-  &gt;&gt;&gt; import numpy as np
-
-Code snippets are indicated by three greater-than signs::
-
-  &gt;&gt;&gt; x = 42
-  &gt;&gt;&gt; x = x + 1
-
-Use the built-in ``help`` function to view a function's docstring::
-
-  &gt;&gt;&gt; help(np.sort)
-  ... # doctest: +SKIP
-
-For some objects, ``np.info(obj)`` may provide additional help.  This is
-particularly true if you see the line "Help on ufunc object:" at the top
-of the help() page.  Ufuncs are implemented in C, not Python, for speed.
-The native Python help() does not know how to view their help, but our
-np.info() function does.
-
-To search for documents containing a keyword, do::
-
-  &gt;&gt;&gt; np.lookfor('keyword')
-  ... # doctest: +SKIP
-
-General-purpose documents like a glossary and help on the basic concepts
-of numpy are available under the ``doc`` sub-module::
-
-  &gt;&gt;&gt; from numpy import doc
-  &gt;&gt;&gt; help(doc)
-  ... # doctest: +SKIP
-
-Available subpackages
----------------------
-lib
-    Basic functions used by several sub-packages.
-random
-    Core Random Tools
-linalg
-    Core Linear Algebra Tools
-fft
-    Core FFT routines
-polynomial
-    Polynomial tools
-testing
-    NumPy testing tools
-distutils
-    Enhancements to distutils with support for
-    Fortran compilers support and more  (for Python &lt;= 3.11).
-
-Utilities
----------
-test
-    Run numpy unittests
-show_config
-    Show numpy build configuration
-matlib
-    Make everything matrices.
-__version__
-    NumPy version string
-
-Viewing documentation using IPython
------------------------------------
-
-Start IPython and import `numpy` usually under the alias ``np``: `import
-numpy as np`.  Then, directly past or use the ``%cpaste`` magic to paste
-examples into the shell.  To see which functions are available in `numpy`,
-type ``np.&lt;TAB&gt;`` (where ``&lt;TAB&gt;`` refers to the TAB key), or use
-``np.*cos*?&lt;ENTER&gt;`` (where ``&lt;ENTER&gt;`` refers to the ENTER key) to narrow
-down the list.  To view the docstring for a function, use
-``np.cos?&lt;ENTER&gt;`` (to view the docstring) and ``np.cos??&lt;ENTER&gt;`` (to view
-the source code).
-
-Copies vs. in-place operation
------------------------------
-Most of the functions in `numpy` return a copy of the array argument
-(e.g., `np.sort`).  In-place versions of these functions are often
-available as array methods, i.e. ``x = np.array([1,2,3]); x.sort()``.
-Exceptions to this rule are documented.</code></pre>
-</div>
-</div>
 <p><code>-</code> numpy폴더는 있고 mp2024pkg 폴더는 없음..</p>
 <p><code>-</code> 그래서 numpy는 임포트되는데 mp2024pkg는 임포트되지 않음</p>
 </section>
@@ -477,9 +370,9 @@ Exceptions to this rule are documented.</code></pre>
 <section id="모듈-패키지-라이브러리" class="level1">
 <h1>4. 모듈, 패키지, 라이브러리??</h1>
 <p><code>-</code> 모듈은 import를 하여 생기게 되는 오브젝트를 의미한다.</p>
-<div id="cell-52" class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(np)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-51" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(np)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>module</code></pre>
 </div>
