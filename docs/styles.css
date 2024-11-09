@@ -1,0 +1,5 @@
+/* css styles */
+.cell-output {
+    max-height: 600px; /* 원하는 높이 설정 */
+    overflow-y: auto;
+}
