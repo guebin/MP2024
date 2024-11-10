@@ -1,5 +1,12 @@
-/* css styles */
 .cell-output {
-    max-height: 600px; /* 원하는 높이 설정 */
+    width: 100%; /* 전체 너비의 100%로 설정 */
+    max-height: 600px;
     overflow-y: auto;
+    padding: 15px;
+    margin-left: auto; /* 오른쪽 정렬 */
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    position: relative;
 }
