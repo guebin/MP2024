@@ -1,0 +1,2937 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.533">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="최규빈">
+<meta name="dcterms.date" content="2024-11-12">
+
+<title>MP2024 - 10wk-1: Datasets 클래스</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">MP2024</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../quiz.html"> 
+<span class="menu-text"><strong>Quiz</strong></span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/guebin/MP2024"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.youtube.com/channel/UCQk9RyBNgXc7ORIsYlOfQrg/playlists?view=50&amp;sort=dd&amp;shelf_id=2"> <i class="bi bi-youtube" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#강의영상" id="toc-강의영상" class="nav-link active" data-scroll-target="#강의영상">1. 강의영상</a></li>
+  <li><a href="#imports" id="toc-imports" class="nav-link" data-scroll-target="#imports">2. Imports</a></li>
+  <li><a href="#dataset-형식이해" id="toc-dataset-형식이해" class="nav-link" data-scroll-target="#dataset-형식이해">3. Dataset 형식이해</a></li>
+  <li><a href="#쉬운-함수들" id="toc-쉬운-함수들" class="nav-link" data-scroll-target="#쉬운-함수들">4. 쉬운 함수들</a>
+  <ul class="collapse">
+  <li><a href="#a.-.select" id="toc-a.-.select" class="nav-link" data-scroll-target="#a.-.select">A. <code>.select()</code></a></li>
+  <li><a href="#b.-.shuffle" id="toc-b.-.shuffle" class="nav-link" data-scroll-target="#b.-.shuffle">B. <code>.shuffle()</code></a></li>
+  <li><a href="#c.-.select_columns" id="toc-c.-.select_columns" class="nav-link" data-scroll-target="#c.-.select_columns">C. <code>.select_columns()</code></a></li>
+  <li><a href="#d.-.set_format" id="toc-d.-.set_format" class="nav-link" data-scroll-target="#d.-.set_format">D. <code>.set_format()</code></a></li>
+  <li><a href="#e.-.reset_format" id="toc-e.-.reset_format" class="nav-link" data-scroll-target="#e.-.reset_format">E. <code>.reset_format()</code></a></li>
+  </ul></li>
+  <li><a href="#map" id="toc-map" class="nav-link" data-scroll-target="#map">5. <code>.map()</code></a>
+  <ul class="collapse">
+  <li><a href="#a.-d.map" id="toc-a.-d.map" class="nav-link" data-scroll-target="#a.-d.map">A. <code>d.map()</code></a></li>
+  <li><a href="#b.-dd.map" id="toc-b.-dd.map" class="nav-link" data-scroll-target="#b.-dd.map">B. <code>dd.map()</code></a></li>
+  <li><a href="#c.-d.mapbatchtrue" id="toc-c.-d.mapbatchtrue" class="nav-link" data-scroll-target="#c.-d.mapbatchtrue">C. <code>d.map(batch=True)</code></a></li>
+  <li><a href="#d.-d.map-칼럼선택" id="toc-d.-d.map-칼럼선택" class="nav-link" data-scroll-target="#d.-d.map-칼럼선택">D. <code>d.map()</code> + 칼럼선택</a></li>
+  <li><a href="#e.-d.map-타입변환-star" id="toc-e.-d.map-타입변환-star" class="nav-link" data-scroll-target="#e.-d.map-타입변환-star">E. <code>d.map()</code> + 타입변환 (<span class="math inline">\(\star\)</span>)</a></li>
+  </ul></li>
+  <li><a href="#with_transform" id="toc-with_transform" class="nav-link" data-scroll-target="#with_transform">6. <code>.with_transform()</code></a>
+  <ul class="collapse">
+  <li><a href="#a.-d.with_transform" id="toc-a.-d.with_transform" class="nav-link" data-scroll-target="#a.-d.with_transform">A. <code>d.with_transform()</code></a></li>
+  <li><a href="#b.-dd.with_transform" id="toc-b.-dd.with_transform" class="nav-link" data-scroll-target="#b.-dd.with_transform">B. <code>dd.with_transform()</code></a></li>
+  <li><a href="#c.-d.reset_format" id="toc-c.-d.reset_format" class="nav-link" data-scroll-target="#c.-d.reset_format">C. <code>d.reset_format()</code></a></li>
+  </ul></li>
+  <li><a href="#미묘한-차이" id="toc-미묘한-차이" class="nav-link" data-scroll-target="#미묘한-차이">7. 미묘한 차이</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="10wk-1.out.ipynb" download="10wk-1.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">10wk-1: <code>Datasets</code> 클래스</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>최규빈 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 12, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="https://colab.research.google.com/github/guebin/MP2024/blob/main/posts/10wk-1.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" style="text-align: left"></a></p>
+<section id="강의영상" class="level1">
+<h1>1. 강의영상</h1>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/playlist?list=PLQqh36zP38-ykYDGqzZhVu08gNRipqhaf&amp;si=fb8GRsvDxQY70mGh" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
+<section id="imports" class="level1">
+<h1>2. Imports</h1>
+<div id="47d347ad-b4e1-4db2-a109-bcdbed72065b" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!pip uninstall mp2024pkg -y</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#!pip install git+https://github.com/guebin/mp2024pkg.git</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="f7ada738" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datasets </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> transformers</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mp2024pkg <span class="im">import</span> signature, show</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rich <span class="im">import</span> <span class="bu">print</span> <span class="im">as</span> rprint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/cgb3/anaconda3/envs/hf/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm</code></pre>
+</div>
+</div>
+<div id="ee6eed48" class="cell" data-execution_count="119">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>emotion <span class="op">=</span> datasets.load_dataset(<span class="st">'emotion'</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="dataset-형식이해" class="level1">
+<h1>3. Dataset 형식이해</h1>
+<p><code>-</code> <code>emotion</code> 데이터셋 일부를 <code>d</code>로 선언</p>
+<div id="54703cf1" class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<p><code>-</code> <code>d</code> 는 아래와 같이 length-<span class="math inline">\(n\)</span> 인 list로 이해하는것이 편리하다.</p>
+<ul>
+<li>dataset = [example_1, example_2, example_3 , example_4]</li>
+<li>example_i = {‘text’: xxx, ‘label’: yyy}</li>
+</ul>
+<div id="ed6ab62e" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="600293bd" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>[d[<span class="dv">0</span>],d[<span class="dv">1</span>],d[<span class="dv">2</span>],d[<span class="dv">3</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>[{'text': 'i didnt feel humiliated', 'label': 0},
+ {'text': 'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake',
+  'label': 0},
+ {'text': 'im grabbing a minute to post i feel greedy wrong', 'label': 3},
+ {'text': 'i am ever feeling nostalgic about the fireplace i will know that it is still on the property',
+  'label': 2}]</code></pre>
+</div>
+</div>
+<div id="ccfd6146" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>d.to_list()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<pre><code>[{'text': 'i didnt feel humiliated', 'label': 0},
+ {'text': 'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake',
+  'label': 0},
+ {'text': 'im grabbing a minute to post i feel greedy wrong', 'label': 3},
+ {'text': 'i am ever feeling nostalgic about the fireplace i will know that it is still on the property',
+  'label': 2}]</code></pre>
+</div>
+</div>
+<p><code>-</code> 그런데 <code>Dataset</code>은 특이하게도 아래의 문법이 동작했었다.</p>
+<div id="402c49be" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>d[<span class="st">'text'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<pre><code>['i didnt feel humiliated',
+ 'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake',
+ 'im grabbing a minute to post i feel greedy wrong',
+ 'i am ever feeling nostalgic about the fireplace i will know that it is still on the property']</code></pre>
+</div>
+</div>
+<div id="89de636e" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>d[<span class="st">'label'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>[0, 0, 3, 2]</code></pre>
+</div>
+</div>
+<p><code>-</code> 위의 결과를 관찰하면 <code>Dataset</code> 는 마치 dictionary 처럼 느껴진다. 실제로 경우에 따라서 <code>Dataset</code>을 dictionary 처럼 생각해도 된다. 이때 <code>Dataset</code>은 아래와 같은 구조로 이해하는게 편리하다.</p>
+<ul>
+<li>d = examples = <code>{'text':[xxx,xxxx,xxxxx,xxxxxx], 'label':[yyy,yyyy,yyyyy,yyyyyy]}</code></li>
+</ul>
+<div id="b4a66d69" class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dct <span class="op">=</span> {<span class="st">'text'</span>: d[<span class="st">'text'</span>], <span class="st">'label'</span>:d[<span class="st">'label'</span>]}</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>dct</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated',
+  'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake',
+  'im grabbing a minute to post i feel greedy wrong',
+  'i am ever feeling nostalgic about the fireplace i will know that it is still on the property'],
+ 'label': [0, 0, 3, 2]}</code></pre>
+</div>
+</div>
+<div id="4fadcce5" class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>d.to_dict()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated',
+  'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake',
+  'im grabbing a minute to post i feel greedy wrong',
+  'i am ever feeling nostalgic about the fireplace i will know that it is still on the property'],
+ 'label': [0, 0, 3, 2]}</code></pre>
+</div>
+</div>
+<p><code>-</code> 복습: 딕셔너리를 데이터프레임과 비슷하게 생각할 수 있었음.</p>
+<div id="ca83e128" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({<span class="st">'a'</span>:[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>], <span class="st">'b'</span>:[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">a</th>
+<th data-quarto-table-cell-role="th">b</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><code>-</code> 이 개념을 확장하면 <code>d</code>역시 데이터프레임과 비슷하게 이해할 수도 있다.</p>
+<div id="d9236e33" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(d.to_dict())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="41">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">text</th>
+<th data-quarto-table-cell-role="th">label</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>i didnt feel humiliated</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>i can go from feeling so hopeless to so damned...</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>im grabbing a minute to post i feel greedy wrong</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>i am ever feeling nostalgic about the fireplac...</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="f63ce13d" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>d.to_pandas()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="42">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">text</th>
+<th data-quarto-table-cell-role="th">label</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>i didnt feel humiliated</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>i can go from feeling so hopeless to so damned...</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>im grabbing a minute to post i feel greedy wrong</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>i am ever feeling nostalgic about the fireplac...</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="쉬운-함수들" class="level1">
+<h1>4. 쉬운 함수들</h1>
+<section id="a.-.select" class="level2">
+<h2 class="anchored" data-anchor-id="a.-.select">A. <code>.select()</code></h2>
+<p><code># 예시1</code></p>
+<div id="a9c7318d" class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#d = datasets.Dataset.from_list([emotion['train'][0],emotion['train'][1],emotion['train'][2],emotion['train'][3]])</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="59">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+</section>
+<section id="b.-.shuffle" class="level2">
+<h2 class="anchored" data-anchor-id="b.-.shuffle">B. <code>.shuffle()</code></h2>
+<p><code># 예시1</code></p>
+<div id="ff4c2352" class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="63">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="e6481cdb" class="cell" data-execution_count="76">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>show(d.shuffle())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List Overview:
+Total items: 4
+
+1. list[0]
+   - Type: dict
+   - Length: 2
+   - Values: {'text': 'i am ever feeling nostalgic about the fireplace i will know that it is still on the property', 'label': 2}
+
+2. list[1]
+   - Type: dict
+   - Length: 2
+   - Values: {'text': 'im grabbing a minute to post i feel greedy wrong', 'label': 3}
+
+3. list[2]
+   - Type: dict
+   - Length: 2
+   - Values: {'text': 'i didnt feel humiliated', 'label': 0}
+
+4. list[3]
+   - Type: dict
+   - Length: 2
+   - Values: {'text': 'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake', 'label': 0}</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+<p><code># 예시2</code></p>
+<div id="9f1f152a" class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># emotion['train']에서 처음 4개의 observation/example 을 뽑는 코드</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>d </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="77">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="e2546c0d" class="cell" data-execution_count="78">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># emotion['train']에서 랜덤으로 4개의 observation/example 을 뽑는 코드</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].shuffle().select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>d </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="78">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+</section>
+<section id="c.-.select_columns" class="level2">
+<h2 class="anchored" data-anchor-id="c.-.select_columns">C. <code>.select_columns()</code></h2>
+<p><code># 예시1</code></p>
+<div id="1d5059b5" class="cell" data-execution_count="82">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="82">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="fe36b7c4" class="cell" data-execution_count="84">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>d.select_columns([<span class="st">'text'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="84">
+<pre><code>Dataset({
+    features: ['text'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="17c0f85b" class="cell" data-execution_count="85">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>d.select_columns([<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="85">
+<pre><code>Dataset({
+    features: ['label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="04fac007" class="cell" data-execution_count="86">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>d.select_columns([<span class="st">'text'</span>,<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="86">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+</section>
+<section id="d.-.set_format" class="level2">
+<h2 class="anchored" data-anchor-id="d.-.set_format">D. <code>.set_format()</code></h2>
+<p><code># 예시1</code></p>
+<div id="56e33c36" class="cell" data-execution_count="93">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="93">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="163e4de1" class="cell" data-execution_count="95">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>d.set_format(<span class="bu">type</span><span class="op">=</span><span class="st">"pandas"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="bf9f8c75" class="cell" data-execution_count="99">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>d[<span class="st">'text'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="99">
+<pre><code>0                              i didnt feel humiliated
+1    i can go from feeling so hopeless to so damned...
+2     im grabbing a minute to post i feel greedy wrong
+3    i am ever feeling nostalgic about the fireplac...
+Name: text, dtype: object</code></pre>
+</div>
+</div>
+<div id="588e713b" class="cell" data-execution_count="100">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>d[<span class="st">'label'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="100">
+<pre><code>0    0
+1    0
+2    3
+3    2
+Name: label, dtype: int64</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+<p><code># 예시2</code></p>
+<div id="a4abdbf9" class="cell" data-execution_count="102">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="102">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="d54adce0" class="cell" data-execution_count="103">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>d.set_format(<span class="bu">type</span><span class="op">=</span><span class="st">"pandas"</span>,columns<span class="op">=</span>[<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="42e04d32" class="cell" data-execution_count="104">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>d[<span class="st">'text'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="104">
+<pre><code>['i didnt feel humiliated',
+ 'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake',
+ 'im grabbing a minute to post i feel greedy wrong',
+ 'i am ever feeling nostalgic about the fireplace i will know that it is still on the property']</code></pre>
+</div>
+</div>
+<div id="8a447bf7" class="cell" data-execution_count="105">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>d[<span class="st">'label'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="105">
+<pre><code>0    0
+1    0
+2    3
+3    2
+Name: label, dtype: int64</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+<p><code># 예시3</code></p>
+<div id="ee352db6" class="cell" data-execution_count="106">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="106">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="f3a65a56" class="cell" data-execution_count="107">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>d.set_format(<span class="bu">type</span><span class="op">=</span><span class="st">"pt"</span>,columns<span class="op">=</span>[<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="2688cdd5" class="cell" data-execution_count="108">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>d[<span class="st">'text'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="108">
+<pre><code>['i didnt feel humiliated',
+ 'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake',
+ 'im grabbing a minute to post i feel greedy wrong',
+ 'i am ever feeling nostalgic about the fireplace i will know that it is still on the property']</code></pre>
+</div>
+</div>
+<div id="ff11514b" class="cell" data-execution_count="109">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>d[<span class="st">'label'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="109">
+<pre><code>tensor([0, 0, 3, 2])</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+</section>
+<section id="e.-.reset_format" class="level2">
+<h2 class="anchored" data-anchor-id="e.-.reset_format">E. <code>.reset_format()</code></h2>
+<p><code># 예시1</code></p>
+<div id="1318008d" class="cell" data-execution_count="111">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="111">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="b8cc229a" class="cell" data-execution_count="113">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>d.set_format(<span class="bu">type</span><span class="op">=</span><span class="st">"pt"</span>,columns<span class="op">=</span>[<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="2fa9950f" class="cell" data-execution_count="114">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>d[<span class="st">'text'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="114">
+<pre><code>['i didnt feel humiliated',
+ 'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake',
+ 'im grabbing a minute to post i feel greedy wrong',
+ 'i am ever feeling nostalgic about the fireplace i will know that it is still on the property']</code></pre>
+</div>
+</div>
+<div id="d08b94ac" class="cell" data-execution_count="115">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>d[<span class="st">'label'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="115">
+<pre><code>tensor([0, 0, 3, 2])</code></pre>
+</div>
+</div>
+<div id="aed2a425" class="cell" data-execution_count="116">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>d.reset_format()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="8729de49" class="cell" data-execution_count="117">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>d[<span class="st">'text'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="117">
+<pre><code>['i didnt feel humiliated',
+ 'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake',
+ 'im grabbing a minute to post i feel greedy wrong',
+ 'i am ever feeling nostalgic about the fireplace i will know that it is still on the property']</code></pre>
+</div>
+</div>
+<div id="3f0ddd1c" class="cell" data-execution_count="118">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>d[<span class="st">'label'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="118">
+<pre><code>[0, 0, 3, 2]</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+</section>
+</section>
+<section id="map" class="level1">
+<h1>5. <code>.map()</code></h1>
+<section id="a.-d.map" class="level2">
+<h2 class="anchored" data-anchor-id="a.-d.map">A. <code>d.map()</code></h2>
+<p><code># 예제1</code> – <code>.map()</code>에 대한 이해</p>
+<p>아래와 같은 Dataset이 있다고 하자.</p>
+<div id="7b32ca91" class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<p><code>d.map()</code>을 이용하여 아래와 같이 변환하라.</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">데이터</th>
+<th style="text-align: left;">변환전</th>
+<th style="text-align: left;">변환후</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">d[0]</td>
+<td style="text-align: left;">text: str<br>label: int</td>
+<td style="text-align: left;">text: str<br>label: int<br>input_ids: [int,…,int]<br>attention_mask: [int,…,int]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">d[:1]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]<br>input_ids: [[int,…,int]]<br>attention_mask: [[int,…,int]]</td>
+</tr>
+</tbody>
+</table>
+<p><code>(풀이1)</code> – <code>d.map()</code>을 사용하지 않은 풀이..</p>
+<p><em><code>d</code>는 아래와 같은 구조로 이해할 수 있음</em></p>
+<ul>
+<li><code>d</code> = <code>[example_1, example_2, example_3, example_4]</code></li>
+<li><code>example_i</code> = <code>{'text': xxx, 'label' = yyy}</code></li>
+</ul>
+<p><em>리스트화</em></p>
+<div id="541e0b2a" class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>lst <span class="op">=</span> d.to_list()</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>lst</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>[{'text': 'i didnt feel humiliated', 'label': 0},
+ {'text': 'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake',
+  'label': 0},
+ {'text': 'im grabbing a minute to post i feel greedy wrong', 'label': 3},
+ {'text': 'i am ever feeling nostalgic about the fireplace i will know that it is still on the property',
+  'label': 2}]</code></pre>
+</div>
+</div>
+<p><em>리스트의 첫 요소에 변환적용</em></p>
+<div id="fd1e4df1" class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> lst[<span class="dv">0</span>]</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': 'i didnt feel humiliated', 'label': 0}</code></pre>
+</div>
+</div>
+<div id="728ec7a6" class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> tokenizer(l[<span class="st">'text'</span>])</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>r</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102], 'attention_mask': [1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<p><em><code>l</code>와 <code>tokenizer(l['text'])</code>을 합침</em></p>
+<div id="c52adb1e" class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': 'i didnt feel humiliated', 'label': 0}</code></pre>
+</div>
+</div>
+<div id="6ddc3ad6" class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>r</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102], 'attention_mask': [1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<div id="2b473825" class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>l<span class="op">|</span>r </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': 'i didnt feel humiliated', 'label': 0, 'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102], 'attention_mask': [1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<p><em>반복</em></p>
+<div id="39dbe193" class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>lst2 <span class="op">=</span> [l <span class="op">|</span> tokenizer(l[<span class="st">'text'</span>]) <span class="cf">for</span> l <span class="kw">in</span> lst]</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>lst2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>[{'text': 'i didnt feel humiliated', 'label': 0, 'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102], 'attention_mask': [1, 1, 1, 1, 1, 1, 1]},
+ {'text': 'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake', 'label': 0, 'input_ids': [101, 1045, 2064, 2175, 2013, 3110, 2061, 20625, 2000, 2061, 9636, 17772, 2074, 2013, 2108, 2105, 2619, 2040, 14977, 1998, 2003, 8300, 102], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]},
+ {'text': 'im grabbing a minute to post i feel greedy wrong', 'label': 3, 'input_ids': [101, 10047, 9775, 1037, 3371, 2000, 2695, 1045, 2514, 20505, 3308, 102], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]},
+ {'text': 'i am ever feeling nostalgic about the fireplace i will know that it is still on the property', 'label': 2, 'input_ids': [101, 1045, 2572, 2412, 3110, 16839, 9080, 12863, 2055, 1996, 13788, 1045, 2097, 2113, 2008, 2009, 2003, 2145, 2006, 1996, 3200, 102], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}]</code></pre>
+</div>
+</div>
+<p><em><code>lst2</code>를 <code>d2</code>로..</em></p>
+<div id="3b8474e0" class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> datasets.Dataset.from_list(lst2)</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label', 'input_ids', 'attention_mask'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="5508891d" class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': 'i didnt feel humiliated',
+ 'label': 0,
+ 'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102],
+ 'attention_mask': [1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<div id="89165027" class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated'],
+ 'label': [0],
+ 'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102]],
+ 'attention_mask': [[1, 1, 1, 1, 1, 1, 1]]}</code></pre>
+</div>
+</div>
+<p><code>(풀이2)</code></p>
+<div id="85998db4" class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> m_transform(example):</span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># example = l = {'text': 'i didnt feel humiliated', 'label': 0} </span></span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(example[<span class="st">'text'</span>])</span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="2bcec82a" class="cell">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.<span class="bu">map</span>(m_transform)</span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': 'i didnt feel humiliated',
+ 'label': 0,
+ 'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102],
+ 'attention_mask': [1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<div id="80e0161e" class="cell">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated'],
+ 'label': [0],
+ 'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102]],
+ 'attention_mask': [[1, 1, 1, 1, 1, 1, 1]]}</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+<p>:::{.callout-note}</p>
+<p><strong><code>.map()</code>의 특징</strong></p>
+<ul>
+<li>특징1: <code>m_transform()</code>은 입력으로 <code>example = {'text':xxx, 'label':yyy}</code> 꼴을 가정한다.</li>
+<li>특징2: <code>.map()</code>은 변환전 dict와 변환후 dict를 합친다.</li>
+</ul>
+</section>
+<section id="b.-dd.map" class="level2">
+<h2 class="anchored" data-anchor-id="b.-dd.map">B. <code>dd.map()</code></h2>
+<p><code># 예제1</code> – <code>dd</code>에도 <code>.map</code>을 적용할 수 있음</p>
+<p>아래와 같은 DatasetDict가 있다고 하자.</p>
+<div id="93b02b21" class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>dd <span class="op">=</span> datasets.DatasetDict({</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'train'</span>:emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>)),</span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'test'</span>:emotion[<span class="st">'test'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>)),</span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>dd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>DatasetDict({
+    train: Dataset({
+        features: ['text', 'label'],
+        num_rows: 4
+    })
+    test: Dataset({
+        features: ['text', 'label'],
+        num_rows: 4
+    })
+})</code></pre>
+</div>
+</div>
+<p><code>dd.map()</code>을 이용하여 아래와 같이 변환하라.</p>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">tr/test</th>
+<th style="text-align: left;">데이터</th>
+<th style="text-align: left;">변환전</th>
+<th style="text-align: left;">변환후</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">train</td>
+<td style="text-align: left;">d[0]</td>
+<td style="text-align: left;">text: str<br>label: int</td>
+<td style="text-align: left;">text: str<br>label: int<br>input_ids: [int,…,int]<br>attention_mask: [int,…,int]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">train</td>
+<td style="text-align: left;">d[:1]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]<br>input_ids: [[int,…,int]]<br>attention_mask: [[int,…,int]]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">test</td>
+<td style="text-align: left;">d[0]</td>
+<td style="text-align: left;">text: str<br>label: int</td>
+<td style="text-align: left;">text: str<br>label: int<br>input_ids: [int,…,int]<br>attention_mask: [int,…,int]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">test</td>
+<td style="text-align: left;">d[:1]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]<br>input_ids: [[int,…,int]]<br>attention_mask: [[int,…,int]]</td>
+</tr>
+</tbody>
+</table>
+<p><code>(풀이)</code></p>
+<div id="9ce0b008" class="cell">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> m_transform(example):</span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># example = l = {'text': 'i didnt feel humiliated', 'label': 0} </span></span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(example[<span class="st">'text'</span>])</span>
+<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="4df41089" class="cell">
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>dd2 <span class="op">=</span> dd.<span class="bu">map</span>(m_transform)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="ab8aaf5e" class="cell">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>dd2[<span class="st">'train'</span>][<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': 'i didnt feel humiliated',
+ 'label': 0,
+ 'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102],
+ 'attention_mask': [1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<div id="21025349" class="cell">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>dd2[<span class="st">'train'</span>][:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated'],
+ 'label': [0],
+ 'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102]],
+ 'attention_mask': [[1, 1, 1, 1, 1, 1, 1]]}</code></pre>
+</div>
+</div>
+<div id="6eb25361" class="cell">
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>dd2[<span class="st">'test'</span>][<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': 'im feeling rather rotten so im not very ambitious right now',
+ 'label': 0,
+ 'input_ids': [101,
+  10047,
+  3110,
+  2738,
+  11083,
+  2061,
+  10047,
+  2025,
+  2200,
+  12479,
+  2157,
+  2085,
+  102],
+ 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<div id="e2179b31" class="cell">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>dd2[<span class="st">'test'</span>][:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['im feeling rather rotten so im not very ambitious right now'],
+ 'label': [0],
+ 'input_ids': [[101,
+   10047,
+   3110,
+   2738,
+   11083,
+   2061,
+   10047,
+   2025,
+   2200,
+   12479,
+   2157,
+   2085,
+   102]],
+ 'attention_mask': [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]}</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+</section>
+<section id="c.-d.mapbatchtrue" class="level2">
+<h2 class="anchored" data-anchor-id="c.-d.mapbatchtrue">C. <code>d.map(batch=True)</code></h2>
+<p><code># 예제1</code> – <code>d.map(batch=True)</code>의 이해</p>
+<p>아래와 같은 Dataset이 있다고 하자.</p>
+<div id="e2e1efd1" class="cell">
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">8</span>))</span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 8
+})</code></pre>
+</div>
+</div>
+<p><code>d.map(batch=True)</code>을 이용하여 아래와 같이 변환하라.</p>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">데이터</th>
+<th style="text-align: left;">변환전</th>
+<th style="text-align: left;">변환후</th>
+<th style="text-align: left;">특이사항</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">d[0]</td>
+<td style="text-align: left;">text: str<br>label: int</td>
+<td style="text-align: left;">text: str<br>label: int<br>input_ids: [int,…,int]<br>attention_mask: [int,…,int]</td>
+<td style="text-align: left;">변환시 2개의 example씩 묶어서 패딩</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">d[:1]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]<br>input_ids: [[int,…,int]]<br>attention_mask: [[int,…,int]]</td>
+<td style="text-align: left;">변환시 2개의 example씩 묶어서 패딩</td>
+</tr>
+</tbody>
+</table>
+<p><code>(풀이1)</code> – 실패</p>
+<div id="e785c9f4" class="cell">
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> m_transform(example):</span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># example = {'text':xxx, 'label':yyy}</span></span>
+<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(example[<span class="st">'text'</span>],padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="45ef22c5" class="cell">
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.<span class="bu">map</span>(m_transform)</span>
+<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label', 'input_ids', 'attention_mask'],
+    num_rows: 8
+})</code></pre>
+</div>
+</div>
+<div id="18f79700" class="cell">
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>rprint(<span class="st">"d2[:4]['input_ids']"</span>)</span>
+<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a>show(d2[:<span class="dv">4</span>][<span class="st">'input_ids'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">d2<span style="font-weight: bold">[</span>:<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">4</span><span style="font-weight: bold">][</span><span style="color: #008000; text-decoration-color: #008000">'input_ids'</span><span style="font-weight: bold">]</span>
+</pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List Overview:
+Total items: 4
+
+1. list[0]
+   - Type: list
+   - Length: 7
+   - Values: [101, 1045, 2134, 2102, 2514, 26608, 102]
+
+2. list[1]
+   - Type: list
+   - Length: 23
+   - Values: [101, 1045, 2064, 2175, 2013, 3110, 2061, 20625, 2000, 2061, 9636, 17772, 2074, 2013, 2108, 2105, 2619, 2040, 14977, 1998, 2003, 8300, 102]
+
+3. list[2]
+   - Type: list
+   - Length: 12
+   - Values: [101, 10047, 9775, 1037, 3371, 2000, 2695, 1045, 2514, 20505, 3308, 102]
+
+4. list[3]
+   - Type: list
+   - Length: 22
+   - Values: [101, 1045, 2572, 2412, 3110, 16839, 9080, 12863, 2055, 1996, 13788, 1045, 2097, 2113, 2008, 2009, 2003, 2145, 2006, 1996, 3200, 102]</code></pre>
+</div>
+</div>
+<p><code>(풀이2)</code> – 성공</p>
+<div id="661b3130" class="cell">
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="co"># def m_transform(example):</span></span>
+<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="co">#     # example = {'text':xxx, 'label':yyy}</span></span>
+<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     result = tokenizer(example['text'], padding=True)</span></span>
+<span id="cb121-4"><a href="#cb121-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     return result </span></span>
+<span id="cb121-5"><a href="#cb121-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> m_transform_batch(example_batch):</span>
+<span id="cb121-6"><a href="#cb121-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># example_batch = {'text':[xxx,xxxx], 'label':[yyy,yyyy]}</span></span>
+<span id="cb121-7"><a href="#cb121-7" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(example_batch[<span class="st">'text'</span>], padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb121-8"><a href="#cb121-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="8e504040" class="cell">
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.<span class="bu">map</span>(m_transform_batch,batched<span class="op">=</span><span class="va">True</span>,batch_size<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label', 'input_ids', 'attention_mask'],
+    num_rows: 8
+})</code></pre>
+</div>
+</div>
+<div id="3e605320" class="cell">
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>rprint(<span class="st">"d2[:4]['input_ids']"</span>)</span>
+<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a>show(d2[:<span class="dv">4</span>][<span class="st">'input_ids'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">d2<span style="font-weight: bold">[</span>:<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">4</span><span style="font-weight: bold">][</span><span style="color: #008000; text-decoration-color: #008000">'input_ids'</span><span style="font-weight: bold">]</span>
+</pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List Overview:
+Total items: 4
+
+1. list[0]
+   - Type: list
+   - Length: 23
+   - Values: [101, 1045, 2134, 2102, 2514, 26608, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+2. list[1]
+   - Type: list
+   - Length: 23
+   - Values: [101, 1045, 2064, 2175, 2013, 3110, 2061, 20625, 2000, 2061, 9636, 17772, 2074, 2013, 2108, 2105, 2619, 2040, 14977, 1998, 2003, 8300, 102]
+
+3. list[2]
+   - Type: list
+   - Length: 22
+   - Values: [101, 10047, 9775, 1037, 3371, 2000, 2695, 1045, 2514, 20505, 3308, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+4. list[3]
+   - Type: list
+   - Length: 22
+   - Values: [101, 1045, 2572, 2412, 3110, 16839, 9080, 12863, 2055, 1996, 13788, 1045, 2097, 2113, 2008, 2009, 2003, 2145, 2006, 1996, 3200, 102]</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+<p>:::{.callout-note}</p>
+<p><strong><code>.map(batch=True)</code>의 특징</strong></p>
+<ul>
+<li>특징1: <code>m_transform_batch()</code>은 입력으로 <code>example_batch = {'text':[xxx,xxxx,...], 'label':[yyy,yyyy,...]}</code> 꼴을 가정한다.</li>
+<li>특징2: <code>example_batch</code>는 <code>batch_size</code>만큼 데이터가 있다고 생각한다.</li>
+</ul>
+</section>
+<section id="d.-d.map-칼럼선택" class="level2">
+<h2 class="anchored" data-anchor-id="d.-d.map-칼럼선택">D. <code>d.map()</code> + 칼럼선택</h2>
+<p><code># 예제1</code> – attention_mask 제외</p>
+<p>아래와 같은 Dataset이 있다고 하자.</p>
+<div id="6d789c7e" class="cell">
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<p><code>d.map()</code>을 이용하여 아래와 같이 변환하라.</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">데이터</th>
+<th style="text-align: left;">변환전</th>
+<th style="text-align: left;">변환후</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">d[0]</td>
+<td style="text-align: left;">text: str<br>label: int</td>
+<td style="text-align: left;">text: str<br>label: int<br>input_ids: [int,…,int]<br></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">d[:1]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]<br>input_ids: [[int,…,int]]<br></td>
+</tr>
+</tbody>
+</table>
+<p><code>(풀이1)</code></p>
+<div id="2381b140" class="cell">
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> m_transform(example):</span>
+<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># example = {'text':xxx, 'label':yyy}</span></span>
+<span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(example[<span class="st">'text'</span>])</span>
+<span id="cb128-4"><a href="#cb128-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="dd730120" class="cell">
+<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.<span class="bu">map</span>(m_transform)</span>
+<span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d2.select_columns([<span class="st">'text'</span>, <span class="st">'label'</span>, <span class="st">'input_ids'</span>])</span>
+<span id="cb129-3"><a href="#cb129-3" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label', 'input_ids'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="8432b3f8" class="cell">
+<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': 'i didnt feel humiliated',
+ 'label': 0,
+ 'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102]}</code></pre>
+</div>
+</div>
+<div id="12f07969" class="cell">
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated'],
+ 'label': [0],
+ 'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102]]}</code></pre>
+</div>
+</div>
+<p><code>(풀이2)</code></p>
+<div id="667dc13a" class="cell">
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> m_transform(example):</span>
+<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># example = {'text':xxx, 'label':yyy}</span></span>
+<span id="cb135-3"><a href="#cb135-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(example[<span class="st">'text'</span>])</span>
+<span id="cb135-4"><a href="#cb135-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">del</span> result[<span class="st">'attention_mask'</span>]</span>
+<span id="cb135-5"><a href="#cb135-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="62252da0" class="cell">
+<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.<span class="bu">map</span>(m_transform)</span>
+<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label', 'input_ids'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="29dccd09" class="cell">
+<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': 'i didnt feel humiliated',
+ 'label': 0,
+ 'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102]}</code></pre>
+</div>
+</div>
+<div id="f74f1256" class="cell">
+<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated'],
+ 'label': [0],
+ 'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102]]}</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+<p><code># 예제2</code> – text 제외</p>
+<p>아래와 같은 Dataset이 있다고 하자.</p>
+<div id="4666f161" class="cell">
+<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<p><code>d.map()</code>을 이용하여 아래와 같이 변환하라.</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">데이터</th>
+<th style="text-align: left;">변환전</th>
+<th style="text-align: left;">변환후</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">d[0]</td>
+<td style="text-align: left;">text: str<br>label: int</td>
+<td style="text-align: left;">label: int<br>input_ids: [int,…,int]<br>attention_mask: [int,…,int]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">d[:1]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]</td>
+<td style="text-align: left;">label: [int]<br>input_ids: [[int,…,int]]<br>attention_mask: [[int,…,int]]</td>
+</tr>
+</tbody>
+</table>
+<p><code>(풀이1)</code></p>
+<div id="55531b6b" class="cell">
+<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> m_transform(example):</span>
+<span id="cb144-2"><a href="#cb144-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># example = {'text': xxx, 'label':yyy}</span></span>
+<span id="cb144-3"><a href="#cb144-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(example[<span class="st">'text'</span>])</span>
+<span id="cb144-4"><a href="#cb144-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">del</span> example[<span class="st">'text'</span>]</span>
+<span id="cb144-5"><a href="#cb144-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="d4004c68" class="cell">
+<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.<span class="bu">map</span>(m_transform)</span>
+<span id="cb145-2"><a href="#cb145-2" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['label', 'input_ids', 'attention_mask'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="720ccdaa" class="cell">
+<div class="sourceCode cell-code" id="cb147"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'label': 0,
+ 'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102],
+ 'attention_mask': [1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<div id="23ebd348" class="cell">
+<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'label': [0],
+ 'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102]],
+ 'attention_mask': [[1, 1, 1, 1, 1, 1, 1]]}</code></pre>
+</div>
+</div>
+<p><code>(풀이2)</code></p>
+<div id="283ba1c5" class="cell">
+<div class="sourceCode cell-code" id="cb151"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> m_transform(example):</span>
+<span id="cb151-2"><a href="#cb151-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># example = {'text': xxx, 'label':yyy}</span></span>
+<span id="cb151-3"><a href="#cb151-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(example[<span class="st">'text'</span>])</span>
+<span id="cb151-4"><a href="#cb151-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="00f6ab9b" class="cell">
+<div class="sourceCode cell-code" id="cb152"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.<span class="bu">map</span>(m_transform)</span>
+<span id="cb152-2"><a href="#cb152-2" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d2.select_columns([<span class="st">'label'</span>, <span class="st">'input_ids'</span>, <span class="st">'attention_mask'</span>])</span>
+<span id="cb152-3"><a href="#cb152-3" aria-hidden="true" tabindex="-1"></a>d2 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['label', 'input_ids', 'attention_mask'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="4855aa81" class="cell">
+<div class="sourceCode cell-code" id="cb154"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'label': 0,
+ 'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102],
+ 'attention_mask': [1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<div id="e5dc2a45" class="cell">
+<div class="sourceCode cell-code" id="cb156"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'label': [0],
+ 'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102]],
+ 'attention_mask': [[1, 1, 1, 1, 1, 1, 1]]}</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+<p>:::{.callout-note}</p>
+<p><strong><code>.map()</code>에서 컬럼을 제외하려면?</strong></p>
+<ul>
+<li><code>del</code>을 이용한 풀이: 제외하고자 하는 column이 <code>example</code>에 있을 경우, <code>result</code>에 있을 경우 미묘하게 다름.</li>
+<li><code>select</code>를 이용한 풀이: 제외하고자 하는 column이 <code>example</code>에 있든지 <code>result</code>에 있든지 상관없음.</li>
+</ul>
+</section>
+<section id="e.-d.map-타입변환-star" class="level2">
+<h2 class="anchored" data-anchor-id="e.-d.map-타입변환-star">E. <code>d.map()</code> + 타입변환 (<span class="math inline">\(\star\)</span>)</h2>
+<p><code># 예제1</code> – <code>.map()</code>을 이용한 타입변환은 불가능</p>
+<p>아래와 같은 Dataset이 있다고 하자.</p>
+<div id="afff5fb7" class="cell">
+<div class="sourceCode cell-code" id="cb158"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb158-2"><a href="#cb158-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<p><code>d.map()</code>을 이용하여 아래와 같이 변환하라.</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">데이터</th>
+<th style="text-align: left;">변환전</th>
+<th style="text-align: left;">변환후</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">d[0]</td>
+<td style="text-align: left;">text: str<br>label: int</td>
+<td style="text-align: left;">label: int<br>input_ids: tensor([int,…,int])<br>attention_mask: tensor([int,…,int])</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">d[:1]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]</td>
+<td style="text-align: left;">label:[int]<br>input_ids: tensor([[int,…,int]])<br>attention_mask: tensor([[int,…,int]])</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">d[:2]</td>
+<td style="text-align: left;">text: [str,str]<br>label: [int,int]</td>
+<td style="text-align: left;">label:[int,int]<br>input_ids: tensor([[int,…,int],[int,…,int]])<br>attention_mask: tensor([[int,…,int],[int,…,int]])</td>
+</tr>
+</tbody>
+</table>
+<p><code>(풀이1)</code> – 실패</p>
+<div id="aca58a64" class="cell">
+<div class="sourceCode cell-code" id="cb160"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> m_transform(example):</span>
+<span id="cb160-2"><a href="#cb160-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># example = {'text': xxx, 'label':yyy}</span></span>
+<span id="cb160-3"><a href="#cb160-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(example[<span class="st">'text'</span>])</span>
+<span id="cb160-4"><a href="#cb160-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">del</span> example[<span class="st">'text'</span>]</span>
+<span id="cb160-5"><a href="#cb160-5" aria-hidden="true" tabindex="-1"></a>    result[<span class="st">'input_ids'</span>] <span class="op">=</span> torch.tensor(result[<span class="st">'input_ids'</span>])</span>
+<span id="cb160-6"><a href="#cb160-6" aria-hidden="true" tabindex="-1"></a>    result[<span class="st">'attention_mask'</span>] <span class="op">=</span> torch.tensor(result[<span class="st">'attention_mask'</span>])</span>
+<span id="cb160-7"><a href="#cb160-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="c5342054" class="cell">
+<div class="sourceCode cell-code" id="cb161"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.<span class="bu">map</span>(m_transform)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="bd2be005" class="cell">
+<div class="sourceCode cell-code" id="cb162"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'label': 0,
+ 'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102],
+ 'attention_mask': [1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<div id="da7f8090" class="cell">
+<div class="sourceCode cell-code" id="cb164"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'label': [0],
+ 'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102]],
+ 'attention_mask': [[1, 1, 1, 1, 1, 1, 1]]}</code></pre>
+</div>
+</div>
+<p><code>(풀이2)</code> – 실패</p>
+<div id="e5c25608" class="cell">
+<div class="sourceCode cell-code" id="cb166"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb166-1"><a href="#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> m_transform(example):</span>
+<span id="cb166-2"><a href="#cb166-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># example = {'text': xxx, 'label':yyy}</span></span>
+<span id="cb166-3"><a href="#cb166-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(example[<span class="st">'text'</span>],return_tensors<span class="op">=</span><span class="st">'pt'</span>)</span>
+<span id="cb166-4"><a href="#cb166-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">del</span> example[<span class="st">'text'</span>]</span>
+<span id="cb166-5"><a href="#cb166-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="7ef90fa4" class="cell">
+<div class="sourceCode cell-code" id="cb167"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.<span class="bu">map</span>(m_transform)</span>
+<span id="cb167-2"><a href="#cb167-2" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['label', 'input_ids', 'attention_mask'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="1c4a673a" class="cell">
+<div class="sourceCode cell-code" id="cb169"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb169-1"><a href="#cb169-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'label': 0,
+ 'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102]],
+ 'attention_mask': [[1, 1, 1, 1, 1, 1, 1]]}</code></pre>
+</div>
+</div>
+<div id="0e424a56" class="cell">
+<div class="sourceCode cell-code" id="cb171"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'label': [0],
+ 'input_ids': [[[101, 1045, 2134, 2102, 2514, 26608, 102]]],
+ 'attention_mask': [[[1, 1, 1, 1, 1, 1, 1]]]}</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>도데체 왜 자료형을 안바꿔주는거야??</p>
+</blockquote>
+<p><code>(풀이3)</code> – 이것도 실패한다고?</p>
+<div id="88dbac21" class="cell">
+<div class="sourceCode cell-code" id="cb173"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb173-1"><a href="#cb173-1" aria-hidden="true" tabindex="-1"></a>lst <span class="op">=</span> d.to_list()</span>
+<span id="cb173-2"><a href="#cb173-2" aria-hidden="true" tabindex="-1"></a>lst</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>[{'text': 'i didnt feel humiliated', 'label': 0},
+ {'text': 'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake',
+  'label': 0},
+ {'text': 'im grabbing a minute to post i feel greedy wrong', 'label': 3},
+ {'text': 'i am ever feeling nostalgic about the fireplace i will know that it is still on the property',
+  'label': 2}]</code></pre>
+</div>
+</div>
+<div id="10f109b2" class="cell">
+<div class="sourceCode cell-code" id="cb175"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb175-1"><a href="#cb175-1" aria-hidden="true" tabindex="-1"></a>lst2 <span class="op">=</span> [] </span>
+<span id="cb175-2"><a href="#cb175-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> l <span class="kw">in</span> lst:</span>
+<span id="cb175-3"><a href="#cb175-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(l[<span class="st">'text'</span>])</span>
+<span id="cb175-4"><a href="#cb175-4" aria-hidden="true" tabindex="-1"></a>    result[<span class="st">'input_ids'</span>] <span class="op">=</span> torch.tensor(result[<span class="st">'input_ids'</span>])</span>
+<span id="cb175-5"><a href="#cb175-5" aria-hidden="true" tabindex="-1"></a>    result[<span class="st">'attention_mask'</span>] <span class="op">=</span> torch.tensor(result[<span class="st">'attention_mask'</span>])</span>
+<span id="cb175-6"><a href="#cb175-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">del</span> l[<span class="st">'text'</span>]</span>
+<span id="cb175-7"><a href="#cb175-7" aria-hidden="true" tabindex="-1"></a>    lst2.append(l<span class="op">|</span>result)</span>
+<span id="cb175-8"><a href="#cb175-8" aria-hidden="true" tabindex="-1"></a>lst2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>[{'label': 0, 'input_ids': tensor([  101,  1045,  2134,  2102,  2514, 26608,   102]), 'attention_mask': tensor([1, 1, 1, 1, 1, 1, 1])},
+ {'label': 0, 'input_ids': tensor([  101,  1045,  2064,  2175,  2013,  3110,  2061, 20625,  2000,  2061,
+          9636, 17772,  2074,  2013,  2108,  2105,  2619,  2040, 14977,  1998,
+          2003,  8300,   102]), 'attention_mask': tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])},
+ {'label': 3, 'input_ids': tensor([  101, 10047,  9775,  1037,  3371,  2000,  2695,  1045,  2514, 20505,
+          3308,   102]), 'attention_mask': tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])},
+ {'label': 2, 'input_ids': tensor([  101,  1045,  2572,  2412,  3110, 16839,  9080, 12863,  2055,  1996,
+         13788,  1045,  2097,  2113,  2008,  2009,  2003,  2145,  2006,  1996,
+          3200,   102]), 'attention_mask': tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])}]</code></pre>
+</div>
+</div>
+<div id="55816b8a" class="cell">
+<div class="sourceCode cell-code" id="cb177"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb177-1"><a href="#cb177-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> datasets.Dataset.from_list(lst2)</span>
+<span id="cb177-2"><a href="#cb177-2" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['label', 'input_ids', 'attention_mask'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="90086c0b" class="cell">
+<div class="sourceCode cell-code" id="cb179"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb179-1"><a href="#cb179-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'label': 0,
+ 'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102],
+ 'attention_mask': [1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<div id="0706911f" class="cell">
+<div class="sourceCode cell-code" id="cb181"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb181-1"><a href="#cb181-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'label': [0],
+ 'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102]],
+ 'attention_mask': [[1, 1, 1, 1, 1, 1, 1]]}</code></pre>
+</div>
+</div>
+<p><code>(풀이4)</code> – 성공??</p>
+<div id="c4b297aa" class="cell">
+<div class="sourceCode cell-code" id="cb183"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> m_transform(example):</span>
+<span id="cb183-2"><a href="#cb183-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># example = {'text': xxx, 'label': yyy}</span></span>
+<span id="cb183-3"><a href="#cb183-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(example[<span class="st">'text'</span>])</span>
+<span id="cb183-4"><a href="#cb183-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">del</span> example[<span class="st">'text'</span>]</span>
+<span id="cb183-5"><a href="#cb183-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="77f18d7b" class="cell">
+<div class="sourceCode cell-code" id="cb184"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb184-1"><a href="#cb184-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.<span class="bu">map</span>(m_transform)</span>
+<span id="cb184-2"><a href="#cb184-2" aria-hidden="true" tabindex="-1"></a>d2.set_format(<span class="bu">type</span><span class="op">=</span><span class="st">"pt"</span>,columns<span class="op">=</span>[<span class="st">'input_ids'</span>,<span class="st">'attention_mask'</span>],output_all_columns<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="7c149121" class="cell">
+<div class="sourceCode cell-code" id="cb185"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb185-1"><a href="#cb185-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': tensor([  101,  1045,  2134,  2102,  2514, 26608,   102]),
+ 'attention_mask': tensor([1, 1, 1, 1, 1, 1, 1]),
+ 'label': 0}</code></pre>
+</div>
+</div>
+<div id="d42f1ad7" class="cell">
+<div class="sourceCode cell-code" id="cb187"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb187-1"><a href="#cb187-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': tensor([[  101,  1045,  2134,  2102,  2514, 26608,   102]]),
+ 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1]]),
+ 'label': [0]}</code></pre>
+</div>
+</div>
+<div id="8d237205" class="cell">
+<div class="sourceCode cell-code" id="cb189"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb189-1"><a href="#cb189-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">2</span>][<span class="st">'input_ids'</span>] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>[tensor([  101,  1045,  2134,  2102,  2514, 26608,   102]),
+ tensor([  101,  1045,  2064,  2175,  2013,  3110,  2061, 20625,  2000,  2061,
+          9636, 17772,  2074,  2013,  2108,  2105,  2619,  2040, 14977,  1998,
+          2003,  8300,   102])]</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+</section>
+</section>
+<section id="with_transform" class="level1">
+<h1>6. <code>.with_transform()</code></h1>
+<section id="a.-d.with_transform" class="level2">
+<h2 class="anchored" data-anchor-id="a.-d.with_transform">A. <code>d.with_transform()</code></h2>
+<p><code># 예제1</code></p>
+<p>아래와 같은 Dataset이 있다고 하자.</p>
+<div id="047e9f61" class="cell">
+<div class="sourceCode cell-code" id="cb191"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb191-1"><a href="#cb191-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb191-2"><a href="#cb191-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<p><code>d.with_transform()</code>을 이용하여 아래와 같이 변환하라.</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">데이터</th>
+<th style="text-align: left;">변환전</th>
+<th style="text-align: left;">변환후</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">d[0]</td>
+<td style="text-align: left;">text: str<br>label: int</td>
+<td style="text-align: left;">text: str<br>label: int<br>input_ids: [int,…,int]<br>attention_mask: [int,…,int]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">d[:1]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]<br>input_ids: [[int,…,int]]<br>attention_mask: [[int,…,int]]</td>
+</tr>
+</tbody>
+</table>
+<p><code>(풀이1)</code></p>
+<div id="cded78ef" class="cell">
+<div class="sourceCode cell-code" id="cb193"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb193-1"><a href="#cb193-1" aria-hidden="true" tabindex="-1"></a>dct <span class="op">=</span> d.to_dict()</span>
+<span id="cb193-2"><a href="#cb193-2" aria-hidden="true" tabindex="-1"></a>dct</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated',
+  'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake',
+  'im grabbing a minute to post i feel greedy wrong',
+  'i am ever feeling nostalgic about the fireplace i will know that it is still on the property'],
+ 'label': [0, 0, 3, 2]}</code></pre>
+</div>
+</div>
+<div id="13e55963" class="cell">
+<div class="sourceCode cell-code" id="cb195"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb195-1"><a href="#cb195-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> tokenizer(d[<span class="st">'text'</span>])</span>
+<span id="cb195-2"><a href="#cb195-2" aria-hidden="true" tabindex="-1"></a>dct2 <span class="op">=</span> dct <span class="op">|</span> result</span>
+<span id="cb195-3"><a href="#cb195-3" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> datasets.Dataset.from_dict(dct2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="8c3550ed" class="cell">
+<div class="sourceCode cell-code" id="cb196"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb196-1"><a href="#cb196-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': 'i didnt feel humiliated',
+ 'label': 0,
+ 'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102],
+ 'attention_mask': [1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<div id="3fbba728" class="cell">
+<div class="sourceCode cell-code" id="cb198"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb198-1"><a href="#cb198-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated'],
+ 'label': [0],
+ 'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102]],
+ 'attention_mask': [[1, 1, 1, 1, 1, 1, 1]]}</code></pre>
+</div>
+</div>
+<p><code>(풀이2)</code></p>
+<div id="01befa3b" class="cell">
+<div class="sourceCode cell-code" id="cb200"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb200-1"><a href="#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_transform(examples): </span>
+<span id="cb200-2"><a href="#cb200-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#examples = {'text':[xxx,xxxx,...], 'label':[yyy,yyyy,...]}</span></span>
+<span id="cb200-3"><a href="#cb200-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(examples[<span class="st">'text'</span>])</span>
+<span id="cb200-4"><a href="#cb200-4" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> examples <span class="op">|</span> result</span>
+<span id="cb200-5"><a href="#cb200-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="e1b94b4f" class="cell">
+<div class="sourceCode cell-code" id="cb201"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb201-1"><a href="#cb201-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.with_transform(w_transform)</span>
+<span id="cb201-2"><a href="#cb201-2" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="45349311" class="cell">
+<div class="sourceCode cell-code" id="cb203"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb203-1"><a href="#cb203-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': 'i didnt feel humiliated',
+ 'label': 0,
+ 'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102],
+ 'attention_mask': [1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<div id="b7791bc2" class="cell">
+<div class="sourceCode cell-code" id="cb205"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb205-1"><a href="#cb205-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated'], 'label': [0], 'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102]], 'attention_mask': [[1, 1, 1, 1, 1, 1, 1]]}</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+<p>:::{.callout-note}</p>
+<p><strong><code>.with_transform()</code>와 <code>.map()</code>의 차이점</strong></p>
+<ol type="1">
+<li><code>.map()</code>은 입력으로 example꼴을, <code>.with_transform()</code>은 입력으로 examples를 기대한다.</li>
+<li><code>.map()</code>은 변환전과 변환후 데이터가 자동으로 합쳐진다. <code>.with_transform()</code>은 변환후 데이터만 살아남는다.</li>
+<li><code>.map()</code>은 변환이 실제로 이루어진다. <code>.with_transform()</code>은 변환이 실제로 이루어지지 않다가 <code>d[0]</code>,<code>d[:1]</code> 등이 실행하는 순간 이루어진다.</li>
+</ol>
+<p><code># 예제2</code></p>
+<p>아래와 같은 Dataset이 있다고 하자.</p>
+<div id="a856d34c" class="cell">
+<div class="sourceCode cell-code" id="cb207"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb207-1"><a href="#cb207-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb207-2"><a href="#cb207-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<p><code>d.with_transform()</code>을 이용하여 아래와 같이 변환하라.</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">데이터</th>
+<th style="text-align: left;">변환전</th>
+<th style="text-align: left;">변환후</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">d[0]</td>
+<td style="text-align: left;">text: str<br>label: int</td>
+<td style="text-align: left;">text: str<br>label: int<br>input_ids: [int,…,int]<br></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">d[:1]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]<br>input_ids: [[int,…,int]]<br></td>
+</tr>
+</tbody>
+</table>
+<p><code>(풀이)</code></p>
+<div id="93a960db" class="cell">
+<div class="sourceCode cell-code" id="cb209"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb209-1"><a href="#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_transform(examples):</span>
+<span id="cb209-2"><a href="#cb209-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># examples = {'text':[xxx,xxxx,....], 'label':[yyy,yyyy,...]}</span></span>
+<span id="cb209-3"><a href="#cb209-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(examples[<span class="st">'text'</span>])</span>
+<span id="cb209-4"><a href="#cb209-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">del</span> result[<span class="st">'attention_mask'</span>]</span>
+<span id="cb209-5"><a href="#cb209-5" aria-hidden="true" tabindex="-1"></a>    result[<span class="st">'text'</span>] <span class="op">=</span> examples[<span class="st">'text'</span>]</span>
+<span id="cb209-6"><a href="#cb209-6" aria-hidden="true" tabindex="-1"></a>    result[<span class="st">'label'</span>] <span class="op">=</span> examples[<span class="st">'label'</span>]</span>
+<span id="cb209-7"><a href="#cb209-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="eddb0f01" class="cell">
+<div class="sourceCode cell-code" id="cb210"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb210-1"><a href="#cb210-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.with_transform(w_transform)</span>
+<span id="cb210-2"><a href="#cb210-2" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="f33a8878" class="cell">
+<div class="sourceCode cell-code" id="cb212"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb212-1"><a href="#cb212-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102],
+ 'text': 'i didnt feel humiliated',
+ 'label': 0}</code></pre>
+</div>
+</div>
+<div id="3e7575a3" class="cell">
+<div class="sourceCode cell-code" id="cb214"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb214-1"><a href="#cb214-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102]], 'text': ['i didnt feel humiliated'], 'label': [0]}</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+<p><code># 예제3</code></p>
+<p>아래와 같은 Dataset이 있다고 하자.</p>
+<div id="c8bac87e" class="cell">
+<div class="sourceCode cell-code" id="cb216"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb216-1"><a href="#cb216-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb216-2"><a href="#cb216-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<p><code>d.with_transform()</code>을 이용하여 아래와 같이 변환하라.</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">데이터</th>
+<th style="text-align: left;">변환전</th>
+<th style="text-align: left;">변환후</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">d[0]</td>
+<td style="text-align: left;">text: str<br>label: int</td>
+<td style="text-align: left;">label: int<br>input_ids: [int,…,int]<br>attention_mask: [int,…,int]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">d[:1]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]</td>
+<td style="text-align: left;">label: [int]<br>input_ids: [[int,…,int]]<br>attention_mask: [[int,…,int]]</td>
+</tr>
+</tbody>
+</table>
+<p><code>(풀이)</code></p>
+<div id="fa146e87" class="cell">
+<div class="sourceCode cell-code" id="cb218"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb218-1"><a href="#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_transform(examples):</span>
+<span id="cb218-2"><a href="#cb218-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># examples = {'text':[xxx,xxxx,....], 'label':[yyy,yyyy,...]}</span></span>
+<span id="cb218-3"><a href="#cb218-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(examples[<span class="st">'text'</span>])</span>
+<span id="cb218-4"><a href="#cb218-4" aria-hidden="true" tabindex="-1"></a>    result[<span class="st">'label'</span>] <span class="op">=</span> examples[<span class="st">'label'</span>]</span>
+<span id="cb218-5"><a href="#cb218-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="87ce4efd" class="cell">
+<div class="sourceCode cell-code" id="cb219"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb219-1"><a href="#cb219-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.with_transform(w_transform)</span>
+<span id="cb219-2"><a href="#cb219-2" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="ad984071" class="cell">
+<div class="sourceCode cell-code" id="cb221"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb221-1"><a href="#cb221-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102],
+ 'attention_mask': [1, 1, 1, 1, 1, 1, 1],
+ 'label': 0}</code></pre>
+</div>
+</div>
+<div id="91764c17" class="cell">
+<div class="sourceCode cell-code" id="cb223"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb223-1"><a href="#cb223-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102]], 'attention_mask': [[1, 1, 1, 1, 1, 1, 1]], 'label': [0]}</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+<p><code># 예제4</code></p>
+<p>아래와 같은 Dataset이 있다고 하자.</p>
+<div id="943a4eb2" class="cell">
+<div class="sourceCode cell-code" id="cb225"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb225-1"><a href="#cb225-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb225-2"><a href="#cb225-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<p><code>d.with_transform()</code>을 이용하여 아래와 같이 변환하라.</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">데이터</th>
+<th style="text-align: left;">변환전</th>
+<th style="text-align: left;">변환후</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">d[0]</td>
+<td style="text-align: left;">text: str<br>label: int</td>
+<td style="text-align: left;">label: tensor(int)<br>input_ids: tensor([int,…,int])<br>attention_mask: tensor([int,…,int])</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">d[:1]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]</td>
+<td style="text-align: left;">label: tensor([int])<br>input_ids: tensor([[int,…,int]])<br>attention_mask: tensor([[int,…,int]])</td>
+</tr>
+</tbody>
+</table>
+<p><code>(풀이)</code> – 실패</p>
+<div id="a3490fac" class="cell">
+<div class="sourceCode cell-code" id="cb227"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb227-1"><a href="#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_transform(examples):</span>
+<span id="cb227-2"><a href="#cb227-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># examples = {'text':[xxx,xxxx,...],'label':[yyy,yyyy,...]}</span></span>
+<span id="cb227-3"><a href="#cb227-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(examples[<span class="st">'text'</span>])</span>
+<span id="cb227-4"><a href="#cb227-4" aria-hidden="true" tabindex="-1"></a>    result[<span class="st">'label'</span>] <span class="op">=</span> torch.tensor(examples[<span class="st">'label'</span>])</span>
+<span id="cb227-5"><a href="#cb227-5" aria-hidden="true" tabindex="-1"></a>    result[<span class="st">'input_ids'</span>] <span class="op">=</span> torch.tensor(result[<span class="st">'input_ids'</span>])</span>
+<span id="cb227-6"><a href="#cb227-6" aria-hidden="true" tabindex="-1"></a>    result[<span class="st">'attention_mask'</span>] <span class="op">=</span> torch.tensor(result[<span class="st">'attention_mask'</span>])</span>
+<span id="cb227-7"><a href="#cb227-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="5961255e" class="cell">
+<div class="sourceCode cell-code" id="cb228"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb228-1"><a href="#cb228-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.with_transform(w_transform)</span>
+<span id="cb228-2"><a href="#cb228-2" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="dc425a3c" class="cell">
+<div class="sourceCode cell-code" id="cb230"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb230-1"><a href="#cb230-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': tensor([  101,  1045,  2134,  2102,  2514, 26608,   102]),
+ 'attention_mask': tensor([1, 1, 1, 1, 1, 1, 1]),
+ 'label': tensor(0)}</code></pre>
+</div>
+</div>
+<div id="3ebdcbda" class="cell">
+<div class="sourceCode cell-code" id="cb232"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb232-1"><a href="#cb232-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': tensor([[  101,  1045,  2134,  2102,  2514, 26608,   102]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1]]), 'label': tensor([0])}</code></pre>
+</div>
+</div>
+<div id="ad1a8ce1" class="cell">
+<div class="sourceCode cell-code" id="cb234"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb234-1"><a href="#cb234-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>ValueError: expected sequence of length 7 at dim 1 (got 23)</code></pre>
+</div>
+</div>
+<p><em>에러나는 이유</em></p>
+<div id="6b4ded93" class="cell">
+<div class="sourceCode cell-code" id="cb236"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb236-1"><a href="#cb236-1" aria-hidden="true" tabindex="-1"></a>examples <span class="op">=</span> d[:<span class="dv">2</span>]</span>
+<span id="cb236-2"><a href="#cb236-2" aria-hidden="true" tabindex="-1"></a>examples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated',
+  'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake'],
+ 'label': [0, 0]}</code></pre>
+</div>
+</div>
+<div id="aeeea232" class="cell">
+<div class="sourceCode cell-code" id="cb238"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb238-1"><a href="#cb238-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> tokenizer(examples[<span class="st">'text'</span>])</span>
+<span id="cb238-2"><a href="#cb238-2" aria-hidden="true" tabindex="-1"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102], [101, 1045, 2064, 2175, 2013, 3110, 2061, 20625, 2000, 2061, 9636, 17772, 2074, 2013, 2108, 2105, 2619, 2040, 14977, 1998, 2003, 8300, 102]], 'attention_mask': [[1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]}</code></pre>
+</div>
+</div>
+<div id="4710582d" class="cell">
+<div class="sourceCode cell-code" id="cb240"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb240-1"><a href="#cb240-1" aria-hidden="true" tabindex="-1"></a>torch.tensor(examples[<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>tensor([0, 0])</code></pre>
+</div>
+</div>
+<div id="f24581d1" class="cell">
+<div class="sourceCode cell-code" id="cb242"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb242-1"><a href="#cb242-1" aria-hidden="true" tabindex="-1"></a>result[<span class="st">'label'</span>] <span class="op">=</span> torch.tensor(examples[<span class="st">'label'</span>])</span>
+<span id="cb242-2"><a href="#cb242-2" aria-hidden="true" tabindex="-1"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102], [101, 1045, 2064, 2175, 2013, 3110, 2061, 20625, 2000, 2061, 9636, 17772, 2074, 2013, 2108, 2105, 2619, 2040, 14977, 1998, 2003, 8300, 102]], 'attention_mask': [[1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], 'label': tensor([0, 0])}</code></pre>
+</div>
+</div>
+<div id="d01251c5" class="cell">
+<div class="sourceCode cell-code" id="cb244"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb244-1"><a href="#cb244-1" aria-hidden="true" tabindex="-1"></a>torch.tensor(result[<span class="st">'input_ids'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>ValueError: expected sequence of length 7 at dim 1 (got 23)</code></pre>
+</div>
+</div>
+<ul>
+<li>패딩….</li>
+</ul>
+<p><code>(풀이2)</code> – 성공</p>
+<div id="12e7c0f9" class="cell">
+<div class="sourceCode cell-code" id="cb246"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb246-1"><a href="#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_transform(examples):</span>
+<span id="cb246-2"><a href="#cb246-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># examples = {'text':[xxx,xxxx,...],'label':[yyy,yyyy,...]}</span></span>
+<span id="cb246-3"><a href="#cb246-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(examples[<span class="st">'text'</span>],padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb246-4"><a href="#cb246-4" aria-hidden="true" tabindex="-1"></a>    result[<span class="st">'label'</span>] <span class="op">=</span> torch.tensor(examples[<span class="st">'label'</span>])</span>
+<span id="cb246-5"><a href="#cb246-5" aria-hidden="true" tabindex="-1"></a>    result[<span class="st">'input_ids'</span>] <span class="op">=</span> torch.tensor(result[<span class="st">'input_ids'</span>])</span>
+<span id="cb246-6"><a href="#cb246-6" aria-hidden="true" tabindex="-1"></a>    result[<span class="st">'attention_mask'</span>] <span class="op">=</span> torch.tensor(result[<span class="st">'attention_mask'</span>])</span>
+<span id="cb246-7"><a href="#cb246-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="f0ac6775" class="cell">
+<div class="sourceCode cell-code" id="cb247"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb247-1"><a href="#cb247-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.with_transform(w_transform)</span>
+<span id="cb247-2"><a href="#cb247-2" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="31fde507" class="cell">
+<div class="sourceCode cell-code" id="cb249"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb249-1"><a href="#cb249-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': tensor([  101,  1045,  2134,  2102,  2514, 26608,   102]),
+ 'attention_mask': tensor([1, 1, 1, 1, 1, 1, 1]),
+ 'label': tensor(0)}</code></pre>
+</div>
+</div>
+<div id="1281b499" class="cell">
+<div class="sourceCode cell-code" id="cb251"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb251-1"><a href="#cb251-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': tensor([[  101,  1045,  2134,  2102,  2514, 26608,   102]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1]]), 'label': tensor([0])}</code></pre>
+</div>
+</div>
+<div id="efd42bab" class="cell">
+<div class="sourceCode cell-code" id="cb253"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb253-1"><a href="#cb253-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': tensor([[  101,  1045,  2134,  2102,  2514, 26608,   102,     0,     0,     0,
+             0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+             0,     0,     0],
+        [  101,  1045,  2064,  2175,  2013,  3110,  2061, 20625,  2000,  2061,
+          9636, 17772,  2074,  2013,  2108,  2105,  2619,  2040, 14977,  1998,
+          2003,  8300,   102]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]), 'label': tensor([0, 0])}</code></pre>
+</div>
+</div>
+<p><code>(풀이3)</code> – 이것도 성공..</p>
+<div id="14ff9ea7" class="cell">
+<div class="sourceCode cell-code" id="cb255"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb255-1"><a href="#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_transform(examples):</span>
+<span id="cb255-2"><a href="#cb255-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># examples = {'text':[xxx,xxxx,...],'label':[yyy,yyyy,...]}</span></span>
+<span id="cb255-3"><a href="#cb255-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(examples[<span class="st">'text'</span>],padding<span class="op">=</span><span class="va">True</span>,return_tensors<span class="op">=</span><span class="st">"pt"</span>)</span>
+<span id="cb255-4"><a href="#cb255-4" aria-hidden="true" tabindex="-1"></a>    result[<span class="st">'label'</span>] <span class="op">=</span> torch.tensor(examples[<span class="st">'label'</span>])</span>
+<span id="cb255-5"><a href="#cb255-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="49f5bdc9" class="cell">
+<div class="sourceCode cell-code" id="cb256"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb256-1"><a href="#cb256-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.with_transform(w_transform)</span>
+<span id="cb256-2"><a href="#cb256-2" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="4b0c2b8b" class="cell">
+<div class="sourceCode cell-code" id="cb258"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb258-1"><a href="#cb258-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': tensor([  101,  1045,  2134,  2102,  2514, 26608,   102]),
+ 'attention_mask': tensor([1, 1, 1, 1, 1, 1, 1]),
+ 'label': tensor(0)}</code></pre>
+</div>
+</div>
+<div id="12d2cebd" class="cell">
+<div class="sourceCode cell-code" id="cb260"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb260-1"><a href="#cb260-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': tensor([[  101,  1045,  2134,  2102,  2514, 26608,   102]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1]]), 'label': tensor([0])}</code></pre>
+</div>
+</div>
+<div id="3aca876c" class="cell">
+<div class="sourceCode cell-code" id="cb262"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb262-1"><a href="#cb262-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': tensor([[  101,  1045,  2134,  2102,  2514, 26608,   102,     0,     0,     0,
+             0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+             0,     0,     0],
+        [  101,  1045,  2064,  2175,  2013,  3110,  2061, 20625,  2000,  2061,
+          9636, 17772,  2074,  2013,  2108,  2105,  2619,  2040, 14977,  1998,
+          2003,  8300,   102]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]), 'label': tensor([0, 0])}</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+</section>
+<section id="b.-dd.with_transform" class="level2">
+<h2 class="anchored" data-anchor-id="b.-dd.with_transform">B. <code>dd.with_transform()</code></h2>
+<p><code># 예제1</code></p>
+<p>아래와 같은 DatasetDict가 있다고 하자.</p>
+<div id="f070d0ab" class="cell">
+<div class="sourceCode cell-code" id="cb264"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb264-1"><a href="#cb264-1" aria-hidden="true" tabindex="-1"></a>dd <span class="op">=</span> datasets.DatasetDict({</span>
+<span id="cb264-2"><a href="#cb264-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'train'</span>:emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>)),</span>
+<span id="cb264-3"><a href="#cb264-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'test'</span>:emotion[<span class="st">'test'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>)),</span>
+<span id="cb264-4"><a href="#cb264-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb264-5"><a href="#cb264-5" aria-hidden="true" tabindex="-1"></a>dd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>DatasetDict({
+    train: Dataset({
+        features: ['text', 'label'],
+        num_rows: 4
+    })
+    test: Dataset({
+        features: ['text', 'label'],
+        num_rows: 4
+    })
+})</code></pre>
+</div>
+</div>
+<p><code>dd.map()</code>을 이용하여 아래와 같이 변환하라.</p>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">tr/test</th>
+<th style="text-align: left;">데이터</th>
+<th style="text-align: left;">변환전</th>
+<th style="text-align: left;">변환후</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">train</td>
+<td style="text-align: left;">d[0]</td>
+<td style="text-align: left;">text: str<br>label: int</td>
+<td style="text-align: left;">text: str<br>label: int<br>input_ids: [int,…,int]<br>attention_mask: [int,…,int]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">train</td>
+<td style="text-align: left;">d[:1]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]<br>input_ids: [[int,…,int]]<br>attention_mask: [[int,…,int]]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">test</td>
+<td style="text-align: left;">d[0]</td>
+<td style="text-align: left;">text: str<br>label: int</td>
+<td style="text-align: left;">text: str<br>label: int<br>input_ids: [int,…,int]<br>attention_mask: [int,…,int]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">test</td>
+<td style="text-align: left;">d[:1]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]</td>
+<td style="text-align: left;">text: [str]<br>label: [int]<br>input_ids: [[int,…,int]]<br>attention_mask: [[int,…,int]]</td>
+</tr>
+</tbody>
+</table>
+<p><code>(풀이)</code></p>
+<div id="35c990c0" class="cell">
+<div class="sourceCode cell-code" id="cb266"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb266-1"><a href="#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_transform(examples):</span>
+<span id="cb266-2"><a href="#cb266-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># examples = {'text':[xxx,xxxx,...], 'label':[yyy,yyyy,....]}</span></span>
+<span id="cb266-3"><a href="#cb266-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(examples[<span class="st">'text'</span>])</span>
+<span id="cb266-4"><a href="#cb266-4" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> examples <span class="op">|</span> result </span>
+<span id="cb266-5"><a href="#cb266-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="05d9d1e8" class="cell">
+<div class="sourceCode cell-code" id="cb267"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb267-1"><a href="#cb267-1" aria-hidden="true" tabindex="-1"></a>dd2 <span class="op">=</span> dd.with_transform(w_transform)</span>
+<span id="cb267-2"><a href="#cb267-2" aria-hidden="true" tabindex="-1"></a>dd2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>DatasetDict({
+    train: Dataset({
+        features: ['text', 'label'],
+        num_rows: 4
+    })
+    test: Dataset({
+        features: ['text', 'label'],
+        num_rows: 4
+    })
+})</code></pre>
+</div>
+</div>
+<div id="91d0ae36" class="cell">
+<div class="sourceCode cell-code" id="cb269"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb269-1"><a href="#cb269-1" aria-hidden="true" tabindex="-1"></a>dd2[<span class="st">'train'</span>][<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': 'i didnt feel humiliated',
+ 'label': 0,
+ 'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102],
+ 'attention_mask': [1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<div id="bec87a09" class="cell">
+<div class="sourceCode cell-code" id="cb271"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb271-1"><a href="#cb271-1" aria-hidden="true" tabindex="-1"></a>dd2[<span class="st">'train'</span>][:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated'], 'label': [0], 'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102]], 'attention_mask': [[1, 1, 1, 1, 1, 1, 1]]}</code></pre>
+</div>
+</div>
+<div id="10f12f25" class="cell">
+<div class="sourceCode cell-code" id="cb273"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb273-1"><a href="#cb273-1" aria-hidden="true" tabindex="-1"></a>dd2[<span class="st">'test'</span>][<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': 'im feeling rather rotten so im not very ambitious right now',
+ 'label': 0,
+ 'input_ids': [101,
+  10047,
+  3110,
+  2738,
+  11083,
+  2061,
+  10047,
+  2025,
+  2200,
+  12479,
+  2157,
+  2085,
+  102],
+ 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<div id="ce20e219" class="cell">
+<div class="sourceCode cell-code" id="cb275"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb275-1"><a href="#cb275-1" aria-hidden="true" tabindex="-1"></a>dd2[<span class="st">'test'</span>][:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['im feeling rather rotten so im not very ambitious right now'], 'label': [0], 'input_ids': [[101, 10047, 3110, 2738, 11083, 2061, 10047, 2025, 2200, 12479, 2157, 2085, 102]], 'attention_mask': [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]}</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+</section>
+<section id="c.-d.reset_format" class="level2">
+<h2 class="anchored" data-anchor-id="c.-d.reset_format">C. <code>d.reset_format()</code></h2>
+<p><code># 예시1</code></p>
+<div id="750a9285" class="cell">
+<div class="sourceCode cell-code" id="cb277"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb277-1"><a href="#cb277-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb277-2"><a href="#cb277-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="23af280d" class="cell">
+<div class="sourceCode cell-code" id="cb279"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb279-1"><a href="#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_transform(examples):</span>
+<span id="cb279-2"><a href="#cb279-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># examples = {'text':[xxx,xxxx,...], 'label':[yyy,yyyy,...]}</span></span>
+<span id="cb279-3"><a href="#cb279-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(examples[<span class="st">'text'</span>])</span>
+<span id="cb279-4"><a href="#cb279-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="fd141777" class="cell">
+<div class="sourceCode cell-code" id="cb280"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb280-1"><a href="#cb280-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.with_transform(w_transform)</span>
+<span id="cb280-2"><a href="#cb280-2" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="810e59e6" class="cell">
+<div class="sourceCode cell-code" id="cb282"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb282-1"><a href="#cb282-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102],
+ 'attention_mask': [1, 1, 1, 1, 1, 1, 1]}</code></pre>
+</div>
+</div>
+<div id="1941d033" class="cell">
+<div class="sourceCode cell-code" id="cb284"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb284-1"><a href="#cb284-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102]], 'attention_mask': [[1, 1, 1, 1, 1, 1, 1]]}</code></pre>
+</div>
+</div>
+<div id="316085ff" class="cell">
+<div class="sourceCode cell-code" id="cb286"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb286-1"><a href="#cb286-1" aria-hidden="true" tabindex="-1"></a>d2.reset_format()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="5516c634" class="cell">
+<div class="sourceCode cell-code" id="cb287"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb287-1"><a href="#cb287-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': 'i didnt feel humiliated', 'label': 0}</code></pre>
+</div>
+</div>
+<div id="0670667b" class="cell">
+<div class="sourceCode cell-code" id="cb289"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb289-1"><a href="#cb289-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated'], 'label': [0]}</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+<p><code># 예시2</code></p>
+<div id="7ebab77e" class="cell">
+<div class="sourceCode cell-code" id="cb291"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb291-1"><a href="#cb291-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb291-2"><a href="#cb291-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="f0c58ee5" class="cell">
+<div class="sourceCode cell-code" id="cb293"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb293-1"><a href="#cb293-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_transform(examples):</span>
+<span id="cb293-2"><a href="#cb293-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># examples = {'text':[xxx,xxxx,...], 'label':[yyy,yyyy,...]}</span></span>
+<span id="cb293-3"><a href="#cb293-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(examples[<span class="st">'text'</span>],padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb293-4"><a href="#cb293-4" aria-hidden="true" tabindex="-1"></a>    result[<span class="st">'label'</span>] <span class="op">=</span> examples[<span class="st">'label'</span>]</span>
+<span id="cb293-5"><a href="#cb293-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="f36bd89c" class="cell">
+<div class="sourceCode cell-code" id="cb294"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb294-1"><a href="#cb294-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.with_transform(w_transform)</span>
+<span id="cb294-2"><a href="#cb294-2" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="2eefa6c2" class="cell">
+<div class="sourceCode cell-code" id="cb296"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb296-1"><a href="#cb296-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': [101, 1045, 2134, 2102, 2514, 26608, 102],
+ 'attention_mask': [1, 1, 1, 1, 1, 1, 1],
+ 'label': 0}</code></pre>
+</div>
+</div>
+<div id="f9103728" class="cell">
+<div class="sourceCode cell-code" id="cb298"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb298-1"><a href="#cb298-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102]], 'attention_mask': [[1, 1, 1, 1, 1, 1, 1]], 'label': [0]}</code></pre>
+</div>
+</div>
+<div id="539cfd16" class="cell">
+<div class="sourceCode cell-code" id="cb300"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb300-1"><a href="#cb300-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'input_ids': [[101, 1045, 2134, 2102, 2514, 26608, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [101, 1045, 2064, 2175, 2013, 3110, 2061, 20625, 2000, 2061, 9636, 17772, 2074, 2013, 2108, 2105, 2619, 2040, 14977, 1998, 2003, 8300, 102]], 'attention_mask': [[1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], 'label': [0, 0]}</code></pre>
+</div>
+</div>
+<div id="609ed0ee" class="cell">
+<div class="sourceCode cell-code" id="cb302"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb302-1"><a href="#cb302-1" aria-hidden="true" tabindex="-1"></a>d2.set_format(<span class="bu">type</span><span class="op">=</span><span class="st">"pt"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="320f6f3f" class="cell">
+<div class="sourceCode cell-code" id="cb303"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb303-1"><a href="#cb303-1" aria-hidden="true" tabindex="-1"></a>d2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': 'i didnt feel humiliated', 'label': tensor(0)}</code></pre>
+</div>
+</div>
+<div id="a801961b" class="cell">
+<div class="sourceCode cell-code" id="cb305"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb305-1"><a href="#cb305-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated'], 'label': tensor([0])}</code></pre>
+</div>
+</div>
+<div id="a3b2baf5" class="cell">
+<div class="sourceCode cell-code" id="cb307"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb307-1"><a href="#cb307-1" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated',
+  'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake'],
+ 'label': tensor([0, 0])}</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>.with_transform</code> 은 <code>.set_format</code> 궁합이 안맞음</p>
+</div>
+</div>
+</section>
+</section>
+<section id="미묘한-차이" class="level1">
+<h1>7. 미묘한 차이</h1>
+<p><code># 예시1</code></p>
+<div id="7646a092" class="cell">
+<div class="sourceCode cell-code" id="cb309"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb309-1"><a href="#cb309-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb309-2"><a href="#cb309-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="45cd1d3b" class="cell">
+<div class="sourceCode cell-code" id="cb311"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb311-1"><a href="#cb311-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> m_transform(example):</span>
+<span id="cb311-2"><a href="#cb311-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># example = {'text':xxx, 'label':yyy}</span></span>
+<span id="cb311-3"><a href="#cb311-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(example[<span class="st">'text'</span>])</span>
+<span id="cb311-4"><a href="#cb311-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="b8ffda8b" class="cell">
+<div class="sourceCode cell-code" id="cb312"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb312-1"><a href="#cb312-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_transform(examples):</span>
+<span id="cb312-2"><a href="#cb312-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># examples = {'text':[xxx,xxxx,...] 'label':[yyy,yyyy,...]}</span></span>
+<span id="cb312-3"><a href="#cb312-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(examples[<span class="st">'text'</span>])</span>
+<span id="cb312-4"><a href="#cb312-4" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> examples <span class="op">|</span> result</span>
+<span id="cb312-5"><a href="#cb312-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="2d74f9a9" class="cell">
+<div class="sourceCode cell-code" id="cb313"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb313-1"><a href="#cb313-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.<span class="bu">map</span>(m_transform)</span>
+<span id="cb313-2"><a href="#cb313-2" aria-hidden="true" tabindex="-1"></a>d2.set_format(<span class="bu">type</span><span class="op">=</span><span class="st">'pt'</span>)</span>
+<span id="cb313-3"><a href="#cb313-3" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated'],
+ 'label': tensor([0]),
+ 'input_ids': tensor([[  101,  1045,  2134,  2102,  2514, 26608,   102]]),
+ 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1]])}</code></pre>
+</div>
+</div>
+<div id="35701795" class="cell">
+<div class="sourceCode cell-code" id="cb315"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb315-1"><a href="#cb315-1" aria-hidden="true" tabindex="-1"></a>d3 <span class="op">=</span> d.with_transform(w_transform)</span>
+<span id="cb315-2"><a href="#cb315-2" aria-hidden="true" tabindex="-1"></a>d3.set_format(<span class="bu">type</span><span class="op">=</span><span class="st">'pt'</span>)</span>
+<span id="cb315-3"><a href="#cb315-3" aria-hidden="true" tabindex="-1"></a>d3[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated'], 'label': tensor([0])}</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+<p><code># 예시2</code></p>
+<div id="3bd1c454" class="cell">
+<div class="sourceCode cell-code" id="cb317"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb317-1"><a href="#cb317-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> emotion[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb317-2"><a href="#cb317-2" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Dataset({
+    features: ['text', 'label'],
+    num_rows: 4
+})</code></pre>
+</div>
+</div>
+<div id="f9cc3d90" class="cell">
+<div class="sourceCode cell-code" id="cb319"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb319-1"><a href="#cb319-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> m_transform(example):</span>
+<span id="cb319-2"><a href="#cb319-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># example = {'text':xxx, 'label':yyy}</span></span>
+<span id="cb319-3"><a href="#cb319-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(example[<span class="st">'text'</span>])</span>
+<span id="cb319-4"><a href="#cb319-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="4ac7621a" class="cell">
+<div class="sourceCode cell-code" id="cb320"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb320-1"><a href="#cb320-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_transform(examples):</span>
+<span id="cb320-2"><a href="#cb320-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># examples = {'text':[xxx,xxxx,...] 'label':[yyy,yyyy,...]}</span></span>
+<span id="cb320-3"><a href="#cb320-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> tokenizer(examples[<span class="st">'text'</span>],return_tensors<span class="op">=</span><span class="st">"pt"</span>)</span>
+<span id="cb320-4"><a href="#cb320-4" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> examples <span class="op">|</span> result</span>
+<span id="cb320-5"><a href="#cb320-5" aria-hidden="true" tabindex="-1"></a>    result[<span class="st">'label'</span>] <span class="op">=</span> torch.tensor(result[<span class="st">'label'</span>])</span>
+<span id="cb320-6"><a href="#cb320-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><em>여기까지는 두 코드 같아보이는데</em></p>
+<div id="ab6a33e2" class="cell">
+<div class="sourceCode cell-code" id="cb321"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb321-1"><a href="#cb321-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.<span class="bu">map</span>(m_transform)</span>
+<span id="cb321-2"><a href="#cb321-2" aria-hidden="true" tabindex="-1"></a>d2.set_format(<span class="bu">type</span><span class="op">=</span><span class="st">'pt'</span>)</span>
+<span id="cb321-3"><a href="#cb321-3" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated'],
+ 'label': tensor([0]),
+ 'input_ids': tensor([[  101,  1045,  2134,  2102,  2514, 26608,   102]]),
+ 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1]])}</code></pre>
+</div>
+</div>
+<div id="3caf82c3" class="cell">
+<div class="sourceCode cell-code" id="cb323"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb323-1"><a href="#cb323-1" aria-hidden="true" tabindex="-1"></a>d3 <span class="op">=</span> d.with_transform(w_transform)</span>
+<span id="cb323-2"><a href="#cb323-2" aria-hidden="true" tabindex="-1"></a>d3[:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated'], 'label': tensor([0]), 'input_ids': tensor([[  101,  1045,  2134,  2102,  2514, 26608,   102]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1]])}</code></pre>
+</div>
+</div>
+<p><em>아래는 미묘하게 다름</em></p>
+<div id="fd2a3175" class="cell">
+<div class="sourceCode cell-code" id="cb325"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb325-1"><a href="#cb325-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="op">=</span> d.<span class="bu">map</span>(m_transform)</span>
+<span id="cb325-2"><a href="#cb325-2" aria-hidden="true" tabindex="-1"></a>d2.set_format(<span class="bu">type</span><span class="op">=</span><span class="st">'pt'</span>)</span>
+<span id="cb325-3"><a href="#cb325-3" aria-hidden="true" tabindex="-1"></a>d2[:<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'text': ['i didnt feel humiliated',
+  'i can go from feeling so hopeless to so damned hopeful just from being around someone who cares and is awake'],
+ 'label': tensor([0, 0]),
+ 'input_ids': [tensor([  101,  1045,  2134,  2102,  2514, 26608,   102]),
+  tensor([  101,  1045,  2064,  2175,  2013,  3110,  2061, 20625,  2000,  2061,
+           9636, 17772,  2074,  2013,  2108,  2105,  2619,  2040, 14977,  1998,
+           2003,  8300,   102])],
+ 'attention_mask': [tensor([1, 1, 1, 1, 1, 1, 1]),
+  tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])]}</code></pre>
+</div>
+</div>
+<div id="bb059a3e" class="cell">
+<div class="sourceCode cell-code" id="cb327"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb327-1"><a href="#cb327-1" aria-hidden="true" tabindex="-1"></a>d3 <span class="op">=</span> d.with_transform(w_transform)</span>
+<span id="cb327-2"><a href="#cb327-2" aria-hidden="true" tabindex="-1"></a>d3[:<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>ValueError: Unable to create tensor, you should probably activate truncation and/or padding with 'padding=True' 'truncation=True' to have batched tensors with the same length. Perhaps your features (`input_ids` in this case) have excessive nesting (inputs type `list` where type `int` is expected).</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="guebin/MP2023" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
