@@ -347,7 +347,7 @@ window.Quarto = {
 </div>
 <p><code>-</code> 위의 결과를 관찰하면 <code>Dataset</code> 는 마치 dictionary 처럼 느껴진다. 실제로 경우에 따라서 <code>Dataset</code>을 dictionary 처럼 생각해도 된다. 이때 <code>Dataset</code>은 아래와 같은 구조로 이해하는게 편리하다.</p>
 <ul>
-<li>d = examples = <code>{'text':[xxx,xxxx,xxxxx,xxxxxx], 'label':[yyy,yyyy,yyyyy,yyyyyy]}</code></li>
+<li>d = examples = {‘text’:[xxx,xxxx,xxxxx,xxxxxx], ‘label’:[yyy,yyyy,yyyyy,yyyyyy]}</li>
 </ul>
 <div id="b4a66d69" class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dct <span class="op">=</span> {<span class="st">'text'</span>: d[<span class="st">'text'</span>], <span class="st">'label'</span>:d[<span class="st">'label'</span>]}</span>
@@ -817,8 +817,8 @@ Name: label, dtype: int64</code></pre>
 <p><code>(풀이1)</code> – <code>d.map()</code>을 사용하지 않은 풀이..</p>
 <p><em><code>d</code>는 아래와 같은 구조로 이해할 수 있음</em></p>
 <ul>
-<li><code>d</code> = <code>[example_1, example_2, example_3, example_4]</code></li>
-<li><code>example_i</code> = <code>{'text': xxx, 'label' = yyy}</code></li>
+<li>d = [example_1, example_2, example_3, example_4]</li>
+<li>example_i = {‘text’: xxx, ‘label’ = yyy}</li>
 </ul>
 <p><em>리스트화</em></p>
 <div id="541e0b2a" class="cell">
@@ -934,12 +934,23 @@ Name: label, dtype: int64</code></pre>
 </div>
 </div>
 <p><code>#</code></p>
-<p>:::{.callout-note}</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><strong><code>.map()</code>의 특징</strong></p>
 <ul>
 <li>특징1: <code>m_transform()</code>은 입력으로 <code>example = {'text':xxx, 'label':yyy}</code> 꼴을 가정한다.</li>
 <li>특징2: <code>.map()</code>은 변환전 dict와 변환후 dict를 합친다.</li>
 </ul>
+</div>
+</div>
 </section>
 <section id="b.-dd.map" class="level2">
 <h2 class="anchored" data-anchor-id="b.-dd.map">B. <code>dd.map()</code></h2>
@@ -1227,12 +1238,23 @@ Total items: 4
 </div>
 </div>
 <p><code>#</code></p>
-<p>:::{.callout-note}</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><strong><code>.map(batch=True)</code>의 특징</strong></p>
 <ul>
 <li>특징1: <code>m_transform_batch()</code>은 입력으로 <code>example_batch = {'text':[xxx,xxxx,...], 'label':[yyy,yyyy,...]}</code> 꼴을 가정한다.</li>
 <li>특징2: <code>example_batch</code>는 <code>batch_size</code>만큼 데이터가 있다고 생각한다.</li>
 </ul>
+</div>
+</div>
 </section>
 <section id="d.-d.map-칼럼선택" class="level2">
 <h2 class="anchored" data-anchor-id="d.-d.map-칼럼선택">D. <code>d.map()</code> + 칼럼선택</h2>
@@ -1452,12 +1474,23 @@ Total items: 4
 </div>
 </div>
 <p><code>#</code></p>
-<p>:::{.callout-note}</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><strong><code>.map()</code>에서 컬럼을 제외하려면?</strong></p>
 <ul>
 <li><code>del</code>을 이용한 풀이: 제외하고자 하는 column이 <code>example</code>에 있을 경우, <code>result</code>에 있을 경우 미묘하게 다름.</li>
 <li><code>select</code>를 이용한 풀이: 제외하고자 하는 column이 <code>example</code>에 있든지 <code>result</code>에 있든지 상관없음.</li>
 </ul>
+</div>
+</div>
 </section>
 <section id="e.-d.map-타입변환-star" class="level2">
 <h2 class="anchored" data-anchor-id="e.-d.map-타입변환-star">E. <code>d.map()</code> + 타입변환 (<span class="math inline">\(\star\)</span>)</h2>
@@ -1783,13 +1816,24 @@ Total items: 4
 </div>
 </div>
 <p><code>#</code></p>
-<p>:::{.callout-note}</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><strong><code>.with_transform()</code>와 <code>.map()</code>의 차이점</strong></p>
 <ol type="1">
 <li><code>.map()</code>은 입력으로 example꼴을, <code>.with_transform()</code>은 입력으로 examples를 기대한다.</li>
 <li><code>.map()</code>은 변환전과 변환후 데이터가 자동으로 합쳐진다. <code>.with_transform()</code>은 변환후 데이터만 살아남는다.</li>
 <li><code>.map()</code>은 변환이 실제로 이루어진다. <code>.with_transform()</code>은 변환이 실제로 이루어지지 않다가 <code>d[0]</code>,<code>d[:1]</code> 등이 실행하는 순간 이루어진다.</li>
 </ol>
+</div>
+</div>
 <p><code># 예제2</code></p>
 <p>아래와 같은 Dataset이 있다고 하자.</p>
 <div id="a856d34c" class="cell">
