@@ -211,6 +211,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="점-1" class="level1">
 <h1>2. – 25점</h1>
 <p><code>trainer.predict()</code> 를 수행하는 과정에서 <code>model</code> 의 입력으로 사용되지 않는 column은 제거된다. 왜 그런지 <code>trainer.predict??</code>의 소스코드를 살펴보고 설명하라.</p>
+<hr>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>코랩에서 실제 <code>transformers</code> 모듈은 아래의 경로에 설치되어있습니다.</p>
+<pre><code>/usr/local/lib/python3.10/dist-packages/transformers</code></pre>
+<p>저기서 코드를 계속 살펴보기는 좀 불편할 수 있는데요,</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> /usr/local/lib/python3.10/dist-packages/transformers .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>를 실행하면 <code>/usr/local/lib/python3.10/dist-packages/transformers</code>의 폴더가 복사되어 현재경로에 붙여넣기 됩니다. 이를 이용하면 좀 더 편하게 <code>transformers</code>의 모듈을 살펴볼 수 있습니다.</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/qRH4xmVBi4w?si=PELY3zZNaQWAi3Ex" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</div>
+</div>
 
 
 </section>
