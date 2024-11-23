@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "기계학습활용 (2024)",
     "section": "",
-    "text": "질문하는 방법\n\n카카오톡: 질문하러 가기\n이메일: guebin@jbnu.ac.kr\n직접방문: 자연과학대학 본관 205호\nZoom: 카카오톡이나 이메일로 미리 시간을 정할 것\nLMS쪽지: https://ieilms.jbnu.ac.kr/\n\nQuiz: https://guebin.github.io/MP2024/quiz.html\n강의노트\n\n\n\n\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nNov 22, 2024\n\n\n11wk-1: data_collator\n\n\n최규빈 \n\n\n\n\nNov 12, 2024\n\n\n10wk-1: Datasets 클래스\n\n\n최규빈 \n\n\n\n\nNov 9, 2024\n\n\n09wk-2: model의 입력파악, model의 사용연습\n\n\n최규빈 \n\n\n\n\nNov 1, 2024\n\n\n09wk-1: with의 사용\n\n\n최규빈 \n\n\n\n\nOct 31, 2024\n\n\n08wk-2: numpy와 torch의 차이\n\n\n최규빈 \n\n\n\n\nOct 30, 2024\n\n\n08wk-1: 모듈설치 및 변경\n\n\n최규빈 \n\n\n\n\nOct 17, 2024\n\n\n06wk-1, 07wk-1: UCF101 영상자료 분류\n\n\n최규빈 \n\n\n\n\nOct 4, 2024\n\n\n05wk-1: Food-101 이미지자료 분류\n\n\n최규빈 \n\n\n\n\nSep 27, 2024\n\n\n04wk-1: 감성분석 파고들기 (2)\n\n\n최규빈 \n\n\n\n\nSep 19, 2024\n\n\n03wk-1: 감성분석 파고들기 (1)\n\n\n최규빈 \n\n\n\n\nSep 12, 2024\n\n\n02wk-1: IMDB 영화평 감성분석\n\n\n최규빈 \n\n\n\n\nSep 6, 2024\n\n\n01wk-2: IMDB 자료 살펴보기, 지도학습의 개념\n\n\n최규빈 \n\n\n\n\nSep 3, 2024\n\n\n01wk-1: 강의소개\n\n\n최규빈 \n\n\n\n\n\nNo matching items"
+    "text": "질문하는 방법\n\n카카오톡: 질문하러 가기\n이메일: guebin@jbnu.ac.kr\n직접방문: 자연과학대학 본관 205호\nZoom: 카카오톡이나 이메일로 미리 시간을 정할 것\nLMS쪽지: https://ieilms.jbnu.ac.kr/\n\nQuiz & Report: https://guebin.github.io/MP2024/quiz.html\n강의노트\n\n\n\n\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nNov 22, 2024\n\n\n11wk-1: data_collator\n\n\n최규빈 \n\n\n\n\nNov 12, 2024\n\n\n10wk-1: Datasets 클래스\n\n\n최규빈 \n\n\n\n\nNov 9, 2024\n\n\n09wk-2: model의 입력파악, model의 사용연습\n\n\n최규빈 \n\n\n\n\nNov 1, 2024\n\n\n09wk-1: with의 사용\n\n\n최규빈 \n\n\n\n\nOct 31, 2024\n\n\n08wk-2: numpy와 torch의 차이\n\n\n최규빈 \n\n\n\n\nOct 30, 2024\n\n\n08wk-1: 모듈설치 및 변경\n\n\n최규빈 \n\n\n\n\nOct 17, 2024\n\n\n06wk-1, 07wk-1: UCF101 영상자료 분류\n\n\n최규빈 \n\n\n\n\nOct 4, 2024\n\n\n05wk-1: Food-101 이미지자료 분류\n\n\n최규빈 \n\n\n\n\nSep 27, 2024\n\n\n04wk-1: 감성분석 파고들기 (2)\n\n\n최규빈 \n\n\n\n\nSep 19, 2024\n\n\n03wk-1: 감성분석 파고들기 (1)\n\n\n최규빈 \n\n\n\n\nSep 12, 2024\n\n\n02wk-1: IMDB 영화평 감성분석\n\n\n최규빈 \n\n\n\n\nSep 6, 2024\n\n\n01wk-2: IMDB 자료 살펴보기, 지도학습의 개념\n\n\n최규빈 \n\n\n\n\nSep 3, 2024\n\n\n01wk-1: 강의소개\n\n\n최규빈 \n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "quiz/Quiz-3.html",
@@ -611,7 +611,7 @@
   {
     "objectID": "quiz.html",
     "href": "quiz.html",
-    "title": "Quiz",
+    "title": "Quiz & Report",
     "section": "",
     "text": "공지사항\n\n퀴즈1의 점수는 학점에 포함되지 않습니다.\n퀴즈2의 2-(2)의 채점은 가산점으로 처리합니다. (따라서 퀴즈2는 80점만점)\n퀴즈7의 점수는 학점에 포함되지 않습니다. (단, 퀴즈7 미응시자의 경우는 퀴즈7을 0점처리)\n\n퀴즈\n\n\n\n\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nDec 3, 2024\n\n\nReport-1 (2024.12.19)\n\n\n최규빈 \n\n\n\n\nDec 3, 2024\n\n\nQuiz-9 (2024.12.03) // 범위: 11wk-1 까지\n\n\n최규빈 \n\n\n\n\nNov 26, 2024\n\n\nQuiz-8 (2024.11.26) // 범위: 10wk-1 까지\n\n\n최규빈 \n\n\n\n\nNov 19, 2024\n\n\nQuiz-7 (2024.11.19) // 범위: 09wk-2 까지\n\n\n최규빈 \n\n\n\n\nNov 12, 2024\n\n\nQuiz-6 (2024.11.12) // 범위: 08wk-2 까지\n\n\n최규빈 \n\n\n\n\nNov 5, 2024\n\n\nQuiz-5 (2024.11.05) // 범위: 07wk-1 까지\n\n\n최규빈 \n\n\n\n\nOct 22, 2024\n\n\nQuiz-4 (2024.10.22) // 범위: 05wk-1 까지\n\n\n최규빈 \n\n\n\n\nOct 8, 2024\n\n\nQuiz-3 (2024.10.08) // 범위: 04wk-1 까지\n\n\n최규빈 \n\n\n\n\nSep 24, 2024\n\n\nQuiz-2 (2024.09.24) // 범위: 02wk-1 까지\n\n\n최규빈 \n\n\n\n\nSep 5, 2024\n\n\nQuiz-1 (2024.09.05) // 범위: 파이썬기본문법\n\n\n최규빈 \n\n\n\n\n\nNo matching items"
   }
