@@ -219,7 +219,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/playlist?list=PLQqh36zP38-yvwo4VF8iziQfJCVwVaBkW&amp;si=ao_rJLELcUcb9ZYe" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-<div id="cell-4" class="cell" data-execution_count="1">
+<div id="cell-4" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> transformers</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datasets</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
@@ -235,10 +235,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="coco-tiny-100점" class="level1">
 <h1>1. <code>coco-tiny</code> – 100점</h1>
-<div id="cell-6" class="cell" data-execution_count="2">
+<div id="cell-6" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>coco <span class="op">=</span> datasets.load_dataset(<span class="st">"guebin/coco-tiny"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>coco</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>DatasetDict({
     train: Dataset({
         features: ['image_id', 'coco_url', 'image', 'caption', 'recaption'],
@@ -247,10 +247,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 })</code></pre>
 </div>
 </div>
-<div id="cell-7" class="cell" data-execution_count="3">
+<div id="cell-7" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>tokenizer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>DistilBertTokenizerFast(name_or_path='distilbert/distilbert-base-uncased', vocab_size=30522, model_max_length=512, is_fast=True, padding_side='right', truncation_side='right', special_tokens={'unk_token': '[UNK]', 'sep_token': '[SEP]', 'pad_token': '[PAD]', 'cls_token': '[CLS]', 'mask_token': '[MASK]'}, clean_up_tokenization_spaces=False),  added_tokens_decoder={
     0: AddedToken("[PAD]", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
     100: AddedToken("[UNK]", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
@@ -379,7 +379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
            [0.7794, 0.7862, 0.7845,  ..., 0.8482, 0.7953, 0.7360]]]])}</code></pre>
 <p>그리고 이 변환을 취소하는 코드를 작성하라.</p>
 <p><code>(풀이)</code></p>
-<div id="cell-25" class="cell" data-execution_count="4">
+<div id="cell-25" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>compose <span class="op">=</span> torchvision.transforms.Compose([</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: x.convert(<span class="st">"RGB"</span>),</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.ToTensor(),</span>
@@ -390,7 +390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> examples</span>
 <span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>coco <span class="op">=</span> coco.with_transform(w_transform)</span>
 <span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>coco[<span class="st">'train'</span>][:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>{'image_id': [53120],
  'coco_url': ['http://images.cocodataset.org/val2014/COCO_val2014_000000053120.jpg'],
  'image': [&lt;PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=640x453&gt;],
@@ -421,19 +421,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
            [0.7784, 0.7845, 0.7870,  ..., 0.8497, 0.7943, 0.7377]]]])}</code></pre>
 </div>
 </div>
-<div id="cell-26" class="cell" data-execution_count="66">
+<div id="cell-26" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>coco.reset_format()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>(4)</code> 아래의 url에 저장된 이미지를</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">"http://images.cocodataset.org/val2014/COCO_val2014_000000053120.jpg"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>(3)과 같은 텐서형태로 변환하는 코드를 작성하라.</p>
-<p><code>(풀이)</code></p>
-<div id="cell-29" class="cell" data-execution_count="71">
+<p><code>(잘못푼풀이)</code> – 이거 제가 해설할때 이렇게 풀었는데요, 잘못풀었습니다.</p>
+<div id="cell-29" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"http://images.cocodataset.org/val2014/COCO_val2014_000000053120.jpg"</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> Image.<span class="bu">open</span>(BytesIO(response.content))</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>torchvision.transforms.ToTensor()(image)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="71">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>tensor([[[0.1569, 0.1843, 0.1765,  ..., 0.2745, 0.2784, 0.2824],
          [0.1765, 0.1647, 0.1725,  ..., 0.3098, 0.3137, 0.2941],
          [0.1922, 0.1647, 0.1765,  ..., 0.3098, 0.3216, 0.3098],
@@ -459,9 +459,89 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
          [0.6353, 0.6431, 0.6549,  ..., 0.8824, 0.8902, 0.8706]]])</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>이거 제가 해설할때 문제를 잘못봐서 잘못풀었습니다. 하루지나서 해설하니까 문제 낸게 헷갈리네요. (3)와 같은 텐서로 나타내야 하니까 텐서화 이후에 Resize까지 적용하여 아래와 같이 풀이로 해야합니다. 혼란드려 죄송합니다.</p>
+</div>
+</div>
+<p><code>(올바른풀이)</code></p>
+<div id="cell-32" class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"http://images.cocodataset.org/val2014/COCO_val2014_000000053120.jpg"</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> Image.<span class="bu">open</span>(BytesIO(response.content))</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>image_tensor <span class="op">=</span> torchvision.transforms.ToTensor()(image)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co">#---# 여기가 끝이 아니고 아래처럼 resize까지 해줘야함</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>image_tensor_resized <span class="op">=</span> torchvision.transforms.Resize((<span class="dv">64</span>,<span class="dv">64</span>))(image_tensor)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>image_tensor_resized</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>tensor([[[0.1884, 0.2323, 0.2613,  ..., 0.3255, 0.3241, 0.3079],
+         [0.1864, 0.2289, 0.2521,  ..., 0.3119, 0.3239, 0.3061],
+         [0.1936, 0.2166, 0.2491,  ..., 0.3155, 0.3226, 0.2973],
+         ...,
+         [0.6029, 0.6010, 0.5950,  ..., 0.7389, 0.7281, 0.7246],
+         [0.6365, 0.6395, 0.6513,  ..., 0.7168, 0.7107, 0.6726],
+         [0.6503, 0.6531, 0.6510,  ..., 0.7534, 0.7166, 0.6811]],
+
+        [[0.2061, 0.2484, 0.2660,  ..., 0.3418, 0.3342, 0.3343],
+         [0.2077, 0.2467, 0.2561,  ..., 0.3358, 0.3306, 0.3263],
+         [0.2126, 0.2379, 0.2553,  ..., 0.3404, 0.3315, 0.3112],
+         ...,
+         [0.6330, 0.6341, 0.6259,  ..., 0.7595, 0.7462, 0.7359],
+         [0.6780, 0.6830, 0.6969,  ..., 0.7413, 0.7327, 0.6938],
+         [0.6920, 0.7049, 0.6990,  ..., 0.7847, 0.7436, 0.7001]],
+
+        [[0.2549, 0.2798, 0.3033,  ..., 0.3978, 0.3955, 0.3942],
+         [0.2577, 0.2820, 0.2963,  ..., 0.3957, 0.3913, 0.3909],
+         [0.2626, 0.2807, 0.2940,  ..., 0.3909, 0.3880, 0.3827],
+         ...,
+         [0.7402, 0.7438, 0.7295,  ..., 0.8474, 0.8322, 0.8150],
+         [0.7877, 0.7875, 0.7959,  ..., 0.7985, 0.7764, 0.7155],
+         [0.7794, 0.7862, 0.7845,  ..., 0.8482, 0.7953, 0.7360]]])</code></pre>
+</div>
+</div>
+<p>혹은</p>
+<div id="cell-34" class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"http://images.cocodataset.org/val2014/COCO_val2014_000000053120.jpg"</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> Image.<span class="bu">open</span>(BytesIO(response.content))</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>compose(image) <span class="co"># 문제(3)에서 선언한 compose 재활용, 실제로는 compose에 RGB화 시키는 코드도 함께 있지만 이 케이스에서 이 변환은 항등변환이됨 (이미 칼라이미지니까)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>tensor([[[0.1884, 0.2323, 0.2613,  ..., 0.3255, 0.3241, 0.3079],
+         [0.1864, 0.2289, 0.2521,  ..., 0.3119, 0.3239, 0.3061],
+         [0.1936, 0.2166, 0.2491,  ..., 0.3155, 0.3226, 0.2973],
+         ...,
+         [0.6029, 0.6010, 0.5950,  ..., 0.7389, 0.7281, 0.7246],
+         [0.6365, 0.6395, 0.6513,  ..., 0.7168, 0.7107, 0.6726],
+         [0.6503, 0.6531, 0.6510,  ..., 0.7534, 0.7166, 0.6811]],
+
+        [[0.2061, 0.2484, 0.2660,  ..., 0.3418, 0.3342, 0.3343],
+         [0.2077, 0.2467, 0.2561,  ..., 0.3358, 0.3306, 0.3263],
+         [0.2126, 0.2379, 0.2553,  ..., 0.3404, 0.3315, 0.3112],
+         ...,
+         [0.6330, 0.6341, 0.6259,  ..., 0.7595, 0.7462, 0.7359],
+         [0.6780, 0.6830, 0.6969,  ..., 0.7413, 0.7327, 0.6938],
+         [0.6920, 0.7049, 0.6990,  ..., 0.7847, 0.7436, 0.7001]],
+
+        [[0.2549, 0.2798, 0.3033,  ..., 0.3978, 0.3955, 0.3942],
+         [0.2577, 0.2820, 0.2963,  ..., 0.3957, 0.3913, 0.3909],
+         [0.2626, 0.2807, 0.2940,  ..., 0.3909, 0.3880, 0.3827],
+         ...,
+         [0.7402, 0.7438, 0.7295,  ..., 0.8474, 0.8322, 0.8150],
+         [0.7877, 0.7875, 0.7959,  ..., 0.7985, 0.7764, 0.7155],
+         [0.7794, 0.7862, 0.7845,  ..., 0.8482, 0.7953, 0.7360]]])</code></pre>
+</div>
+</div>
 <p><code>(5)</code> <code>.with_transfrom()</code>을 이용하여 <code>coco_url</code> column 의 각 observation(=example)에 (4)와 같은 변환을 적용하라.</p>
 <p>출력결과는 아래와 같아야한다. (칼럼에는 <code>pixel_values</code> 만 포함되어있으며 이는 4차원 텐서의 형태이다.)</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>coco[<span class="st">'train'</span>][:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>coco[<span class="st">'train'</span>][:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre><code>{'pixel_values': tensor([[[[0.1884, 0.2323, 0.2613,  ..., 0.3255, 0.3241, 0.3079],
            [0.1864, 0.2289, 0.2521,  ..., 0.3119, 0.3239, 0.3061],
            [0.1936, 0.2166, 0.2491,  ..., 0.3155, 0.3226, 0.2973],
@@ -487,20 +567,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
            [0.7794, 0.7862, 0.7845,  ..., 0.8482, 0.7953, 0.7360]]]])}</code></pre>
 <p>그리고 이 변환을 취소하는 코드를 작성하라.</p>
 <p><code>(풀이)</code></p>
-<div id="cell-32" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>compose <span class="op">=</span> torchvision.transforms.Compose([</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: requests.get(x),</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> y: Image.<span class="bu">open</span>(BytesIO(y.content)),</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> z: z.convert(<span class="st">"RGB"</span>),</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.ToTensor(),</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.Resize((<span class="dv">64</span>,<span class="dv">64</span>))</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_transform(examples):</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    dct <span class="op">=</span> <span class="bu">dict</span>()</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    dct[<span class="st">'pixel_values'</span>] <span class="op">=</span> torch.stack(<span class="bu">list</span>(<span class="bu">map</span>(compose,examples[<span class="st">'coco_url'</span>])))</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct</span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>coco <span class="op">=</span> coco.with_transform(w_transform)</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>coco[<span class="st">'train'</span>][:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-37" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>compose <span class="op">=</span> torchvision.transforms.Compose([</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: requests.get(x),</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> y: Image.<span class="bu">open</span>(BytesIO(y.content)),</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> z: z.convert(<span class="st">"RGB"</span>),</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.ToTensor(),</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.Resize((<span class="dv">64</span>,<span class="dv">64</span>))</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_transform(examples):</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    dct <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    dct[<span class="st">'pixel_values'</span>] <span class="op">=</span> torch.stack(<span class="bu">list</span>(<span class="bu">map</span>(compose,examples[<span class="st">'coco_url'</span>])))</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>coco <span class="op">=</span> coco.with_transform(w_transform)</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>coco[<span class="st">'train'</span>][:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>{'pixel_values': tensor([[[[0.1884, 0.2323, 0.2613,  ..., 0.3255, 0.3241, 0.3079],
            [0.1864, 0.2289, 0.2521,  ..., 0.3119, 0.3239, 0.3061],
@@ -527,8 +607,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
            [0.7794, 0.7862, 0.7845,  ..., 0.8482, 0.7953, 0.7360]]]])}</code></pre>
 </div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="82">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>coco.reset_format()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-38" class="cell" data-execution_count="82">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>coco.reset_format()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
