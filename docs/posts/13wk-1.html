@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="최규빈">
+<meta name="dcterms.date" content="2024-12-04">
 
-<title>MP2024 - 기계학습활용 (2024)</title>
+<title>MP2024 - 13wk-1: 캐글소개</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +25,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,67 +68,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -138,7 +80,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">MP2024</span>
     </a>
   </div>
@@ -149,7 +91,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./quiz.html"> 
+    <a class="nav-link" href="../quiz.html"> 
 <span class="menu-text"><strong>Quiz &amp; Report</strong></span></a>
   </li>  
 </ul>
@@ -172,25 +114,46 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(22)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#강의영상" id="toc-강의영상" class="nav-link active" data-scroll-target="#강의영상">1. 강의영상</a></li>
+  <li><a href="#타이타닉-경진대회-찾기" id="toc-타이타닉-경진대회-찾기" class="nav-link" data-scroll-target="#타이타닉-경진대회-찾기">2. 타이타닉 경진대회 찾기</a></li>
+  <li><a href="#데이터구경" id="toc-데이터구경" class="nav-link" data-scroll-target="#데이터구경">3. 데이터구경</a></li>
+  <li><a href="#메뉴소개" id="toc-메뉴소개" class="nav-link" data-scroll-target="#메뉴소개">4. 메뉴소개</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="13wk-1.out.ipynb" download="13wk-1.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">기계학습활용 (2024)</h1>
+<h1 class="title">13wk-1: 캐글소개</h1>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>최규빈 </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 4, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -200,284 +163,95 @@ window.Quarto = {
 </header>
 
 
-<p><strong>질문하는 방법</strong></p>
-<ul>
-<li>카카오톡: <a href="http://pf.kakao.com/_txeIFG/chat">질문하러 가기</a></li>
-<li>이메일: <a href="mailto:guebin@jbnu.ac.kr" class="email">guebin@jbnu.ac.kr</a></li>
-<li>직접방문: 자연과학대학 본관 205호</li>
-<li>Zoom: <em>카카오톡이나 이메일로 미리 시간을 정할 것</em></li>
-<li>LMS쪽지: <a href="https://ieilms.jbnu.ac.kr/" class="uri">https://ieilms.jbnu.ac.kr/</a></li>
-</ul>
-<p><strong>Quiz &amp; Report</strong>: <a href="https://guebin.github.io/MP2024/quiz.html" class="uri">https://guebin.github.io/MP2024/quiz.html</a></p>
-<p><strong>강의노트</strong></p>
-
-
-
-
-<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
-<table class="quarto-listing-table table">
-<thead>
-<tr>
-<th>
-Date
-</th>
-<th>
-Title
-</th>
-<th>
-Author
-</th>
-</tr>
-</thead>
-<tbody class="list">
-<tr data-index="0" data-listing-date-sort="1733324400000" data-listing-file-modified-sort="1733200294912" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="237" data-listing-title-sort="14wk-3: 타이타닉 / Autogluon" data-listing-filename-sort="14wk-3.ipynb">
-<td>
-<span class="listing-date">Dec 5, 2024</span>
-</td>
-<td>
-<a href="./posts/14wk-3.html" class="title listing-title">14wk-3: 타이타닉 / Autogluon</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="1" data-listing-date-sort="1733324400000" data-listing-file-modified-sort="1733200367287" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="237" data-listing-title-sort="14wk-4: 타이타닉 / Autogluon (Fsize)" data-listing-filename-sort="14wk-4.ipynb">
-<td>
-<span class="listing-date">Dec 5, 2024</span>
-</td>
-<td>
-<a href="./posts/14wk-4.html" class="title listing-title">14wk-4: 타이타닉 / Autogluon (Fsize)</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="2" data-listing-date-sort="1733324400000" data-listing-file-modified-sort="1733200228318" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="394" data-listing-title-sort="14wk-1: 타이타닉 / 첫 제출" data-listing-filename-sort="14wk-1.ipynb">
-<td>
-<span class="listing-date">Dec 5, 2024</span>
-</td>
-<td>
-<a href="./posts/14wk-1.html" class="title listing-title">14wk-1: 타이타닉 / 첫 제출</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="3" data-listing-date-sort="1733324400000" data-listing-file-modified-sort="1733200383527" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="244" data-listing-title-sort="14wk-6: 타이타닉 / Autogluon (best_quality)" data-listing-filename-sort="14wk-6.ipynb">
-<td>
-<span class="listing-date">Dec 5, 2024</span>
-</td>
-<td>
-<a href="./posts/14wk-6.html" class="title listing-title">14wk-6: 타이타닉 / Autogluon (best_quality)</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="4" data-listing-date-sort="1733324400000" data-listing-file-modified-sort="1733200370176" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="242" data-listing-title-sort="14wk-5: 타이타닉 / Autogluon (Fsize,Drop)" data-listing-filename-sort="14wk-5.ipynb">
-<td>
-<span class="listing-date">Dec 5, 2024</span>
-</td>
-<td>
-<a href="./posts/14wk-5.html" class="title listing-title">14wk-5: 타이타닉 / Autogluon (Fsize,Drop)</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="5" data-listing-date-sort="1733324400000" data-listing-file-modified-sort="1733200261904" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2163" data-listing-title-sort="14wk-2: 타이타닉 / Alexis Cook의 코드" data-listing-filename-sort="14wk-2.ipynb">
-<td>
-<span class="listing-date">Dec 5, 2024</span>
-</td>
-<td>
-<a href="./posts/14wk-2.html" class="title listing-title">14wk-2: 타이타닉 / Alexis Cook의 코드</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="6" data-listing-date-sort="1733238000000" data-listing-file-modified-sort="1733200221042" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="266" data-listing-title-sort="13wk-1: 캐글소개" data-listing-filename-sort="13wk-1.ipynb">
-<td>
-<span class="listing-date">Dec 4, 2024</span>
-</td>
-<td>
-<a href="./posts/13wk-1.html" class="title listing-title">13wk-1: 캐글소개</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="7" data-listing-date-sort="1733238000000" data-listing-file-modified-sort="1733200224294" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1006" data-listing-title-sort="13wk-2: 타이타닉 데이터의 이해" data-listing-filename-sort="13wk-2.ipynb">
-<td>
-<span class="listing-date">Dec 4, 2024</span>
-</td>
-<td>
-<a href="./posts/13wk-2.html" class="title listing-title">13wk-2: 타이타닉 데이터의 이해</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="8" data-listing-date-sort="1733151600000" data-listing-file-modified-sort="1733199405703" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="318" data-listing-title-sort="12wk-1: 선인장 이미지 분류" data-listing-filename-sort="12wk-1.ipynb">
-<td>
-<span class="listing-date">Dec 3, 2024</span>
-</td>
-<td>
-<a href="./posts/12wk-1.html" class="title listing-title">12wk-1: 선인장 이미지 분류</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="9" data-listing-date-sort="1732201200000" data-listing-file-modified-sort="1733156139211" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="963" data-listing-title-sort="11wk-1: `data_collator`" data-listing-filename-sort="11wk-1.ipynb">
-<td>
-<span class="listing-date">Nov 22, 2024</span>
-</td>
-<td>
-<a href="./posts/11wk-1.html" class="title listing-title">11wk-1: <code>data_collator</code></a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="10" data-listing-date-sort="1731337200000" data-listing-file-modified-sort="1732330823915" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="623" data-listing-title-sort="10wk-1: `Dataset` 클래스" data-listing-filename-sort="10wk-1.ipynb">
-<td>
-<span class="listing-date">Nov 12, 2024</span>
-</td>
-<td>
-<a href="./posts/10wk-1.html" class="title listing-title">10wk-1: <code>Dataset</code> 클래스</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="11" data-listing-date-sort="1731078000000" data-listing-file-modified-sort="1732330823914" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="206" data-listing-title-sort="09wk-2: `model`의 입력파악, `model`의 사용연습" data-listing-filename-sort="09wk-2.ipynb">
-<td>
-<span class="listing-date">Nov 9, 2024</span>
-</td>
-<td>
-<a href="./posts/09wk-2.html" class="title listing-title">09wk-2: <code>model</code>의 입력파악, <code>model</code>의 사용연습</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="12" data-listing-date-sort="1730386800000" data-listing-file-modified-sort="1732330823914" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="236" data-listing-title-sort="09wk-1: `with`의 사용" data-listing-filename-sort="09wk-1.ipynb">
-<td>
-<span class="listing-date">Nov 1, 2024</span>
-</td>
-<td>
-<a href="./posts/09wk-1.html" class="title listing-title">09wk-1: <code>with</code>의 사용</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="13" data-listing-date-sort="1730300400000" data-listing-file-modified-sort="1732330823911" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="471" data-listing-title-sort="08wk-2: numpy와 torch의 차이" data-listing-filename-sort="08wk-2.ipynb">
-<td>
-<span class="listing-date">Oct 31, 2024</span>
-</td>
-<td>
-<a href="./posts/08wk-2.html" class="title listing-title">08wk-2: numpy와 torch의 차이</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="14" data-listing-date-sort="1730214000000" data-listing-file-modified-sort="1732330823910" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="170" data-listing-title-sort="08wk-1: 모듈설치 및 변경" data-listing-filename-sort="08wk-1.ipynb">
-<td>
-<span class="listing-date">Oct 30, 2024</span>
-</td>
-<td>
-<a href="./posts/08wk-1.html" class="title listing-title">08wk-1: 모듈설치 및 변경</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="15" data-listing-date-sort="1729090800000" data-listing-file-modified-sort="1732330823910" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="681" data-listing-title-sort="06wk-1, 07wk-1: UCF101 영상자료 분류" data-listing-filename-sort="06wk-1.ipynb">
-<td>
-<span class="listing-date">Oct 17, 2024</span>
-</td>
-<td>
-<a href="./posts/06wk-1.html" class="title listing-title">06wk-1, 07wk-1: UCF101 영상자료 분류</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="16" data-listing-date-sort="1727967600000" data-listing-file-modified-sort="1732330823833" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="338" data-listing-title-sort="05wk-1: Food-101 이미지자료 분류" data-listing-filename-sort="05wk-1.ipynb">
-<td>
-<span class="listing-date">Oct 4, 2024</span>
-</td>
-<td>
-<a href="./posts/05wk-1.html" class="title listing-title">05wk-1: Food-101 이미지자료 분류</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="17" data-listing-date-sort="1727362800000" data-listing-file-modified-sort="1732330823821" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="599" data-listing-title-sort="04wk-1: 감성분석 파고들기 (2)" data-listing-filename-sort="04wk-1.ipynb">
-<td>
-<span class="listing-date">Sep 27, 2024</span>
-</td>
-<td>
-<a href="./posts/04wk-1.html" class="title listing-title">04wk-1: 감성분석 파고들기 (2)</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="18" data-listing-date-sort="1726671600000" data-listing-file-modified-sort="1732330823821" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1432" data-listing-title-sort="03wk-1: 감성분석 파고들기 (1)" data-listing-filename-sort="03wk-1.ipynb">
-<td>
-<span class="listing-date">Sep 19, 2024</span>
-</td>
-<td>
-<a href="./posts/03wk-1.html" class="title listing-title">03wk-1: 감성분석 파고들기 (1)</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="19" data-listing-date-sort="1726066800000" data-listing-file-modified-sort="1732330823820" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="563" data-listing-title-sort="02wk-1: IMDB 영화평 감성분석" data-listing-filename-sort="02wk-1.ipynb">
-<td>
-<span class="listing-date">Sep 12, 2024</span>
-</td>
-<td>
-<a href="./posts/02wk-1.html" class="title listing-title">02wk-1: IMDB 영화평 감성분석</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="20" data-listing-date-sort="1725548400000" data-listing-file-modified-sort="1732330823820" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2325" data-listing-title-sort="01wk-2: IMDB 자료 살펴보기, 지도학습의 개념" data-listing-filename-sort="01wk-2.ipynb">
-<td>
-<span class="listing-date">Sep 6, 2024</span>
-</td>
-<td>
-<a href="./posts/01wk-2.html" class="title listing-title">01wk-2: IMDB 자료 살펴보기, 지도학습의 개념</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-<tr data-index="21" data-listing-date-sort="1725289200000" data-listing-file-modified-sort="1732330823820" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="188" data-listing-title-sort="01wk-1: 강의소개" data-listing-filename-sort="01wk-1-강의소개.ipynb">
-<td>
-<span class="listing-date">Sep 3, 2024</span>
-</td>
-<td>
-<a href="./posts/01wk-1-강의소개.html" class="title listing-title">01wk-1: 강의소개</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="listing-no-matching d-none">
-No matching items
+<p><a href="https://colab.research.google.com/github/guebin/MP2024/blob/main/posts/13wk-1.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" style="text-align: left"></a></p>
+<section id="강의영상" class="level1">
+<h1>1. 강의영상</h1>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/playlist?list=PLQqh36zP38-whB-xm6XeVwk_rSmjZTo5f&amp;si=IQVW5RpD62OOOBOy" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
+<section id="타이타닉-경진대회-찾기" class="level1">
+<h1>2. 타이타닉 경진대회 찾기</h1>
+<p><code>-</code> 방법1: 검색을 통하여 접속하기</p>
+<div class="img-fluid quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="13wk-1_files/figure-html/cba26d22-a647-426d-b848-043628bbc8df-1-cd7239fa-82bc-4eba-8e60-c9d81e5ec2a6.png" class="img-fluid figure-img"></p>
+<figcaption>그림1: 타이타닉 경진대회 검색</figcaption>
+</figure>
 </div>
-</div></main> <!-- /main -->
+<p><code>-</code> 방법2: 직접주소를 입력 <a href="https://www.kaggle.com/competitions/titanic" class="uri">https://www.kaggle.com/competitions/titanic</a></p>
+</section>
+<section id="데이터구경" class="level1">
+<h1>3. 데이터구경</h1>
+<p><code>-</code> 데이터의 설명을 빠르게 파악하는 방법</p>
+<ul>
+<li>방법1: 변수위주로 Kaggle 홈페이지에서 파악</li>
+<li>방법2: 구글번역기 활용</li>
+<li>방법3: ChatGPT이용</li>
+</ul>
+<p><code>-</code> 제 생각</p>
+<ul>
+<li>ChatGPT가 옳지 않은 소리를 할 떄도 있음. 하지만 처음에 데이터에 대한 개념을 빠르게 정리하고자 할 때 도움이 된다.</li>
+<li>변수이름이 약어로 된 경우가 많은데 이럴경우 GPT가 유용하다.</li>
+</ul>
+</section>
+<section id="메뉴소개" class="level1">
+<h1>4. 메뉴소개</h1>
+<p><code>-</code> 캐글 웹사이트의 메뉴탭 소개</p>
+<ol type="1">
+<li><strong>Overview (개요)</strong>:</li>
+</ol>
+<ul>
+<li>경진대회 주최자가 경진대회의 배경, 목표, 데이터셋 설명 등을 설명</li>
+</ul>
+<ol start="2" type="1">
+<li><strong>Data (데이터)</strong>:</li>
+</ol>
+<ul>
+<li>경진대회에 사용되는 데이터셋에 관한 정보를 찾을 수 있음.</li>
+<li>데이터의 구성, 변수 설명, 예시 데이터 등이 제공되며, 데이터를 이해하고 분석할 수 있는데 필요한 정보들이 여기에 포함됨.</li>
+</ul>
+<ol start="3" type="1">
+<li><strong>Code (코드)</strong>:</li>
+</ol>
+<ul>
+<li>경진대회 참가자들이 코드를 공유하고 토론하는 공간.</li>
+<li>주로 주어진 문제에 대한 데이터 분석 및 모델링 코드, 데이터 전처리 방법, 모델 학습 등에 관련된 내용이 이곳에 포함됨.</li>
+</ul>
+<ol start="4" type="1">
+<li><strong>Discussion (토론)</strong>:</li>
+</ol>
+<ul>
+<li>참가자들이 서로 의견을 교환하고 질문을 주고받을 수 있는 공간.</li>
+<li>데이터 분석 방법, 모델 구축 전략, 문제 해결 과정 등에 대한 토론이 이루어짐.</li>
+</ul>
+<ol start="5" type="1">
+<li><strong>Leaderboard (리더보드)</strong>:</li>
+</ol>
+<ul>
+<li>경진대회 참가자들의 성능 평가 지표와 순위가 나열.</li>
+<li>참가자들의 모델 성능을 비교하고 경쟁 상황을 실시간으로 확인할 수 있음.</li>
+</ul>
+<ol start="6" type="1">
+<li><strong>Rules (규칙)</strong>:</li>
+</ol>
+<ul>
+<li>참가자들이 따라야 할 규칙, 데이터 사용 방법, 평가 지표 등이 명시되어 있음.</li>
+</ul>
+<p><code>-</code> 체크하면 좋은 것들</p>
+<ul>
+<li>Oveview: 평가지표(metric), 상(prize), 시간(timeline)</li>
+<li>Rules: 평가지표(metric), 외부데이터 사용여부, 하루 최대 제출 수, 최종선택가능한 솔루션 수 (limit)</li>
+</ul>
+<p><code>-</code> 대회의 유형 (ref: https://github.com/PacktPublishing/The-Kaggle-Book)</p>
+<ul>
+<li><strong>Getting Started</strong>: 상을 제공하지 않음. 튜토리얼용. 매우 협력적인 환경.</li>
+<li><strong>Featured</strong>: 가장 일반적인 유형. 스폰서 회사의 비지니스 관련문제. 상금이 후함. 솔루션을 소개하는 자세한 리포트를 준비해야하고 발표할 것을 요구받을 수 있음.</li>
+<li><strong>Analytics</strong>: 질적 평가. 참가자의 PPT를 제출로 받음.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -859,6 +633,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
+</script>
+<script src="https://utteranc.es/client.js" repo="guebin/MP2023" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
 </script>
 </div> <!-- /content -->
 
