@@ -213,6 +213,7 @@ window.Quarto = {
   <li><a href="#a.-예쁜-정석-코드" id="toc-a.-예쁜-정석-코드" class="nav-link" data-scroll-target="#a.-예쁜-정석-코드">A. 예쁜(?) 정석 코드</a></li>
   <li><a href="#b.-자유로운-코드" id="toc-b.-자유로운-코드" class="nav-link" data-scroll-target="#b.-자유로운-코드">B. 자유로운 코드</a></li>
   </ul></li>
+  <li><a href="#a1.-작년강의노트" id="toc-a1.-작년강의노트" class="nav-link" data-scroll-target="#a1.-작년강의노트">A1. 작년강의노트</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="12wk-1.out.ipynb" download="12wk-1.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -253,10 +254,11 @@ window.Quarto = {
 <p><a href="https://colab.research.google.com/github/guebin/MP2024/blob/main/posts/12wk-1.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" style="text-align: left"></a></p>
 <section id="강의영상" class="level1">
 <h1>1. 강의영상</h1>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/playlist?list=PLQqh36zP38-z5Wh8S9Whc_lGehzJvMSit&amp;si=BcmhgMK95Gadjbfl" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
 <section id="imports" class="level1">
 <h1>2. imports</h1>
-<div id="cell-4" class="cell" data-execution_count="300">
+<div id="cell-5" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
@@ -269,6 +271,10 @@ window.Quarto = {
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision.transforms</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> evaluate</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/cgb3/anaconda3/envs/hf/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm</code></pre>
+</div>
 </div>
 </section>
 <section id="kaggle" class="level1">
@@ -279,292 +285,23 @@ window.Quarto = {
 </section>
 <section id="b.-압축해제" class="level2">
 <h2 class="anchored" data-anchor-id="b.-압축해제">B. 압축해제</h2>
+<div id="cell-10" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> zipfile.ZipFile(<span class="st">'aerial-cactus-identification.zip'</span>, <span class="st">'r'</span>) <span class="im">as</span> z:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    z.extractall(<span class="st">'./data'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-11" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> zipfile.ZipFile(<span class="st">'./data/test.zip'</span>, <span class="st">'r'</span>) <span class="im">as</span> z_test:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    z_test.extractall(<span class="st">'./data'</span>)    </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> zipfile.ZipFile(<span class="st">'./data/train.zip'</span>, <span class="st">'r'</span>) <span class="im">as</span> z_train:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    z_train.extractall(<span class="st">'./data'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="c.-데이터-살펴보기" class="level2">
 <h2 class="anchored" data-anchor-id="c.-데이터-살펴보기">C. 데이터 살펴보기</h2>
-</section>
-</section>
-<section id="logits의-이해" class="level1">
-<h1>4. Logits의 이해</h1>
-<section id="a.-로짓의-의미" class="level2">
-<h2 class="anchored" data-anchor-id="a.-로짓의-의미">A. 로짓의 의미</h2>
-<p><code>-</code> 로짓의 이해: 클래스가 2개인 자료에 대한 분류문제를 푼다고 하자. 3개의 observation/examples 에 대한 로짓값이 아래와 같다고 하자.</p>
-<div id="cell-15" class="cell" data-execution_count="129">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> np.array(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    [[ <span class="fl">2.7346244</span>, <span class="op">-</span><span class="fl">3.1177292</span>],</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7103324</span>, <span class="op">-</span><span class="fl">3.1362345</span>],</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7464483</span>, <span class="op">-</span><span class="fl">3.0521457</span>],</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7195318</span>, <span class="op">-</span><span class="fl">3.122628</span> ],</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7138977</span>, <span class="op">-</span><span class="fl">3.1041346</span>],</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7398622</span>, <span class="op">-</span><span class="fl">3.1098123</span>],</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">0.0657177</span>, <span class="op">-</span><span class="fl">0.0930362</span>],</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>     [<span class="op">-</span><span class="fl">2.7668718</span>,  <span class="fl">3.0918367</span>]]</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>logits</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="129">
-<pre><code>array([[ 2.7346244, -3.1177292],
-       [ 2.7103324, -3.1362345],
-       [ 2.7464483, -3.0521457],
-       [ 2.7195318, -3.122628 ],
-       [ 2.7138977, -3.1041346],
-       [ 2.7398622, -3.1098123],
-       [ 0.0657177, -0.0930362],
-       [-2.7668718,  3.0918367]])</code></pre>
-</div>
-</div>
-<p>로짓값은 일반적으로 <span class="math inline">\((n,k)\)</span>의 차원을 가지며 여기에서 <span class="math inline">\(n\)</span>은 observation의 숫자, <span class="math inline">\(k\)</span>는 클래스의 숫자를 의미한다. 이 예제의 경우는 <span class="math inline">\(n=8\)</span>, <span class="math inline">\(k=2\)</span>인 경우이다.</p>
-<p>여기에서 각 observation에 대한 로짓값이 의미하는 바를 살펴보면 아래와 같다.</p>
-<ol type="1">
-<li>첫 번째 관측값 (<code>[2.7346244, -3.1177292]</code>):</li>
-</ol>
-<ul>
-<li>첫 번째 클래스에 대한 확신 정도: <code>2.7346244</code></li>
-<li>두 번째 클래스에 대한 확신 정도: <code>-3.1177292</code></li>
-</ul>
-<ol start="2" type="1">
-<li>두 번째 관측값 (<code>[2.7103324,  -3.1362345]</code>):</li>
-</ol>
-<ul>
-<li>첫 번째 클래스에 대한 확신 정도: <code>2.7103324</code></li>
-<li>두 번째 클래스에 대한 확신 정도: <code>-3.1362345</code></li>
-</ul>
-<p>…</p>
-<ol start="8" type="1">
-<li>마지막 관측값 ([<code>-2.7668718</code>, <code>3.0918367</code>]):</li>
-</ol>
-<ul>
-<li>첫 번째 클래스에 대한 확신 정도: <code>-2.7668718</code></li>
-<li>두 번째 클래스에 대한 확신 정도: <code>3.0918367</code></li>
-</ul>
-</section>
-<section id="b.-로짓-to-예측클래스" class="level2">
-<h2 class="anchored" data-anchor-id="b.-로짓-to-예측클래스">B. 로짓 <span class="math inline">\(\to\)</span> 예측클래스</h2>
-<p><code>-</code> 로짓 <span class="math inline">\(\to\)</span> 예측클래스의 과정을 살펴보자.</p>
-<ol type="1">
-<li><p>첫 번째 관측값: <span class="math inline">\(2.7346244 &gt; -3.1177292\)</span> <span class="math inline">\(\Rightarrow\)</span> 첫 번째 클래스로 예측</p></li>
-<li><p>두 번째 관측값: <span class="math inline">\(2.7103324 &gt; -3.1362345\)</span> <span class="math inline">\(\Rightarrow\)</span> 첫 번째 클래스로 예측</p></li>
-</ol>
-<p>…</p>
-<ol start="8" type="1">
-<li>마지막 관측값: <span class="math inline">\(-2.7668718 &lt; 3.0918367\)</span> <span class="math inline">\(\Rightarrow\)</span> 두 번째 클래스로 예측</li>
-</ol>
-<p><code>-</code> 이것은 아래를 이용하여 구할수도 있다.</p>
-</section>
-<section id="c.-로짓-to-예측확률" class="level2">
-<h2 class="anchored" data-anchor-id="c.-로짓-to-예측확률">C. 로짓 <span class="math inline">\(\to\)</span> 예측확률</h2>
-<p><code>-</code> 로짓 <span class="math inline">\(\to\)</span> 예측확률의 과정을 살펴보자.</p>
-<p><span class="math inline">\({\boldsymbol u}=\begin{bmatrix} u_1 &amp; \dots &amp; u_k\end{bmatrix}\)</span>를 고정된 observation에 대한 logits값 이라고 하자. 이때 각 클래스에 속할 확률값은 아래와 같이 구한다.</p>
-<p><span class="math display">\[\text{prob} =\left[\frac{\exp(u_1)}{\exp(u_1)+\dots+\exp(u_k)}, \cdots,  \frac{\exp(u_k)}{\exp(u_1)+\dots+\exp(u_k)}\right]\]</span></p>
-<p><code>-</code> 이 확률은 아래를 통하여 구할수도 있다.</p>
-</section>
-</section>
-<section id="평가지표" class="level1">
-<h1>5. 평가지표</h1>
-<section id="a.-accuracy-계산" class="level2">
-<h2 class="anchored" data-anchor-id="a.-accuracy-계산">A. accuracy 계산</h2>
-<p><code>-</code> accuracy의 계산: <code>logits</code>와 <code>labels</code>가 아래와 같이 주어졌다고 하자.</p>
-<div id="cell-35" class="cell" data-execution_count="343">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> np.array(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    [[ <span class="fl">2.7346244</span>, <span class="op">-</span><span class="fl">3.1177292</span>],</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7103324</span>, <span class="op">-</span><span class="fl">3.1362345</span>],</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7464483</span>, <span class="op">-</span><span class="fl">3.0521457</span>],</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7195318</span>, <span class="op">-</span><span class="fl">3.122628</span> ],</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7138977</span>, <span class="op">-</span><span class="fl">3.1041346</span>],</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7398622</span>, <span class="op">-</span><span class="fl">3.1098123</span>],</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">0.0657177</span>, <span class="op">-</span><span class="fl">0.0930362</span>],</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>     [<span class="op">-</span><span class="fl">2.7668718</span>,  <span class="fl">3.0918367</span>]]</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>references <span class="op">=</span> labels <span class="op">=</span> np.array([<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-36" class="cell" data-execution_count="327">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> logits.argmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="327">
-<pre><code>array([0, 0, 0, 0, 0, 0, 0, 1])</code></pre>
-</div>
-</div>
-<p>accuracy는 아래와 같이 계산할 수 있다.</p>
-<div id="cell-38" class="cell" data-execution_count="328">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(predictions <span class="op">==</span> references).<span class="bu">sum</span>()<span class="op">/</span><span class="dv">8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="328">
-<pre><code>0.875</code></pre>
-</div>
-</div>
-<div id="cell-39" class="cell" data-execution_count="329">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>(predictions <span class="op">==</span> references).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="329">
-<pre><code>0.875</code></pre>
-</div>
-</div>
-<p>이걸 아래와 같이 계산할 수도 있다.</p>
-<div id="cell-41" class="cell" data-execution_count="330">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>acc <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>acc.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>references)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="330">
-<pre><code>{'accuracy': 0.875}</code></pre>
-</div>
-</div>
-</section>
-<section id="b.-recall-계산" class="level2">
-<h2 class="anchored" data-anchor-id="b.-recall-계산">B. recall 계산</h2>
-<p><code>-</code> 경우에 따라서 1을 얼마나 더 잘맞추는지 알고 싶은 경우도 있다.</p>
-<p><span class="math display">\[\frac{\text{실제 라벨이 1인 관측치 중 올바르게 예측된 관측치수}}{\text{실제 라벨이 1인 관측치 수}}\]</span></p>
-<div id="cell-44" class="cell" data-execution_count="313">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> np.array(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    [[ <span class="fl">2.7346244</span>, <span class="op">-</span><span class="fl">3.1177292</span>],</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7103324</span>, <span class="op">-</span><span class="fl">3.1362345</span>],</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7464483</span>, <span class="op">-</span><span class="fl">3.0521457</span>],</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7195318</span>, <span class="op">-</span><span class="fl">3.122628</span> ],</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7138977</span>, <span class="op">-</span><span class="fl">3.1041346</span>],</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7398622</span>, <span class="op">-</span><span class="fl">3.1098123</span>],</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">0.0657177</span>, <span class="op">-</span><span class="fl">0.0930362</span>],</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>     [<span class="op">-</span><span class="fl">2.7668718</span>,  <span class="fl">3.0918367</span>]]</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>references <span class="op">=</span> labels <span class="op">=</span> np.array([<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-45" class="cell" data-execution_count="322">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> logits.argmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="322">
-<pre><code>array([0, 0, 0, 0, 0, 0, 0, 1])</code></pre>
-</div>
-</div>
-<div id="cell-46" class="cell" data-execution_count="323">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>(predictions[labels<span class="op">==</span><span class="dv">1</span>] <span class="op">==</span> <span class="dv">1</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="323">
-<pre><code>0.5</code></pre>
-</div>
-</div>
-<p>이것을 아래와 같이 구할수도 있다.</p>
-<div id="cell-48" class="cell" data-execution_count="325">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>rec <span class="op">=</span> evaluate.load(<span class="st">"recall"</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>rec.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>references)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="325">
-<pre><code>{'recall': 0.5}</code></pre>
-</div>
-</div>
-</section>
-<section id="c.-auc-계산" class="level2">
-<h2 class="anchored" data-anchor-id="c.-auc-계산">C. auc 계산</h2>
-<p><code>-</code> accuracy 이외의 평가지표들</p>
-<ul>
-<li><a href="https://guebin.github.io/MP2023/posts/12wk-46.html" class="uri">https://guebin.github.io/MP2023/posts/12wk-46.html</a> // 시험에는 X</li>
-</ul>
-<p><code>-</code> AUC: 클래스간의 불균형이 있을때 유의미한 평가지표</p>
-<div id="cell-52" class="cell" data-execution_count="316">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> np.array(</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    [[ <span class="fl">2.7346244</span>, <span class="op">-</span><span class="fl">3.1177292</span>],</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7103324</span>, <span class="op">-</span><span class="fl">3.1362345</span>],</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7464483</span>, <span class="op">-</span><span class="fl">3.0521457</span>],</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7195318</span>, <span class="op">-</span><span class="fl">3.122628</span> ],</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7138977</span>, <span class="op">-</span><span class="fl">3.1041346</span>],</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7398622</span>, <span class="op">-</span><span class="fl">3.1098123</span>],</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">0.0657177</span>, <span class="op">-</span><span class="fl">0.0930362</span>],</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>     [<span class="op">-</span><span class="fl">2.7668718</span>,  <span class="fl">3.0918367</span>]]</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>references <span class="op">=</span> labels <span class="op">=</span> np.array([<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-53" class="cell" data-execution_count="318">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>probabilities <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>prediction_scores <span class="op">=</span> probabilities[:,<span class="dv">1</span>]</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>prediction_scores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="318">
-<pre><code>array([0.0028649 , 0.00288148, 0.00302265, 0.00289417, 0.00296464,
-       0.00287256, 0.46039467, 0.9971532 ])</code></pre>
-</div>
-</div>
-<ul>
-<li>0.4 이상부터는 1로 판단한다면? <span class="math inline">\(\to\)</span> 다 맞춘거아니야?</li>
-</ul>
-<div id="cell-55" class="cell" data-execution_count="320">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>roc_auc <span class="op">=</span> evaluate.load(<span class="st">"roc_auc"</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>roc_auc.compute(references<span class="op">=</span> references, prediction_scores<span class="op">=</span> prediction_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="320">
-<pre><code>{'roc_auc': 1.0}</code></pre>
-</div>
-</div>
-<p><code># 예제1</code> – 시각화</p>
-<div id="cell-57" class="cell" data-execution_count="299">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> np.array(</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    [[ <span class="fl">2.7346244</span>, <span class="op">-</span><span class="fl">3.1177292</span>],</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7103324</span>, <span class="op">-</span><span class="fl">3.1362345</span>],</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7464483</span>, <span class="op">-</span><span class="fl">3.0521457</span>],</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7195318</span>, <span class="op">-</span><span class="fl">3.122628</span> ],</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7138977</span>, <span class="op">-</span><span class="fl">3.1041346</span>],</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7398622</span>, <span class="op">-</span><span class="fl">3.1098123</span>],</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">0.0657177</span>, <span class="op">-</span><span class="fl">0.0930362</span>],</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>     [<span class="op">-</span><span class="fl">2.7668718</span>,  <span class="fl">3.0918367</span>]]</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> np.array([<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>])</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>probabilities <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>plt.plot(probabilities[:,<span class="dv">1</span>],<span class="st">'--o'</span>)</span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>plt.plot(labels,<span class="st">'x'</span>)</span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>roc_auc <span class="op">=</span> evaluate.load(<span class="st">"roc_auc"</span>)</span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>acc <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>rec <span class="op">=</span> evaluate.load(<span class="st">"recall"</span>)</span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {</span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">'accuracy'</span>: acc.compute(predictions<span class="op">=</span> logits.argmax(axis<span class="op">=</span><span class="dv">1</span>), references<span class="op">=</span>labels)[<span class="st">'accuracy'</span>],</span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">'recall'</span>: rec.compute(predictions<span class="op">=</span> logits.argmax(axis<span class="op">=</span><span class="dv">1</span>), references<span class="op">=</span>labels)[<span class="st">'recall'</span>],</span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">'roc_auc'</span>: roc_auc.compute(references<span class="op">=</span> labels, prediction_scores<span class="op">=</span> probabilities[:,<span class="dv">1</span>])[<span class="st">'roc_auc'</span>]</span>
-<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f"ACC=</span><span class="sc">{</span>results[<span class="st">'accuracy'</span>]<span class="sc">}</span><span class="ss">, REC=</span><span class="sc">{</span>results[<span class="st">'recall'</span>]<span class="sc">}</span><span class="ss">, ROC_AUC=</span><span class="sc">{</span>results[<span class="st">'roc_auc'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="299">
-<pre><code>Text(0.5, 1.0, 'ACC=0.875, REC=0.5, ROC_AUC=1.0')</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="12wk-1_files/figure-html/cell-24-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="cell-58" class="cell" data-execution_count="301">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> np.array(</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    [[ <span class="fl">2.7346244</span>, <span class="op">-</span><span class="fl">3.1177292</span>],</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7103324</span>, <span class="op">-</span><span class="fl">3.1362345</span>],</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7464483</span>, <span class="op">-</span><span class="fl">3.0521457</span>],</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7195318</span>, <span class="op">-</span><span class="fl">3.122628</span> ],</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7138977</span>, <span class="op">-</span><span class="fl">3.1041346</span>],</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">0.0657177</span>, <span class="op">-</span><span class="fl">0.0930362</span>],     </span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7398622</span>, <span class="op">-</span><span class="fl">3.1098123</span>],</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>     [<span class="op">-</span><span class="fl">2.7668718</span>,  <span class="fl">3.0918367</span>]]</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> np.array([<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>])</span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>probabilities <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()</span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>plt.plot(probabilities[:,<span class="dv">1</span>],<span class="st">'--o'</span>)</span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>plt.plot(labels,<span class="st">'x'</span>)</span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>roc_auc <span class="op">=</span> evaluate.load(<span class="st">"roc_auc"</span>)</span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>acc <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>rec <span class="op">=</span> evaluate.load(<span class="st">"recall"</span>)</span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {</span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">'accuracy'</span>: acc.compute(predictions<span class="op">=</span> logits.argmax(axis<span class="op">=</span><span class="dv">1</span>), references<span class="op">=</span>labels)[<span class="st">'accuracy'</span>],</span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">'recall'</span>: rec.compute(predictions<span class="op">=</span> logits.argmax(axis<span class="op">=</span><span class="dv">1</span>), references<span class="op">=</span>labels)[<span class="st">'recall'</span>],</span>
-<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">'roc_auc'</span>: roc_auc.compute(references<span class="op">=</span> labels, prediction_scores<span class="op">=</span> probabilities[:,<span class="dv">1</span>])[<span class="st">'roc_auc'</span>]</span>
-<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f"ACC=</span><span class="sc">{</span>results[<span class="st">'accuracy'</span>]<span class="sc">}</span><span class="ss">, REC=</span><span class="sc">{</span>results[<span class="st">'recall'</span>]<span class="sc">}</span><span class="ss">, ROC_AUC=</span><span class="sc">{</span>results[<span class="st">'roc_auc'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="301">
-<pre><code>Text(0.5, 1.0, 'ACC=0.875, REC=0.5, ROC_AUC=0.5833333333333333')</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="12wk-1_files/figure-html/cell-25-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="분석" class="level1">
-<h1>6. 분석</h1>
-<p><code>-</code> <code>train.csv</code>를 pandas로</p>
-<div id="cell-61" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>train_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/train.csv"</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>train_csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div id="cell-13" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>train_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/train.csv"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>train_csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 
 
@@ -639,10 +376,555 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-62" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>test_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/sample_submission.csv"</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>test_csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<ul>
+<li>train에는 이미지에 해당하는 라벨이 존재</li>
+</ul>
+<div id="cell-15" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>test_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/sample_submission.csv"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>test_csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">has_cactus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>000940378805c44108d287872b2f04ce.jpg</td>
+<td>0.5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>0017242f54ececa4512b4d7937d1e21e.jpg</td>
+<td>0.5</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>001ee6d8564003107853118ab87df407.jpg</td>
+<td>0.5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>002e175c3c1e060769475f52182583d0.jpg</td>
+<td>0.5</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>0036e44a7e8f7218e9bc7bf8137e4943.jpg</td>
+<td>0.5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3995</td>
+<td>ffaafd0c9f2f0e73172848463bc2e523.jpg</td>
+<td>0.5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3996</td>
+<td>ffae37344310a1549162493237d25d3f.jpg</td>
+<td>0.5</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3997</td>
+<td>ffbd469c56873d064326204aac546e0d.jpg</td>
+<td>0.5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3998</td>
+<td>ffcb76b7d47f29ece11c751e5f763f52.jpg</td>
+<td>0.5</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3999</td>
+<td>fffed17d1a8e0433a934db518d7f532c.jpg</td>
+<td>0.5</td>
+</tr>
+</tbody>
+</table>
+
+<p>4000 rows × 2 columns</p>
+</div>
+</div>
+</div>
+<ul>
+<li>test에는 이미지에 해당하는 라벨이 존재하지 않음.</li>
+<li>우리의 목표: 확률값을 잘 추정해서 <code>sample_submission</code>의 <code>has_cactus</code>열에 대입하고 그 결과를 캐글에 제출</li>
+</ul>
+</section>
+</section>
+<section id="logits의-이해" class="level1">
+<h1>4. Logits의 이해</h1>
+<section id="a.-로짓의-의미" class="level2">
+<h2 class="anchored" data-anchor-id="a.-로짓의-의미">A. 로짓의 의미</h2>
+<p><code>-</code> 로짓의 이해: 클래스가 2개인 자료에 대한 분류문제를 푼다고 하자. 8개의 observation/examples 에 대한 로짓값이 아래와 같다고 하자.</p>
+<div id="cell-20" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> np.array(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    [[ <span class="fl">2.7346244</span>, <span class="op">-</span><span class="fl">3.1177292</span>],</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7103324</span>, <span class="op">-</span><span class="fl">3.1362345</span>],</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7464483</span>, <span class="op">-</span><span class="fl">3.0521457</span>],</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7195318</span>, <span class="op">-</span><span class="fl">3.122628</span> ],</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7138977</span>, <span class="op">-</span><span class="fl">3.1041346</span>],</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7398622</span>, <span class="op">-</span><span class="fl">3.1098123</span>],</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">0.0657177</span>, <span class="op">-</span><span class="fl">0.0930362</span>],</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>     [<span class="op">-</span><span class="fl">2.7668718</span>,  <span class="fl">3.0918367</span>]]</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>logits</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>array([[ 2.7346244, -3.1177292],
+       [ 2.7103324, -3.1362345],
+       [ 2.7464483, -3.0521457],
+       [ 2.7195318, -3.122628 ],
+       [ 2.7138977, -3.1041346],
+       [ 2.7398622, -3.1098123],
+       [ 0.0657177, -0.0930362],
+       [-2.7668718,  3.0918367]])</code></pre>
+</div>
+</div>
+<p>로짓값은 일반적으로 <span class="math inline">\((n,k)\)</span>의 차원을 가지며 여기에서 <span class="math inline">\(n\)</span>은 observation의 숫자, <span class="math inline">\(k\)</span>는 클래스의 숫자를 의미한다. 이 예제의 경우는 <span class="math inline">\(n=8\)</span>, <span class="math inline">\(k=2\)</span>인 경우이다.</p>
+<p>여기에서 각 observation에 대한 로짓값이 의미하는 바를 살펴보면 아래와 같다.</p>
+<ol type="1">
+<li>첫 번째 관측값 (<code>[2.7346244, -3.1177292]</code>):</li>
+</ol>
+<ul>
+<li>첫 번째 클래스에 대한 확신 정도: <code>2.7346244</code></li>
+<li>두 번째 클래스에 대한 확신 정도: <code>-3.1177292</code></li>
+</ul>
+<ol start="2" type="1">
+<li>두 번째 관측값 (<code>[2.7103324,  -3.1362345]</code>):</li>
+</ol>
+<ul>
+<li>첫 번째 클래스에 대한 확신 정도: <code>2.7103324</code></li>
+<li>두 번째 클래스에 대한 확신 정도: <code>-3.1362345</code></li>
+</ul>
+<p>…</p>
+<ol start="7" type="1">
+<li>마지막에서 두번째 관측값 ([<code>0.0657177</code>, <code>-0.0930362</code>]):</li>
+</ol>
+<ul>
+<li>첫 번째 클래스에 대한 확신 정도: <code>0.0657177</code></li>
+<li>두 번째 클래스에 대한 확신 정도: <code>-0.0930362</code></li>
+</ul>
+<ol start="8" type="1">
+<li>마지막 관측값 ([<code>-2.7668718</code>, <code>3.0918367</code>]):</li>
+</ol>
+<ul>
+<li>첫 번째 클래스에 대한 확신 정도: <code>-2.7668718</code></li>
+<li>두 번째 클래스에 대한 확신 정도: <code>3.0918367</code></li>
+</ul>
+</section>
+<section id="b.-로짓-to-예측클래스" class="level2">
+<h2 class="anchored" data-anchor-id="b.-로짓-to-예측클래스">B. 로짓 <span class="math inline">\(\to\)</span> 예측클래스</h2>
+<p><code>-</code> 로짓 <span class="math inline">\(\to\)</span> 예측클래스의 과정을 살펴보자.</p>
+<ol type="1">
+<li><p>첫 번째 관측값: <span class="math inline">\(2.7346244 &gt; -3.1177292\)</span> <span class="math inline">\(\Rightarrow\)</span> 첫 번째 클래스로 예측</p></li>
+<li><p>두 번째 관측값: <span class="math inline">\(2.7103324 &gt; -3.1362345\)</span> <span class="math inline">\(\Rightarrow\)</span> 첫 번째 클래스로 예측</p></li>
+</ol>
+<p>…</p>
+<ol start="7" type="1">
+<li><p>마지막에서 두번째 관측값: <span class="math inline">\(0.0657177 &gt; -0.0930362\)</span> <span class="math inline">\(\Rightarrow\)</span> 첫 번째 클래스로 예측</p></li>
+<li><p>마지막 관측값: <span class="math inline">\(-2.7668718 &lt; 3.0918367\)</span> <span class="math inline">\(\Rightarrow\)</span> 두 번째 클래스로 예측</p></li>
+</ol>
+<div id="cell-26" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>logits</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>array([[ 2.7346244, -3.1177292],
+       [ 2.7103324, -3.1362345],
+       [ 2.7464483, -3.0521457],
+       [ 2.7195318, -3.122628 ],
+       [ 2.7138977, -3.1041346],
+       [ 2.7398622, -3.1098123],
+       [ 0.0657177, -0.0930362],
+       [-2.7668718,  3.0918367]])</code></pre>
+</div>
+</div>
+<div id="cell-27" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> u <span class="kw">in</span> logits:</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    u1, u2 <span class="op">=</span> u </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> u1 <span class="op">&gt;</span> u2: </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        prediction <span class="op">=</span> <span class="dv">0</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>: </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        prediction <span class="op">=</span> <span class="dv">1</span> </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(prediction)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0
+0
+0
+0
+0
+0
+0
+1</code></pre>
+</div>
+</div>
+<p><code>-</code> 이것은 아래를 이용하여 구할수도 있다.</p>
+<div id="cell-29" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>logits.argmax(axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>array([0, 0, 0, 0, 0, 0, 0, 1])</code></pre>
+</div>
+</div>
+</section>
+<section id="c.-로짓-to-예측확률" class="level2">
+<h2 class="anchored" data-anchor-id="c.-로짓-to-예측확률">C. 로짓 <span class="math inline">\(\to\)</span> 예측확률</h2>
+<p><code>-</code> 로짓 <span class="math inline">\(\to\)</span> 예측확률의 과정을 살펴보자.</p>
+<p><span class="math inline">\({\boldsymbol u}=\begin{bmatrix} u_1 &amp; \dots &amp; u_k\end{bmatrix}\)</span>를 고정된 observation에 대한 logits값 이라고 하자. 이때 각 클래스에 속할 확률값은 아래와 같이 구한다.</p>
+<p><span class="math display">\[\text{prob} =\left[\frac{\exp(u_1)}{\exp(u_1)+\dots+\exp(u_k)}, \cdots,  \frac{\exp(u_k)}{\exp(u_1)+\dots+\exp(u_k)}\right]\]</span></p>
+<div id="cell-33" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>logits</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>array([[ 2.7346244, -3.1177292],
+       [ 2.7103324, -3.1362345],
+       [ 2.7464483, -3.0521457],
+       [ 2.7195318, -3.122628 ],
+       [ 2.7138977, -3.1041346],
+       [ 2.7398622, -3.1098123],
+       [ 0.0657177, -0.0930362],
+       [-2.7668718,  3.0918367]])</code></pre>
+</div>
+</div>
+<div id="cell-34" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> u <span class="kw">in</span> logits:</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    u1,u2 <span class="op">=</span> u</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    p1 <span class="op">=</span> np.exp(u1) <span class="op">/</span> (np.exp(u1)<span class="op">+</span>np.exp(u2))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    p2 <span class="op">=</span> np.exp(u2) <span class="op">/</span> (np.exp(u1)<span class="op">+</span>np.exp(u2))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    prediction_scores <span class="op">=</span> [p1,p2]</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(prediction_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[0.9971351022231982, 0.0028648977768018545]
+[0.9971185237682113, 0.0028814762317887605]
+[0.9969773496339113, 0.0030226503660887583]
+[0.9971058336243687, 0.0028941663756314024]
+[0.997035364944602, 0.0029646350553980375]
+[0.9971274386623321, 0.002872561337667959]
+[0.5396053294830294, 0.4603946705169706]
+[0.0028468010295870897, 0.997153198970413]</code></pre>
+</div>
+</div>
+<p><code>-</code> 이 확률은 아래를 통하여 구할수도 있다.</p>
+<div id="cell-36" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>tensor([[0.9971, 0.0029],
+        [0.9971, 0.0029],
+        [0.9970, 0.0030],
+        [0.9971, 0.0029],
+        [0.9970, 0.0030],
+        [0.9971, 0.0029],
+        [0.5396, 0.4604],
+        [0.0028, 0.9972]], dtype=torch.float64)</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="평가지표" class="level1">
+<h1>5. 평가지표</h1>
+<section id="a.-accuracy-계산" class="level2">
+<h2 class="anchored" data-anchor-id="a.-accuracy-계산">A. accuracy 계산</h2>
+<p><code>-</code> accuracy의 계산: <code>logits</code>와 <code>labels</code>가 아래와 같이 주어졌다고 하자.</p>
+<div id="cell-40" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> np.array(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    [[ <span class="fl">2.7346244</span>, <span class="op">-</span><span class="fl">3.1177292</span>],</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7103324</span>, <span class="op">-</span><span class="fl">3.1362345</span>],</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7464483</span>, <span class="op">-</span><span class="fl">3.0521457</span>],</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7195318</span>, <span class="op">-</span><span class="fl">3.122628</span> ],</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7138977</span>, <span class="op">-</span><span class="fl">3.1041346</span>],</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7398622</span>, <span class="op">-</span><span class="fl">3.1098123</span>],</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">0.0657177</span>, <span class="op">-</span><span class="fl">0.0930362</span>],</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>     [<span class="op">-</span><span class="fl">2.7668718</span>,  <span class="fl">3.0918367</span>]]</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>references <span class="op">=</span> labels <span class="op">=</span> np.array([<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-41" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> logits.argmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>array([0, 0, 0, 0, 0, 0, 0, 1])</code></pre>
+</div>
+</div>
+<div id="cell-42" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>references</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>array([0, 0, 0, 0, 0, 0, 1, 1])</code></pre>
+</div>
+</div>
+<p>accuracy는 아래와 같이 계산할 수 있다.</p>
+<div id="cell-44" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span><span class="op">/</span><span class="dv">8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>0.875</code></pre>
+</div>
+</div>
+<div id="cell-45" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>(predictions <span class="op">==</span> references).<span class="bu">sum</span>() <span class="op">/</span> <span class="dv">8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>0.875</code></pre>
+</div>
+</div>
+<div id="cell-46" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>(predictions <span class="op">==</span> references).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>0.875</code></pre>
+</div>
+</div>
+<p>이걸 아래와 같이 계산할 수도 있다.</p>
+<div id="cell-48" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>acc <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>acc.compute(predictions <span class="op">=</span> predictions, references<span class="op">=</span> references)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>{'accuracy': 0.875}</code></pre>
+</div>
+</div>
+</section>
+<section id="b.-recall-계산" class="level2">
+<h2 class="anchored" data-anchor-id="b.-recall-계산">B. recall 계산</h2>
+<p><code>-</code> 경우에 따라서 1을 얼마나 더 잘맞추는지 알고 싶은 경우도 있다.</p>
+<p><span class="math display">\[\text{recall}= \frac{\text{실제 라벨이 1인 관측치 중 올바르게 예측된 관측치수}}{\text{실제 라벨이 1인 관측치 수}}\]</span></p>
+<div id="cell-51" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> np.array(</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    [[ <span class="fl">2.7346244</span>, <span class="op">-</span><span class="fl">3.1177292</span>],</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7103324</span>, <span class="op">-</span><span class="fl">3.1362345</span>],</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7464483</span>, <span class="op">-</span><span class="fl">3.0521457</span>],</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7195318</span>, <span class="op">-</span><span class="fl">3.122628</span> ],</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7138977</span>, <span class="op">-</span><span class="fl">3.1041346</span>],</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7398622</span>, <span class="op">-</span><span class="fl">3.1098123</span>],</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">0.0657177</span>, <span class="op">-</span><span class="fl">0.0930362</span>],</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>     [<span class="op">-</span><span class="fl">2.7668718</span>,  <span class="fl">3.0918367</span>]]</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>references <span class="op">=</span> labels <span class="op">=</span> np.array([<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-52" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> logits.argmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>array([0, 0, 0, 0, 0, 0, 0, 1])</code></pre>
+</div>
+</div>
+<div id="cell-53" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>(predictions[references <span class="op">==</span> <span class="dv">1</span>]<span class="op">==</span><span class="dv">1</span>).mean() <span class="co"># recall </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>0.5</code></pre>
+</div>
+</div>
+<p>이것을 아래와 같이 구할수도 있다.</p>
+<div id="cell-55" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>rec <span class="op">=</span> evaluate.load(<span class="st">"recall"</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>rec.compute(predictions <span class="op">=</span> predictions, references <span class="op">=</span> references)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>{'recall': 0.5}</code></pre>
+</div>
+</div>
+</section>
+<section id="c.-auc-계산" class="level2">
+<h2 class="anchored" data-anchor-id="c.-auc-계산">C. auc 계산</h2>
+<p><code>-</code> accuracy 이외의 평가지표들</p>
+<ul>
+<li><a href="https://guebin.github.io/MP2023/posts/12wk-46.html" class="uri">https://guebin.github.io/MP2023/posts/12wk-46.html</a> // 시험에는 X</li>
+</ul>
+<p><code>-</code> AUC: 클래스간의 불균형이 있을때 유의미한 평가지표</p>
+<div id="cell-59" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> np.array(</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    [[ <span class="fl">2.7346244</span>, <span class="op">-</span><span class="fl">3.1177292</span>],</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7103324</span>, <span class="op">-</span><span class="fl">3.1362345</span>],</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7464483</span>, <span class="op">-</span><span class="fl">3.0521457</span>],</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7195318</span>, <span class="op">-</span><span class="fl">3.122628</span> ],</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7138977</span>, <span class="op">-</span><span class="fl">3.1041346</span>],</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7398622</span>, <span class="op">-</span><span class="fl">3.1098123</span>],</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">0.0657177</span>, <span class="op">-</span><span class="fl">0.0930362</span>],</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>     [<span class="op">-</span><span class="fl">2.7668718</span>,  <span class="fl">3.0918367</span>]]</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>references <span class="op">=</span> labels <span class="op">=</span> np.array([<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-60" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>probabilities <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>prediction_scores <span class="op">=</span> probabilities[:,<span class="dv">1</span>]</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>prediction_scores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>array([0.0028649 , 0.00288148, 0.00302265, 0.00289417, 0.00296464,
+       0.00287256, 0.46039467, 0.9971532 ])</code></pre>
+</div>
+</div>
+<ul>
+<li>확률 0.4 이상부터는 1로 판단한다면? <span class="math inline">\(\to\)</span> 다 맞춘거아니야?</li>
+</ul>
+<div id="cell-62" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>roc_auc <span class="op">=</span> evaluate.load(<span class="st">"roc_auc"</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>roc_auc.compute(prediction_scores<span class="op">=</span>prediction_scores, references<span class="op">=</span>references)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>{'roc_auc': 1.0}</code></pre>
+</div>
+</div>
+<p><code># 예제1</code> – 시각화</p>
+<div id="cell-64" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> np.array(</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    [[ <span class="fl">2.7346244</span>, <span class="op">-</span><span class="fl">3.1177292</span>],</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7103324</span>, <span class="op">-</span><span class="fl">3.1362345</span>],</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7464483</span>, <span class="op">-</span><span class="fl">3.0521457</span>],</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7195318</span>, <span class="op">-</span><span class="fl">3.122628</span> ],</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7138977</span>, <span class="op">-</span><span class="fl">3.1041346</span>],</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7398622</span>, <span class="op">-</span><span class="fl">3.1098123</span>],</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">0.0657177</span>, <span class="op">-</span><span class="fl">0.0930362</span>],</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>     [<span class="op">-</span><span class="fl">2.7668718</span>,  <span class="fl">3.0918367</span>]]</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>references <span class="op">=</span> labels <span class="op">=</span> np.array([<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>probabilities <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()</span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>prediction_scores <span class="op">=</span> probabilities[:,<span class="dv">1</span>]</span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>plt.plot(prediction_scores,<span class="st">'--o'</span>)</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>plt.plot(labels,<span class="st">'x'</span>)</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="fl">0.5</span>,color<span class="op">=</span><span class="st">'red'</span>,linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>acc <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a>rec <span class="op">=</span> evaluate.load(<span class="st">"recall"</span>)</span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>roc_auc <span class="op">=</span> evaluate.load(<span class="st">"roc_auc"</span>)</span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(acc.compute(predictions<span class="op">=</span>predictions,references<span class="op">=</span>references))</span>
+<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(rec.compute(predictions<span class="op">=</span>predictions,references<span class="op">=</span>references))</span>
+<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(roc_auc.compute(prediction_scores<span class="op">=</span>prediction_scores,references<span class="op">=</span>references))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'accuracy': 0.875}
+{'recall': 0.5}
+{'roc_auc': 1.0}</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="12wk-1_files/figure-html/cell-28-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code># 예제2</code> – 시각화</p>
+<div id="cell-66" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> np.array(</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    [[ <span class="fl">2.7346244</span>, <span class="op">-</span><span class="fl">3.1177292</span>],</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7103324</span>, <span class="op">-</span><span class="fl">3.1362345</span>],</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7464483</span>, <span class="op">-</span><span class="fl">3.0521457</span>],</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7195318</span>, <span class="op">-</span><span class="fl">3.122628</span> ],</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7138977</span>, <span class="op">-</span><span class="fl">3.1041346</span>],</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">0.0657177</span>, <span class="op">-</span><span class="fl">0.0930362</span>],</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>     [ <span class="fl">2.7398622</span>, <span class="op">-</span><span class="fl">3.1098123</span>],</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>     [<span class="op">-</span><span class="fl">2.7668718</span>,  <span class="fl">3.0918367</span>]]</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>references <span class="op">=</span> labels <span class="op">=</span> np.array([<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>probabilities <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()</span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>prediction_scores <span class="op">=</span> probabilities[:,<span class="dv">1</span>]</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>plt.plot(prediction_scores,<span class="st">'--o'</span>)</span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>plt.plot(labels,<span class="st">'x'</span>)</span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="fl">0.5</span>,color<span class="op">=</span><span class="st">'red'</span>,linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>acc <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>rec <span class="op">=</span> evaluate.load(<span class="st">"recall"</span>)</span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>roc_auc <span class="op">=</span> evaluate.load(<span class="st">"roc_auc"</span>)</span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(acc.compute(predictions<span class="op">=</span>predictions,references<span class="op">=</span>references))</span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(rec.compute(predictions<span class="op">=</span>predictions,references<span class="op">=</span>references))</span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(roc_auc.compute(prediction_scores<span class="op">=</span>prediction_scores,references<span class="op">=</span>references))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'accuracy': 0.875}
+{'recall': 0.5}
+{'roc_auc': 0.5833333333333333}</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="12wk-1_files/figure-html/cell-29-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="분석" class="level1">
+<h1>6. 분석</h1>
+<p><code>-</code> <code>train.csv</code>를 pandas로</p>
+<div id="cell-69" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>train_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/train.csv"</span>)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>train_csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">has_cactus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>0004be2cfeaba1c0361d39e2b000257b.jpg</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>000c8a36845c0208e833c79c1bffedd1.jpg</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>000d1e9a533f62e55c289303b072733d.jpg</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>0011485b40695e9138e92d0b3fb55128.jpg</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>0014d7a11e90b62848904c1418fc8cf2.jpg</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">17495</td>
+<td>ffede47a74e47a5930f81c0b6896479e.jpg</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17496</td>
+<td>ffef6382a50d23251d4bc05519c91037.jpg</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">17497</td>
+<td>fff059ecc91b30be5745e8b81111dc7b.jpg</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17498</td>
+<td>fff43acb3b7a23edcc4ae937be2b7522.jpg</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">17499</td>
+<td>fffd9e9b990eba07c836745d8aef1a3a.jpg</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+<p>17500 rows × 2 columns</p>
+</div>
+</div>
+</div>
+<div id="cell-70" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>test_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/sample_submission.csv"</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>test_csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
 <div>
 
 
@@ -720,22 +1002,25 @@ window.Quarto = {
 <section id="a.-예쁜-정석-코드" class="level2">
 <h2 class="anchored" data-anchor-id="a.-예쁜-정석-코드">A. 예쁜(?) 정석 코드</h2>
 <p><em>Step1: Data</em></p>
-<div id="cell-65" class="cell" data-execution_count="418">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ctx_train <span class="op">=</span> datasets.Dataset.from_pandas(train_csv)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>ctx_test <span class="op">=</span> datasets.Dataset.from_pandas(test_csv).remove_columns([<span class="st">'has_cactus'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-73" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>ctx_train <span class="op">=</span> datasets.Dataset.from_pandas(train_csv)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>ctx_test <span class="op">=</span> datasets.Dataset.from_pandas(test_csv).remove_columns([<span class="st">'has_cactus'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-66" class="cell" data-execution_count="419">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>ctx_train <span class="op">=</span> ctx_train.<span class="bu">map</span>(<span class="kw">lambda</span> example: {<span class="st">'path'</span>: <span class="ss">f'./data/train/</span><span class="sc">{</span>example[<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">'</span>})</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>ctx_test <span class="op">=</span> ctx_test.<span class="bu">map</span>(<span class="kw">lambda</span> example: {<span class="st">'path'</span>: <span class="ss">f'./data/test/</span><span class="sc">{</span>example[<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">'</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-74" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>ctx_train <span class="op">=</span> ctx_train.<span class="bu">map</span>(<span class="kw">lambda</span> example: {<span class="st">'path'</span>: <span class="st">"./data/train/"</span> <span class="op">+</span> example[<span class="st">'id'</span>]})</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>ctx_test <span class="op">=</span> ctx_test.<span class="bu">map</span>(<span class="kw">lambda</span> example: {<span class="st">'path'</span>: <span class="st">"./data/test/"</span> <span class="op">+</span> example[<span class="st">'id'</span>]})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Map: 100%|██████████████████████| 17500/17500 [00:00&lt;00:00, 65880.11 examples/s]
-Map: 100%|████████████████████████| 4000/4000 [00:00&lt;00:00, 92217.97 examples/s]</code></pre>
+<pre><code>Map: 100%|██████████| 17500/17500 [00:00&lt;00:00, 59071.71 examples/s]
+Map: 100%|██████████| 4000/4000 [00:00&lt;00:00, 86647.98 examples/s]</code></pre>
 </div>
 </div>
-<div id="cell-67" class="cell" data-execution_count="420">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ctx <span class="op">=</span> datasets.DatasetDict({<span class="st">'train'</span>:ctx_train,<span class="st">'test'</span>:ctx_test})</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>ctx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="420">
+<div id="cell-75" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>ctx <span class="op">=</span> datasets.DatasetDict({</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'train'</span>:ctx_train,</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'test'</span>:ctx_test</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>ctx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
 <pre><code>DatasetDict({
     train: Dataset({
         features: ['id', 'has_cactus', 'path'],
@@ -748,53 +1033,27 @@ Map: 100%|███████████████████████�
 })</code></pre>
 </div>
 </div>
-<div id="cell-68" class="cell" data-execution_count="421">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>compose(<span class="st">'./data/train/0004be2cfeaba1c0361d39e2b000257b.jpg'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="421">
-<pre><code>tensor([[[0.5333, 0.5333, 0.5333,  ..., 0.6157, 0.6157, 0.6157],
-         [0.5333, 0.5333, 0.5333,  ..., 0.6157, 0.6157, 0.6157],
-         [0.5333, 0.5333, 0.5333,  ..., 0.6157, 0.6157, 0.6157],
-         ...,
-         [0.7176, 0.7176, 0.7176,  ..., 0.5451, 0.5451, 0.5451],
-         [0.7176, 0.7176, 0.7176,  ..., 0.5451, 0.5451, 0.5451],
-         [0.7176, 0.7176, 0.7176,  ..., 0.5451, 0.5451, 0.5451]],
-
-        [[0.5412, 0.5412, 0.5412,  ..., 0.5255, 0.5255, 0.5255],
-         [0.5412, 0.5412, 0.5412,  ..., 0.5255, 0.5255, 0.5255],
-         [0.5412, 0.5412, 0.5412,  ..., 0.5255, 0.5255, 0.5255],
-         ...,
-         [0.6157, 0.6157, 0.6157,  ..., 0.4314, 0.4314, 0.4314],
-         [0.6157, 0.6157, 0.6157,  ..., 0.4314, 0.4314, 0.4314],
-         [0.6157, 0.6157, 0.6157,  ..., 0.4314, 0.4314, 0.4314]],
-
-        [[0.4902, 0.4902, 0.4902,  ..., 0.5490, 0.5490, 0.5490],
-         [0.4902, 0.4902, 0.4902,  ..., 0.5490, 0.5490, 0.5490],
-         [0.4902, 0.4902, 0.4902,  ..., 0.5490, 0.5490, 0.5490],
-         ...,
-         [0.6588, 0.6588, 0.6588,  ..., 0.5098, 0.5098, 0.5098],
-         [0.6588, 0.6588, 0.6588,  ..., 0.5098, 0.5098, 0.5098],
-         [0.6588, 0.6588, 0.6588,  ..., 0.5098, 0.5098, 0.5098]]])</code></pre>
+<div id="cell-76" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>compose <span class="op">=</span> torchvision.transforms.Compose([</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> path: PIL.Image.<span class="bu">open</span>(path),</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.ToTensor(),</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.Resize((<span class="dv">224</span>,<span class="dv">224</span>))</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_trans(examples):</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># train: examples = {'id':[xx,xxx,....], 'has_cactus':[yy,yyy,...], 'path':[zz,zzz,...]}</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># train: examples = {'id':[xx,xxx,....], 'path':[zz,zzz,...]}</span></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>    dct <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>    dct[<span class="st">'pixel_values'</span>] <span class="op">=</span> torch.stack(<span class="bu">list</span>(<span class="bu">map</span>(compose, examples[<span class="st">'path'</span>])))</span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>: </span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>        dct[<span class="st">'labels'</span>]<span class="op">=</span> torch.tensor(examples[<span class="st">'has_cactus'</span>])</span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span>:</span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<div id="cell-69" class="cell" data-execution_count="422">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>compose <span class="op">=</span> torchvision.transforms.Compose([</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> path: PIL.Image.<span class="bu">open</span>(path),</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.ToTensor(),</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.Resize(<span class="dv">224</span>),</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_trans(examples):</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    dct <span class="op">=</span> <span class="bu">dict</span>()</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>: </span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>        dct[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor(examples[<span class="st">'has_cactus'</span>]).<span class="bu">long</span>()</span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span>: </span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span> </span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    dct[<span class="st">'pixel_values'</span>] <span class="op">=</span> torch.stack(<span class="bu">list</span>(<span class="bu">map</span>(compose,examples[<span class="st">'path'</span>]))).<span class="bu">float</span>() <span class="co"># 명확하게</span></span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-70" class="cell" data-execution_count="423">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>ctx <span class="op">=</span> ctx.with_transform(w_trans)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>ctx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="423">
+<div id="cell-77" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>ctx <span class="op">=</span> ctx.with_transform(w_trans)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>ctx </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
 <pre><code>DatasetDict({
     train: Dataset({
         features: ['id', 'has_cactus', 'path'],
@@ -807,11 +1066,11 @@ Map: 100%|███████████████████████�
 })</code></pre>
 </div>
 </div>
-<div id="cell-71" class="cell" data-execution_count="424">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>ctx[<span class="st">'train'</span>][:<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="424">
-<pre><code>{'labels': tensor([1, 1]),
- 'pixel_values': tensor([[[[0.5333, 0.5333, 0.5333,  ..., 0.6157, 0.6157, 0.6157],
+<div id="cell-78" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>ctx[<span class="st">'train'</span>][:<span class="dv">2</span>]</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="co">#ctx['test'][:2]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>{'pixel_values': tensor([[[[0.5333, 0.5333, 0.5333,  ..., 0.6157, 0.6157, 0.6157],
            [0.5333, 0.5333, 0.5333,  ..., 0.6157, 0.6157, 0.6157],
            [0.5333, 0.5333, 0.5333,  ..., 0.6157, 0.6157, 0.6157],
            ...,
@@ -858,111 +1117,90 @@ Map: 100%|███████████████████████�
            ...,
            [0.3255, 0.3255, 0.3255,  ..., 0.4745, 0.4745, 0.4745],
            [0.3255, 0.3255, 0.3255,  ..., 0.4745, 0.4745, 0.4745],
-           [0.3255, 0.3255, 0.3255,  ..., 0.4745, 0.4745, 0.4745]]]])}</code></pre>
+           [0.3255, 0.3255, 0.3255,  ..., 0.4745, 0.4745, 0.4745]]]]),
+ 'labels': tensor([1, 1])}</code></pre>
 </div>
 </div>
 <p><em>Step2: Model</em></p>
-<div id="cell-73" class="cell" data-execution_count="425">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForImageClassification.from_pretrained(</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"google/vit-base-patch16-224-in21k"</span>,</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    num_labels<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-80" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForImageClassification.from_pretrained(</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"microsoft/resnet-50"</span>,</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>    num_labels<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>    ignore_mismatched_sizes<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Some weights of ViTForImageClassification were not initialized from the model checkpoint at google/vit-base-patch16-224-in21k and are newly initialized: ['classifier.bias', 'classifier.weight']
+<pre><code>Some weights of ResNetForImageClassification were not initialized from the model checkpoint at microsoft/resnet-50 and are newly initialized because the shapes did not match:
+- classifier.1.bias: found shape torch.Size([1000]) in the checkpoint and torch.Size([2]) in the model instantiated
+- classifier.1.weight: found shape torch.Size([1000, 2048]) in the checkpoint and torch.Size([2, 2048]) in the model instantiated
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
 </div>
 </div>
 <p><em>Step3: Train</em></p>
-<div id="cell-75" class="cell" data-execution_count="426">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>data_collator <span class="op">=</span> transformers.DefaultDataCollator()</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>data_collator</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="426">
+<div id="cell-82" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># single_batch = [ctx['train'][0],ctx['train'][1]]</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="co"># single_batch # [{'pixel_values':xx, 'labels':yy},{'pixel_values':xxx, 'labels':yyy}]</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="co"># data_collator = transformers.DefaultDataCollator()</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="co"># data_collator(single_batch) # [{'pixel_values':xx, 'labels':yy},{'pixel_values':xxx, 'labels':yyy}] --&gt; {'pixel_values':[xx,xxx], 'labels':[yy,yyy]}</span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="co"># model.to("cpu")</span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="co"># model(**data_collator(single_batch))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="44">
+<pre><code>ImageClassifierOutputWithNoAttention(loss=tensor(0.6874, grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[0.0648, 0.0802],
+        [0.0668, 0.0745]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None)</code></pre>
+</div>
+</div>
+<div id="cell-83" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>data_collator <span class="op">=</span> transformers.DefaultDataCollator()</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>data_collator</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="45">
 <pre><code>DefaultDataCollator(return_tensors='pt')</code></pre>
 </div>
 </div>
-<div id="cell-76" class="cell" data-execution_count="427">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># single_batch = [ctx['train'][0],ctx['train'][1]]</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co"># single_batch = [ctx['test'][0],ctx['test'][1]]</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model(**data_collator(single_batch))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-84" class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metrics(eval_pred):</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>    logits, labels <span class="op">=</span> eval_pred</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> np.argmax(logits,axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>    predictions_scores <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()[:,<span class="dv">1</span>]</span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>    acc <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>    rec <span class="op">=</span> evaluate.load(<span class="st">"recall"</span>)</span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>    roc_auc <span class="op">=</span> evaluate.load(<span class="st">"roc_auc"</span>)</span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>    dct1 <span class="op">=</span> acc.compute(predictions <span class="op">=</span> predictions, references <span class="op">=</span> labels) <span class="co"># {'accuracy':???}</span></span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>    dct2 <span class="op">=</span> rec.compute(predictions <span class="op">=</span> predictions, references <span class="op">=</span> labels) <span class="co"># {'recall':???}</span></span>
+<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a>    dct3 <span class="op">=</span> roc_auc.compute(prediction_scores <span class="op">=</span> predictions_scores, references <span class="op">=</span> labels) <span class="co"># {'roc_auc':???}</span></span>
+<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct1<span class="op">|</span>dct2<span class="op">|</span>dct3<span class="co"># {'accuracy':???, 'recall':???, 'roc_auc':???}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-77" class="cell" data-execution_count="428">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>ctx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="428">
-<pre><code>DatasetDict({
-    train: Dataset({
-        features: ['id', 'has_cactus', 'path'],
-        num_rows: 17500
-    })
-    test: Dataset({
-        features: ['id', 'path'],
-        num_rows: 4000
-    })
-})</code></pre>
-</div>
-</div>
-<div id="cell-78" class="cell" data-execution_count="429">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metrics(eval_pred):</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>    logits, labels <span class="op">=</span> eval_pred</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> np.argmax(logits, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    prediction_scores <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()[:,<span class="dv">1</span>]</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#---#</span></span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>    accuracy <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>    recall <span class="op">=</span> evaluate.load(<span class="st">"recall"</span>)</span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>    roc_auc <span class="op">=</span> evaluate.load(<span class="st">"roc_auc"</span>)</span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>    dct1 <span class="op">=</span> accuracy.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels)</span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>    dct2 <span class="op">=</span> recall.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels)</span>
-<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>    dct3 <span class="op">=</span> roc_auc.compute(prediction_scores<span class="op">=</span>prediction_scores, references<span class="op">=</span>labels)</span>
-<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct1<span class="op">|</span>dct2<span class="op">|</span>dct3</span>
-<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>args <span class="op">=</span> transformers.TrainingArguments(</span>
-<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>    output_dir<span class="op">=</span><span class="st">"./model/ctx"</span>,</span>
-<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>    remove_unused_columns<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">#---#</span></span>
-<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>    eval_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
-<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>    save_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
-<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">5e-5</span>,</span>
-<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a>    per_device_train_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>    gradient_accumulation_steps<span class="op">=</span><span class="dv">4</span>,</span>
-<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a>    per_device_eval_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a>    num_train_epochs<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a>    warmup_ratio<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb50-25"><a href="#cb50-25" aria-hidden="true" tabindex="-1"></a>    logging_steps<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb50-26"><a href="#cb50-26" aria-hidden="true" tabindex="-1"></a>    load_best_model_at_end<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb50-27"><a href="#cb50-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">#metric_for_best_model="accuracy",</span></span>
-<span id="cb50-28"><a href="#cb50-28" aria-hidden="true" tabindex="-1"></a>    push_to_hub<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb50-29"><a href="#cb50-29" aria-hidden="true" tabindex="-1"></a>    report_to<span class="op">=</span><span class="st">"none"</span></span>
-<span id="cb50-30"><a href="#cb50-30" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb50-31"><a href="#cb50-31" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
-<span id="cb50-32"><a href="#cb50-32" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
-<span id="cb50-33"><a href="#cb50-33" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>args,</span>
-<span id="cb50-34"><a href="#cb50-34" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>data_collator,</span>
-<span id="cb50-35"><a href="#cb50-35" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>ctx[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)),</span>
-<span id="cb50-36"><a href="#cb50-36" aria-hidden="true" tabindex="-1"></a>    eval_dataset<span class="op">=</span>ctx[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>,<span class="dv">1500</span>)),</span>
-<span id="cb50-37"><a href="#cb50-37" aria-hidden="true" tabindex="-1"></a>    compute_metrics<span class="op">=</span>compute_metrics,</span>
-<span id="cb50-38"><a href="#cb50-38" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-79" class="cell" data-execution_count="430">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>ctx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="430">
-<pre><code>DatasetDict({
-    train: Dataset({
-        features: ['id', 'has_cactus', 'path'],
-        num_rows: 17500
-    })
-    test: Dataset({
-        features: ['id', 'path'],
-        num_rows: 4000
-    })
-})</code></pre>
-</div>
-</div>
-<div id="cell-80" class="cell" data-execution_count="431">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>trainer.train()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-85" class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>training_args <span class="op">=</span> transformers.TrainingArguments(</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>    output_dir<span class="op">=</span><span class="st">"asdf"</span>,</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>    remove_unused_columns<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>    eval_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>    save_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">5e-5</span>,</span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>    per_device_train_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>    gradient_accumulation_steps<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a>    per_device_eval_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a>    num_train_epochs<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb69-11"><a href="#cb69-11" aria-hidden="true" tabindex="-1"></a>    warmup_ratio<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb69-12"><a href="#cb69-12" aria-hidden="true" tabindex="-1"></a>    logging_steps<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb69-13"><a href="#cb69-13" aria-hidden="true" tabindex="-1"></a>    load_best_model_at_end<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb69-14"><a href="#cb69-14" aria-hidden="true" tabindex="-1"></a>    metric_for_best_model<span class="op">=</span><span class="st">"accuracy"</span>,</span>
+<span id="cb69-15"><a href="#cb69-15" aria-hidden="true" tabindex="-1"></a>    push_to_hub<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb69-16"><a href="#cb69-16" aria-hidden="true" tabindex="-1"></a>    report_to<span class="op">=</span><span class="st">"none"</span></span>
+<span id="cb69-17"><a href="#cb69-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb69-18"><a href="#cb69-18" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb69-19"><a href="#cb69-19" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
+<span id="cb69-20"><a href="#cb69-20" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>training_args,</span>
+<span id="cb69-21"><a href="#cb69-21" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>data_collator,</span>
+<span id="cb69-22"><a href="#cb69-22" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>ctx[<span class="st">"train"</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)),</span>
+<span id="cb69-23"><a href="#cb69-23" aria-hidden="true" tabindex="-1"></a>    eval_dataset<span class="op">=</span>ctx[<span class="st">"train"</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>,<span class="dv">1500</span>)),</span>
+<span id="cb69-24"><a href="#cb69-24" aria-hidden="true" tabindex="-1"></a>    compute_metrics<span class="op">=</span>compute_metrics,</span>
+<span id="cb69-25"><a href="#cb69-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb69-26"><a href="#cb69-26" aria-hidden="true" tabindex="-1"></a>trainer.train()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 
     <div>
       
-      <progress value="15" max="15" style="width:300px; height:20px; vertical-align: middle;"></progress>
-      [15/15 00:13, Epoch 0/1]
+      <progress value="60" max="60" style="width:300px; height:20px; vertical-align: middle;"></progress>
+      [60/60 00:28, Epoch 3/4]
     </div>
     
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -979,50 +1217,80 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <tbody>
 <tr class="odd">
 <td>0</td>
-<td>0.486200</td>
-<td>0.270196</td>
-<td>0.956000</td>
+<td>0.671200</td>
+<td>0.669483</td>
+<td>0.738000</td>
+<td>0.989247</td>
+<td>0.346690</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0.611900</td>
+<td>0.612094</td>
+<td>0.744000</td>
 <td>1.000000</td>
-<td>0.998761</td>
+<td>0.634871</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>0.604300</td>
+<td>0.583503</td>
+<td>0.748000</td>
+<td>1.000000</td>
+<td>0.862273</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>0.577600</td>
+<td>0.572888</td>
+<td>0.750000</td>
+<td>1.000000</td>
+<td>0.885774</td>
 </tr>
 </tbody>
 </table>
 <p>
 </p></div>
-<div class="cell-output cell-output-display" data-execution_count="431">
-<pre><code>TrainOutput(global_step=15, training_loss=0.4222262461980184, metrics={'train_runtime': 14.1654, 'train_samples_per_second': 70.594, 'train_steps_per_second': 1.059, 'total_flos': 7.439231003000832e+16, 'train_loss': 0.4222262461980184, 'epoch': 0.9523809523809523})</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="50">
+<pre><code>TrainOutput(global_step=60, training_loss=0.6141141653060913, metrics={'train_runtime': 29.0371, 'train_samples_per_second': 137.755, 'train_steps_per_second': 2.066, 'total_flos': 8.103429948063744e+16, 'train_loss': 0.6141141653060913, 'epoch': 3.8095238095238093})</code></pre>
 </div>
 </div>
 <p><em>Step4: Prediction</em></p>
-<div id="cell-82" class="cell" data-execution_count="432">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> trainer.predict(ctx[<span class="st">'test'</span>])</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>out </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-87" class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> trainer.predict(ctx[<span class="st">'test'</span>])</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 
+    <div>
+      
+      <progress value="1" max="250" style="width:300px; height:20px; vertical-align: middle;"></progress>
+      [  1/250 : &lt; :]
+    </div>
+    
 </div>
-<div class="cell-output cell-output-display" data-execution_count="432">
-<pre><code>PredictionOutput(predictions=array([[-0.87309086,  0.76549405],
-       [-0.9422926 ,  1.0070752 ],
-       [-0.02508726, -0.12881294],
+<div class="cell-output cell-output-display" data-execution_count="54">
+<pre><code>PredictionOutput(predictions=array([[-0.14711462,  0.28146246],
+       [-0.0999002 ,  0.31734663],
+       [-0.13772886,  0.21717918],
        ...,
-       [-1.0198429 ,  1.0380617 ],
-       [-1.0059347 ,  0.9955274 ],
-       [-0.8788617 ,  0.75964546]], dtype=float32), label_ids=None, metrics={'test_runtime': 10.9475, 'test_samples_per_second': 365.379, 'test_steps_per_second': 22.836})</code></pre>
+       [-0.10952485,  0.2599906 ],
+       [-0.08912332,  0.41566697],
+       [-0.13212559,  0.30518785]], dtype=float32), label_ids=None, metrics={'test_runtime': 4.4363, 'test_samples_per_second': 901.655, 'test_steps_per_second': 56.353})</code></pre>
 </div>
 </div>
-<div id="cell-83" class="cell" data-execution_count="433">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> out.predictions</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>prob <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()[:,<span class="dv">1</span>]</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>prob</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="433">
-<pre><code>array([0.83734226, 0.8753777 , 0.4740918 , ..., 0.8867439 , 0.8809505 ,
-       0.83733165], dtype=float32)</code></pre>
+<div id="cell-88" class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> out.predictions</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>has_cactus <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()[:,<span class="dv">1</span>]</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>has_cactus</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="60">
+<pre><code>array([0.60553384, 0.6028243 , 0.58780724, ..., 0.59134185, 0.6235844 ,
+       0.6076187 ], dtype=float32)</code></pre>
 </div>
 </div>
-<div id="cell-84" class="cell" data-execution_count="434">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>test_csv[<span class="st">'has_cactus'</span>] <span class="op">=</span> prob </span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>test_csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="434">
+<div id="cell-89" class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>test_csv[<span class="st">'has_cactus'</span>]<span class="op">=</span> has_cactus</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>test_csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="61">
 <div>
 
 
@@ -1038,27 +1306,27 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
 <td>000940378805c44108d287872b2f04ce.jpg</td>
-<td>0.837342</td>
+<td>0.605534</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>0017242f54ececa4512b4d7937d1e21e.jpg</td>
-<td>0.875378</td>
+<td>0.602824</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
 <td>001ee6d8564003107853118ab87df407.jpg</td>
-<td>0.474092</td>
+<td>0.587807</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>002e175c3c1e060769475f52182583d0.jpg</td>
-<td>0.429720</td>
+<td>0.561108</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>0036e44a7e8f7218e9bc7bf8137e4943.jpg</td>
-<td>0.862989</td>
+<td>0.578930</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">...</td>
@@ -1068,27 +1336,27 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <tr class="odd">
 <td data-quarto-table-cell-role="th">3995</td>
 <td>ffaafd0c9f2f0e73172848463bc2e523.jpg</td>
-<td>0.866051</td>
+<td>0.612775</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3996</td>
 <td>ffae37344310a1549162493237d25d3f.jpg</td>
-<td>0.902185</td>
+<td>0.650841</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">3997</td>
 <td>ffbd469c56873d064326204aac546e0d.jpg</td>
-<td>0.886744</td>
+<td>0.591342</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3998</td>
 <td>ffcb76b7d47f29ece11c751e5f763f52.jpg</td>
-<td>0.880951</td>
+<td>0.623584</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">3999</td>
 <td>fffed17d1a8e0433a934db518d7f532c.jpg</td>
-<td>0.837332</td>
+<td>0.607619</td>
 </tr>
 </tbody>
 </table>
@@ -1098,94 +1366,99 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 </div>
 <p><em>Step1 ~ Step4</em></p>
-<div id="cell-86" class="cell" data-execution_count="436">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>train_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/train.csv"</span>)</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>test_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/sample_submission.csv"</span>)</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co">#--#</span></span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step1: Data</span></span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>ctx_train <span class="op">=</span> datasets.Dataset.from_pandas(train_csv)</span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>ctx_test <span class="op">=</span> datasets.Dataset.from_pandas(test_csv).remove_columns([<span class="st">'has_cactus'</span>])</span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>ctx_train <span class="op">=</span> ctx_train.<span class="bu">map</span>(<span class="kw">lambda</span> example: {<span class="st">'path'</span>: <span class="ss">f'./data/train/</span><span class="sc">{</span>example[<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">'</span>})</span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>ctx_test <span class="op">=</span> ctx_test.<span class="bu">map</span>(<span class="kw">lambda</span> example: {<span class="st">'path'</span>: <span class="ss">f'./data/test/</span><span class="sc">{</span>example[<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">'</span>})</span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>ctx <span class="op">=</span> datasets.DatasetDict({<span class="st">'train'</span>:ctx_train,<span class="st">'test'</span>:ctx_test})</span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>compose <span class="op">=</span> torchvision.transforms.Compose([</span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> path: PIL.Image.<span class="bu">open</span>(path),</span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.ToTensor(),</span>
-<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.Resize(<span class="dv">224</span>),</span>
-<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_trans(examples):</span>
-<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a>    dct <span class="op">=</span> <span class="bu">dict</span>()</span>
-<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>: </span>
-<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>        dct[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor(examples[<span class="st">'has_cactus'</span>]).<span class="bu">long</span>()</span>
-<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span>: </span>
-<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span> </span>
-<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a>    dct[<span class="st">'pixel_values'</span>] <span class="op">=</span> torch.stack(<span class="bu">list</span>(<span class="bu">map</span>(compose,examples[<span class="st">'path'</span>]))).<span class="bu">float</span>() <span class="co"># 명확하게</span></span>
-<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct </span>
-<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a>ctx <span class="op">=</span> ctx.with_transform(w_trans)</span>
-<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Step2: Model </span></span>
-<span id="cb60-25"><a href="#cb60-25" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForImageClassification.from_pretrained(</span>
-<span id="cb60-26"><a href="#cb60-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"google/vit-base-patch16-224-in21k"</span>,</span>
-<span id="cb60-27"><a href="#cb60-27" aria-hidden="true" tabindex="-1"></a>    num_labels<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb60-28"><a href="#cb60-28" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb60-29"><a href="#cb60-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Step3: Train </span></span>
-<span id="cb60-30"><a href="#cb60-30" aria-hidden="true" tabindex="-1"></a>data_collator <span class="op">=</span> transformers.DefaultDataCollator()</span>
-<span id="cb60-31"><a href="#cb60-31" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metrics(eval_pred):</span>
-<span id="cb60-32"><a href="#cb60-32" aria-hidden="true" tabindex="-1"></a>    logits, labels <span class="op">=</span> eval_pred</span>
-<span id="cb60-33"><a href="#cb60-33" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> np.argmax(logits, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb60-34"><a href="#cb60-34" aria-hidden="true" tabindex="-1"></a>    prediction_scores <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()[:,<span class="dv">1</span>]</span>
-<span id="cb60-35"><a href="#cb60-35" aria-hidden="true" tabindex="-1"></a>    <span class="co">#---#</span></span>
-<span id="cb60-36"><a href="#cb60-36" aria-hidden="true" tabindex="-1"></a>    accuracy <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
-<span id="cb60-37"><a href="#cb60-37" aria-hidden="true" tabindex="-1"></a>    recall <span class="op">=</span> evaluate.load(<span class="st">"recall"</span>)</span>
-<span id="cb60-38"><a href="#cb60-38" aria-hidden="true" tabindex="-1"></a>    roc_auc <span class="op">=</span> evaluate.load(<span class="st">"roc_auc"</span>)</span>
-<span id="cb60-39"><a href="#cb60-39" aria-hidden="true" tabindex="-1"></a>    dct1 <span class="op">=</span> accuracy.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels)</span>
-<span id="cb60-40"><a href="#cb60-40" aria-hidden="true" tabindex="-1"></a>    dct2 <span class="op">=</span> recall.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels)</span>
-<span id="cb60-41"><a href="#cb60-41" aria-hidden="true" tabindex="-1"></a>    dct3 <span class="op">=</span> roc_auc.compute(prediction_scores<span class="op">=</span>prediction_scores, references<span class="op">=</span>labels)</span>
-<span id="cb60-42"><a href="#cb60-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct1<span class="op">|</span>dct2<span class="op">|</span>dct3</span>
-<span id="cb60-43"><a href="#cb60-43" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
-<span id="cb60-44"><a href="#cb60-44" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
-<span id="cb60-45"><a href="#cb60-45" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>transformers.TrainingArguments(</span>
-<span id="cb60-46"><a href="#cb60-46" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"./model/ctx"</span>,</span>
-<span id="cb60-47"><a href="#cb60-47" aria-hidden="true" tabindex="-1"></a>        remove_unused_columns<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb60-48"><a href="#cb60-48" aria-hidden="true" tabindex="-1"></a>        <span class="co">#---#</span></span>
-<span id="cb60-49"><a href="#cb60-49" aria-hidden="true" tabindex="-1"></a>        eval_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
-<span id="cb60-50"><a href="#cb60-50" aria-hidden="true" tabindex="-1"></a>        save_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
-<span id="cb60-51"><a href="#cb60-51" aria-hidden="true" tabindex="-1"></a>        learning_rate<span class="op">=</span><span class="fl">5e-5</span>,</span>
-<span id="cb60-52"><a href="#cb60-52" aria-hidden="true" tabindex="-1"></a>        per_device_train_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb60-53"><a href="#cb60-53" aria-hidden="true" tabindex="-1"></a>        gradient_accumulation_steps<span class="op">=</span><span class="dv">4</span>,</span>
-<span id="cb60-54"><a href="#cb60-54" aria-hidden="true" tabindex="-1"></a>        per_device_eval_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb60-55"><a href="#cb60-55" aria-hidden="true" tabindex="-1"></a>        num_train_epochs<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb60-56"><a href="#cb60-56" aria-hidden="true" tabindex="-1"></a>        warmup_ratio<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb60-57"><a href="#cb60-57" aria-hidden="true" tabindex="-1"></a>        logging_steps<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb60-58"><a href="#cb60-58" aria-hidden="true" tabindex="-1"></a>        load_best_model_at_end<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb60-59"><a href="#cb60-59" aria-hidden="true" tabindex="-1"></a>        <span class="co">#metric_for_best_model="accuracy",</span></span>
-<span id="cb60-60"><a href="#cb60-60" aria-hidden="true" tabindex="-1"></a>        push_to_hub<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb60-61"><a href="#cb60-61" aria-hidden="true" tabindex="-1"></a>        report_to<span class="op">=</span><span class="st">"none"</span>),</span>
-<span id="cb60-62"><a href="#cb60-62" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>data_collator,</span>
-<span id="cb60-63"><a href="#cb60-63" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>ctx[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)),</span>
-<span id="cb60-64"><a href="#cb60-64" aria-hidden="true" tabindex="-1"></a>    eval_dataset<span class="op">=</span>ctx[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>,<span class="dv">1500</span>)),</span>
-<span id="cb60-65"><a href="#cb60-65" aria-hidden="true" tabindex="-1"></a>    compute_metrics<span class="op">=</span>compute_metrics,</span>
-<span id="cb60-66"><a href="#cb60-66" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb60-67"><a href="#cb60-67" aria-hidden="true" tabindex="-1"></a>trainer.train()</span>
-<span id="cb60-68"><a href="#cb60-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Step4: Prediction</span></span>
-<span id="cb60-69"><a href="#cb60-69" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> trainer.predict(ctx[<span class="st">'test'</span>])</span>
-<span id="cb60-70"><a href="#cb60-70" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update(out,test_csv):</span>
-<span id="cb60-71"><a href="#cb60-71" aria-hidden="true" tabindex="-1"></a>    logits <span class="op">=</span> out.predictions</span>
-<span id="cb60-72"><a href="#cb60-72" aria-hidden="true" tabindex="-1"></a>    prob <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()[:,<span class="dv">1</span>]</span>
-<span id="cb60-73"><a href="#cb60-73" aria-hidden="true" tabindex="-1"></a>    test_csv[<span class="st">'has_cactus'</span>] <span class="op">=</span> prob</span>
-<span id="cb60-74"><a href="#cb60-74" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> test_csv</span>
-<span id="cb60-75"><a href="#cb60-75" aria-hidden="true" tabindex="-1"></a>test_csv <span class="op">=</span> update(out,test_csv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-91" class="cell" data-execution_count="134">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>train_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/train.csv"</span>)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>test_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/sample_submission.csv"</span>)</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="co">#---#</span></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step1: Data</span></span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>ctx_train <span class="op">=</span> datasets.Dataset.from_pandas(train_csv)</span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>ctx_test <span class="op">=</span> datasets.Dataset.from_pandas(test_csv).remove_columns([<span class="st">'has_cactus'</span>])</span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>ctx_train <span class="op">=</span> ctx_train.<span class="bu">map</span>(<span class="kw">lambda</span> example: {<span class="st">'path'</span>: <span class="st">"./data/train/"</span> <span class="op">+</span> example[<span class="st">'id'</span>]})</span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a>ctx_test <span class="op">=</span> ctx_test.<span class="bu">map</span>(<span class="kw">lambda</span> example: {<span class="st">'path'</span>: <span class="st">"./data/test/"</span> <span class="op">+</span> example[<span class="st">'id'</span>]})</span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a>ctx <span class="op">=</span> datasets.DatasetDict({</span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'train'</span>:ctx_train,</span>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'test'</span>:ctx_test</span>
+<span id="cb76-12"><a href="#cb76-12" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb76-13"><a href="#cb76-13" aria-hidden="true" tabindex="-1"></a>compose <span class="op">=</span> torchvision.transforms.Compose([</span>
+<span id="cb76-14"><a href="#cb76-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> path: PIL.Image.<span class="bu">open</span>(path),</span>
+<span id="cb76-15"><a href="#cb76-15" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.ToTensor(),</span>
+<span id="cb76-16"><a href="#cb76-16" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.Resize((<span class="dv">224</span>,<span class="dv">224</span>))</span>
+<span id="cb76-17"><a href="#cb76-17" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb76-18"><a href="#cb76-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_trans(examples):</span>
+<span id="cb76-19"><a href="#cb76-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># train: examples = {'id':[xx,xxx,....], 'has_cactus':[yy,yyy,...], 'path':[zz,zzz,...]}</span></span>
+<span id="cb76-20"><a href="#cb76-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># train: examples = {'id':[xx,xxx,....], 'path':[zz,zzz,...]}</span></span>
+<span id="cb76-21"><a href="#cb76-21" aria-hidden="true" tabindex="-1"></a>    dct <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb76-22"><a href="#cb76-22" aria-hidden="true" tabindex="-1"></a>    dct[<span class="st">'pixel_values'</span>] <span class="op">=</span> torch.stack(<span class="bu">list</span>(<span class="bu">map</span>(compose, examples[<span class="st">'path'</span>])))</span>
+<span id="cb76-23"><a href="#cb76-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>: </span>
+<span id="cb76-24"><a href="#cb76-24" aria-hidden="true" tabindex="-1"></a>        dct[<span class="st">'labels'</span>]<span class="op">=</span> torch.tensor(examples[<span class="st">'has_cactus'</span>])</span>
+<span id="cb76-25"><a href="#cb76-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span>:</span>
+<span id="cb76-26"><a href="#cb76-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb76-27"><a href="#cb76-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct </span>
+<span id="cb76-28"><a href="#cb76-28" aria-hidden="true" tabindex="-1"></a>ctx <span class="op">=</span> ctx.with_transform(w_trans)</span>
+<span id="cb76-29"><a href="#cb76-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Step2: Model</span></span>
+<span id="cb76-30"><a href="#cb76-30" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForImageClassification.from_pretrained(</span>
+<span id="cb76-31"><a href="#cb76-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"microsoft/resnet-50"</span>,</span>
+<span id="cb76-32"><a href="#cb76-32" aria-hidden="true" tabindex="-1"></a>    num_labels<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb76-33"><a href="#cb76-33" aria-hidden="true" tabindex="-1"></a>    ignore_mismatched_sizes<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb76-34"><a href="#cb76-34" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb76-35"><a href="#cb76-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Step3: Train</span></span>
+<span id="cb76-36"><a href="#cb76-36" aria-hidden="true" tabindex="-1"></a>data_collator <span class="op">=</span> transformers.DefaultDataCollator()</span>
+<span id="cb76-37"><a href="#cb76-37" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metrics(eval_pred):</span>
+<span id="cb76-38"><a href="#cb76-38" aria-hidden="true" tabindex="-1"></a>    logits, labels <span class="op">=</span> eval_pred</span>
+<span id="cb76-39"><a href="#cb76-39" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> np.argmax(logits,axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb76-40"><a href="#cb76-40" aria-hidden="true" tabindex="-1"></a>    predictions_scores <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()[:,<span class="dv">1</span>]</span>
+<span id="cb76-41"><a href="#cb76-41" aria-hidden="true" tabindex="-1"></a>    acc <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
+<span id="cb76-42"><a href="#cb76-42" aria-hidden="true" tabindex="-1"></a>    rec <span class="op">=</span> evaluate.load(<span class="st">"recall"</span>)</span>
+<span id="cb76-43"><a href="#cb76-43" aria-hidden="true" tabindex="-1"></a>    roc_auc <span class="op">=</span> evaluate.load(<span class="st">"roc_auc"</span>)</span>
+<span id="cb76-44"><a href="#cb76-44" aria-hidden="true" tabindex="-1"></a>    dct1 <span class="op">=</span> acc.compute(predictions <span class="op">=</span> predictions, references <span class="op">=</span> labels) <span class="co"># {'accuracy':???}</span></span>
+<span id="cb76-45"><a href="#cb76-45" aria-hidden="true" tabindex="-1"></a>    dct2 <span class="op">=</span> rec.compute(predictions <span class="op">=</span> predictions, references <span class="op">=</span> labels) <span class="co"># {'recall':???}</span></span>
+<span id="cb76-46"><a href="#cb76-46" aria-hidden="true" tabindex="-1"></a>    dct3 <span class="op">=</span> roc_auc.compute(prediction_scores <span class="op">=</span> predictions_scores, references <span class="op">=</span> labels) <span class="co"># {'roc_auc':???}</span></span>
+<span id="cb76-47"><a href="#cb76-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct1<span class="op">|</span>dct2<span class="op">|</span>dct3<span class="co"># {'accuracy':???, 'recall':???, 'roc_auc':???}</span></span>
+<span id="cb76-48"><a href="#cb76-48" aria-hidden="true" tabindex="-1"></a>training_args <span class="op">=</span> transformers.TrainingArguments(</span>
+<span id="cb76-49"><a href="#cb76-49" aria-hidden="true" tabindex="-1"></a>    output_dir<span class="op">=</span><span class="st">"asdf"</span>,</span>
+<span id="cb76-50"><a href="#cb76-50" aria-hidden="true" tabindex="-1"></a>    remove_unused_columns<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb76-51"><a href="#cb76-51" aria-hidden="true" tabindex="-1"></a>    eval_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
+<span id="cb76-52"><a href="#cb76-52" aria-hidden="true" tabindex="-1"></a>    save_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
+<span id="cb76-53"><a href="#cb76-53" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">5e-5</span>,</span>
+<span id="cb76-54"><a href="#cb76-54" aria-hidden="true" tabindex="-1"></a>    per_device_train_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb76-55"><a href="#cb76-55" aria-hidden="true" tabindex="-1"></a>    gradient_accumulation_steps<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb76-56"><a href="#cb76-56" aria-hidden="true" tabindex="-1"></a>    per_device_eval_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb76-57"><a href="#cb76-57" aria-hidden="true" tabindex="-1"></a>    num_train_epochs<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb76-58"><a href="#cb76-58" aria-hidden="true" tabindex="-1"></a>    warmup_ratio<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb76-59"><a href="#cb76-59" aria-hidden="true" tabindex="-1"></a>    logging_steps<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb76-60"><a href="#cb76-60" aria-hidden="true" tabindex="-1"></a>    load_best_model_at_end<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb76-61"><a href="#cb76-61" aria-hidden="true" tabindex="-1"></a>    metric_for_best_model<span class="op">=</span><span class="st">"roc_auc"</span>,</span>
+<span id="cb76-62"><a href="#cb76-62" aria-hidden="true" tabindex="-1"></a>    push_to_hub<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb76-63"><a href="#cb76-63" aria-hidden="true" tabindex="-1"></a>    report_to<span class="op">=</span><span class="st">"none"</span></span>
+<span id="cb76-64"><a href="#cb76-64" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb76-65"><a href="#cb76-65" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb76-66"><a href="#cb76-66" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
+<span id="cb76-67"><a href="#cb76-67" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>training_args,</span>
+<span id="cb76-68"><a href="#cb76-68" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>data_collator,</span>
+<span id="cb76-69"><a href="#cb76-69" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>ctx[<span class="st">"train"</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)),</span>
+<span id="cb76-70"><a href="#cb76-70" aria-hidden="true" tabindex="-1"></a>    eval_dataset<span class="op">=</span>ctx[<span class="st">"train"</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>,<span class="dv">1500</span>)),</span>
+<span id="cb76-71"><a href="#cb76-71" aria-hidden="true" tabindex="-1"></a>    compute_metrics<span class="op">=</span>compute_metrics,</span>
+<span id="cb76-72"><a href="#cb76-72" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb76-73"><a href="#cb76-73" aria-hidden="true" tabindex="-1"></a>trainer.train()</span>
+<span id="cb76-74"><a href="#cb76-74" aria-hidden="true" tabindex="-1"></a><span class="co"># Step4: Prediction</span></span>
+<span id="cb76-75"><a href="#cb76-75" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> trainer.predict(ctx[<span class="st">'test'</span>])</span>
+<span id="cb76-76"><a href="#cb76-76" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> out.predictions</span>
+<span id="cb76-77"><a href="#cb76-77" aria-hidden="true" tabindex="-1"></a>has_cactus <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()[:,<span class="dv">1</span>]</span>
+<span id="cb76-78"><a href="#cb76-78" aria-hidden="true" tabindex="-1"></a>test_csv[<span class="st">'has_cactus'</span>]<span class="op">=</span> has_cactus</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Map: 100%|██████████████████████| 17500/17500 [00:00&lt;00:00, 63956.34 examples/s]
-Map: 100%|████████████████████████| 4000/4000 [00:00&lt;00:00, 91609.69 examples/s]
-Some weights of ViTForImageClassification were not initialized from the model checkpoint at google/vit-base-patch16-224-in21k and are newly initialized: ['classifier.bias', 'classifier.weight']
+<pre><code>Map:   0%|          | 0/17500 [00:00&lt;?, ? examples/s]Map: 100%|██████████| 17500/17500 [00:00&lt;00:00, 63327.18 examples/s]
+Map: 100%|██████████| 4000/4000 [00:00&lt;00:00, 87028.23 examples/s]
+Some weights of ResNetForImageClassification were not initialized from the model checkpoint at microsoft/resnet-50 and are newly initialized because the shapes did not match:
+- classifier.1.bias: found shape torch.Size([1000]) in the checkpoint and torch.Size([2]) in the model instantiated
+- classifier.1.weight: found shape torch.Size([1000, 2048]) in the checkpoint and torch.Size([2, 2048]) in the model instantiated
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 
     <div>
       
-      <progress value="30" max="30" style="width:300px; height:20px; vertical-align: middle;"></progress>
-      [30/30 00:27, Epoch 1/2]
+      <progress value="60" max="60" style="width:300px; height:20px; vertical-align: middle;"></progress>
+      [60/60 00:27, Epoch 3/4]
     </div>
     
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -1202,19 +1475,35 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <tbody>
 <tr class="odd">
 <td>0</td>
-<td>0.500400</td>
-<td>0.204903</td>
-<td>0.970000</td>
-<td>0.997312</td>
-<td>0.999223</td>
+<td>0.688900</td>
+<td>0.662976</td>
+<td>0.762000</td>
+<td>0.916667</td>
+<td>0.753990</td>
 </tr>
 <tr class="even">
 <td>1</td>
-<td>0.111500</td>
-<td>0.110077</td>
-<td>0.990000</td>
-<td>0.994624</td>
-<td>0.999748</td>
+<td>0.627400</td>
+<td>0.621370</td>
+<td>0.752000</td>
+<td>0.997312</td>
+<td>0.866389</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>0.615200</td>
+<td>0.598107</td>
+<td>0.758000</td>
+<td>1.000000</td>
+<td>0.913243</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>0.592600</td>
+<td>0.589067</td>
+<td>0.760000</td>
+<td>1.000000</td>
+<td>0.929183</td>
 </tr>
 </tbody>
 </table>
@@ -1228,141 +1517,174 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <section id="b.-자유로운-코드" class="level2">
 <h2 class="anchored" data-anchor-id="b.-자유로운-코드">B. 자유로운 코드</h2>
 <p><em>Step1: Datasets</em></p>
-<div id="cell-89" class="cell" data-execution_count="408">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>train_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/train.csv"</span>)</span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>test_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/sample_submission.csv"</span>)</span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>ctx_train <span class="op">=</span> datasets.Dataset.from_pandas(train_csv.assign(path <span class="op">=</span> train_csv.<span class="bu">id</span>.<span class="bu">map</span>(<span class="kw">lambda</span> x: <span class="ss">f'./data/train/</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">'</span>)))</span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>ctx_test <span class="op">=</span> datasets.Dataset.from_pandas(test_csv.assign(path <span class="op">=</span> test_csv.<span class="bu">id</span>.<span class="bu">map</span>(<span class="kw">lambda</span> x: <span class="ss">f'./data/test/</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">'</span>))).remove_columns([<span class="st">'has_cactus'</span>])</span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>ctx <span class="op">=</span> datasets.DatasetDict({<span class="st">'train'</span>:ctx_train, <span class="st">'test'</span>:ctx_test})</span>
-<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>ctx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="408">
+<div id="cell-94" class="cell" data-execution_count="94">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>train_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/train.csv"</span>)</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>test_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/sample_submission.csv"</span>)</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>train_csv2 <span class="op">=</span> pd.read_csv(<span class="st">"./data/train.csv"</span>)</span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>test_csv2 <span class="op">=</span> pd.read_csv(<span class="st">"./data/sample_submission.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-95" class="cell" data-execution_count="95">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>train_csv2[<span class="st">'path'</span>] <span class="op">=</span> [<span class="st">'./data/train/'</span><span class="op">+</span>l <span class="cf">for</span> l <span class="kw">in</span> train_csv.<span class="bu">id</span>]</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>test_csv2[<span class="st">'path'</span>] <span class="op">=</span> [<span class="st">'./data/test/'</span><span class="op">+</span>l <span class="cf">for</span> l <span class="kw">in</span> test_csv.<span class="bu">id</span>]</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>train_csv2 <span class="op">=</span> train_csv2.loc[:,[<span class="st">'has_cactus'</span>,<span class="st">'path'</span>]]</span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>test_csv2 <span class="op">=</span> test_csv2.loc[:,[<span class="st">'path'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-96" class="cell" data-execution_count="98">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>ctx <span class="op">=</span> datasets.DatasetDict(</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">'train'</span>: datasets.Dataset.from_pandas(train_csv2),</span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'test'</span>:datasets.Dataset.from_pandas(test_csv2)</span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>ctx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="98">
 <pre><code>DatasetDict({
     train: Dataset({
-        features: ['id', 'has_cactus', 'path'],
+        features: ['has_cactus', 'path'],
         num_rows: 17500
     })
     test: Dataset({
-        features: ['id', 'path'],
+        features: ['path'],
         num_rows: 4000
     })
 })</code></pre>
 </div>
 </div>
 <p><em>Step2~3 과정의 간보기</em></p>
-<div id="cell-91" class="cell" data-execution_count="416">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 간보기코드</span></span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>single_batch <span class="op">=</span> [ctx[<span class="st">'train'</span>][<span class="dv">0</span>],ctx[<span class="st">'train'</span>][<span class="dv">1</span>]]</span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>single_batch</span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>compose <span class="op">=</span> torchvision.transforms.Compose([</span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> path: PIL.Image.<span class="bu">open</span>(path),</span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.ToTensor(),</span>
-<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.Resize(<span class="dv">224</span>),</span>
-<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> collate_fn(single_batch):</span>
-<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>    dct <span class="op">=</span> <span class="bu">dict</span>()</span>
-<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>    dct[<span class="st">'pixel_values'</span>] <span class="op">=</span> torch.stack(<span class="bu">list</span>(<span class="bu">map</span>(compose,[o[<span class="st">'path'</span>] <span class="cf">for</span> o <span class="kw">in</span> single_batch]))).<span class="bu">float</span>()</span>
-<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>: </span>
-<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>        dct[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor([o.get(<span class="st">'has_cactus'</span>) <span class="cf">for</span> o <span class="kw">in</span> single_batch]).<span class="bu">long</span>() <span class="co"># 이거안하면 에러남</span></span>
-<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span>: </span>
-<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span> </span>
-<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct </span>
-<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForImageClassification.from_pretrained(</span>
-<span id="cb64-18"><a href="#cb64-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"google/vit-base-patch16-224-in21k"</span>,</span>
-<span id="cb64-19"><a href="#cb64-19" aria-hidden="true" tabindex="-1"></a>    num_labels<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb64-20"><a href="#cb64-20" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb64-21"><a href="#cb64-21" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>collate_fn(single_batch))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-98" class="cell" data-execution_count="108">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForImageClassification.from_pretrained(</span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"microsoft/resnet-50"</span>,</span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>    num_labels<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>    ignore_mismatched_sizes<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Some weights of ViTForImageClassification were not initialized from the model checkpoint at google/vit-base-patch16-224-in21k and are newly initialized: ['classifier.bias', 'classifier.weight']
+<pre><code>Some weights of ResNetForImageClassification were not initialized from the model checkpoint at microsoft/resnet-50 and are newly initialized because the shapes did not match:
+- classifier.1.bias: found shape torch.Size([1000]) in the checkpoint and torch.Size([2]) in the model instantiated
+- classifier.1.weight: found shape torch.Size([1000, 2048]) in the checkpoint and torch.Size([2, 2048]) in the model instantiated
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="416">
-<pre><code>ImageClassifierOutput(loss=tensor(0.6570, grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[ 0.0427,  0.2046],
-        [-0.0234, -0.0343]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+<div id="cell-99" class="cell" data-execution_count="125">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>single_batch <span class="op">=</span>  [ctx[<span class="st">'train'</span>][<span class="dv">0</span>], ctx[<span class="st">'train'</span>][<span class="dv">1</span>]]</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>single_batch</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="125">
+<pre><code>[{'has_cactus': 1,
+  'path': './data/train/0004be2cfeaba1c0361d39e2b000257b.jpg'},
+ {'has_cactus': 1,
+  'path': './data/train/000c8a36845c0208e833c79c1bffedd1.jpg'}]</code></pre>
+</div>
+</div>
+<div id="cell-100" class="cell" data-execution_count="110">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>compose <span class="op">=</span> torchvision.transforms.Compose([</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> path: PIL.Image.<span class="bu">open</span>(path),</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.ToTensor(),</span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.Resize((<span class="dv">224</span>,<span class="dv">224</span>))</span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-101" class="cell" data-execution_count="128">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> collate_fn(single_batch):</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>    dct <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>    dct[<span class="st">'pixel_values'</span>] <span class="op">=</span> torch.stack([compose(o[<span class="st">'path'</span>]) <span class="cf">for</span> o <span class="kw">in</span> single_batch])</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>: </span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>        dct[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor([o[<span class="st">'has_cactus'</span>] <span class="cf">for</span> o <span class="kw">in</span> single_batch])</span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span>:</span>
+<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-102" class="cell" data-execution_count="130">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>collate_fn(single_batch))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="130">
+<pre><code>ImageClassifierOutputWithNoAttention(loss=tensor(0.6771, grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[-0.0403,  0.0007],
+        [-0.0529, -0.0292]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None)</code></pre>
 </div>
 </div>
 <p><em>Step1~4</em></p>
-<div id="cell-93" class="cell" data-execution_count="438">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>train_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/train.csv"</span>)</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>test_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/sample_submission.csv"</span>)</span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="co">#--#</span></span>
-<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step1: Data </span></span>
-<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>ctx_train <span class="op">=</span> datasets.Dataset.from_pandas(train_csv.assign(path <span class="op">=</span> train_csv.<span class="bu">id</span>.<span class="bu">map</span>(<span class="kw">lambda</span> x: <span class="ss">f'./data/train/</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">'</span>)))</span>
-<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>ctx_test <span class="op">=</span> datasets.Dataset.from_pandas(test_csv.assign(path <span class="op">=</span> test_csv.<span class="bu">id</span>.<span class="bu">map</span>(<span class="kw">lambda</span> x: <span class="ss">f'./data/test/</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">'</span>))).remove_columns([<span class="st">'has_cactus'</span>])</span>
-<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>ctx <span class="op">=</span> datasets.DatasetDict({<span class="st">'train'</span>:ctx_train, <span class="st">'test'</span>:ctx_test})</span>
-<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>compose <span class="op">=</span> torchvision.transforms.Compose([</span>
-<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> path: PIL.Image.<span class="bu">open</span>(path),</span>
-<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.ToTensor(),</span>
-<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.Resize(<span class="dv">224</span>),</span>
-<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Step2: Model</span></span>
-<span id="cb67-14"><a href="#cb67-14" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForImageClassification.from_pretrained(</span>
-<span id="cb67-15"><a href="#cb67-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"google/vit-base-patch16-224-in21k"</span>,</span>
-<span id="cb67-16"><a href="#cb67-16" aria-hidden="true" tabindex="-1"></a>    num_labels<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb67-17"><a href="#cb67-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb67-18"><a href="#cb67-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Step3: Trainer -&gt; train </span></span>
-<span id="cb67-19"><a href="#cb67-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> collate_fn(single_batch):</span>
-<span id="cb67-20"><a href="#cb67-20" aria-hidden="true" tabindex="-1"></a>    dct <span class="op">=</span> <span class="bu">dict</span>()</span>
-<span id="cb67-21"><a href="#cb67-21" aria-hidden="true" tabindex="-1"></a>    dct[<span class="st">'pixel_values'</span>] <span class="op">=</span> torch.stack(<span class="bu">list</span>(<span class="bu">map</span>(compose,[o[<span class="st">'path'</span>] <span class="cf">for</span> o <span class="kw">in</span> single_batch]))).<span class="bu">float</span>()</span>
-<span id="cb67-22"><a href="#cb67-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>: </span>
-<span id="cb67-23"><a href="#cb67-23" aria-hidden="true" tabindex="-1"></a>        dct[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor([o.get(<span class="st">'has_cactus'</span>) <span class="cf">for</span> o <span class="kw">in</span> single_batch]).<span class="bu">long</span>() <span class="co"># 이거안하면 에러남</span></span>
-<span id="cb67-24"><a href="#cb67-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span>: </span>
-<span id="cb67-25"><a href="#cb67-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span> </span>
-<span id="cb67-26"><a href="#cb67-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct </span>
-<span id="cb67-27"><a href="#cb67-27" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metrics(eval_pred):</span>
-<span id="cb67-28"><a href="#cb67-28" aria-hidden="true" tabindex="-1"></a>    logits, labels <span class="op">=</span> eval_pred</span>
-<span id="cb67-29"><a href="#cb67-29" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> np.argmax(logits, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb67-30"><a href="#cb67-30" aria-hidden="true" tabindex="-1"></a>    prediction_scores <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()[:,<span class="dv">1</span>]</span>
-<span id="cb67-31"><a href="#cb67-31" aria-hidden="true" tabindex="-1"></a>    <span class="co">#---#</span></span>
-<span id="cb67-32"><a href="#cb67-32" aria-hidden="true" tabindex="-1"></a>    accuracy <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
-<span id="cb67-33"><a href="#cb67-33" aria-hidden="true" tabindex="-1"></a>    recall <span class="op">=</span> evaluate.load(<span class="st">"recall"</span>)</span>
-<span id="cb67-34"><a href="#cb67-34" aria-hidden="true" tabindex="-1"></a>    roc_auc <span class="op">=</span> evaluate.load(<span class="st">"roc_auc"</span>)</span>
-<span id="cb67-35"><a href="#cb67-35" aria-hidden="true" tabindex="-1"></a>    dct1 <span class="op">=</span> accuracy.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels)</span>
-<span id="cb67-36"><a href="#cb67-36" aria-hidden="true" tabindex="-1"></a>    dct2 <span class="op">=</span> recall.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels)</span>
-<span id="cb67-37"><a href="#cb67-37" aria-hidden="true" tabindex="-1"></a>    dct3 <span class="op">=</span> roc_auc.compute(prediction_scores<span class="op">=</span>prediction_scores, references<span class="op">=</span>labels)</span>
-<span id="cb67-38"><a href="#cb67-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct1<span class="op">|</span>dct2<span class="op">|</span>dct3</span>
-<span id="cb67-39"><a href="#cb67-39" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
-<span id="cb67-40"><a href="#cb67-40" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
-<span id="cb67-41"><a href="#cb67-41" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>transformers.TrainingArguments(</span>
-<span id="cb67-42"><a href="#cb67-42" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"./model/ctx"</span>,</span>
-<span id="cb67-43"><a href="#cb67-43" aria-hidden="true" tabindex="-1"></a>        remove_unused_columns<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb67-44"><a href="#cb67-44" aria-hidden="true" tabindex="-1"></a>        <span class="co">#---#</span></span>
-<span id="cb67-45"><a href="#cb67-45" aria-hidden="true" tabindex="-1"></a>        eval_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
-<span id="cb67-46"><a href="#cb67-46" aria-hidden="true" tabindex="-1"></a>        save_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
-<span id="cb67-47"><a href="#cb67-47" aria-hidden="true" tabindex="-1"></a>        learning_rate<span class="op">=</span><span class="fl">5e-5</span>,</span>
-<span id="cb67-48"><a href="#cb67-48" aria-hidden="true" tabindex="-1"></a>        per_device_train_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb67-49"><a href="#cb67-49" aria-hidden="true" tabindex="-1"></a>        gradient_accumulation_steps<span class="op">=</span><span class="dv">4</span>,</span>
-<span id="cb67-50"><a href="#cb67-50" aria-hidden="true" tabindex="-1"></a>        per_device_eval_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb67-51"><a href="#cb67-51" aria-hidden="true" tabindex="-1"></a>        num_train_epochs<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb67-52"><a href="#cb67-52" aria-hidden="true" tabindex="-1"></a>        warmup_ratio<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb67-53"><a href="#cb67-53" aria-hidden="true" tabindex="-1"></a>        logging_steps<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb67-54"><a href="#cb67-54" aria-hidden="true" tabindex="-1"></a>        load_best_model_at_end<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb67-55"><a href="#cb67-55" aria-hidden="true" tabindex="-1"></a>        <span class="co">#metric_for_best_model="accuracy",</span></span>
-<span id="cb67-56"><a href="#cb67-56" aria-hidden="true" tabindex="-1"></a>        push_to_hub<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb67-57"><a href="#cb67-57" aria-hidden="true" tabindex="-1"></a>        report_to<span class="op">=</span><span class="st">"none"</span>),</span>
-<span id="cb67-58"><a href="#cb67-58" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>collate_fn,</span>
-<span id="cb67-59"><a href="#cb67-59" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>ctx[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)),</span>
-<span id="cb67-60"><a href="#cb67-60" aria-hidden="true" tabindex="-1"></a>    eval_dataset<span class="op">=</span>ctx[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>,<span class="dv">1500</span>)),</span>
-<span id="cb67-61"><a href="#cb67-61" aria-hidden="true" tabindex="-1"></a>    compute_metrics<span class="op">=</span>compute_metrics,</span>
-<span id="cb67-62"><a href="#cb67-62" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb67-63"><a href="#cb67-63" aria-hidden="true" tabindex="-1"></a>trainer.train()</span>
-<span id="cb67-64"><a href="#cb67-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Step4: Prediction</span></span>
-<span id="cb67-65"><a href="#cb67-65" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> trainer.predict(ctx[<span class="st">'test'</span>])</span>
-<span id="cb67-66"><a href="#cb67-66" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update(out,test_csv):</span>
-<span id="cb67-67"><a href="#cb67-67" aria-hidden="true" tabindex="-1"></a>    logits <span class="op">=</span> out.predictions</span>
-<span id="cb67-68"><a href="#cb67-68" aria-hidden="true" tabindex="-1"></a>    prob <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()[:,<span class="dv">1</span>]</span>
-<span id="cb67-69"><a href="#cb67-69" aria-hidden="true" tabindex="-1"></a>    test_csv[<span class="st">'has_cactus'</span>] <span class="op">=</span> prob</span>
-<span id="cb67-70"><a href="#cb67-70" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> test_csv</span>
-<span id="cb67-71"><a href="#cb67-71" aria-hidden="true" tabindex="-1"></a>test_csv <span class="op">=</span> update(out,test_csv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-104" class="cell" data-execution_count="132">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>train_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/train.csv"</span>)</span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>test_csv <span class="op">=</span> pd.read_csv(<span class="st">"./data/sample_submission.csv"</span>)</span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>train_csv2 <span class="op">=</span> pd.read_csv(<span class="st">"./data/train.csv"</span>)</span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>test_csv2 <span class="op">=</span> pd.read_csv(<span class="st">"./data/sample_submission.csv"</span>)</span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a><span class="co">#---#</span></span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Step1: Data</span></span>
+<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>train_csv2[<span class="st">'path'</span>] <span class="op">=</span> [<span class="st">'./data/train/'</span><span class="op">+</span>l <span class="cf">for</span> l <span class="kw">in</span> train_csv.<span class="bu">id</span>]</span>
+<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>test_csv2[<span class="st">'path'</span>] <span class="op">=</span> [<span class="st">'./data/test/'</span><span class="op">+</span>l <span class="cf">for</span> l <span class="kw">in</span> test_csv.<span class="bu">id</span>]</span>
+<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a>train_csv2 <span class="op">=</span> train_csv2.loc[:,[<span class="st">'has_cactus'</span>,<span class="st">'path'</span>]]</span>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>test_csv2 <span class="op">=</span> test_csv2.loc[:,[<span class="st">'path'</span>]]</span>
+<span id="cb90-11"><a href="#cb90-11" aria-hidden="true" tabindex="-1"></a>ctx <span class="op">=</span> datasets.DatasetDict(</span>
+<span id="cb90-12"><a href="#cb90-12" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb90-13"><a href="#cb90-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">'train'</span>: datasets.Dataset.from_pandas(train_csv2),</span>
+<span id="cb90-14"><a href="#cb90-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">'test'</span>:datasets.Dataset.from_pandas(test_csv2)</span>
+<span id="cb90-15"><a href="#cb90-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb90-16"><a href="#cb90-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb90-17"><a href="#cb90-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Step2: Model</span></span>
+<span id="cb90-18"><a href="#cb90-18" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForImageClassification.from_pretrained(</span>
+<span id="cb90-19"><a href="#cb90-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"microsoft/resnet-50"</span>,</span>
+<span id="cb90-20"><a href="#cb90-20" aria-hidden="true" tabindex="-1"></a>    num_labels<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb90-21"><a href="#cb90-21" aria-hidden="true" tabindex="-1"></a>    ignore_mismatched_sizes<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb90-22"><a href="#cb90-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb90-23"><a href="#cb90-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Step3: Train</span></span>
+<span id="cb90-24"><a href="#cb90-24" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> collate_fn(single_batch):</span>
+<span id="cb90-25"><a href="#cb90-25" aria-hidden="true" tabindex="-1"></a>    dct <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb90-26"><a href="#cb90-26" aria-hidden="true" tabindex="-1"></a>    dct[<span class="st">'pixel_values'</span>] <span class="op">=</span> torch.stack([compose(o[<span class="st">'path'</span>]) <span class="cf">for</span> o <span class="kw">in</span> single_batch])</span>
+<span id="cb90-27"><a href="#cb90-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>: </span>
+<span id="cb90-28"><a href="#cb90-28" aria-hidden="true" tabindex="-1"></a>        dct[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor([o[<span class="st">'has_cactus'</span>] <span class="cf">for</span> o <span class="kw">in</span> single_batch])</span>
+<span id="cb90-29"><a href="#cb90-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span>:</span>
+<span id="cb90-30"><a href="#cb90-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb90-31"><a href="#cb90-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct </span>
+<span id="cb90-32"><a href="#cb90-32" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metrics(eval_pred):</span>
+<span id="cb90-33"><a href="#cb90-33" aria-hidden="true" tabindex="-1"></a>    logits, labels <span class="op">=</span> eval_pred</span>
+<span id="cb90-34"><a href="#cb90-34" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> np.argmax(logits,axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb90-35"><a href="#cb90-35" aria-hidden="true" tabindex="-1"></a>    predictions_scores <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()[:,<span class="dv">1</span>]</span>
+<span id="cb90-36"><a href="#cb90-36" aria-hidden="true" tabindex="-1"></a>    acc <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
+<span id="cb90-37"><a href="#cb90-37" aria-hidden="true" tabindex="-1"></a>    rec <span class="op">=</span> evaluate.load(<span class="st">"recall"</span>)</span>
+<span id="cb90-38"><a href="#cb90-38" aria-hidden="true" tabindex="-1"></a>    roc_auc <span class="op">=</span> evaluate.load(<span class="st">"roc_auc"</span>)</span>
+<span id="cb90-39"><a href="#cb90-39" aria-hidden="true" tabindex="-1"></a>    dct1 <span class="op">=</span> acc.compute(predictions <span class="op">=</span> predictions, references <span class="op">=</span> labels) <span class="co"># {'accuracy':???}</span></span>
+<span id="cb90-40"><a href="#cb90-40" aria-hidden="true" tabindex="-1"></a>    dct2 <span class="op">=</span> rec.compute(predictions <span class="op">=</span> predictions, references <span class="op">=</span> labels) <span class="co"># {'recall':???}</span></span>
+<span id="cb90-41"><a href="#cb90-41" aria-hidden="true" tabindex="-1"></a>    dct3 <span class="op">=</span> roc_auc.compute(prediction_scores <span class="op">=</span> predictions_scores, references <span class="op">=</span> labels) <span class="co"># {'roc_auc':???}</span></span>
+<span id="cb90-42"><a href="#cb90-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct1<span class="op">|</span>dct2<span class="op">|</span>dct3<span class="co"># {'accuracy':???, 'recall':???, 'roc_auc':???}</span></span>
+<span id="cb90-43"><a href="#cb90-43" aria-hidden="true" tabindex="-1"></a>training_args <span class="op">=</span> transformers.TrainingArguments(</span>
+<span id="cb90-44"><a href="#cb90-44" aria-hidden="true" tabindex="-1"></a>    output_dir<span class="op">=</span><span class="st">"asdf"</span>,</span>
+<span id="cb90-45"><a href="#cb90-45" aria-hidden="true" tabindex="-1"></a>    remove_unused_columns<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb90-46"><a href="#cb90-46" aria-hidden="true" tabindex="-1"></a>    eval_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
+<span id="cb90-47"><a href="#cb90-47" aria-hidden="true" tabindex="-1"></a>    save_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
+<span id="cb90-48"><a href="#cb90-48" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">5e-5</span>,</span>
+<span id="cb90-49"><a href="#cb90-49" aria-hidden="true" tabindex="-1"></a>    per_device_train_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb90-50"><a href="#cb90-50" aria-hidden="true" tabindex="-1"></a>    gradient_accumulation_steps<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb90-51"><a href="#cb90-51" aria-hidden="true" tabindex="-1"></a>    per_device_eval_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb90-52"><a href="#cb90-52" aria-hidden="true" tabindex="-1"></a>    num_train_epochs<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb90-53"><a href="#cb90-53" aria-hidden="true" tabindex="-1"></a>    warmup_ratio<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb90-54"><a href="#cb90-54" aria-hidden="true" tabindex="-1"></a>    logging_steps<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb90-55"><a href="#cb90-55" aria-hidden="true" tabindex="-1"></a>    load_best_model_at_end<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb90-56"><a href="#cb90-56" aria-hidden="true" tabindex="-1"></a>    metric_for_best_model<span class="op">=</span><span class="st">"roc_auc"</span>,</span>
+<span id="cb90-57"><a href="#cb90-57" aria-hidden="true" tabindex="-1"></a>    push_to_hub<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb90-58"><a href="#cb90-58" aria-hidden="true" tabindex="-1"></a>    report_to<span class="op">=</span><span class="st">"none"</span></span>
+<span id="cb90-59"><a href="#cb90-59" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb90-60"><a href="#cb90-60" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb90-61"><a href="#cb90-61" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
+<span id="cb90-62"><a href="#cb90-62" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>training_args,</span>
+<span id="cb90-63"><a href="#cb90-63" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>collate_fn,</span>
+<span id="cb90-64"><a href="#cb90-64" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>ctx[<span class="st">"train"</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)),</span>
+<span id="cb90-65"><a href="#cb90-65" aria-hidden="true" tabindex="-1"></a>    eval_dataset<span class="op">=</span>ctx[<span class="st">"train"</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>,<span class="dv">1500</span>)),</span>
+<span id="cb90-66"><a href="#cb90-66" aria-hidden="true" tabindex="-1"></a>    compute_metrics<span class="op">=</span>compute_metrics,</span>
+<span id="cb90-67"><a href="#cb90-67" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb90-68"><a href="#cb90-68" aria-hidden="true" tabindex="-1"></a>trainer.train()</span>
+<span id="cb90-69"><a href="#cb90-69" aria-hidden="true" tabindex="-1"></a><span class="co"># Step4: Prediction</span></span>
+<span id="cb90-70"><a href="#cb90-70" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> trainer.predict(ctx[<span class="st">'test'</span>])</span>
+<span id="cb90-71"><a href="#cb90-71" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> out.predictions</span>
+<span id="cb90-72"><a href="#cb90-72" aria-hidden="true" tabindex="-1"></a>has_cactus <span class="op">=</span> torch.tensor(logits).softmax(dim<span class="op">=</span><span class="dv">1</span>).numpy()[:,<span class="dv">1</span>]</span>
+<span id="cb90-73"><a href="#cb90-73" aria-hidden="true" tabindex="-1"></a>test_csv[<span class="st">'has_cactus'</span>]<span class="op">=</span> has_cactus</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Some weights of ViTForImageClassification were not initialized from the model checkpoint at google/vit-base-patch16-224-in21k and are newly initialized: ['classifier.bias', 'classifier.weight']
+<pre><code>Some weights of ResNetForImageClassification were not initialized from the model checkpoint at microsoft/resnet-50 and are newly initialized because the shapes did not match:
+- classifier.1.bias: found shape torch.Size([1000]) in the checkpoint and torch.Size([2]) in the model instantiated
+- classifier.1.weight: found shape torch.Size([1000, 2048]) in the checkpoint and torch.Size([2, 2048]) in the model instantiated
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 
     <div>
       
-      <progress value="15" max="15" style="width:300px; height:20px; vertical-align: middle;"></progress>
-      [15/15 00:14, Epoch 0/1]
+      <progress value="60" max="60" style="width:300px; height:20px; vertical-align: middle;"></progress>
+      [60/60 00:27, Epoch 3/4]
     </div>
     
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -1379,11 +1701,35 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <tbody>
 <tr class="odd">
 <td>0</td>
-<td>0.499300</td>
-<td>0.276025</td>
-<td>0.918000</td>
+<td>0.698900</td>
+<td>0.686095</td>
+<td>0.656000</td>
+<td>0.873656</td>
+<td>0.345493</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0.639900</td>
+<td>0.631235</td>
+<td>0.746000</td>
 <td>1.000000</td>
-<td>0.999286</td>
+<td>0.702390</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>0.627000</td>
+<td>0.609499</td>
+<td>0.744000</td>
+<td>1.000000</td>
+<td>0.841104</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>0.607400</td>
+<td>0.598909</td>
+<td>0.744000</td>
+<td>1.000000</td>
+<td>0.885753</td>
 </tr>
 </tbody>
 </table>
@@ -1393,9 +1739,13 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 
 </div>
 </div>
-
-
 </section>
+</section>
+<section id="a1.-작년강의노트" class="level1">
+<h1>A1. 작년강의노트</h1>
+<p><a href="https://guebin.github.io/MP2023/" class="uri">https://guebin.github.io/MP2023/</a> – tabular data 분석 위주의 수업</p>
+
+
 </section>
 
 </main> <!-- /main -->
