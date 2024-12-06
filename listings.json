@@ -2,13 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/14wk-6.html",
-      "/posts/14wk-5.html",
-      "/posts/14wk-4.html",
-      "/posts/14wk-3.html",
-      "/posts/14wk-2.html",
       "/posts/14wk-1.html",
-      "/posts/13wk-2.html",
       "/posts/13wk-1.html",
       "/posts/12wk-1.html",
       "/posts/11wk-1.html",
@@ -30,8 +24,8 @@
     "listing": "/quiz.html",
     "items": [
       "/quiz/Report-1.html",
-      "/quiz/Quiz-10.html",
       "/quiz/Quiz-11.html",
+      "/quiz/Quiz-10.html",
       "/quiz/Quiz-9.html",
       "/quiz/Quiz-8.html",
       "/quiz/Quiz-7.html",
