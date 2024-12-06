@@ -1,1 +1,0 @@
-{"entries":[],"headings":["강의영상","ref","imports","코드정리1","살펴보기","a.-데이터불러오기","b.-데이터-살펴보기","c.-torchvision.transforms","torchvision.transforms.randomresizedcrop","torchvision.transforms.totensor","torchvision.transforms.normalize","torchvision.transforms.compose","d.-이미지전처리","e.-모델생성","f.-데이터콜렉터","g.-추론","코드정리2"]}
