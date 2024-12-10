@@ -971,7 +971,7 @@ Note
 <blockquote class="blockquote">
 <p>“데이터 상관없이 0이라고만 대답하면 되잖아?”</p>
 </blockquote>
-<p>라고 인식할 수 있다. 실제로 인공지능은 <code>imdb_transformed['test']</code>에 대응하는 모든 예측값을 항상 0으로만 예측한다.</p>
+<p>라고 인식할 수 있다. 실제로 인공지능은 <code>imdb_transformed['test']</code>에 대응하는 모든 예측값을 항상 0으로만 예측하도록 학습되었다. (그렇게 해도 지금까지는 항상 accuracy가 100이 나왔으니까..)</p>
 <div id="cell-44" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(out.predictions.argmax(axis<span class="op">=</span><span class="dv">1</span>)) <span class="co"># 모든예측값은 0이다. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
