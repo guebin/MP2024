@@ -22,10 +22,44 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -68,6 +102,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -152,7 +189,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><a href="https://colab.research.google.com/github/guebin/MP2024/blob/main/quiz/Quiz-10.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" style="text-align: left"></a></p>
+<p><a href="https://colab.research.google.com/github/guebin/MP2024/blob/main/quiz/Quiz-11.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" style="text-align: left"></a></p>
 <table class="table">
 <colgroup>
 <col style="width: 24%">
@@ -184,8 +221,417 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+<div id="cell-3" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">"WANDB_MODE"</span>] <span class="op">=</span> <span class="st">"offline"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-4" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> transformers </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datasets</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> evaluate</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/cgb3/anaconda3/envs/hf/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm</code></pre>
+</div>
+</div>
+<section id="covid19-tweets-100점" class="level1">
+<h1>1. COVID19 tweets – 100점</h1>
+<blockquote class="blockquote">
+<p>문항(1)-(2)를 모두 맞출 경우만 온전한 정답으로 인정. 즉 문항 (2)를 수행할 수 없는 구조로 (1)의 풀이를 설계할 경우 정답으로 인정하지 않음.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>평가지표를 올바르게 설정하지 않을 경우 30점 감점이 있음.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>시간절약을 위하여 일부의 데이터만 이용하여 학습한 경우 감점하지 않음. (코드만 맞게 쓰면..)</p>
+</blockquote>
+<div id="cell-9" class="cell" data-execution_count="85">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/guebin/STML2022/main/posts/Corona_NLP_train.csv'</span>,encoding<span class="op">=</span><span class="st">"ISO-8859-1"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_train <span class="op">=</span> covid19_tweets_df[::<span class="dv">2</span>].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_test <span class="op">=</span> covid19_tweets_df[<span class="dv">1</span>::<span class="dv">2</span>].reset_index(drop<span class="op">=</span><span class="va">True</span>).loc[:,<span class="st">'UserName'</span>:<span class="st">'OriginalTweet'</span>].assign(Sentiment <span class="op">=</span> <span class="st">'???'</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> covid19_tweets_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-10" class="cell" data-execution_count="86">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="86">
+<div>
 
 
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">UserName</th>
+<th data-quarto-table-cell-role="th">ScreenName</th>
+<th data-quarto-table-cell-role="th">Location</th>
+<th data-quarto-table-cell-role="th">TweetAt</th>
+<th data-quarto-table-cell-role="th">OriginalTweet</th>
+<th data-quarto-table-cell-role="th">Sentiment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>3799</td>
+<td>48751</td>
+<td>London</td>
+<td>16-03-2020</td>
+<td>@MeNyrbie @Phil_Gahan @Chrisitv https://t.co/i...</td>
+<td>Neutral</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>3801</td>
+<td>48753</td>
+<td>Vagabonds</td>
+<td>16-03-2020</td>
+<td>Coronavirus Australia: Woolworths to give elde...</td>
+<td>Positive</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3803</td>
+<td>48755</td>
+<td>NaN</td>
+<td>16-03-2020</td>
+<td>Me, ready to go at supermarket during the #COV...</td>
+<td>Extremely Negative</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>3805</td>
+<td>48757</td>
+<td>35.926541,-78.753267</td>
+<td>16-03-2020</td>
+<td>Cashier at grocery store was sharing his insig...</td>
+<td>Positive</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>3807</td>
+<td>48759</td>
+<td>Atlanta, GA USA</td>
+<td>16-03-2020</td>
+<td>Due to COVID-19 our retail store and classroom...</td>
+<td>Positive</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-11" class="cell" data-execution_count="87">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_test.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="87">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">UserName</th>
+<th data-quarto-table-cell-role="th">ScreenName</th>
+<th data-quarto-table-cell-role="th">Location</th>
+<th data-quarto-table-cell-role="th">TweetAt</th>
+<th data-quarto-table-cell-role="th">OriginalTweet</th>
+<th data-quarto-table-cell-role="th">Sentiment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>3800</td>
+<td>48752</td>
+<td>UK</td>
+<td>16-03-2020</td>
+<td>advice Talk to your neighbours family to excha...</td>
+<td>???</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>3802</td>
+<td>48754</td>
+<td>NaN</td>
+<td>16-03-2020</td>
+<td>My food stock is not the only one which is emp...</td>
+<td>???</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3804</td>
+<td>48756</td>
+<td>ÃœT: 36.319708,-82.363649</td>
+<td>16-03-2020</td>
+<td>As news of the regionÂ’s first confirmed COVID...</td>
+<td>???</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>3806</td>
+<td>48758</td>
+<td>Austria</td>
+<td>16-03-2020</td>
+<td>Was at the supermarket today. Didn't buy toile...</td>
+<td>???</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>3808</td>
+<td>48760</td>
+<td>BHAVNAGAR,GUJRAT</td>
+<td>16-03-2020</td>
+<td>For corona prevention,we should stop to buy th...</td>
+<td>???</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>이 데이터는 COVID-19 관련 트윗 데이터를 포함하며, 각 트윗에 대해 작성자의 감정을 나타내는 Sentiment(감정) 레이블이 지정되어 있다.</p>
+<p><strong>주요 열 설명</strong></p>
+<p><code>1</code>. OriginalTweet: 사용자가 작성한 트윗 내용으로. COVID-19와 관련된 다양한 의견, 경험, 상황 등이 포함되어 있음. 예시는 아래와 같음.</p>
+<ul>
+<li>“Coronavirus Australia: Woolworths to give elders priority shopping amid coronavirus pandemic.”</li>
+<li>“Due to COVID-19 our retail store and classroom…”</li>
+</ul>
+<p><code>2</code>. Sentiment: 트윗의 감정을 나타내는 레이블으로 가능한값은 아래와 같음.</p>
+<ul>
+<li>Extremely Positive: 강한 긍정적 감정을 담아 희망과 연대감을 전달하는 트윗.</li>
+<li>Positive: 긍정적인 해결책이나 희망적인 메시지를 담고 있음.</li>
+<li>Neutral: 중립적이고 감정 표현이 없는 트윗 (사실 전달에 초점).</li>
+<li>Negative: 문제점이나 불만을 표현한 부정적인 트윗.</li>
+<li>Extremely Negative: 극단적으로 부정적인 상황에 대한 트윗.</li>
+</ul>
+<p><code>(1)</code> <code>transformers</code> 라이브러리의 “distilbert/distilbert-base-uncased” 모델을 활용하여 <code>OriginalTweet</code>을 입력으로 <code>Sentiment</code>를 예측하는 텍스트 분류기를 학습하라.</p>
+<p><strong>요구 사항</strong></p>
+<p><code>1</code>. 데이터 분할: 주어진 데이터셋 <code>covid19_tweets_df_train</code> 을 7:3 비율로 나누어, 70%는 훈련 데이터로, 나머지 30%는 검증 데이터로 사용하라.</p>
+<p><code>2</code>. 평가지표: 모델의 성능평가를 위하여 아래의 함수를 사용하라.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metrics(eval_pred):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    logits, labels <span class="op">=</span> eval_pred</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> np.argmax(logits, axis<span class="op">=</span><span class="dv">1</span>)  <span class="co"># 예측 클래스</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 평가 메트릭 불러오기</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    acc <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    f1 <span class="op">=</span> evaluate.load(<span class="st">"f1"</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 평가 메트릭 계산</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    dct1 <span class="op">=</span> acc.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels)  </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    dct2 <span class="op">=</span> f1.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels, average<span class="op">=</span><span class="st">'weighted'</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 두 개의 메트릭 결과를 합치기</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct1 <span class="op">|</span> dct2  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>(2)</code> (1)에서 학습한 모델을 활용하여 <code>covid19_tweets_df_test</code>의 <code>OriginalTweet</code> 열에 대한 <code>Sentiment</code>를 예측하시오.</p>
+<p><strong>답안예시</strong></p>
+<div id="cell-16" class="cell" data-execution_count="77">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_test.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="77">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">UserName</th>
+<th data-quarto-table-cell-role="th">ScreenName</th>
+<th data-quarto-table-cell-role="th">Location</th>
+<th data-quarto-table-cell-role="th">TweetAt</th>
+<th data-quarto-table-cell-role="th">OriginalTweet</th>
+<th data-quarto-table-cell-role="th">Sentiment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>3800</td>
+<td>48752</td>
+<td>UK</td>
+<td>16-03-2020</td>
+<td>advice Talk to your neighbours family to excha...</td>
+<td>Positive</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>3802</td>
+<td>48754</td>
+<td>NaN</td>
+<td>16-03-2020</td>
+<td>My food stock is not the only one which is emp...</td>
+<td>Extremely Positive</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3804</td>
+<td>48756</td>
+<td>ÃœT: 36.319708,-82.363649</td>
+<td>16-03-2020</td>
+<td>As news of the regionÂ’s first confirmed COVID...</td>
+<td>Positive</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>3806</td>
+<td>48758</td>
+<td>Austria</td>
+<td>16-03-2020</td>
+<td>Was at the supermarket today. Didn't buy toile...</td>
+<td>Neutral</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>3808</td>
+<td>48760</td>
+<td>BHAVNAGAR,GUJRAT</td>
+<td>16-03-2020</td>
+<td>For corona prevention,we should stop to buy th...</td>
+<td>Negative</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="imdb-가산점-50점" class="level1">
+<h1>2. IMDB – 가산점 50점</h1>
+<p>아래는 2주차에서 배운 <code>imdb</code> 분석코드를 정리한 것이다. 분석의 편의를 위하여 1000개의 자료만 사용하여 학습과 평가에 사용했다.</p>
+<div id="cell-19" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Step1 </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>imdb <span class="op">=</span> datasets.load_dataset(<span class="st">'imdb'</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>) </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>imdb_transformed <span class="op">=</span> imdb.<span class="bu">map</span>(<span class="kw">lambda</span> dct: tokenizer(dct[<span class="st">'text'</span>],truncation<span class="op">=</span><span class="va">True</span>), batched<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">## Step2 </span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">## Step3 </span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> accuracy(eval_pred):</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    predictions, labels <span class="op">=</span> eval_pred</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> predictions.argmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    accuracy <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> accuracy.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>transformers.TrainingArguments(</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"my_awesome_model"</span>,</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        learning_rate<span class="op">=</span><span class="fl">2e-5</span>,</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>        per_device_train_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        per_device_eval_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        num_train_epochs<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        weight_decay<span class="op">=</span><span class="fl">0.01</span>,</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        eval_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>        save_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>        load_best_model_at_end<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>        push_to_hub<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>        report_to<span class="op">=</span><span class="st">"none"</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>imdb_transformed[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)), <span class="co"># 1000개만 사용</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    eval_dataset<span class="op">=</span>imdb_transformed[<span class="st">'test'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)), <span class="co"># 1000개만 사용</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    tokenizer<span class="op">=</span>tokenizer,</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>transformers.DataCollatorWithPadding(tokenizer<span class="op">=</span>tokenizer),</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    compute_metrics<span class="op">=</span>accuracy,</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>trainer.train()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Map: 100%|██████████████████████| 50000/50000 [00:04&lt;00:00, 10520.76 examples/s]
+Some weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+/tmp/ipykernel_116097/1501501835.py:13: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `Trainer.__init__`. Use `processing_class` instead.
+  trainer = transformers.Trainer(</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+    <div>
+      
+      <progress value="126" max="126" style="width:300px; height:20px; vertical-align: middle;"></progress>
+      [126/126 00:31, Epoch 2/2]
+    </div>
+    
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Epoch</th>
+<th data-quarto-table-cell-role="th">Training Loss</th>
+<th data-quarto-table-cell-role="th">Validation Loss</th>
+<th data-quarto-table-cell-role="th">Accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>No log</td>
+<td>0.002907</td>
+<td>1.000000</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>No log</td>
+<td>0.001795</td>
+<td>1.000000</td>
+</tr>
+</tbody>
+</table>
+<p>
+</p></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>TrainOutput(global_step=126, training_loss=0.04093253801739405, metrics={'train_runtime': 31.5039, 'train_samples_per_second': 63.484, 'train_steps_per_second': 4.0, 'total_flos': 260867634212640.0, 'train_loss': 0.04093253801739405, 'epoch': 2.0})</code></pre>
+</div>
+</div>
+<p>보는것처럼 학습은 완벽하게 되었다. (accuracy가 100%) 그렇지만 <code>imdb_transformed['test']</code> 전체에서 평가를 해보니 결과가 좋지 않았다. (accuracy가 50%)</p>
+<div id="cell-21" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Step4 </span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> trainer.predict(imdb_transformed[<span class="st">'test'</span>])</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+</div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>PredictionOutput(predictions=array([[ 3.107105 , -3.2549791],
+       [ 3.1408694, -3.259194 ],
+       [ 3.0273504, -3.1274016],
+       ...,
+       [ 3.0847185, -3.2559047],
+       [ 3.1443129, -3.2605338],
+       [ 3.0649548, -3.2672653]], dtype=float32), label_ids=array([0, 0, 0, ..., 1, 1, 1]), metrics={'test_loss': 3.1562650203704834, 'test_accuracy': 0.5, 'test_runtime': 82.4169, 'test_samples_per_second': 303.336, 'test_steps_per_second': 18.965})</code></pre>
+</div>
+</div>
+<div id="cell-22" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>out.metrics[<span class="st">'test_accuracy'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>0.5</code></pre>
+</div>
+</div>
+<p>무엇이 문제일까? 혹시 아래의 코드를 수정하여 학습의 성능을 올릴 수 있는 방법이 있을까? (단 데이터의 수는 그대로 유지한다)</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>transformers.TrainingArguments(</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"my_awesome_model"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        learning_rate<span class="op">=</span><span class="fl">2e-5</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        per_device_train_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        per_device_eval_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        num_train_epochs<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        weight_decay<span class="op">=</span><span class="fl">0.01</span>,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        eval_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>        save_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>        load_best_model_at_end<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>        push_to_hub<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>        report_to<span class="op">=</span><span class="st">"none"</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>imdb_transformed[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)), <span class="co"># 1000개만 사용</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    eval_dataset<span class="op">=</span>imdb_transformed[<span class="st">'test'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)), <span class="co"># 1000개만 사용</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    tokenizer<span class="op">=</span>tokenizer,</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>transformers.DataCollatorWithPadding(tokenizer<span class="op">=</span>tokenizer),</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    compute_metrics<span class="op">=</span>accuracy,</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
