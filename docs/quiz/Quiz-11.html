@@ -990,7 +990,7 @@ Note
 <pre><code>{0}</code></pre>
 </div>
 </div>
-<p><code>-</code> 실제로는 <code>imdb_transformed</code>에 0과 1은 딱 절반이 있으므로, accuracy는 50%가 나온다. (인공지능은 항상 0이라고 예측)</p>
+<p><code>-</code> 실제로는 <code>imdb_transformed['test']</code>에 0과 1은 딱 절반씩 있으므로, accuracy는 50%가 나온다. (인공지능은 항상 0이라고 예측)</p>
 <div id="cell-45" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>{i:imdb_transformed[<span class="st">'test'</span>][<span class="st">'label'</span>].count(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">set</span>(imdb_transformed[<span class="st">'test'</span>][<span class="st">'label'</span>])}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="30">
