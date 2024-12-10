@@ -711,8 +711,7 @@ Training completed. Do not forget to share your model on huggingface.co/models =
 </div>
 </div>
 <p><code>(풀이)</code></p>
-<p><code>(풀이)</code></p>
-<div id="cell-27" class="cell" data-execution_count="56">
+<div id="cell-25" class="cell" data-execution_count="56">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> trainer.predict(covid19_tweets[<span class="st">'test'</span>])</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>out </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -735,10 +734,10 @@ Training completed. Do not forget to share your model on huggingface.co/models =
       dtype=float32), label_ids=None, metrics={'test_runtime': 12.0254, 'test_samples_per_second': 1711.21, 'test_steps_per_second': 107.023})</code></pre>
 </div>
 </div>
-<div id="cell-28" class="cell" data-execution_count="76">
+<div id="cell-26" class="cell" data-execution_count="76">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_test[<span class="st">'Sentiment'</span>] <span class="op">=</span> [id2label[i] <span class="cf">for</span> i <span class="kw">in</span> out.predictions.argmax(axis<span class="op">=</span><span class="dv">1</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-29" class="cell" data-execution_count="77">
+<div id="cell-27" class="cell" data-execution_count="77">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_test.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="77">
 <div>
@@ -812,7 +811,7 @@ Training completed. Do not forget to share your model on huggingface.co/models =
 <section id="imdb-가산점-50점" class="level1">
 <h1>2. IMDB – 가산점 50점</h1>
 <p>아래는 2주차에서 배운 <code>imdb</code> 분석코드를 정리한 것이다. 분석의 편의를 위하여 1000개의 자료만 사용하여 학습과 평가에 사용했다.</p>
-<div id="cell-32" class="cell" data-execution_count="18">
+<div id="cell-30" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Step1 </span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>imdb <span class="op">=</span> datasets.load_dataset(<span class="st">'imdb'</span>)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>) </span>
@@ -892,7 +891,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 </div>
 <p>보는것처럼 학습은 완벽하게 되었다. (accuracy가 100%) 그렇지만 <code>imdb_transformed['test']</code> 전체에서 평가를 해보니 결과가 좋지 않았다. (accuracy가 50%)</p>
-<div id="cell-34" class="cell" data-execution_count="19">
+<div id="cell-32" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Step4 </span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> trainer.predict(imdb_transformed[<span class="st">'test'</span>])</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -909,7 +908,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
        [ 3.2206337, -3.0072105]], dtype=float32), label_ids=array([0, 0, 0, ..., 1, 1, 1]), metrics={'test_loss': 3.1024723052978516, 'test_accuracy': 0.5, 'test_runtime': 81.9806, 'test_samples_per_second': 304.95, 'test_steps_per_second': 19.065})</code></pre>
 </div>
 </div>
-<div id="cell-35" class="cell" data-execution_count="20">
+<div id="cell-33" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>out.metrics[<span class="st">'test_accuracy'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>0.5</code></pre>
@@ -939,7 +938,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>(문제의원인)</code></p>
 <p><code>-</code> 학습에 사용된 데이터를 살펴보자.</p>
-<div id="cell-40" class="cell" data-execution_count="9">
+<div id="cell-38" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(imdb_transformed[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>))[<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>{0}</code></pre>
@@ -972,14 +971,14 @@ Note
 <p>“데이터 상관없이 0이라고만 대답하면 되잖아?”</p>
 </blockquote>
 <p>라고 인식할 수 있다. 실제로 인공지능은 <code>imdb_transformed['test']</code>에 대응하는 모든 예측값을 항상 0으로만 예측하도록 학습되었다. (그렇게 해도 지금까지는 항상 accuracy가 100이 나왔으니까..)</p>
-<div id="cell-44" class="cell" data-execution_count="25">
+<div id="cell-42" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(out.predictions.argmax(axis<span class="op">=</span><span class="dv">1</span>)) <span class="co"># 모든예측값은 0이다. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>{0}</code></pre>
 </div>
 </div>
 <p><code>-</code> 실제로는 <code>imdb_transformed</code>에 0과 1은 딱 절반이 있으므로, accuracy는 50%가 나온다. (인공지능은 항상 0이라고 예측)</p>
-<div id="cell-46" class="cell" data-execution_count="30">
+<div id="cell-44" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>{i:imdb_transformed[<span class="st">'test'</span>][<span class="st">'label'</span>].count(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">set</span>(imdb_transformed[<span class="st">'test'</span>][<span class="st">'label'</span>])}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="30">
 <pre><code>{0: 12500, 1: 12500}</code></pre>
@@ -991,13 +990,13 @@ Note
 </ul>
 <p><code>(해결책)</code></p>
 <p>데이터를 섞으면 된다.</p>
-<div id="cell-50" class="cell" data-execution_count="34">
+<div id="cell-48" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(imdb_transformed[<span class="st">'train'</span>].shuffle().select(<span class="bu">range</span>(<span class="dv">1000</span>))[<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="34">
 <pre><code>{0, 1}</code></pre>
 </div>
 </div>
-<div id="cell-51" class="cell" data-execution_count="35">
+<div id="cell-49" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Step1 </span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>imdb <span class="op">=</span> datasets.load_dataset(<span class="st">'imdb'</span>)</span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>) </span>
@@ -1076,7 +1075,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <pre><code>TrainOutput(global_step=126, training_loss=0.48426180037241134, metrics={'train_runtime': 31.3854, 'train_samples_per_second': 63.724, 'train_steps_per_second': 4.015, 'total_flos': 262388939494080.0, 'train_loss': 0.48426180037241134, 'epoch': 2.0})</code></pre>
 </div>
 </div>
-<div id="cell-52" class="cell" data-execution_count="36">
+<div id="cell-50" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Step4 </span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> trainer.predict(imdb_transformed[<span class="st">'test'</span>])</span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>out.metrics[<span class="st">'test_accuracy'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
