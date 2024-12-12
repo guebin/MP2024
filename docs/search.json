@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "기계학습활용 (2024)",
     "section": "",
-    "text": "질문하는 방법\n\n카카오톡: 질문하러 가기\n이메일: guebin@jbnu.ac.kr\n직접방문: 자연과학대학 본관 205호\nZoom: 카카오톡이나 이메일로 미리 시간을 정할 것\nLMS쪽지: https://ieilms.jbnu.ac.kr/\n\nQuiz & Report: https://guebin.github.io/MP2024/quiz.html\n강의노트\n\n\n\n\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nDec 12, 2024\n\n\nA1: 산업계가 원하는 데이터 과학 인재상\n\n\n최규빈 \n\n\n\n\nDec 6, 2024\n\n\n14wk-1: 타이타닉 데이터 분석\n\n\n최규빈 \n\n\n\n\nDec 4, 2024\n\n\n13wk-1: 캐글소개, 타이타닉 데이터의 이해\n\n\n최규빈 \n\n\n\n\nDec 3, 2024\n\n\n12wk-1: 선인장 이미지 분류\n\n\n최규빈 \n\n\n\n\nNov 22, 2024\n\n\n11wk-1: data_collator\n\n\n최규빈 \n\n\n\n\nNov 12, 2024\n\n\n10wk-1: Dataset 클래스\n\n\n최규빈 \n\n\n\n\nNov 9, 2024\n\n\n09wk-2: model의 입력파악, model의 사용연습\n\n\n최규빈 \n\n\n\n\nNov 1, 2024\n\n\n09wk-1: with의 사용\n\n\n최규빈 \n\n\n\n\nOct 31, 2024\n\n\n08wk-2: numpy와 torch의 차이\n\n\n최규빈 \n\n\n\n\nOct 30, 2024\n\n\n08wk-1: 모듈설치 및 변경\n\n\n최규빈 \n\n\n\n\nOct 17, 2024\n\n\n06wk-1, 07wk-1: UCF101 영상자료 분류\n\n\n최규빈 \n\n\n\n\nOct 4, 2024\n\n\n05wk-1: Food-101 이미지자료 분류\n\n\n최규빈 \n\n\n\n\nSep 27, 2024\n\n\n04wk-1: 감성분석 파고들기 (2)\n\n\n최규빈 \n\n\n\n\nSep 19, 2024\n\n\n03wk-1: 감성분석 파고들기 (1)\n\n\n최규빈 \n\n\n\n\nSep 12, 2024\n\n\n02wk-1: IMDB 영화평 감성분석\n\n\n최규빈 \n\n\n\n\nSep 6, 2024\n\n\n01wk-2: IMDB 자료 살펴보기, 지도학습의 개념\n\n\n최규빈 \n\n\n\n\nSep 3, 2024\n\n\n01wk-1: 강의소개\n\n\n최규빈 \n\n\n\n\n\nNo matching items"
+    "text": "질문하는 방법\n\n카카오톡: 질문하러 가기\n이메일: guebin@jbnu.ac.kr\n직접방문: 자연과학대학 본관 205호\nZoom: 카카오톡이나 이메일로 미리 시간을 정할 것\nLMS쪽지: https://ieilms.jbnu.ac.kr/\n\nQuiz & Report: https://guebin.github.io/MP2024/quiz.html\n강의노트\n\n\n\n\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nDec 12, 2024\n\n\n산업계가 원하는 데이터 과학 인재상\n\n\n최규빈 \n\n\n\n\nDec 6, 2024\n\n\n14wk-1: 타이타닉 데이터 분석\n\n\n최규빈 \n\n\n\n\nDec 4, 2024\n\n\n13wk-1: 캐글소개, 타이타닉 데이터의 이해\n\n\n최규빈 \n\n\n\n\nDec 3, 2024\n\n\n12wk-1: 선인장 이미지 분류\n\n\n최규빈 \n\n\n\n\nNov 22, 2024\n\n\n11wk-1: data_collator\n\n\n최규빈 \n\n\n\n\nNov 12, 2024\n\n\n10wk-1: Dataset 클래스\n\n\n최규빈 \n\n\n\n\nNov 9, 2024\n\n\n09wk-2: model의 입력파악, model의 사용연습\n\n\n최규빈 \n\n\n\n\nNov 1, 2024\n\n\n09wk-1: with의 사용\n\n\n최규빈 \n\n\n\n\nOct 31, 2024\n\n\n08wk-2: numpy와 torch의 차이\n\n\n최규빈 \n\n\n\n\nOct 30, 2024\n\n\n08wk-1: 모듈설치 및 변경\n\n\n최규빈 \n\n\n\n\nOct 17, 2024\n\n\n06wk-1, 07wk-1: UCF101 영상자료 분류\n\n\n최규빈 \n\n\n\n\nOct 4, 2024\n\n\n05wk-1: Food-101 이미지자료 분류\n\n\n최규빈 \n\n\n\n\nSep 27, 2024\n\n\n04wk-1: 감성분석 파고들기 (2)\n\n\n최규빈 \n\n\n\n\nSep 19, 2024\n\n\n03wk-1: 감성분석 파고들기 (1)\n\n\n최규빈 \n\n\n\n\nSep 12, 2024\n\n\n02wk-1: IMDB 영화평 감성분석\n\n\n최규빈 \n\n\n\n\nSep 6, 2024\n\n\n01wk-2: IMDB 자료 살펴보기, 지도학습의 개념\n\n\n최규빈 \n\n\n\n\nSep 3, 2024\n\n\n01wk-1: 강의소개\n\n\n최규빈 \n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "quiz/Quiz-3.html",
@@ -32,7 +32,7 @@
     "href": "quiz/Quiz-11.html",
     "title": "Quiz-11 (2024.12.10) // 범위: 12wk-1 까지",
     "section": "",
-    "text": "항목\n허용 여부\n비고\n\n\n\n\n강의노트 참고\n허용\n수업 중 제공된 강의노트나 본인이 정리한 자료를 참고 가능\n\n\n구글 검색\n허용\n인터넷을 통한 자료 검색 및 정보 확인 가능\n\n\n생성 모형 사용\n허용\n인공지능 기반 도구(GPT 등) 사용 가능\n\n\n\n\n\n\n\n\n\nImportant\n\n\n\n해설영상은 생략하도록 하겠습니다. 한 학기동안 고생하셨습니다.\n\n\n\nimport os\nos.environ[\"WANDB_MODE\"] = \"offline\"\n\n\nimport pandas as pd\nimport transformers \nimport datasets\nimport evaluate\nimport torch\nimport numpy as np\n\n/home/cgb3/anaconda3/envs/hf/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html\n  from .autonotebook import tqdm as notebook_tqdm\n\n\n\n1. COVID19 tweets – 100점\n\ncovid19_tweets_df = pd.read_csv('https://raw.githubusercontent.com/guebin/STML2022/main/posts/Corona_NLP_train.csv',encoding=\"ISO-8859-1\")\ncovid19_tweets_df_train = covid19_tweets_df[::2].reset_index(drop=True)\ncovid19_tweets_df_test = covid19_tweets_df[1::2].reset_index(drop=True).loc[:,'UserName':'OriginalTweet'].assign(Sentiment = '???')\ndel covid19_tweets_df\n\n\ncovid19_tweets_df_train.head()\n\n\n\n\n\n\n\n\nUserName\nScreenName\nLocation\nTweetAt\nOriginalTweet\nSentiment\n\n\n\n\n0\n3799\n48751\nLondon\n16-03-2020\n@MeNyrbie @Phil_Gahan @Chrisitv https://t.co/i...\nNeutral\n\n\n1\n3801\n48753\nVagabonds\n16-03-2020\nCoronavirus Australia: Woolworths to give elde...\nPositive\n\n\n2\n3803\n48755\nNaN\n16-03-2020\nMe, ready to go at supermarket during the #COV...\nExtremely Negative\n\n\n3\n3805\n48757\n35.926541,-78.753267\n16-03-2020\nCashier at grocery store was sharing his insig...\nPositive\n\n\n4\n3807\n48759\nAtlanta, GA USA\n16-03-2020\nDue to COVID-19 our retail store and classroom...\nPositive\n\n\n\n\n\n\n\n\ncovid19_tweets_df_test.head()\n\n\n\n\n\n\n\n\nUserName\nScreenName\nLocation\nTweetAt\nOriginalTweet\nSentiment\n\n\n\n\n0\n3800\n48752\nUK\n16-03-2020\nadvice Talk to your neighbours family to excha...\n???\n\n\n1\n3802\n48754\nNaN\n16-03-2020\nMy food stock is not the only one which is emp...\n???\n\n\n2\n3804\n48756\nÃœT: 36.319708,-82.363649\n16-03-2020\nAs news of the regionÂ’s first confirmed COVID...\n???\n\n\n3\n3806\n48758\nAustria\n16-03-2020\nWas at the supermarket today. Didn't buy toile...\n???\n\n\n4\n3808\n48760\nBHAVNAGAR,GUJRAT\n16-03-2020\nFor corona prevention,we should stop to buy th...\n???\n\n\n\n\n\n\n\n이 데이터는 COVID-19 관련 트윗 데이터를 포함하며, 각 트윗에 대해 작성자의 감정을 나타내는 Sentiment(감정) 레이블이 지정되어 있다.\n주요 열 설명\n1. OriginalTweet: 사용자가 작성한 트윗 내용으로. COVID-19와 관련된 다양한 의견, 경험, 상황 등이 포함되어 있음. 예시는 아래와 같음.\n\n“Coronavirus Australia: Woolworths to give elders priority shopping amid coronavirus pandemic.”\n“Due to COVID-19 our retail store and classroom…”\n\n2. Sentiment: 트윗의 감정을 나타내는 레이블으로 가능한값은 아래와 같음.\n\nExtremely Positive: 강한 긍정적 감정을 담아 희망과 연대감을 전달하는 트윗.\nPositive: 긍정적인 해결책이나 희망적인 메시지를 담고 있음.\nNeutral: 중립적이고 감정 표현이 없는 트윗 (사실 전달에 초점).\nNegative: 문제점이나 불만을 표현한 부정적인 트윗.\nExtremely Negative: 극단적으로 부정적인 상황에 대한 트윗.\n\n(1) transformers 라이브러리의 “distilbert/distilbert-base-uncased” 모델을 활용하여 OriginalTweet을 입력으로 Sentiment를 예측하는 텍스트 분류기를 학습하라.\n요구 사항\n1. 데이터 분할: 주어진 데이터셋 covid19_tweets_df_train 을 7:3 비율로 나누어, 70%는 훈련 데이터로, 나머지 30%는 검증 데이터로 사용하라.\n2. 평가지표: 모델의 성능평가를 위하여 아래의 함수를 사용하라.\ndef compute_metrics(eval_pred):\n    logits, labels = eval_pred\n    predictions = np.argmax(logits, axis=1)  # 예측 클래스\n\n    # 평가 메트릭 불러오기\n    acc = evaluate.load(\"accuracy\")\n    f1 = evaluate.load(\"f1\")\n\n    # 평가 메트릭 계산\n    dct1 = acc.compute(predictions=predictions, references=labels)  \n    dct2 = f1.compute(predictions=predictions, references=labels, average='weighted')\n\n    # 두 개의 메트릭 결과를 합치기\n    return dct1 | dct2  \n(풀이)\n\nset(covid19_tweets_df_train['Sentiment'])\n\n{'Extremely Negative', 'Extremely Positive', 'Negative', 'Neutral', 'Positive'}\n\n\n\nid2label = {i:label for i,label in enumerate(set(covid19_tweets_df_train['Sentiment']))}\nlabel2id = {label:i for i,label in enumerate(set(covid19_tweets_df_train['Sentiment']))}\nprint(id2label)\nprint(label2id)\n\n{0: 'Positive', 1: 'Neutral', 2: 'Extremely Negative', 3: 'Extremely Positive', 4: 'Negative'}\n{'Positive': 0, 'Neutral': 1, 'Extremely Negative': 2, 'Extremely Positive': 3, 'Negative': 4}\n\n\n\ntrain_text = list(covid19_tweets_df_train['OriginalTweet'])\ntest_text = list(covid19_tweets_df_test['OriginalTweet'])\ntrain_label = list(covid19_tweets_df_train.Sentiment.map(label2id))\n\n\ntokenizer = transformers.AutoTokenizer.from_pretrained(\"distilbert/distilbert-base-uncased\")\ntrain_dct = tokenizer(train_text,truncation=True) | {'labels': train_label}\ntest_dct = tokenizer(test_text,truncation=True)\n\n\ntrain = datasets.Dataset.from_dict(train_dct)\ntest = datasets.Dataset.from_dict(test_dct)\nd = train.train_test_split(test_size=0.3)\ncovid19_tweets = datasets.DatasetDict({'train':d['train'], 'eval':d['test'], 'test':test})\ncovid19_tweets\n\nDatasetDict({\n    train: Dataset({\n        features: ['input_ids', 'attention_mask', 'labels'],\n        num_rows: 14405\n    })\n    eval: Dataset({\n        features: ['input_ids', 'attention_mask', 'labels'],\n        num_rows: 6174\n    })\n    test: Dataset({\n        features: ['input_ids', 'attention_mask'],\n        num_rows: 20578\n    })\n})\n\n\n\nmodel = transformers.AutoModelForSequenceClassification.from_pretrained(\n    \"distilbert/distilbert-base-uncased\", \n    num_labels=5,\n    id2label=id2label,\n    label2id=label2id\n)\n\nSome weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']\nYou should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.\n\n\n\ndata_collator = transformers.DataCollatorWithPadding(tokenizer)\n\n\ndef compute_metrics(eval_pred):\n    logits, labels = eval_pred\n    predictions = np.argmax(logits, axis=1)  # 예측 클래스\n\n    # 평가 메트릭 불러오기\n    acc = evaluate.load(\"accuracy\")\n    f1 = evaluate.load(\"f1\")\n\n    # 평가 메트릭 계산\n    dct1 = acc.compute(predictions=predictions, references=labels)  \n    dct2 = f1.compute(predictions=predictions, references=labels, average='weighted')\n\n    # 두 개의 메트릭 결과를 합치기\n    return dct1 | dct2  \n\n\n# Training Arguments 설정\ntraining_args = transformers.TrainingArguments(\n    output_dir=\"./results\",\n    evaluation_strategy=\"epoch\",\n    learning_rate=2e-5,\n    per_device_train_batch_size=16,\n    per_device_eval_batch_size=16,\n    num_train_epochs=3,\n    weight_decay=0.01,\n    logging_dir='./logs',\n    logging_steps=10,\n)\n\n# Trainer 설정\ntrainer = transformers.Trainer(\n    model=model,\n    args=training_args,\n    train_dataset=covid19_tweets['train'],\n    eval_dataset=covid19_tweets['eval'],\n    tokenizer=tokenizer,\n    data_collator=data_collator,\n    compute_metrics=compute_metrics,\n)\n\n# 모델 학습\ntrainer.train()\n\n/home/cgb3/anaconda3/envs/hf/lib/python3.12/site-packages/transformers/training_args.py:1568: FutureWarning: `evaluation_strategy` is deprecated and will be removed in version 4.46 of 🤗 Transformers. Use `eval_strategy` instead\n  warnings.warn(\nPyTorch: setting up devices\nThe default value for the training argument `--report_to` will change in v5 (from all installed integrations to none). In v5, you will need to use `--report_to all` to get the same behavior as now. You should start updating your code and make this info disappear :-).\n/tmp/ipykernel_113605/2082248890.py:15: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `Trainer.__init__`. Use `processing_class` instead.\n  trainer = transformers.Trainer(\n***** Running training *****\n  Num examples = 14,405\n  Num Epochs = 3\n  Instantaneous batch size per device = 16\n  Total train batch size (w. parallel, distributed & accumulation) = 16\n  Gradient Accumulation steps = 1\n  Total optimization steps = 2,703\n  Number of trainable parameters = 66,957,317\nSaving model checkpoint to ./results/checkpoint-500\nConfiguration saved in ./results/checkpoint-500/config.json\nModel weights saved in ./results/checkpoint-500/model.safetensors\ntokenizer config file saved in ./results/checkpoint-500/tokenizer_config.json\nSpecial tokens file saved in ./results/checkpoint-500/special_tokens_map.json\n\n***** Running Evaluation *****\n  Num examples = 6174\n  Batch size = 16\nDownloading builder script: 100%|██████████| 6.77k/6.77k [00:00&lt;00:00, 14.6MB/s]\nSaving model checkpoint to ./results/checkpoint-1000\nConfiguration saved in ./results/checkpoint-1000/config.json\nModel weights saved in ./results/checkpoint-1000/model.safetensors\ntokenizer config file saved in ./results/checkpoint-1000/tokenizer_config.json\nSpecial tokens file saved in ./results/checkpoint-1000/special_tokens_map.json\nSaving model checkpoint to ./results/checkpoint-1500\nConfiguration saved in ./results/checkpoint-1500/config.json\nModel weights saved in ./results/checkpoint-1500/model.safetensors\ntokenizer config file saved in ./results/checkpoint-1500/tokenizer_config.json\nSpecial tokens file saved in ./results/checkpoint-1500/special_tokens_map.json\n\n***** Running Evaluation *****\n  Num examples = 6174\n  Batch size = 16\nSaving model checkpoint to ./results/checkpoint-2000\nConfiguration saved in ./results/checkpoint-2000/config.json\nModel weights saved in ./results/checkpoint-2000/model.safetensors\ntokenizer config file saved in ./results/checkpoint-2000/tokenizer_config.json\nSpecial tokens file saved in ./results/checkpoint-2000/special_tokens_map.json\nSaving model checkpoint to ./results/checkpoint-2500\nConfiguration saved in ./results/checkpoint-2500/config.json\nModel weights saved in ./results/checkpoint-2500/model.safetensors\ntokenizer config file saved in ./results/checkpoint-2500/tokenizer_config.json\nSpecial tokens file saved in ./results/checkpoint-2500/special_tokens_map.json\nSaving model checkpoint to ./results/checkpoint-2703\nConfiguration saved in ./results/checkpoint-2703/config.json\nModel weights saved in ./results/checkpoint-2703/model.safetensors\ntokenizer config file saved in ./results/checkpoint-2703/tokenizer_config.json\nSpecial tokens file saved in ./results/checkpoint-2703/special_tokens_map.json\n\n***** Running Evaluation *****\n  Num examples = 6174\n  Batch size = 16\n\n\nTraining completed. Do not forget to share your model on huggingface.co/models =)\n\n\n\n\n\n    \n      \n      \n      [2703/2703 01:54, Epoch 3/3]\n    \n    \n\n\n\nEpoch\nTraining Loss\nValidation Loss\nAccuracy\nF1\n\n\n\n\n1\n0.413400\n0.959950\n0.785876\n0.786625\n\n\n2\n0.285800\n0.793307\n0.788468\n0.788806\n\n\n3\n0.148400\n0.852429\n0.798348\n0.798777\n\n\n\n\n\n\nTrainOutput(global_step=2703, training_loss=0.21161614542002155, metrics={'train_runtime': 114.3206, 'train_samples_per_second': 378.016, 'train_steps_per_second': 23.644, 'total_flos': 1019315616068040.0, 'train_loss': 0.21161614542002155, 'epoch': 3.0})\n\n\n(2) (1)에서 학습한 모델을 활용하여 covid19_tweets_df_test의 OriginalTweet 열에 대한 Sentiment를 예측하시오.\n답안예시\n\ncovid19_tweets_df_test.head()\n\n\n\n\n\n\n\n\nUserName\nScreenName\nLocation\nTweetAt\nOriginalTweet\nSentiment\n\n\n\n\n0\n3800\n48752\nUK\n16-03-2020\nadvice Talk to your neighbours family to excha...\nPositive\n\n\n1\n3802\n48754\nNaN\n16-03-2020\nMy food stock is not the only one which is emp...\nExtremely Positive\n\n\n2\n3804\n48756\nÃœT: 36.319708,-82.363649\n16-03-2020\nAs news of the regionÂ’s first confirmed COVID...\nPositive\n\n\n3\n3806\n48758\nAustria\n16-03-2020\nWas at the supermarket today. Didn't buy toile...\nNeutral\n\n\n4\n3808\n48760\nBHAVNAGAR,GUJRAT\n16-03-2020\nFor corona prevention,we should stop to buy th...\nNegative\n\n\n\n\n\n\n\n(풀이)\n\nout = trainer.predict(covid19_tweets['test'])\nout \n\n\n***** Running Prediction *****\n  Num examples = 20578\n  Batch size = 16\n\n\n\n\n\nPredictionOutput(predictions=array([[ 6.052478  , -0.25911158, -4.757802  , -1.4280325 , -1.1493124 ],\n       [ 2.3945487 , -1.8138888 , -4.4416656 ,  2.885043  , -1.0756998 ],\n       [ 5.9334354 , -1.897063  , -5.115348  ,  0.6702355 , -1.7291662 ],\n       ...,\n       [-1.9611454 , -3.7045465 , -3.4850702 ,  6.3820515 , -2.5484905 ],\n       [-2.0311882 , -1.2512956 , -0.4017841 , -3.9326744 ,  5.3791475 ],\n       [ 1.1640915 ,  2.671375  , -3.3171444 , -3.6160667 ,  1.4595261 ]],\n      dtype=float32), label_ids=None, metrics={'test_runtime': 12.0254, 'test_samples_per_second': 1711.21, 'test_steps_per_second': 107.023})\n\n\n\ncovid19_tweets_df_test['Sentiment'] = [id2label[i] for i in out.predictions.argmax(axis=1)]\n\n\ncovid19_tweets_df_test.head()\n\n\n\n\n\n\n\n\nUserName\nScreenName\nLocation\nTweetAt\nOriginalTweet\nSentiment\n\n\n\n\n0\n3800\n48752\nUK\n16-03-2020\nadvice Talk to your neighbours family to excha...\nPositive\n\n\n1\n3802\n48754\nNaN\n16-03-2020\nMy food stock is not the only one which is emp...\nExtremely Positive\n\n\n2\n3804\n48756\nÃœT: 36.319708,-82.363649\n16-03-2020\nAs news of the regionÂ’s first confirmed COVID...\nPositive\n\n\n3\n3806\n48758\nAustria\n16-03-2020\nWas at the supermarket today. Didn't buy toile...\nNeutral\n\n\n4\n3808\n48760\nBHAVNAGAR,GUJRAT\n16-03-2020\nFor corona prevention,we should stop to buy th...\nNegative\n\n\n\n\n\n\n\n\n\n2. IMDB – 가산점 50점\n아래는 2주차에서 배운 imdb 분석코드를 정리한 것이다. 분석의 편의를 위하여 1000개의 자료만 사용하여 학습과 평가에 사용했다.\n\n## Step1 \nimdb = datasets.load_dataset('imdb')\ntokenizer = transformers.AutoTokenizer.from_pretrained(\"distilbert/distilbert-base-uncased\") \nimdb_transformed = imdb.map(lambda dct: tokenizer(dct['text'],truncation=True), batched=True)\n## Step2 \nmodel = transformers.AutoModelForSequenceClassification.from_pretrained(\"distilbert/distilbert-base-uncased\", num_labels=2)\n## Step3 \ndef accuracy(eval_pred):\n    predictions, labels = eval_pred\n    predictions = predictions.argmax(axis=1)\n    accuracy = evaluate.load(\"accuracy\")\n    return accuracy.compute(predictions=predictions, references=labels)\ntrainer = transformers.Trainer(\n    model=model,\n    args=transformers.TrainingArguments(\n        output_dir=\"my_awesome_model\",\n        learning_rate=2e-5,\n        per_device_train_batch_size=16,\n        per_device_eval_batch_size=16,\n        num_train_epochs=2,\n        weight_decay=0.01,\n        eval_strategy=\"epoch\",\n        save_strategy=\"epoch\",\n        load_best_model_at_end=True,\n        push_to_hub=False,\n        report_to=\"none\"\n    ),\n    train_dataset=imdb_transformed['train'].select(range(1000)), # 1000개만 사용\n    eval_dataset=imdb_transformed['test'].select(range(1000)), # 1000개만 사용\n    tokenizer=tokenizer,\n    data_collator=transformers.DataCollatorWithPadding(tokenizer=tokenizer),\n    compute_metrics=accuracy,\n)\ntrainer.train()\n\nSome weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']\nYou should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.\n/tmp/ipykernel_116097/1501501835.py:13: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `Trainer.__init__`. Use `processing_class` instead.\n  trainer = transformers.Trainer(\n\n\n\n    \n      \n      \n      [126/126 00:30, Epoch 2/2]\n    \n    \n\n\n\nEpoch\nTraining Loss\nValidation Loss\nAccuracy\n\n\n\n\n1\nNo log\n0.003095\n1.000000\n\n\n2\nNo log\n0.001992\n1.000000\n\n\n\n\n\n\nTrainOutput(global_step=126, training_loss=0.042853578688606384, metrics={'train_runtime': 30.9969, 'train_samples_per_second': 64.523, 'train_steps_per_second': 4.065, 'total_flos': 260867634212640.0, 'train_loss': 0.042853578688606384, 'epoch': 2.0})\n\n\n보는것처럼 학습은 완벽하게 되었다. (accuracy가 100%) 그렇지만 imdb_transformed['test'] 전체에서 평가를 해보니 결과가 좋지 않았다. (accuracy가 50%)\n\n## Step4 \nout = trainer.predict(imdb_transformed['test'])\nout\n\n\n\n\nPredictionOutput(predictions=array([[ 3.2670784, -2.9905088],\n       [ 3.2648833, -3.0288398],\n       [ 3.224249 , -2.9409087],\n       ...,\n       [ 3.2539847, -3.0032833],\n       [ 3.2596397, -3.0228188],\n       [ 3.2206337, -3.0072105]], dtype=float32), label_ids=array([0, 0, 0, ..., 1, 1, 1]), metrics={'test_loss': 3.1024723052978516, 'test_accuracy': 0.5, 'test_runtime': 81.9806, 'test_samples_per_second': 304.95, 'test_steps_per_second': 19.065})\n\n\n\nout.metrics['test_accuracy']\n\n0.5\n\n\n무엇이 문제일까? 혹시 아래의 코드를 수정하여 학습의 성능을 올릴 수 있는 방법이 있을까? (단 데이터의 수는 그대로 유지한다)\ntrainer = transformers.Trainer(\n    model=model,\n    args=transformers.TrainingArguments(\n        output_dir=\"my_awesome_model\",\n        learning_rate=2e-5,\n        per_device_train_batch_size=16,\n        per_device_eval_batch_size=16,\n        num_train_epochs=2,\n        weight_decay=0.01,\n        eval_strategy=\"epoch\",\n        save_strategy=\"epoch\",\n        load_best_model_at_end=True,\n        push_to_hub=False,\n        report_to=\"none\"\n    ),\n    train_dataset=imdb_transformed['train'].select(range(1000)), # 1000개만 사용\n    eval_dataset=imdb_transformed['test'].select(range(1000)), # 1000개만 사용\n    tokenizer=tokenizer,\n    data_collator=transformers.DataCollatorWithPadding(tokenizer=tokenizer),\n    compute_metrics=accuracy,\n)\n(문제의원인)\n- 학습에 사용된 데이터를 살펴보자.\n\nset(imdb_transformed['train'].select(range(1000))['label'])\n\n{0}\n\n\n\nimdb_transformed['train'].select(range(1000)) 에 부정적인 영화평가에 해당하는 라벨만 존재함.\n\n\n\n\n\n\n\nNote\n\n\n\n참고로 imdb_transformed['train']자료는 처음 12500는 모두 부정평가만, 다음 12500은 모두 긍정평가만 있다. 즉 imdb_transformed['train']자료는 “정렬”되어 있다.\n처음 12500개의 라벨\nset(imdb_transformed['train'].select(range(12500))['label'])\n{0} \n다음 12500개의 라벨\nset(imdb_transformed['train'].select(range(12500,25000))['label'])\n{1}\n\n\n- 따라서 imdb_transformed['train'].select(range(1000))이 데이터로만 학습한다면 인공지능의 입장에서는\n\n“데이터 상관없이 0이라고만 대답하면 되잖아?”\n\n라고 인식할 수 있다. 실제로 인공지능은 imdb_transformed['test']에 대응하는 모든 예측값을 항상 0으로만 예측하도록 학습되었다. (그렇게 해도 지금까지는 항상 accuracy가 100이 나왔으니까..)\n\nset(out.predictions.argmax(axis=1)) # 모든예측값은 0이다. \n\n{0}\n\n\n- 실제로는 imdb_transformed['test']에 0과 1은 딱 절반씩 있으므로, accuracy는 50%가 나온다. (인공지능은 항상 0이라고 예측)\n\n{i:imdb_transformed['test']['label'].count(i) for i in set(imdb_transformed['test']['label'])}\n\n{0: 12500, 1: 12500}\n\n\n\n생각해보니까.. train과정에서 accuracy가 항상 100%가 나온이유도 당연하다.\nimdb_transformed['test'].select(range(1000)) 여기에는 label = 0 에 해당하는 자료만 있을테니까\n\n(해결책)\n데이터를 섞으면 된다.\n\nset(imdb_transformed['train'].shuffle().select(range(1000))['label'])\n\n{0, 1}\n\n\n\n## Step1 \nimdb = datasets.load_dataset('imdb')\ntokenizer = transformers.AutoTokenizer.from_pretrained(\"distilbert/distilbert-base-uncased\") \nimdb_transformed = imdb.map(lambda dct: tokenizer(dct['text'],truncation=True), batched=True)\n## Step2 \nmodel = transformers.AutoModelForSequenceClassification.from_pretrained(\"distilbert/distilbert-base-uncased\", num_labels=2)\n## Step3 \ndef accuracy(eval_pred):\n    predictions, labels = eval_pred\n    predictions = predictions.argmax(axis=1)\n    accuracy = evaluate.load(\"accuracy\")\n    return accuracy.compute(predictions=predictions, references=labels)\ntrainer = transformers.Trainer(\n    model=model,\n    args=transformers.TrainingArguments(\n        output_dir=\"my_awesome_model\",\n        learning_rate=2e-5,\n        per_device_train_batch_size=16,\n        per_device_eval_batch_size=16,\n        num_train_epochs=2,\n        weight_decay=0.01,\n        eval_strategy=\"epoch\",\n        save_strategy=\"epoch\",\n        load_best_model_at_end=True,\n        push_to_hub=False,\n        report_to=\"none\"\n    ),\n    train_dataset=imdb_transformed['train'].shuffle().select(range(1000)), # 1000개만 사용\n    eval_dataset=imdb_transformed['test'].shuffle().select(range(1000)), # 1000개만 사용\n    tokenizer=tokenizer,\n    data_collator=transformers.DataCollatorWithPadding(tokenizer=tokenizer),\n    compute_metrics=accuracy,\n)\ntrainer.train()\n\nSome weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']\nYou should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.\n/tmp/ipykernel_116097/3188304965.py:13: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `Trainer.__init__`. Use `processing_class` instead.\n  trainer = transformers.Trainer(\n\n\n\n    \n      \n      \n      [126/126 00:31, Epoch 2/2]\n    \n    \n\n\n\nEpoch\nTraining Loss\nValidation Loss\nAccuracy\n\n\n\n\n1\nNo log\n0.441965\n0.826000\n\n\n2\nNo log\n0.345760\n0.853000\n\n\n\n\n\n\nTrainOutput(global_step=126, training_loss=0.48426180037241134, metrics={'train_runtime': 31.3854, 'train_samples_per_second': 63.724, 'train_steps_per_second': 4.015, 'total_flos': 262388939494080.0, 'train_loss': 0.48426180037241134, 'epoch': 2.0})\n\n\n\n## Step4 \nout = trainer.predict(imdb_transformed['test'])\nout.metrics['test_accuracy']\n\n\n\n\n0.88408\n\n\n이게 정상적인 학습"
+    "text": "항목\n허용 여부\n비고\n\n\n\n\n강의노트 참고\n허용\n수업 중 제공된 강의노트나 본인이 정리한 자료를 참고 가능\n\n\n구글 검색\n허용\n인터넷을 통한 자료 검색 및 정보 확인 가능\n\n\n생성 모형 사용\n허용\n인공지능 기반 도구(GPT 등) 사용 가능\n\n\n\n\n\n\n\n\n\nImportant\n\n\n\n해설영상은 생략하도록 하겠습니다. 한 학기동안 고생하셨습니다.\n\n\n\nimport os\nos.environ[\"WANDB_MODE\"] = \"offline\"\n\n\nimport pandas as pd\nimport transformers \nimport datasets\nimport evaluate\nimport torch\nimport numpy as np\n\n\n1. COVID19 tweets – 100점\n\ncovid19_tweets_df = pd.read_csv('https://raw.githubusercontent.com/guebin/STML2022/main/posts/Corona_NLP_train.csv',encoding=\"ISO-8859-1\")\ncovid19_tweets_df_train = covid19_tweets_df[::2].reset_index(drop=True)\ncovid19_tweets_df_test = covid19_tweets_df[1::2].reset_index(drop=True).loc[:,'UserName':'OriginalTweet'].assign(Sentiment = '???')\ndel covid19_tweets_df\n\n\ncovid19_tweets_df_train.head()\n\n\n\n\n\n\n\n\nUserName\nScreenName\nLocation\nTweetAt\nOriginalTweet\nSentiment\n\n\n\n\n0\n3799\n48751\nLondon\n16-03-2020\n@MeNyrbie @Phil_Gahan @Chrisitv https://t.co/i...\nNeutral\n\n\n1\n3801\n48753\nVagabonds\n16-03-2020\nCoronavirus Australia: Woolworths to give elde...\nPositive\n\n\n2\n3803\n48755\nNaN\n16-03-2020\nMe, ready to go at supermarket during the #COV...\nExtremely Negative\n\n\n3\n3805\n48757\n35.926541,-78.753267\n16-03-2020\nCashier at grocery store was sharing his insig...\nPositive\n\n\n4\n3807\n48759\nAtlanta, GA USA\n16-03-2020\nDue to COVID-19 our retail store and classroom...\nPositive\n\n\n\n\n\n\n\n\ncovid19_tweets_df_test.head()\n\n\n\n\n\n\n\n\nUserName\nScreenName\nLocation\nTweetAt\nOriginalTweet\nSentiment\n\n\n\n\n0\n3800\n48752\nUK\n16-03-2020\nadvice Talk to your neighbours family to excha...\n???\n\n\n1\n3802\n48754\nNaN\n16-03-2020\nMy food stock is not the only one which is emp...\n???\n\n\n2\n3804\n48756\nÃœT: 36.319708,-82.363649\n16-03-2020\nAs news of the regionÂ’s first confirmed COVID...\n???\n\n\n3\n3806\n48758\nAustria\n16-03-2020\nWas at the supermarket today. Didn't buy toile...\n???\n\n\n4\n3808\n48760\nBHAVNAGAR,GUJRAT\n16-03-2020\nFor corona prevention,we should stop to buy th...\n???\n\n\n\n\n\n\n\n이 데이터는 COVID-19 관련 트윗 데이터를 포함하며, 각 트윗에 대해 작성자의 감정을 나타내는 Sentiment(감정) 레이블이 지정되어 있다.\n주요 열 설명\n1. OriginalTweet: 사용자가 작성한 트윗 내용으로. COVID-19와 관련된 다양한 의견, 경험, 상황 등이 포함되어 있음. 예시는 아래와 같음.\n\n“Coronavirus Australia: Woolworths to give elders priority shopping amid coronavirus pandemic.”\n“Due to COVID-19 our retail store and classroom…”\n\n2. Sentiment: 트윗의 감정을 나타내는 레이블으로 가능한값은 아래와 같음.\n\nExtremely Positive: 강한 긍정적 감정을 담아 희망과 연대감을 전달하는 트윗.\nPositive: 긍정적인 해결책이나 희망적인 메시지를 담고 있음.\nNeutral: 중립적이고 감정 표현이 없는 트윗 (사실 전달에 초점).\nNegative: 문제점이나 불만을 표현한 부정적인 트윗.\nExtremely Negative: 극단적으로 부정적인 상황에 대한 트윗.\n\n(1) transformers 라이브러리의 “distilbert/distilbert-base-uncased” 모델을 활용하여 OriginalTweet을 입력으로 Sentiment를 예측하는 텍스트 분류기를 학습하라.\n요구 사항\n1. 데이터 분할: 주어진 데이터셋 covid19_tweets_df_train 을 7:3 비율로 나누어, 70%는 훈련 데이터로, 나머지 30%는 검증 데이터로 사용하라.\n2. 평가지표: 모델의 성능평가를 위하여 아래의 함수를 사용하라.\ndef compute_metrics(eval_pred):\n    logits, labels = eval_pred\n    predictions = np.argmax(logits, axis=1)  # 예측 클래스\n\n    # 평가 메트릭 불러오기\n    acc = evaluate.load(\"accuracy\")\n    f1 = evaluate.load(\"f1\")\n\n    # 평가 메트릭 계산\n    dct1 = acc.compute(predictions=predictions, references=labels)  \n    dct2 = f1.compute(predictions=predictions, references=labels, average='weighted')\n\n    # 두 개의 메트릭 결과를 합치기\n    return dct1 | dct2  \n(풀이)\n\nset(covid19_tweets_df_train['Sentiment'])\n\n{'Extremely Negative', 'Extremely Positive', 'Negative', 'Neutral', 'Positive'}\n\n\n\nid2label = {i:label for i,label in enumerate(set(covid19_tweets_df_train['Sentiment']))}\nlabel2id = {label:i for i,label in enumerate(set(covid19_tweets_df_train['Sentiment']))}\nprint(id2label)\nprint(label2id)\n\n{0: 'Positive', 1: 'Neutral', 2: 'Extremely Negative', 3: 'Extremely Positive', 4: 'Negative'}\n{'Positive': 0, 'Neutral': 1, 'Extremely Negative': 2, 'Extremely Positive': 3, 'Negative': 4}\n\n\n\ntrain_text = list(covid19_tweets_df_train['OriginalTweet'])\ntest_text = list(covid19_tweets_df_test['OriginalTweet'])\ntrain_label = list(covid19_tweets_df_train.Sentiment.map(label2id))\n\n\ntokenizer = transformers.AutoTokenizer.from_pretrained(\"distilbert/distilbert-base-uncased\")\ntrain_dct = tokenizer(train_text,truncation=True) | {'labels': train_label}\ntest_dct = tokenizer(test_text,truncation=True)\n\n\ntrain = datasets.Dataset.from_dict(train_dct)\ntest = datasets.Dataset.from_dict(test_dct)\nd = train.train_test_split(test_size=0.3)\ncovid19_tweets = datasets.DatasetDict({'train':d['train'], 'eval':d['test'], 'test':test})\ncovid19_tweets\n\nDatasetDict({\n    train: Dataset({\n        features: ['input_ids', 'attention_mask', 'labels'],\n        num_rows: 14405\n    })\n    eval: Dataset({\n        features: ['input_ids', 'attention_mask', 'labels'],\n        num_rows: 6174\n    })\n    test: Dataset({\n        features: ['input_ids', 'attention_mask'],\n        num_rows: 20578\n    })\n})\n\n\n\nmodel = transformers.AutoModelForSequenceClassification.from_pretrained(\n    \"distilbert/distilbert-base-uncased\", \n    num_labels=5,\n    id2label=id2label,\n    label2id=label2id\n)\n\nSome weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']\nYou should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.\n\n\n\ndata_collator = transformers.DataCollatorWithPadding(tokenizer)\n\n\ndef compute_metrics(eval_pred):\n    logits, labels = eval_pred\n    predictions = np.argmax(logits, axis=1)  # 예측 클래스\n\n    # 평가 메트릭 불러오기\n    acc = evaluate.load(\"accuracy\")\n    f1 = evaluate.load(\"f1\")\n\n    # 평가 메트릭 계산\n    dct1 = acc.compute(predictions=predictions, references=labels)  \n    dct2 = f1.compute(predictions=predictions, references=labels, average='weighted')\n\n    # 두 개의 메트릭 결과를 합치기\n    return dct1 | dct2  \n\n\n# Training Arguments 설정\ntraining_args = transformers.TrainingArguments(\n    output_dir=\"./results\",\n    evaluation_strategy=\"epoch\",\n    learning_rate=2e-5,\n    per_device_train_batch_size=16,\n    per_device_eval_batch_size=16,\n    num_train_epochs=3,\n    weight_decay=0.01,\n    logging_dir='./logs',\n    logging_steps=10,\n)\n\n# Trainer 설정\ntrainer = transformers.Trainer(\n    model=model,\n    args=training_args,\n    train_dataset=covid19_tweets['train'],\n    eval_dataset=covid19_tweets['eval'],\n    tokenizer=tokenizer,\n    data_collator=data_collator,\n    compute_metrics=compute_metrics,\n)\n\n# 모델 학습\ntrainer.train()\n\n/home/cgb3/anaconda3/envs/hf/lib/python3.12/site-packages/transformers/training_args.py:1568: FutureWarning: `evaluation_strategy` is deprecated and will be removed in version 4.46 of 🤗 Transformers. Use `eval_strategy` instead\n  warnings.warn(\nPyTorch: setting up devices\nThe default value for the training argument `--report_to` will change in v5 (from all installed integrations to none). In v5, you will need to use `--report_to all` to get the same behavior as now. You should start updating your code and make this info disappear :-).\n/tmp/ipykernel_113605/2082248890.py:15: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `Trainer.__init__`. Use `processing_class` instead.\n  trainer = transformers.Trainer(\n***** Running training *****\n  Num examples = 14,405\n  Num Epochs = 3\n  Instantaneous batch size per device = 16\n  Total train batch size (w. parallel, distributed & accumulation) = 16\n  Gradient Accumulation steps = 1\n  Total optimization steps = 2,703\n  Number of trainable parameters = 66,957,317\nSaving model checkpoint to ./results/checkpoint-500\nConfiguration saved in ./results/checkpoint-500/config.json\nModel weights saved in ./results/checkpoint-500/model.safetensors\ntokenizer config file saved in ./results/checkpoint-500/tokenizer_config.json\nSpecial tokens file saved in ./results/checkpoint-500/special_tokens_map.json\n\n***** Running Evaluation *****\n  Num examples = 6174\n  Batch size = 16\nDownloading builder script: 100%|██████████| 6.77k/6.77k [00:00&lt;00:00, 14.6MB/s]\nSaving model checkpoint to ./results/checkpoint-1000\nConfiguration saved in ./results/checkpoint-1000/config.json\nModel weights saved in ./results/checkpoint-1000/model.safetensors\ntokenizer config file saved in ./results/checkpoint-1000/tokenizer_config.json\nSpecial tokens file saved in ./results/checkpoint-1000/special_tokens_map.json\nSaving model checkpoint to ./results/checkpoint-1500\nConfiguration saved in ./results/checkpoint-1500/config.json\nModel weights saved in ./results/checkpoint-1500/model.safetensors\ntokenizer config file saved in ./results/checkpoint-1500/tokenizer_config.json\nSpecial tokens file saved in ./results/checkpoint-1500/special_tokens_map.json\n\n***** Running Evaluation *****\n  Num examples = 6174\n  Batch size = 16\nSaving model checkpoint to ./results/checkpoint-2000\nConfiguration saved in ./results/checkpoint-2000/config.json\nModel weights saved in ./results/checkpoint-2000/model.safetensors\ntokenizer config file saved in ./results/checkpoint-2000/tokenizer_config.json\nSpecial tokens file saved in ./results/checkpoint-2000/special_tokens_map.json\nSaving model checkpoint to ./results/checkpoint-2500\nConfiguration saved in ./results/checkpoint-2500/config.json\nModel weights saved in ./results/checkpoint-2500/model.safetensors\ntokenizer config file saved in ./results/checkpoint-2500/tokenizer_config.json\nSpecial tokens file saved in ./results/checkpoint-2500/special_tokens_map.json\nSaving model checkpoint to ./results/checkpoint-2703\nConfiguration saved in ./results/checkpoint-2703/config.json\nModel weights saved in ./results/checkpoint-2703/model.safetensors\ntokenizer config file saved in ./results/checkpoint-2703/tokenizer_config.json\nSpecial tokens file saved in ./results/checkpoint-2703/special_tokens_map.json\n\n***** Running Evaluation *****\n  Num examples = 6174\n  Batch size = 16\n\n\nTraining completed. Do not forget to share your model on huggingface.co/models =)\n\n\n\n\n\n    \n      \n      \n      [2703/2703 01:54, Epoch 3/3]\n    \n    \n\n\n\nEpoch\nTraining Loss\nValidation Loss\nAccuracy\nF1\n\n\n\n\n1\n0.413400\n0.959950\n0.785876\n0.786625\n\n\n2\n0.285800\n0.793307\n0.788468\n0.788806\n\n\n3\n0.148400\n0.852429\n0.798348\n0.798777\n\n\n\n\n\n\nTrainOutput(global_step=2703, training_loss=0.21161614542002155, metrics={'train_runtime': 114.3206, 'train_samples_per_second': 378.016, 'train_steps_per_second': 23.644, 'total_flos': 1019315616068040.0, 'train_loss': 0.21161614542002155, 'epoch': 3.0})\n\n\n(2) (1)에서 학습한 모델을 활용하여 covid19_tweets_df_test의 OriginalTweet 열에 대한 Sentiment를 예측하시오.\n답안예시\n\ncovid19_tweets_df_test.head()\n\n\n\n\n\n\n\n\nUserName\nScreenName\nLocation\nTweetAt\nOriginalTweet\nSentiment\n\n\n\n\n0\n3800\n48752\nUK\n16-03-2020\nadvice Talk to your neighbours family to excha...\nPositive\n\n\n1\n3802\n48754\nNaN\n16-03-2020\nMy food stock is not the only one which is emp...\nExtremely Positive\n\n\n2\n3804\n48756\nÃœT: 36.319708,-82.363649\n16-03-2020\nAs news of the regionÂ’s first confirmed COVID...\nPositive\n\n\n3\n3806\n48758\nAustria\n16-03-2020\nWas at the supermarket today. Didn't buy toile...\nNeutral\n\n\n4\n3808\n48760\nBHAVNAGAR,GUJRAT\n16-03-2020\nFor corona prevention,we should stop to buy th...\nNegative\n\n\n\n\n\n\n\n(풀이)\n\nout = trainer.predict(covid19_tweets['test'])\nout \n\n\n***** Running Prediction *****\n  Num examples = 20578\n  Batch size = 16\n\n\n\n\n\nPredictionOutput(predictions=array([[ 6.052478  , -0.25911158, -4.757802  , -1.4280325 , -1.1493124 ],\n       [ 2.3945487 , -1.8138888 , -4.4416656 ,  2.885043  , -1.0756998 ],\n       [ 5.9334354 , -1.897063  , -5.115348  ,  0.6702355 , -1.7291662 ],\n       ...,\n       [-1.9611454 , -3.7045465 , -3.4850702 ,  6.3820515 , -2.5484905 ],\n       [-2.0311882 , -1.2512956 , -0.4017841 , -3.9326744 ,  5.3791475 ],\n       [ 1.1640915 ,  2.671375  , -3.3171444 , -3.6160667 ,  1.4595261 ]],\n      dtype=float32), label_ids=None, metrics={'test_runtime': 12.0254, 'test_samples_per_second': 1711.21, 'test_steps_per_second': 107.023})\n\n\n\ncovid19_tweets_df_test['Sentiment'] = [id2label[i] for i in out.predictions.argmax(axis=1)]\n\n\ncovid19_tweets_df_test.head()\n\n\n\n\n\n\n\n\nUserName\nScreenName\nLocation\nTweetAt\nOriginalTweet\nSentiment\n\n\n\n\n0\n3800\n48752\nUK\n16-03-2020\nadvice Talk to your neighbours family to excha...\nPositive\n\n\n1\n3802\n48754\nNaN\n16-03-2020\nMy food stock is not the only one which is emp...\nExtremely Positive\n\n\n2\n3804\n48756\nÃœT: 36.319708,-82.363649\n16-03-2020\nAs news of the regionÂ’s first confirmed COVID...\nPositive\n\n\n3\n3806\n48758\nAustria\n16-03-2020\nWas at the supermarket today. Didn't buy toile...\nNeutral\n\n\n4\n3808\n48760\nBHAVNAGAR,GUJRAT\n16-03-2020\nFor corona prevention,we should stop to buy th...\nNegative\n\n\n\n\n\n\n\n\n\n2. IMDB – 가산점 50점\n아래는 2주차에서 배운 imdb 분석코드를 정리한 것이다. 분석의 편의를 위하여 1000개의 자료만 사용하여 학습과 평가에 사용했다.\n\n## Step1 \nimdb = datasets.load_dataset('imdb')\ntokenizer = transformers.AutoTokenizer.from_pretrained(\"distilbert/distilbert-base-uncased\") \nimdb_transformed = imdb.map(lambda dct: tokenizer(dct['text'],truncation=True), batched=True)\n## Step2 \nmodel = transformers.AutoModelForSequenceClassification.from_pretrained(\"distilbert/distilbert-base-uncased\", num_labels=2)\n## Step3 \ndef accuracy(eval_pred):\n    predictions, labels = eval_pred\n    predictions = predictions.argmax(axis=1)\n    accuracy = evaluate.load(\"accuracy\")\n    return accuracy.compute(predictions=predictions, references=labels)\ntrainer = transformers.Trainer(\n    model=model,\n    args=transformers.TrainingArguments(\n        output_dir=\"my_awesome_model\",\n        learning_rate=2e-5,\n        per_device_train_batch_size=16,\n        per_device_eval_batch_size=16,\n        num_train_epochs=2,\n        weight_decay=0.01,\n        eval_strategy=\"epoch\",\n        save_strategy=\"epoch\",\n        load_best_model_at_end=True,\n        push_to_hub=False,\n        report_to=\"none\"\n    ),\n    train_dataset=imdb_transformed['train'].select(range(1000)), # 1000개만 사용\n    eval_dataset=imdb_transformed['test'].select(range(1000)), # 1000개만 사용\n    tokenizer=tokenizer,\n    data_collator=transformers.DataCollatorWithPadding(tokenizer=tokenizer),\n    compute_metrics=accuracy,\n)\ntrainer.train()\n\nSome weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']\nYou should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.\n/tmp/ipykernel_116097/1501501835.py:13: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `Trainer.__init__`. Use `processing_class` instead.\n  trainer = transformers.Trainer(\n\n\n\n    \n      \n      \n      [126/126 00:30, Epoch 2/2]\n    \n    \n\n\n\nEpoch\nTraining Loss\nValidation Loss\nAccuracy\n\n\n\n\n1\nNo log\n0.003095\n1.000000\n\n\n2\nNo log\n0.001992\n1.000000\n\n\n\n\n\n\nTrainOutput(global_step=126, training_loss=0.042853578688606384, metrics={'train_runtime': 30.9969, 'train_samples_per_second': 64.523, 'train_steps_per_second': 4.065, 'total_flos': 260867634212640.0, 'train_loss': 0.042853578688606384, 'epoch': 2.0})\n\n\n보는것처럼 학습은 완벽하게 되었다. (accuracy가 100%) 그렇지만 imdb_transformed['test'] 전체에서 평가를 해보니 결과가 좋지 않았다. (accuracy가 50%)\n\n## Step4 \nout = trainer.predict(imdb_transformed['test'])\nout\n\n\n\n\nPredictionOutput(predictions=array([[ 3.2670784, -2.9905088],\n       [ 3.2648833, -3.0288398],\n       [ 3.224249 , -2.9409087],\n       ...,\n       [ 3.2539847, -3.0032833],\n       [ 3.2596397, -3.0228188],\n       [ 3.2206337, -3.0072105]], dtype=float32), label_ids=array([0, 0, 0, ..., 1, 1, 1]), metrics={'test_loss': 3.1024723052978516, 'test_accuracy': 0.5, 'test_runtime': 81.9806, 'test_samples_per_second': 304.95, 'test_steps_per_second': 19.065})\n\n\n\nout.metrics['test_accuracy']\n\n0.5\n\n\n무엇이 문제일까? 혹시 아래의 코드를 수정하여 학습의 성능을 올릴 수 있는 방법이 있을까? (단 데이터의 수는 그대로 유지한다)\ntrainer = transformers.Trainer(\n    model=model,\n    args=transformers.TrainingArguments(\n        output_dir=\"my_awesome_model\",\n        learning_rate=2e-5,\n        per_device_train_batch_size=16,\n        per_device_eval_batch_size=16,\n        num_train_epochs=2,\n        weight_decay=0.01,\n        eval_strategy=\"epoch\",\n        save_strategy=\"epoch\",\n        load_best_model_at_end=True,\n        push_to_hub=False,\n        report_to=\"none\"\n    ),\n    train_dataset=imdb_transformed['train'].select(range(1000)), # 1000개만 사용\n    eval_dataset=imdb_transformed['test'].select(range(1000)), # 1000개만 사용\n    tokenizer=tokenizer,\n    data_collator=transformers.DataCollatorWithPadding(tokenizer=tokenizer),\n    compute_metrics=accuracy,\n)\n(문제의원인)\n- 학습에 사용된 데이터를 살펴보자.\n\nset(imdb_transformed['train'].select(range(1000))['label'])\n\n{0}\n\n\n\nimdb_transformed['train'].select(range(1000)) 에 부정적인 영화평가에 해당하는 라벨만 존재함.\n\n\n\n\n\n\n\nNote\n\n\n\n참고로 imdb_transformed['train']자료는 처음 12500는 모두 부정평가만, 다음 12500은 모두 긍정평가만 있다. 즉 imdb_transformed['train']자료는 “정렬”되어 있다.\n처음 12500개의 라벨\nset(imdb_transformed['train'].select(range(12500))['label'])\n{0} \n다음 12500개의 라벨\nset(imdb_transformed['train'].select(range(12500,25000))['label'])\n{1}\n\n\n- 따라서 imdb_transformed['train'].select(range(1000))이 데이터로만 학습한다면 인공지능의 입장에서는\n\n“데이터 상관없이 0이라고만 대답하면 되잖아?”\n\n라고 인식할 수 있다. 실제로 인공지능은 imdb_transformed['test']에 대응하는 모든 예측값을 항상 0으로만 예측하도록 학습되었다. (그렇게 해도 지금까지는 항상 accuracy가 100이 나왔으니까..)\n\nset(out.predictions.argmax(axis=1)) # 모든예측값은 0이다. \n\n{0}\n\n\n- 실제로는 imdb_transformed['test']에 0과 1은 딱 절반씩 있으므로, accuracy는 50%가 나온다. (인공지능은 항상 0이라고 예측)\n\n{i:imdb_transformed['test']['label'].count(i) for i in set(imdb_transformed['test']['label'])}\n\n{0: 12500, 1: 12500}\n\n\n\n생각해보니까.. train과정에서 accuracy가 항상 100%가 나온이유도 당연하다.\nimdb_transformed['test'].select(range(1000)) 여기에는 label = 0 에 해당하는 자료만 있을테니까\n\n(해결책)\n데이터를 섞으면 된다.\n\nset(imdb_transformed['train'].shuffle().select(range(1000))['label'])\n\n{0, 1}\n\n\n\n## Step1 \nimdb = datasets.load_dataset('imdb')\ntokenizer = transformers.AutoTokenizer.from_pretrained(\"distilbert/distilbert-base-uncased\") \nimdb_transformed = imdb.map(lambda dct: tokenizer(dct['text'],truncation=True), batched=True)\n## Step2 \nmodel = transformers.AutoModelForSequenceClassification.from_pretrained(\"distilbert/distilbert-base-uncased\", num_labels=2)\n## Step3 \ndef accuracy(eval_pred):\n    predictions, labels = eval_pred\n    predictions = predictions.argmax(axis=1)\n    accuracy = evaluate.load(\"accuracy\")\n    return accuracy.compute(predictions=predictions, references=labels)\ntrainer = transformers.Trainer(\n    model=model,\n    args=transformers.TrainingArguments(\n        output_dir=\"my_awesome_model\",\n        learning_rate=2e-5,\n        per_device_train_batch_size=16,\n        per_device_eval_batch_size=16,\n        num_train_epochs=2,\n        weight_decay=0.01,\n        eval_strategy=\"epoch\",\n        save_strategy=\"epoch\",\n        load_best_model_at_end=True,\n        push_to_hub=False,\n        report_to=\"none\"\n    ),\n    train_dataset=imdb_transformed['train'].shuffle().select(range(1000)), # 1000개만 사용\n    eval_dataset=imdb_transformed['test'].shuffle().select(range(1000)), # 1000개만 사용\n    tokenizer=tokenizer,\n    data_collator=transformers.DataCollatorWithPadding(tokenizer=tokenizer),\n    compute_metrics=accuracy,\n)\ntrainer.train()\n\nSome weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']\nYou should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.\n/tmp/ipykernel_116097/3188304965.py:13: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `Trainer.__init__`. Use `processing_class` instead.\n  trainer = transformers.Trainer(\n\n\n\n    \n      \n      \n      [126/126 00:31, Epoch 2/2]\n    \n    \n\n\n\nEpoch\nTraining Loss\nValidation Loss\nAccuracy\n\n\n\n\n1\nNo log\n0.441965\n0.826000\n\n\n2\nNo log\n0.345760\n0.853000\n\n\n\n\n\n\nTrainOutput(global_step=126, training_loss=0.48426180037241134, metrics={'train_runtime': 31.3854, 'train_samples_per_second': 63.724, 'train_steps_per_second': 4.015, 'total_flos': 262388939494080.0, 'train_loss': 0.48426180037241134, 'epoch': 2.0})\n\n\n\n## Step4 \nout = trainer.predict(imdb_transformed['test'])\nout.metrics['test_accuracy']\n\n\n\n\n0.88408\n\n\n이게 정상적인 학습"
   },
   {
     "objectID": "quiz/Quiz-10.html",
@@ -221,7 +221,7 @@
     "href": "posts/A1.html",
     "title": "A1: 산업계가 원하는 데이터 과학 인재상",
     "section": "",
-    "text": "ref: 데이터사이언스 시대 미래인재 양성을 위한 학부 교육과정 재설계 가이드라인 (통계교육혁신위원회)\n\nhttps://github.com/guebin/MP2024/blob/main/posts/MP2024-A1.pdf"
+    "text": "ref: 데이터사이언스 시대 미래인재 양성을 위한 학부 교육과정 재설계 가이드라인 (통계교육혁신위원회)\n\nhttps://github.com/guebin/MP2024/blob/main/posts/MP2024-A1.pdf\n\n\n1. 네이버 김OO\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n교수들으라고 하는 소리인듯\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n2. LG-CNS A그룹\n\n조직내 통계학과 출신들?\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png"
   },
   {
     "objectID": "posts/08wk-2.html#a.-공통점",
@@ -726,5 +726,460 @@
     "title": "Quiz & Report",
     "section": "",
     "text": "공지사항\n\n퀴즈1의 점수는 학점에 포함되지 않습니다.\n퀴즈2의 2-(2)의 채점은 가산점으로 처리합니다. (따라서 퀴즈2는 80점만점)\n퀴즈7의 점수는 학점에 포함되지 않습니다. (단, 퀴즈7 미응시자의 경우는 퀴즈7을 0점처리)\n\n퀴즈\n\n\n\n\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nDec 19, 2024\n\n\nReport-1 (due: 2024.12.19)\n\n\n최규빈 \n\n\n\n\nDec 10, 2024\n\n\nQuiz-11 (2024.12.10) // 범위: 12wk-1 까지\n\n\n최규빈 \n\n\n\n\nDec 5, 2024\n\n\nQuiz-10 (2024.12.05) // 범위: 11wk-1 까지\n\n\n최규빈 \n\n\n\n\nDec 3, 2024\n\n\nQuiz-9 (2024.12.03) // 범위: 11wk-1 까지\n\n\n최규빈 \n\n\n\n\nNov 26, 2024\n\n\nQuiz-8 (2024.11.26) // 범위: 10wk-1 까지\n\n\n최규빈 \n\n\n\n\nNov 19, 2024\n\n\nQuiz-7 (2024.11.19) // 범위: 09wk-2 까지\n\n\n최규빈 \n\n\n\n\nNov 12, 2024\n\n\nQuiz-6 (2024.11.12) // 범위: 08wk-2 까지\n\n\n최규빈 \n\n\n\n\nNov 5, 2024\n\n\nQuiz-5 (2024.11.05) // 범위: 07wk-1 까지\n\n\n최규빈 \n\n\n\n\nOct 22, 2024\n\n\nQuiz-4 (2024.10.22) // 범위: 05wk-1 까지\n\n\n최규빈 \n\n\n\n\nOct 8, 2024\n\n\nQuiz-3 (2024.10.08) // 범위: 04wk-1 까지\n\n\n최규빈 \n\n\n\n\nSep 24, 2024\n\n\nQuiz-2 (2024.09.24) // 범위: 02wk-1 까지\n\n\n최규빈 \n\n\n\n\nSep 5, 2024\n\n\nQuiz-1 (2024.09.05) // 범위: 파이썬기본문법\n\n\n최규빈 \n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/A1.html#네이버-김oo",
+    "href": "posts/A1.html#네이버-김oo",
+    "title": "A1: 산업계가 원하는 데이터 과학 인재상",
+    "section": "1. 네이버 김OO",
+    "text": "1. 네이버 김OO\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n교수들으라고 하는 소리인듯\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png"
+  },
+  {
+    "objectID": "posts/A1.html#네이버-김oo-1",
+    "href": "posts/A1.html#네이버-김oo-1",
+    "title": "A1: 산업계가 원하는 데이터 과학 인재상",
+    "section": "1. 네이버 김OO",
+    "text": "1. 네이버 김OO\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n교수들으라고 하는 소리인듯\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-a그룹",
+    "href": "posts/A1.html#lg-cns-a그룹",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS A그룹",
+    "text": "# LG-CNS A그룹"
+  },
+  {
+    "objectID": "posts/A1.html#네이버",
+    "href": "posts/A1.html#네이버",
+    "title": "A1: 산업계가 원하는 데이터 과학 인재상",
+    "section": "#. 네이버",
+    "text": "#. 네이버\n\nimage.png"
+  },
+  {
+    "objectID": "posts/A1.html#section",
+    "href": "posts/A1.html#section",
+    "title": "A1: 산업계가 원하는 데이터 과학 인재상",
+    "section": "#",
+    "text": "#\nref: 데이터사이언스 시대 미래인재 양성을 위한 학부 교육과정 재설계 가이드라인 (통계교육혁신위원회)\n\nhttps://github.com/guebin/MP2024/blob/main/posts/MP2024-A1.pdf"
+  },
+  {
+    "objectID": "posts/A1.html#서론",
+    "href": "posts/A1.html#서론",
+    "title": "A1: 산업계가 원하는 데이터 과학 인재상",
+    "section": "#. 서론",
+    "text": "#. 서론\nref: 데이터사이언스 시대 미래인재 양성을 위한 학부 교육과정 재설계 가이드라인 (통계교육혁신위원회)\n\nhttps://github.com/guebin/MP2024/blob/main/posts/MP2024-A1.pdf"
+  },
+  {
+    "objectID": "posts/A1.html#intro",
+    "href": "posts/A1.html#intro",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "#. Intro",
+    "text": "#. Intro\nref: 데이터사이언스 시대 미래인재 양성을 위한 학부 교육과정 재설계 가이드라인 (통계교육혁신위원회)\n\nhttps://github.com/guebin/MP2024/blob/main/posts/MP2024-A1.pdf\n\n- 본 가이드는 교수님들 보라고 만든 것.\n- 그렇지만 학생들이 봐도 도움이 될 것 같음."
+  },
+  {
+    "objectID": "posts/A1.html#intro-1",
+    "href": "posts/A1.html#intro-1",
+    "title": "A1: 산업계가 원하는 데이터 과학 인재상",
+    "section": "#. Intro",
+    "text": "#. Intro\n\n설문지 내용응용"
+  },
+  {
+    "objectID": "posts/A1.html#네이버클라우드",
+    "href": "posts/A1.html#네이버클라우드",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "#. 네이버클라우드",
+    "text": "#. 네이버클라우드"
+  },
+  {
+    "objectID": "posts/A1.html#네이버클라우드-1",
+    "href": "posts/A1.html#네이버클라우드-1",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "#. 네이버클라우드",
+    "text": "#. 네이버클라우드"
+  },
+  {
+    "objectID": "posts/A1.html#네이버클라우드-2",
+    "href": "posts/A1.html#네이버클라우드-2",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "#. 네이버클라우드",
+    "text": "#. 네이버클라우드"
+  },
+  {
+    "objectID": "posts/A1.html#네이버클라우드-3",
+    "href": "posts/A1.html#네이버클라우드-3",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "#. 네이버클라우드",
+    "text": "#. 네이버클라우드"
+  },
+  {
+    "objectID": "posts/A1.html#네이버클라우드-4",
+    "href": "posts/A1.html#네이버클라우드-4",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "#. 네이버클라우드",
+    "text": "#. 네이버클라우드"
+  },
+  {
+    "objectID": "posts/A1.html#네이버클라우드-5",
+    "href": "posts/A1.html#네이버클라우드-5",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "#. 네이버클라우드",
+    "text": "#. 네이버클라우드"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-a그룹-1",
+    "href": "posts/A1.html#lg-cns-a그룹-1",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS A그룹",
+    "text": "# LG-CNS A그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-a그룹-2",
+    "href": "posts/A1.html#lg-cns-a그룹-2",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS A그룹",
+    "text": "# LG-CNS A그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-a그룹-3",
+    "href": "posts/A1.html#lg-cns-a그룹-3",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS A그룹",
+    "text": "# LG-CNS A그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-a그룹-4",
+    "href": "posts/A1.html#lg-cns-a그룹-4",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS A그룹",
+    "text": "# LG-CNS A그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-a그룹-5",
+    "href": "posts/A1.html#lg-cns-a그룹-5",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS A그룹",
+    "text": "# LG-CNS A그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-a그룹-6",
+    "href": "posts/A1.html#lg-cns-a그룹-6",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS A그룹",
+    "text": "# LG-CNS A그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-a그룹-7",
+    "href": "posts/A1.html#lg-cns-a그룹-7",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS A그룹",
+    "text": "# LG-CNS A그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-a그룹-8",
+    "href": "posts/A1.html#lg-cns-a그룹-8",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS A그룹",
+    "text": "# LG-CNS A그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-a그룹-9",
+    "href": "posts/A1.html#lg-cns-a그룹-9",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS A그룹",
+    "text": "# LG-CNS A그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-a그룹-10",
+    "href": "posts/A1.html#lg-cns-a그룹-10",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS A그룹",
+    "text": "# LG-CNS A그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-a그룹-11",
+    "href": "posts/A1.html#lg-cns-a그룹-11",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS A그룹",
+    "text": "# LG-CNS A그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-a그룹-12",
+    "href": "posts/A1.html#lg-cns-a그룹-12",
+    "title": "A1: 산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS A그룹",
+    "text": "# LG-CNS A그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-b그룹",
+    "href": "posts/A1.html#lg-cns-b그룹",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS B그룹",
+    "text": "# LG-CNS B그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-b그룹-1",
+    "href": "posts/A1.html#lg-cns-b그룹-1",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS B그룹",
+    "text": "# LG-CNS B그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-b그룹-2",
+    "href": "posts/A1.html#lg-cns-b그룹-2",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS B그룹",
+    "text": "# LG-CNS B그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-b그룹-3",
+    "href": "posts/A1.html#lg-cns-b그룹-3",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS B그룹",
+    "text": "# LG-CNS B그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-b그룹-4",
+    "href": "posts/A1.html#lg-cns-b그룹-4",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS B그룹",
+    "text": "# LG-CNS B그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-b그룹-5",
+    "href": "posts/A1.html#lg-cns-b그룹-5",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS B그룹",
+    "text": "# LG-CNS B그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-b그룹-6",
+    "href": "posts/A1.html#lg-cns-b그룹-6",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS B그룹",
+    "text": "# LG-CNS B그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-b그룹-7",
+    "href": "posts/A1.html#lg-cns-b그룹-7",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS B그룹",
+    "text": "# LG-CNS B그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-b그룹-8",
+    "href": "posts/A1.html#lg-cns-b그룹-8",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS B그룹",
+    "text": "# LG-CNS B그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-b그룹-9",
+    "href": "posts/A1.html#lg-cns-b그룹-9",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS B그룹",
+    "text": "# LG-CNS B그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-b그룹-10",
+    "href": "posts/A1.html#lg-cns-b그룹-10",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS B그룹",
+    "text": "# LG-CNS B그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-b그룹-11",
+    "href": "posts/A1.html#lg-cns-b그룹-11",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS B그룹",
+    "text": "# LG-CNS B그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-b그룹-12",
+    "href": "posts/A1.html#lg-cns-b그룹-12",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS B그룹",
+    "text": "# LG-CNS B그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-b그룹-13",
+    "href": "posts/A1.html#lg-cns-b그룹-13",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS B그룹",
+    "text": "# LG-CNS B그룹"
+  },
+  {
+    "objectID": "posts/A1.html#lg-cns-b그룹-14",
+    "href": "posts/A1.html#lg-cns-b그룹-14",
+    "title": "A1: 산업계가 원하는 데이터 과학 인재상",
+    "section": "# LG-CNS B그룹",
+    "text": "# LG-CNS B그룹"
+  },
+  {
+    "objectID": "posts/A1.html#베가스",
+    "href": "posts/A1.html#베가스",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# 베가스",
+    "text": "# 베가스"
+  },
+  {
+    "objectID": "posts/A1.html#베가스-1",
+    "href": "posts/A1.html#베가스-1",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# 베가스",
+    "text": "# 베가스"
+  },
+  {
+    "objectID": "posts/A1.html#베가스-2",
+    "href": "posts/A1.html#베가스-2",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# 베가스",
+    "text": "# 베가스"
+  },
+  {
+    "objectID": "posts/A1.html#베가스-3",
+    "href": "posts/A1.html#베가스-3",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# 베가스",
+    "text": "# 베가스"
+  },
+  {
+    "objectID": "posts/A1.html#베가스-4",
+    "href": "posts/A1.html#베가스-4",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# 베가스",
+    "text": "# 베가스"
+  },
+  {
+    "objectID": "posts/A1.html#베가스-5",
+    "href": "posts/A1.html#베가스-5",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# 베가스",
+    "text": "# 베가스"
+  },
+  {
+    "objectID": "posts/A1.html#베가스-6",
+    "href": "posts/A1.html#베가스-6",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "# 베가스",
+    "text": "# 베가스"
+  },
+  {
+    "objectID": "posts/A1.html#활용법1",
+    "href": "posts/A1.html#활용법1",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "#. 활용법1",
+    "text": "#. 활용법1\n- 활용방법1: 자기소개서, 면접\n\n설문지 내용응용"
+  },
+  {
+    "objectID": "posts/A1.html#활용법2",
+    "href": "posts/A1.html#활용법2",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "#. 활용법2",
+    "text": "#. 활용법2\n- 활용방법2: 학습방향의 설정\n\n설문지 내용응용"
+  },
+  {
+    "objectID": "posts/A1.html#활용법3",
+    "href": "posts/A1.html#활용법3",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "#. 활용법3",
+    "text": "#. 활용법3\n- 활용방법3:\n\n설문지 내용응용"
+  },
+  {
+    "objectID": "posts/A1.html#활용방법3",
+    "href": "posts/A1.html#활용방법3",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "#. 활용방법3",
+    "text": "#. 활용방법3\n- 활용방법3: 로드맵\n\n활용방법2에서.. 여러실습, 프로젝트 경험 이라는 말을 하기 위해서는 앞으로 몇번은 해봐야한다.\n\n\n설문지 내용로드맵\n\n\n\n교육 직무와 기업에 따른 차이는 있겠지만 최근 들어 데이터 분석업무의 결과가 보고서를 작성하는 것으로 끝나는 것이 아닌 반복사용을 위해 기업시스 템과 연계되는 경우가 많기에 Dashboard, MLOps 등을 개발할 때에는 통계분석을 위해 만들어진 보다는 태생이 개발언어인 이 압도적으로 우위에 있음\n프로그래밍 스킬이 부족한 경우가 간혹 있으며 파이썬 클래스를 이해하고 이를 기반으로 모듈을 만드는 것은 현장에서 필수적임\nLLM과 같은 신기술에 빠르게 적응할 수 있는 코딩역량 관심과 호기심이 필요하며, AutoEncoder, RNN, LSTM과 같은 딥러닝 모델을 만들고 실행해 본 경험이 있어야 함.\n\n\n\n\nDashboard 만들어 보기\n파이썬으로 모듈 만들어 보기 + 패키지 만들고 Git으로 배포하는 방법 익혀보기"
+  },
+  {
+    "objectID": "posts/A1.html#활용방법2",
+    "href": "posts/A1.html#활용방법2",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "#. 활용방법2",
+    "text": "#. 활용방법2\n- 활용방법2: 자기소개서, 면접\n\n설문지 내용가상 자기소개서\n\n\n\n경영학이나 산업공학 전공자들은 나름대로 업무가 주어지면 이를 해결하는 방법이나 엔지니어 고용 등의 그들만의 해결 프로세스에 대한 문제 해결 생태계를 갖 고 있음\n반면 통계학 기초의 일들을 하는 사람들은 고립되는 경우가 많음 방법론에 대한 순수과학적인 통계학 측면에서의 옳지 않음 만을 판단한 후 문제 해결 노력을 회피하는 경향이 있음 이는 통계학 전공자가 문제 해결의 과정에서 고립되는 결과를 낳게 됨\n\n\n\n통계학 전공자로서 데이터를 탐구하며 종종 마주한 것은 “방법론적 옳음”만을 강조하던 과거의 저 자신이었습니다. 하지만 여러 실습과 프로젝트 경험을 통해 방법론적으로 정확한 결과가 실제로 문제를 해결하지 못하는 경우를 겪으며, 새로운 방향성을 설정하게 되었습니다. 이제는 방법론의 정합성뿐 아니라 데이터와 비즈니스 맥락을 연결해 실질적인 가치를 창출하는 데 초점을 맞추고 있습니다.\n\n그런데 이런말을 하기 위해선 최소한 “여러 실습” 과 “프로젝트 경험” 이 있어야 하지 않겠어요?? \\(\\to\\) 앞으로 하면 됩니다…"
+  },
+  {
+    "objectID": "posts/A1.html#활용방법1",
+    "href": "posts/A1.html#활용방법1",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "#. 활용방법1",
+    "text": "#. 활용방법1\n- 활용방법1: 수업 or 교수님께 질문 or GPT를 이용한 완벽한 이해 + 자기화\n\n설문지 내용이해\n\n\n머신러닝 모델을 만들거나 활용할 때 현실적인 문제에 대해 고민이 부족함 예를 들어 모델의 성능을 개선하기 위해 여러 파생변수들을 만드는 과정에서 교호작용 변수를 만들어 RandomForest에 넣거나..\n\n\n- 수업을 통한 이해: 작년 기계학습활용 강의노트\n\nhttps://guebin.github.io/MP2023/posts/07wk-30.html\nhttps://guebin.github.io/MP2023/posts/07wk-31.html\nhttps://guebin.github.io/MP2023/posts/07wk-32.html\n\n- GPT를 통한 이해\n\nRandom Forest는 변수 간 비선형적 관계와 교호작용을 자동으로 포착하는 특성이 있어 교호작용 변수를 별도로 생성하는 것은 불필요하며, 오히려 계산 비용 증가와 모델 복잡도 상승을 초래할 수 있습니다. 이는 과적합 위험을 높이고, 결과 해석을 어렵게 만들며, 모델의 특성과 특성 공학 방향성이 불일치하는 문제가 발생합니다. Random Forest의 변수 중요도 기능이나 모델 해석 도구를 활용해 중요한 변수에 집중하는 것이 더 효과적이며, 교호작용 변수가 필요한 경우에는 선형 모델 등 적합한 모델을 선택하는 것이 좋습니다."
+  },
+  {
+    "objectID": "posts/A1.html#공부방법",
+    "href": "posts/A1.html#공부방법",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "#. 공부방법",
+    "text": "#. 공부방법\n- 공부방법: ChatGPT\n\n설문지 내용응용"
+  },
+  {
+    "objectID": "posts/A1.html#활용방법3-1",
+    "href": "posts/A1.html#활용방법3-1",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "#. 활용방법3",
+    "text": "#. 활용방법3\n- 활용방법3: GPT를 이용한 완벽한 이해 + 자기화\n\n설문지 내용응용"
+  },
+  {
+    "objectID": "posts/A1.html#활용방법4",
+    "href": "posts/A1.html#활용방법4",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "#. 활용방법4",
+    "text": "#. 활용방법4\n- 활용방법4: 면접예상질문 작성\n\n설문지 내용면접질문\n\n\n\n학교에서 배우는 기법들을 특히 머신러닝 모델들을 너무 기계적으로 사용하는 경향이 있음 예를 들어 차이를 비교 하는 상황이 나오면 무조건 T-test 를 적용한다던가, classification 상황이 나오면 무조건 cross-entropy를 사용하는 경우\n데이터의 분포를 보지 않고 현재 수집되지 않은 데이터에 대해 생각해 보지 않고 기계적으로 train/test 를 나누고 모델을 적용하는 경우를 자주 목격함\n실제 데이터의 모호한 상황을 보고 판단할 수 있는 눈썰미가 필요하므로 다양한 데이터의 경험이 필요함\n대용량 데이터에서 차근차근 정보를 요약해 가는 insigh를 도출해 가는 역량이 많이 부족하다고 생각됨. 이 역량은 통계학 전공자가 강점을 가질 수 있는 부분이 나 실제로는 그런 경향이 보이지 않음 (통계전공자가 강점을 가지지 못하고 있음)\n\n\n\n통계학과가 다른학과대비 가질 수 있는 장점은 무엇인가?"
+  },
+  {
+    "objectID": "posts/A1.out.html",
+    "href": "posts/A1.out.html",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "",
+    "text": "최규빈\n2024-12-12\n\n\nref: 데이터사이언스 시대 미래인재 양성을 위한 학부 교육과정 재설계 가이드라인 (통계교육혁신위원회)\n\nhttps://github.com/guebin/MP2024/blob/main/posts/MP2024-A1.pdf\n\n- 본 가이드는 교수님들 보라고 만든 것.\n- 그렇지만 학생들이 봐도 도움이 될 것 같음.\n\n\n\n- 활용방법1: 수업 or 교수님께 질문 or GPT를 이용한 완벽한 이해 + 자기화\n\n\n머신러닝 모델을 만들거나 활용할 때 현실적인 문제에 대해 고민이 부족함 예를 들어 모델의 성능을 개선하기 위해 여러 파생변수들을 만드는 과정에서 교호작용 변수를 만들어 RandomForest에 넣거나..\n\n\n\n- 수업을 통한 이해: 작년 기계학습활용 강의노트\n\nhttps://guebin.github.io/MP2023/posts/07wk-30.html\nhttps://guebin.github.io/MP2023/posts/07wk-31.html\nhttps://guebin.github.io/MP2023/posts/07wk-32.html\n\n- GPT를 통한 이해\n\nRandom Forest는 변수 간 비선형적 관계와 교호작용을 자동으로 포착하는 특성이 있어 교호작용 변수를 별도로 생성하는 것은 불필요하며, 오히려 계산 비용 증가와 모델 복잡도 상승을 초래할 수 있습니다. 이는 과적합 위험을 높이고, 결과 해석을 어렵게 만들며, 모델의 특성과 특성 공학 방향성이 불일치하는 문제가 발생합니다. Random Forest의 변수 중요도 기능이나 모델 해석 도구를 활용해 중요한 변수에 집중하는 것이 더 효과적이며, 교호작용 변수가 필요한 경우에는 선형 모델 등 적합한 모델을 선택하는 것이 좋습니다.\n\n\n\n\n\n- 활용방법2: 자기소개서, 면접\n\n\n\n경영학이나 산업공학 전공자들은 나름대로 업무가 주어지면 이를 해결하는 방법이나 엔지니어 고용 등의 그들만의 해결 프로세스에 대한 문제 해결 생태계를 갖 고 있음\n반면 통계학 기초의 일들을 하는 사람들은 고립되는 경우가 많음 방법론에 대한 순수과학적인 통계학 측면에서의 옳지 않음 만을 판단한 후 문제 해결 노력을 회피하는 경향이 있음 이는 통계학 전공자가 문제 해결의 과정에서 고립되는 결과를 낳게 됨\n\n\n\n\n통계학 전공자로서 데이터를 탐구하며 종종 마주한 것은 “방법론적 옳음”만을 강조하던 과거의 저 자신이었습니다. 하지만 여러 실습과 프로젝트 경험을 통해 방법론적으로 정확한 결과가 실제로 문제를 해결하지 못하는 경우를 겪으며, 새로운 방향성을 설정하게 되었습니다. 이제는 방법론의 정합성뿐 아니라 데이터와 비즈니스 맥락을 연결해 실질적인 가치를 창출하는 데 초점을 맞추고 있습니다.\n\n그런데 이런말을 하기 위해선 최소한 “여러 실습” 과 “프로젝트 경험” 이 있어야 하지 않겠어요?? \\(\\to\\) 앞으로 하면 됩니다…\n\n\n\n\n\n- 활용방법3: 로드맵\n\n활용방법2에서.. 여러실습, 프로젝트 경험 이라는 말을 하기 위해서는 앞으로 몇번은 해봐야한다.\n\n\n\n\n교육 직무와 기업에 따른 차이는 있겠지만 최근 들어 데이터 분석업무의 결과가 보고서를 작성하는 것으로 끝나는 것이 아닌 반복사용을 위해 기업시스 템과 연계되는 경우가 많기에 Dashboard, MLOps 등을 개발할 때에는 통계분석을 위해 만들어진 보다는 태생이 개발언어인 이 압도적으로 우위에 있음\n프로그래밍 스킬이 부족한 경우가 간혹 있으며 파이썬 클래스를 이해하고 이를 기반으로 모듈을 만드는 것은 현장에서 필수적임\nLLM과 같은 신기술에 빠르게 적응할 수 있는 코딩역량 관심과 호기심이 필요하며, AutoEncoder, RNN, LSTM과 같은 딥러닝 모델을 만들고 실행해 본 경험이 있어야 함.\n\n\n\n\n\nDashboard 만들어 보기\n파이썬으로 모듈 만들어 보기 + 패키지 만들고 Git으로 배포하는 방법 익혀보기\n\n\n\n\n\n- 활용방법4: 면접예상질문 작성\n\n\n\n학교에서 배우는 기법들을 특히 머신러닝 모델들을 너무 기계적으로 사용하는 경향이 있음 예를 들어 차이를 비교 하는 상황이 나오면 무조건 T-test 를 적용한다던가, classification 상황이 나오면 무조건 cross-entropy를 사용하는 경우\n데이터의 분포를 보지 않고 현재 수집되지 않은 데이터에 대해 생각해 보지 않고 기계적으로 train/test 를 나누고 모델을 적용하는 경우를 자주 목격함\n실제 데이터의 모호한 상황을 보고 판단할 수 있는 눈썰미가 필요하므로 다양한 데이터의 경험이 필요함\n대용량 데이터에서 차근차근 정보를 요약해 가는 insigh를 도출해 가는 역량이 많이 부족하다고 생각됨. 이 역량은 통계학 전공자가 강점을 가질 수 있는 부분이 나 실제로는 그런 경향이 보이지 않음 (통계전공자가 강점을 가지지 못하고 있음)\n\n\n\n\n통계학과가 다른학과대비 가질 수 있는 장점은 무엇인가?"
+  },
+  {
+    "objectID": "posts/A1.out.html#intro",
+    "href": "posts/A1.out.html#intro",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "",
+    "text": "ref: 데이터사이언스 시대 미래인재 양성을 위한 학부 교육과정 재설계 가이드라인 (통계교육혁신위원회)\n\nhttps://github.com/guebin/MP2024/blob/main/posts/MP2024-A1.pdf\n\n- 본 가이드는 교수님들 보라고 만든 것.\n- 그렇지만 학생들이 봐도 도움이 될 것 같음."
+  },
+  {
+    "objectID": "posts/A1.out.html#네이버클라우드",
+    "href": "posts/A1.out.html#네이버클라우드",
+    "title": "A1: 산업계가 원하는 데이터 과학 인재상",
+    "section": "",
+    "text": "비율.."
+  },
+  {
+    "objectID": "posts/A1.out.html#lg-cns-a그룹",
+    "href": "posts/A1.out.html#lg-cns-a그룹",
+    "title": "A1: 산업계가 원하는 데이터 과학 인재상",
+    "section": "",
+    "text": "image.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png\n\n\n\n\n\nimage.png"
+  },
+  {
+    "objectID": "posts/A1.out.html#활용방법1",
+    "href": "posts/A1.out.html#활용방법1",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "",
+    "text": "- 활용방법1: 수업 or 교수님께 질문 or GPT를 이용한 완벽한 이해 + 자기화\n\n\n머신러닝 모델을 만들거나 활용할 때 현실적인 문제에 대해 고민이 부족함 예를 들어 모델의 성능을 개선하기 위해 여러 파생변수들을 만드는 과정에서 교호작용 변수를 만들어 RandomForest에 넣거나..\n\n\n\n- 수업을 통한 이해: 작년 기계학습활용 강의노트\n\nhttps://guebin.github.io/MP2023/posts/07wk-30.html\nhttps://guebin.github.io/MP2023/posts/07wk-31.html\nhttps://guebin.github.io/MP2023/posts/07wk-32.html\n\n- GPT를 통한 이해\n\nRandom Forest는 변수 간 비선형적 관계와 교호작용을 자동으로 포착하는 특성이 있어 교호작용 변수를 별도로 생성하는 것은 불필요하며, 오히려 계산 비용 증가와 모델 복잡도 상승을 초래할 수 있습니다. 이는 과적합 위험을 높이고, 결과 해석을 어렵게 만들며, 모델의 특성과 특성 공학 방향성이 불일치하는 문제가 발생합니다. Random Forest의 변수 중요도 기능이나 모델 해석 도구를 활용해 중요한 변수에 집중하는 것이 더 효과적이며, 교호작용 변수가 필요한 경우에는 선형 모델 등 적합한 모델을 선택하는 것이 좋습니다."
+  },
+  {
+    "objectID": "posts/A1.out.html#활용방법2",
+    "href": "posts/A1.out.html#활용방법2",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "",
+    "text": "- 활용방법2: 자기소개서, 면접\n\n\n\n경영학이나 산업공학 전공자들은 나름대로 업무가 주어지면 이를 해결하는 방법이나 엔지니어 고용 등의 그들만의 해결 프로세스에 대한 문제 해결 생태계를 갖 고 있음\n반면 통계학 기초의 일들을 하는 사람들은 고립되는 경우가 많음 방법론에 대한 순수과학적인 통계학 측면에서의 옳지 않음 만을 판단한 후 문제 해결 노력을 회피하는 경향이 있음 이는 통계학 전공자가 문제 해결의 과정에서 고립되는 결과를 낳게 됨\n\n\n\n\n통계학 전공자로서 데이터를 탐구하며 종종 마주한 것은 “방법론적 옳음”만을 강조하던 과거의 저 자신이었습니다. 하지만 여러 실습과 프로젝트 경험을 통해 방법론적으로 정확한 결과가 실제로 문제를 해결하지 못하는 경우를 겪으며, 새로운 방향성을 설정하게 되었습니다. 이제는 방법론의 정합성뿐 아니라 데이터와 비즈니스 맥락을 연결해 실질적인 가치를 창출하는 데 초점을 맞추고 있습니다.\n\n그런데 이런말을 하기 위해선 최소한 “여러 실습” 과 “프로젝트 경험” 이 있어야 하지 않겠어요?? \\(\\to\\) 앞으로 하면 됩니다…"
+  },
+  {
+    "objectID": "posts/A1.out.html#활용방법3",
+    "href": "posts/A1.out.html#활용방법3",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "",
+    "text": "- 활용방법3: 로드맵\n\n활용방법2에서.. 여러실습, 프로젝트 경험 이라는 말을 하기 위해서는 앞으로 몇번은 해봐야한다.\n\n\n\n\n교육 직무와 기업에 따른 차이는 있겠지만 최근 들어 데이터 분석업무의 결과가 보고서를 작성하는 것으로 끝나는 것이 아닌 반복사용을 위해 기업시스 템과 연계되는 경우가 많기에 Dashboard, MLOps 등을 개발할 때에는 통계분석을 위해 만들어진 보다는 태생이 개발언어인 이 압도적으로 우위에 있음\n프로그래밍 스킬이 부족한 경우가 간혹 있으며 파이썬 클래스를 이해하고 이를 기반으로 모듈을 만드는 것은 현장에서 필수적임\nLLM과 같은 신기술에 빠르게 적응할 수 있는 코딩역량 관심과 호기심이 필요하며, AutoEncoder, RNN, LSTM과 같은 딥러닝 모델을 만들고 실행해 본 경험이 있어야 함.\n\n\n\n\n\nDashboard 만들어 보기\n파이썬으로 모듈 만들어 보기 + 패키지 만들고 Git으로 배포하는 방법 익혀보기"
+  },
+  {
+    "objectID": "posts/A1.out.html#활용방법4",
+    "href": "posts/A1.out.html#활용방법4",
+    "title": "산업계가 원하는 데이터 과학 인재상",
+    "section": "",
+    "text": "- 활용방법4: 면접예상질문 작성\n\n\n\n학교에서 배우는 기법들을 특히 머신러닝 모델들을 너무 기계적으로 사용하는 경향이 있음 예를 들어 차이를 비교 하는 상황이 나오면 무조건 T-test 를 적용한다던가, classification 상황이 나오면 무조건 cross-entropy를 사용하는 경우\n데이터의 분포를 보지 않고 현재 수집되지 않은 데이터에 대해 생각해 보지 않고 기계적으로 train/test 를 나누고 모델을 적용하는 경우를 자주 목격함\n실제 데이터의 모호한 상황을 보고 판단할 수 있는 눈썰미가 필요하므로 다양한 데이터의 경험이 필요함\n대용량 데이터에서 차근차근 정보를 요약해 가는 insigh를 도출해 가는 역량이 많이 부족하다고 생각됨. 이 역량은 통계학 전공자가 강점을 가질 수 있는 부분이 나 실제로는 그런 경향이 보이지 않음 (통계전공자가 강점을 가지지 못하고 있음)\n\n\n\n\n통계학과가 다른학과대비 가질 수 있는 장점은 무엇인가?"
   }
 ]

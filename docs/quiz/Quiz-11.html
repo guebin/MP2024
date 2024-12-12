@@ -234,32 +234,28 @@ Important
 <p>해설영상은 생략하도록 하겠습니다. 한 학기동안 고생하셨습니다.</p>
 </div>
 </div>
-<div id="cell-4" class="cell" data-execution_count="1">
+<div id="cell-4" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">"WANDB_MODE"</span>] <span class="op">=</span> <span class="st">"offline"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="1">
+<div id="cell-5" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> transformers </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datasets</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> evaluate</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/home/cgb3/anaconda3/envs/hf/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
-  from .autonotebook import tqdm as notebook_tqdm</code></pre>
-</div>
 </div>
 <section id="covid19-tweets-100점" class="level1">
 <h1>1. COVID19 tweets – 100점</h1>
 <div id="cell-7" class="cell" data-execution_count="85">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/guebin/STML2022/main/posts/Corona_NLP_train.csv'</span>,encoding<span class="op">=</span><span class="st">"ISO-8859-1"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_train <span class="op">=</span> covid19_tweets_df[::<span class="dv">2</span>].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_test <span class="op">=</span> covid19_tweets_df[<span class="dv">1</span>::<span class="dv">2</span>].reset_index(drop<span class="op">=</span><span class="va">True</span>).loc[:,<span class="st">'UserName'</span>:<span class="st">'OriginalTweet'</span>].assign(Sentiment <span class="op">=</span> <span class="st">'???'</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> covid19_tweets_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/guebin/STML2022/main/posts/Corona_NLP_train.csv'</span>,encoding<span class="op">=</span><span class="st">"ISO-8859-1"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_train <span class="op">=</span> covid19_tweets_df[::<span class="dv">2</span>].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_test <span class="op">=</span> covid19_tweets_df[<span class="dv">1</span>::<span class="dv">2</span>].reset_index(drop<span class="op">=</span><span class="va">True</span>).loc[:,<span class="st">'UserName'</span>:<span class="st">'OriginalTweet'</span>].assign(Sentiment <span class="op">=</span> <span class="st">'???'</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> covid19_tweets_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-8" class="cell" data-execution_count="86">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="86">
 <div>
 
@@ -329,7 +325,7 @@ Important
 </div>
 </div>
 <div id="cell-9" class="cell" data-execution_count="87">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_test.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_test.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="87">
 <div>
 
@@ -417,53 +413,53 @@ Important
 <p><strong>요구 사항</strong></p>
 <p><code>1</code>. 데이터 분할: 주어진 데이터셋 <code>covid19_tweets_df_train</code> 을 7:3 비율로 나누어, 70%는 훈련 데이터로, 나머지 30%는 검증 데이터로 사용하라.</p>
 <p><code>2</code>. 평가지표: 모델의 성능평가를 위하여 아래의 함수를 사용하라.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metrics(eval_pred):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    logits, labels <span class="op">=</span> eval_pred</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> np.argmax(logits, axis<span class="op">=</span><span class="dv">1</span>)  <span class="co"># 예측 클래스</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 평가 메트릭 불러오기</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    acc <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    f1 <span class="op">=</span> evaluate.load(<span class="st">"f1"</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 평가 메트릭 계산</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    dct1 <span class="op">=</span> acc.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels)  </span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    dct2 <span class="op">=</span> f1.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels, average<span class="op">=</span><span class="st">'weighted'</span>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 두 개의 메트릭 결과를 합치기</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct1 <span class="op">|</span> dct2  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metrics(eval_pred):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    logits, labels <span class="op">=</span> eval_pred</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> np.argmax(logits, axis<span class="op">=</span><span class="dv">1</span>)  <span class="co"># 예측 클래스</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 평가 메트릭 불러오기</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    acc <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    f1 <span class="op">=</span> evaluate.load(<span class="st">"f1"</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 평가 메트릭 계산</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    dct1 <span class="op">=</span> acc.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels)  </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    dct2 <span class="op">=</span> f1.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels, average<span class="op">=</span><span class="st">'weighted'</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 두 개의 메트릭 결과를 합치기</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct1 <span class="op">|</span> dct2  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>(풀이)</code></p>
 <div id="cell-13" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(covid19_tweets_df_train[<span class="st">'Sentiment'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(covid19_tweets_df_train[<span class="st">'Sentiment'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>{'Extremely Negative', 'Extremely Positive', 'Negative', 'Neutral', 'Positive'}</code></pre>
 </div>
 </div>
 <div id="cell-14" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>id2label <span class="op">=</span> {i:label <span class="cf">for</span> i,label <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">set</span>(covid19_tweets_df_train[<span class="st">'Sentiment'</span>]))}</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>label2id <span class="op">=</span> {label:i <span class="cf">for</span> i,label <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">set</span>(covid19_tweets_df_train[<span class="st">'Sentiment'</span>]))}</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(id2label)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(label2id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>id2label <span class="op">=</span> {i:label <span class="cf">for</span> i,label <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">set</span>(covid19_tweets_df_train[<span class="st">'Sentiment'</span>]))}</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>label2id <span class="op">=</span> {label:i <span class="cf">for</span> i,label <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">set</span>(covid19_tweets_df_train[<span class="st">'Sentiment'</span>]))}</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(id2label)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(label2id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{0: 'Positive', 1: 'Neutral', 2: 'Extremely Negative', 3: 'Extremely Positive', 4: 'Negative'}
 {'Positive': 0, 'Neutral': 1, 'Extremely Negative': 2, 'Extremely Positive': 3, 'Negative': 4}</code></pre>
 </div>
 </div>
 <div id="cell-15" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>train_text <span class="op">=</span> <span class="bu">list</span>(covid19_tweets_df_train[<span class="st">'OriginalTweet'</span>])</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>test_text <span class="op">=</span> <span class="bu">list</span>(covid19_tweets_df_test[<span class="st">'OriginalTweet'</span>])</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>train_label <span class="op">=</span> <span class="bu">list</span>(covid19_tweets_df_train.Sentiment.<span class="bu">map</span>(label2id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>train_text <span class="op">=</span> <span class="bu">list</span>(covid19_tweets_df_train[<span class="st">'OriginalTweet'</span>])</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>test_text <span class="op">=</span> <span class="bu">list</span>(covid19_tweets_df_test[<span class="st">'OriginalTweet'</span>])</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>train_label <span class="op">=</span> <span class="bu">list</span>(covid19_tweets_df_train.Sentiment.<span class="bu">map</span>(label2id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-16" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>train_dct <span class="op">=</span> tokenizer(train_text,truncation<span class="op">=</span><span class="va">True</span>) <span class="op">|</span> {<span class="st">'labels'</span>: train_label}</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>test_dct <span class="op">=</span> tokenizer(test_text,truncation<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>train_dct <span class="op">=</span> tokenizer(train_text,truncation<span class="op">=</span><span class="va">True</span>) <span class="op">|</span> {<span class="st">'labels'</span>: train_label}</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>test_dct <span class="op">=</span> tokenizer(test_text,truncation<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-17" class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> datasets.Dataset.from_dict(train_dct)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> datasets.Dataset.from_dict(test_dct)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> train.train_test_split(test_size<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>covid19_tweets <span class="op">=</span> datasets.DatasetDict({<span class="st">'train'</span>:d[<span class="st">'train'</span>], <span class="st">'eval'</span>:d[<span class="st">'test'</span>], <span class="st">'test'</span>:test})</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>covid19_tweets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> datasets.Dataset.from_dict(train_dct)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> datasets.Dataset.from_dict(test_dct)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> train.train_test_split(test_size<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>covid19_tweets <span class="op">=</span> datasets.DatasetDict({<span class="st">'train'</span>:d[<span class="st">'train'</span>], <span class="st">'eval'</span>:d[<span class="st">'test'</span>], <span class="st">'test'</span>:test})</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>covid19_tweets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="38">
 <pre><code>DatasetDict({
     train: Dataset({
@@ -482,63 +478,63 @@ Important
 </div>
 </div>
 <div id="cell-18" class="cell" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distilbert/distilbert-base-uncased"</span>, </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    num_labels<span class="op">=</span><span class="dv">5</span>,</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    id2label<span class="op">=</span>id2label,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    label2id<span class="op">=</span>label2id</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distilbert/distilbert-base-uncased"</span>, </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    num_labels<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    id2label<span class="op">=</span>id2label,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    label2id<span class="op">=</span>label2id</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Some weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
 </div>
 </div>
 <div id="cell-19" class="cell" data-execution_count="40">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data_collator <span class="op">=</span> transformers.DataCollatorWithPadding(tokenizer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>data_collator <span class="op">=</span> transformers.DataCollatorWithPadding(tokenizer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-20" class="cell" data-execution_count="54">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metrics(eval_pred):</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    logits, labels <span class="op">=</span> eval_pred</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> np.argmax(logits, axis<span class="op">=</span><span class="dv">1</span>)  <span class="co"># 예측 클래스</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 평가 메트릭 불러오기</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    acc <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    f1 <span class="op">=</span> evaluate.load(<span class="st">"f1"</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 평가 메트릭 계산</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    dct1 <span class="op">=</span> acc.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels)  </span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    dct2 <span class="op">=</span> f1.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels, average<span class="op">=</span><span class="st">'weighted'</span>)</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 두 개의 메트릭 결과를 합치기</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct1 <span class="op">|</span> dct2  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metrics(eval_pred):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    logits, labels <span class="op">=</span> eval_pred</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> np.argmax(logits, axis<span class="op">=</span><span class="dv">1</span>)  <span class="co"># 예측 클래스</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 평가 메트릭 불러오기</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    acc <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    f1 <span class="op">=</span> evaluate.load(<span class="st">"f1"</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 평가 메트릭 계산</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    dct1 <span class="op">=</span> acc.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels)  </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    dct2 <span class="op">=</span> f1.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels, average<span class="op">=</span><span class="st">'weighted'</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 두 개의 메트릭 결과를 합치기</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dct1 <span class="op">|</span> dct2  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-21" class="cell" data-execution_count="55">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Training Arguments 설정</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>training_args <span class="op">=</span> transformers.TrainingArguments(</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    output_dir<span class="op">=</span><span class="st">"./results"</span>,</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    evaluation_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">2e-5</span>,</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    per_device_train_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    per_device_eval_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    num_train_epochs<span class="op">=</span><span class="dv">3</span>,</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    weight_decay<span class="op">=</span><span class="fl">0.01</span>,</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    logging_dir<span class="op">=</span><span class="st">'./logs'</span>,</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    logging_steps<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Trainer 설정</span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>training_args,</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>covid19_tweets[<span class="st">'train'</span>],</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    eval_dataset<span class="op">=</span>covid19_tweets[<span class="st">'eval'</span>],</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    tokenizer<span class="op">=</span>tokenizer,</span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>data_collator,</span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    compute_metrics<span class="op">=</span>compute_metrics,</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 학습</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>trainer.train()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Training Arguments 설정</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>training_args <span class="op">=</span> transformers.TrainingArguments(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    output_dir<span class="op">=</span><span class="st">"./results"</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    evaluation_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">2e-5</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    per_device_train_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    per_device_eval_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    num_train_epochs<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    weight_decay<span class="op">=</span><span class="fl">0.01</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    logging_dir<span class="op">=</span><span class="st">'./logs'</span>,</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    logging_steps<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Trainer 설정</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>training_args,</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>covid19_tweets[<span class="st">'train'</span>],</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    eval_dataset<span class="op">=</span>covid19_tweets[<span class="st">'eval'</span>],</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>    tokenizer<span class="op">=</span>tokenizer,</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>data_collator,</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    compute_metrics<span class="op">=</span>compute_metrics,</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 학습</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>trainer.train()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>/home/cgb3/anaconda3/envs/hf/lib/python3.12/site-packages/transformers/training_args.py:1568: FutureWarning: `evaluation_strategy` is deprecated and will be removed in version 4.46 of 🤗 Transformers. Use `eval_strategy` instead
   warnings.warn(
@@ -654,7 +650,7 @@ Training completed. Do not forget to share your model on huggingface.co/models =
 <p><code>(2)</code> (1)에서 학습한 모델을 활용하여 <code>covid19_tweets_df_test</code>의 <code>OriginalTweet</code> 열에 대한 <code>Sentiment</code>를 예측하시오.</p>
 <p><strong>답안예시</strong></p>
 <div id="cell-24" class="cell" data-execution_count="77">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_test.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_test.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="77">
 <div>
 
@@ -725,8 +721,8 @@ Training completed. Do not forget to share your model on huggingface.co/models =
 </div>
 <p><code>(풀이)</code></p>
 <div id="cell-26" class="cell" data-execution_count="56">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> trainer.predict(covid19_tweets[<span class="st">'test'</span>])</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>out </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> trainer.predict(covid19_tweets[<span class="st">'test'</span>])</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>out </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 ***** Running Prediction *****
@@ -748,10 +744,10 @@ Training completed. Do not forget to share your model on huggingface.co/models =
 </div>
 </div>
 <div id="cell-27" class="cell" data-execution_count="76">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_test[<span class="st">'Sentiment'</span>] <span class="op">=</span> [id2label[i] <span class="cf">for</span> i <span class="kw">in</span> out.predictions.argmax(axis<span class="op">=</span><span class="dv">1</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_test[<span class="st">'Sentiment'</span>] <span class="op">=</span> [id2label[i] <span class="cf">for</span> i <span class="kw">in</span> out.predictions.argmax(axis<span class="op">=</span><span class="dv">1</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-28" class="cell" data-execution_count="77">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_test.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>covid19_tweets_df_test.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="77">
 <div>
 
@@ -825,40 +821,40 @@ Training completed. Do not forget to share your model on huggingface.co/models =
 <h1>2. IMDB – 가산점 50점</h1>
 <p>아래는 2주차에서 배운 <code>imdb</code> 분석코드를 정리한 것이다. 분석의 편의를 위하여 1000개의 자료만 사용하여 학습과 평가에 사용했다.</p>
 <div id="cell-31" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Step1 </span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>imdb <span class="op">=</span> datasets.load_dataset(<span class="st">'imdb'</span>)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>) </span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>imdb_transformed <span class="op">=</span> imdb.<span class="bu">map</span>(<span class="kw">lambda</span> dct: tokenizer(dct[<span class="st">'text'</span>],truncation<span class="op">=</span><span class="va">True</span>), batched<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">## Step2 </span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co">## Step3 </span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> accuracy(eval_pred):</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    predictions, labels <span class="op">=</span> eval_pred</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> predictions.argmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    accuracy <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> accuracy.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels)</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>transformers.TrainingArguments(</span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"my_awesome_model"</span>,</span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>        learning_rate<span class="op">=</span><span class="fl">2e-5</span>,</span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>        per_device_train_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>        per_device_eval_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>        num_train_epochs<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>        weight_decay<span class="op">=</span><span class="fl">0.01</span>,</span>
-<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>        eval_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
-<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>        save_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
-<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>        load_best_model_at_end<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>        push_to_hub<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>        report_to<span class="op">=</span><span class="st">"none"</span></span>
-<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>imdb_transformed[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)), <span class="co"># 1000개만 사용</span></span>
-<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>    eval_dataset<span class="op">=</span>imdb_transformed[<span class="st">'test'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)), <span class="co"># 1000개만 사용</span></span>
-<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>    tokenizer<span class="op">=</span>tokenizer,</span>
-<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>transformers.DataCollatorWithPadding(tokenizer<span class="op">=</span>tokenizer),</span>
-<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>    compute_metrics<span class="op">=</span>accuracy,</span>
-<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>trainer.train()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Step1 </span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>imdb <span class="op">=</span> datasets.load_dataset(<span class="st">'imdb'</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>) </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>imdb_transformed <span class="op">=</span> imdb.<span class="bu">map</span>(<span class="kw">lambda</span> dct: tokenizer(dct[<span class="st">'text'</span>],truncation<span class="op">=</span><span class="va">True</span>), batched<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">## Step2 </span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">## Step3 </span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> accuracy(eval_pred):</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    predictions, labels <span class="op">=</span> eval_pred</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> predictions.argmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    accuracy <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> accuracy.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>transformers.TrainingArguments(</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"my_awesome_model"</span>,</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>        learning_rate<span class="op">=</span><span class="fl">2e-5</span>,</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>        per_device_train_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>        per_device_eval_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>        num_train_epochs<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>        weight_decay<span class="op">=</span><span class="fl">0.01</span>,</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>        eval_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>        save_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>        load_best_model_at_end<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>        push_to_hub<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>        report_to<span class="op">=</span><span class="st">"none"</span></span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>imdb_transformed[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)), <span class="co"># 1000개만 사용</span></span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>    eval_dataset<span class="op">=</span>imdb_transformed[<span class="st">'test'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)), <span class="co"># 1000개만 사용</span></span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>    tokenizer<span class="op">=</span>tokenizer,</span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>transformers.DataCollatorWithPadding(tokenizer<span class="op">=</span>tokenizer),</span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a>    compute_metrics<span class="op">=</span>accuracy,</span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a>trainer.train()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Some weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
@@ -905,9 +901,9 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 <p>보는것처럼 학습은 완벽하게 되었다. (accuracy가 100%) 그렇지만 <code>imdb_transformed['test']</code> 전체에서 평가를 해보니 결과가 좋지 않았다. (accuracy가 50%)</p>
 <div id="cell-33" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Step4 </span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> trainer.predict(imdb_transformed[<span class="st">'test'</span>])</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Step4 </span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> trainer.predict(imdb_transformed[<span class="st">'test'</span>])</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 
 </div>
@@ -922,37 +918,37 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 </div>
 <div id="cell-34" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>out.metrics[<span class="st">'test_accuracy'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>out.metrics[<span class="st">'test_accuracy'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>0.5</code></pre>
 </div>
 </div>
 <p>무엇이 문제일까? 혹시 아래의 코드를 수정하여 학습의 성능을 올릴 수 있는 방법이 있을까? (단 데이터의 수는 그대로 유지한다)</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>transformers.TrainingArguments(</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"my_awesome_model"</span>,</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>        learning_rate<span class="op">=</span><span class="fl">2e-5</span>,</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>        per_device_train_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>        per_device_eval_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>        num_train_epochs<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>        weight_decay<span class="op">=</span><span class="fl">0.01</span>,</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>        eval_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>        save_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>        load_best_model_at_end<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>        push_to_hub<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>        report_to<span class="op">=</span><span class="st">"none"</span></span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>imdb_transformed[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)), <span class="co"># 1000개만 사용</span></span>
-<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>    eval_dataset<span class="op">=</span>imdb_transformed[<span class="st">'test'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)), <span class="co"># 1000개만 사용</span></span>
-<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>    tokenizer<span class="op">=</span>tokenizer,</span>
-<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>transformers.DataCollatorWithPadding(tokenizer<span class="op">=</span>tokenizer),</span>
-<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>    compute_metrics<span class="op">=</span>accuracy,</span>
-<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>transformers.TrainingArguments(</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"my_awesome_model"</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>        learning_rate<span class="op">=</span><span class="fl">2e-5</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>        per_device_train_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>        per_device_eval_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>        num_train_epochs<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>        weight_decay<span class="op">=</span><span class="fl">0.01</span>,</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>        eval_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>        save_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>        load_best_model_at_end<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>        push_to_hub<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>        report_to<span class="op">=</span><span class="st">"none"</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>imdb_transformed[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)), <span class="co"># 1000개만 사용</span></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>    eval_dataset<span class="op">=</span>imdb_transformed[<span class="st">'test'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>)), <span class="co"># 1000개만 사용</span></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>    tokenizer<span class="op">=</span>tokenizer,</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>transformers.DataCollatorWithPadding(tokenizer<span class="op">=</span>tokenizer),</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>    compute_metrics<span class="op">=</span>accuracy,</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>(문제의원인)</code></p>
 <p><code>-</code> 학습에 사용된 데이터를 살펴보자.</p>
 <div id="cell-39" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(imdb_transformed[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>))[<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(imdb_transformed[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">1000</span>))[<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>{0}</code></pre>
 </div>
@@ -972,10 +968,10 @@ Note
 <div class="callout-body-container callout-body">
 <p>참고로 <code>imdb_transformed['train']</code>자료는 처음 12500는 모두 부정평가만, 다음 12500은 모두 긍정평가만 있다. 즉 <code>imdb_transformed['train']</code>자료는 “정렬”되어 있다.</p>
 <p><em>처음 12500</em>개의 라벨</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(imdb_transformed[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">12500</span>))[<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(imdb_transformed[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">12500</span>))[<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre><code>{0} </code></pre>
 <p><em>다음 12500</em>개의 라벨</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(imdb_transformed[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">12500</span>,<span class="dv">25000</span>))[<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(imdb_transformed[<span class="st">'train'</span>].select(<span class="bu">range</span>(<span class="dv">12500</span>,<span class="dv">25000</span>))[<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre><code>{1}</code></pre>
 </div>
 </div>
@@ -985,14 +981,14 @@ Note
 </blockquote>
 <p>라고 인식할 수 있다. 실제로 인공지능은 <code>imdb_transformed['test']</code>에 대응하는 모든 예측값을 항상 0으로만 예측하도록 학습되었다. (그렇게 해도 지금까지는 항상 accuracy가 100이 나왔으니까..)</p>
 <div id="cell-43" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(out.predictions.argmax(axis<span class="op">=</span><span class="dv">1</span>)) <span class="co"># 모든예측값은 0이다. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(out.predictions.argmax(axis<span class="op">=</span><span class="dv">1</span>)) <span class="co"># 모든예측값은 0이다. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>{0}</code></pre>
 </div>
 </div>
 <p><code>-</code> 실제로는 <code>imdb_transformed['test']</code>에 0과 1은 딱 절반씩 있으므로, accuracy는 50%가 나온다. (인공지능은 항상 0이라고 예측)</p>
 <div id="cell-45" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>{i:imdb_transformed[<span class="st">'test'</span>][<span class="st">'label'</span>].count(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">set</span>(imdb_transformed[<span class="st">'test'</span>][<span class="st">'label'</span>])}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>{i:imdb_transformed[<span class="st">'test'</span>][<span class="st">'label'</span>].count(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">set</span>(imdb_transformed[<span class="st">'test'</span>][<span class="st">'label'</span>])}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="30">
 <pre><code>{0: 12500, 1: 12500}</code></pre>
 </div>
@@ -1004,46 +1000,46 @@ Note
 <p><code>(해결책)</code></p>
 <p>데이터를 섞으면 된다.</p>
 <div id="cell-49" class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(imdb_transformed[<span class="st">'train'</span>].shuffle().select(<span class="bu">range</span>(<span class="dv">1000</span>))[<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>(imdb_transformed[<span class="st">'train'</span>].shuffle().select(<span class="bu">range</span>(<span class="dv">1000</span>))[<span class="st">'label'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="34">
 <pre><code>{0, 1}</code></pre>
 </div>
 </div>
 <div id="cell-50" class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Step1 </span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>imdb <span class="op">=</span> datasets.load_dataset(<span class="st">'imdb'</span>)</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>) </span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>imdb_transformed <span class="op">=</span> imdb.<span class="bu">map</span>(<span class="kw">lambda</span> dct: tokenizer(dct[<span class="st">'text'</span>],truncation<span class="op">=</span><span class="va">True</span>), batched<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="co">## Step2 </span></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="co">## Step3 </span></span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> accuracy(eval_pred):</span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>    predictions, labels <span class="op">=</span> eval_pred</span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> predictions.argmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>    accuracy <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> accuracy.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels)</span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
-<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>transformers.TrainingArguments(</span>
-<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"my_awesome_model"</span>,</span>
-<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>        learning_rate<span class="op">=</span><span class="fl">2e-5</span>,</span>
-<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>        per_device_train_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>        per_device_eval_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>        num_train_epochs<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a>        weight_decay<span class="op">=</span><span class="fl">0.01</span>,</span>
-<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a>        eval_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
-<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a>        save_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
-<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a>        load_best_model_at_end<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a>        push_to_hub<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb49-26"><a href="#cb49-26" aria-hidden="true" tabindex="-1"></a>        report_to<span class="op">=</span><span class="st">"none"</span></span>
-<span id="cb49-27"><a href="#cb49-27" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb49-28"><a href="#cb49-28" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>imdb_transformed[<span class="st">'train'</span>].shuffle().select(<span class="bu">range</span>(<span class="dv">1000</span>)), <span class="co"># 1000개만 사용</span></span>
-<span id="cb49-29"><a href="#cb49-29" aria-hidden="true" tabindex="-1"></a>    eval_dataset<span class="op">=</span>imdb_transformed[<span class="st">'test'</span>].shuffle().select(<span class="bu">range</span>(<span class="dv">1000</span>)), <span class="co"># 1000개만 사용</span></span>
-<span id="cb49-30"><a href="#cb49-30" aria-hidden="true" tabindex="-1"></a>    tokenizer<span class="op">=</span>tokenizer,</span>
-<span id="cb49-31"><a href="#cb49-31" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>transformers.DataCollatorWithPadding(tokenizer<span class="op">=</span>tokenizer),</span>
-<span id="cb49-32"><a href="#cb49-32" aria-hidden="true" tabindex="-1"></a>    compute_metrics<span class="op">=</span>accuracy,</span>
-<span id="cb49-33"><a href="#cb49-33" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb49-34"><a href="#cb49-34" aria-hidden="true" tabindex="-1"></a>trainer.train()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Step1 </span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>imdb <span class="op">=</span> datasets.load_dataset(<span class="st">'imdb'</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>) </span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>imdb_transformed <span class="op">=</span> imdb.<span class="bu">map</span>(<span class="kw">lambda</span> dct: tokenizer(dct[<span class="st">'text'</span>],truncation<span class="op">=</span><span class="va">True</span>), batched<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="co">## Step2 </span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="co">## Step3 </span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> accuracy(eval_pred):</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>    predictions, labels <span class="op">=</span> eval_pred</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> predictions.argmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>    accuracy <span class="op">=</span> evaluate.load(<span class="st">"accuracy"</span>)</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> accuracy.compute(predictions<span class="op">=</span>predictions, references<span class="op">=</span>labels)</span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>transformers.TrainingArguments(</span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"my_awesome_model"</span>,</span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>        learning_rate<span class="op">=</span><span class="fl">2e-5</span>,</span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>        per_device_train_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>        per_device_eval_batch_size<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>        num_train_epochs<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>        weight_decay<span class="op">=</span><span class="fl">0.01</span>,</span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>        eval_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a>        save_strategy<span class="op">=</span><span class="st">"epoch"</span>,</span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a>        load_best_model_at_end<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a>        push_to_hub<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a>        report_to<span class="op">=</span><span class="st">"none"</span></span>
+<span id="cb48-27"><a href="#cb48-27" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb48-28"><a href="#cb48-28" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>imdb_transformed[<span class="st">'train'</span>].shuffle().select(<span class="bu">range</span>(<span class="dv">1000</span>)), <span class="co"># 1000개만 사용</span></span>
+<span id="cb48-29"><a href="#cb48-29" aria-hidden="true" tabindex="-1"></a>    eval_dataset<span class="op">=</span>imdb_transformed[<span class="st">'test'</span>].shuffle().select(<span class="bu">range</span>(<span class="dv">1000</span>)), <span class="co"># 1000개만 사용</span></span>
+<span id="cb48-30"><a href="#cb48-30" aria-hidden="true" tabindex="-1"></a>    tokenizer<span class="op">=</span>tokenizer,</span>
+<span id="cb48-31"><a href="#cb48-31" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>transformers.DataCollatorWithPadding(tokenizer<span class="op">=</span>tokenizer),</span>
+<span id="cb48-32"><a href="#cb48-32" aria-hidden="true" tabindex="-1"></a>    compute_metrics<span class="op">=</span>accuracy,</span>
+<span id="cb48-33"><a href="#cb48-33" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb48-34"><a href="#cb48-34" aria-hidden="true" tabindex="-1"></a>trainer.train()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Some weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
@@ -1089,9 +1085,9 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 </div>
 <div id="cell-51" class="cell" data-execution_count="36">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Step4 </span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> trainer.predict(imdb_transformed[<span class="st">'test'</span>])</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>out.metrics[<span class="st">'test_accuracy'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Step4 </span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> trainer.predict(imdb_transformed[<span class="st">'test'</span>])</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>out.metrics[<span class="st">'test_accuracy'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 
 </div>
