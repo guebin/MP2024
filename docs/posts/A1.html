@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.533">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="최규빈">
+<meta name="dcterms.date" content="2024-12-12">
+
+<title>MP2024 - 산업계가 원하는 데이터 과학 인재상</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">MP2024</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../quiz.html"> 
+<span class="menu-text"><strong>Quiz &amp; Report</strong></span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/guebin/MP2024"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.youtube.com/channel/UCQk9RyBNgXc7ORIsYlOfQrg/playlists?view=50&amp;sort=dd&amp;shelf_id=2"> <i class="bi bi-youtube" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#intro" id="toc-intro" class="nav-link active" data-scroll-target="#intro"><code>#</code>. Intro</a></li>
+  <li><a href="#활용방법1" id="toc-활용방법1" class="nav-link" data-scroll-target="#활용방법1"><code>#</code>. 활용방법1</a></li>
+  <li><a href="#활용방법2" id="toc-활용방법2" class="nav-link" data-scroll-target="#활용방법2"><code>#</code>. 활용방법2</a></li>
+  <li><a href="#활용방법3" id="toc-활용방법3" class="nav-link" data-scroll-target="#활용방법3"><code>#</code>. 활용방법3</a></li>
+  <li><a href="#활용방법4" id="toc-활용방법4" class="nav-link" data-scroll-target="#활용방법4"><code>#</code>. 활용방법4</a></li>
+  <li><a href="#네이버클라우드" id="toc-네이버클라우드" class="nav-link" data-scroll-target="#네이버클라우드"><code>#</code>. 네이버클라우드</a></li>
+  <li><a href="#네이버클라우드-1" id="toc-네이버클라우드-1" class="nav-link" data-scroll-target="#네이버클라우드-1"><code>#</code>. 네이버클라우드</a></li>
+  <li><a href="#네이버클라우드-2" id="toc-네이버클라우드-2" class="nav-link" data-scroll-target="#네이버클라우드-2"><code>#</code>. 네이버클라우드</a></li>
+  <li><a href="#네이버클라우드-3" id="toc-네이버클라우드-3" class="nav-link" data-scroll-target="#네이버클라우드-3"><code>#</code>. 네이버클라우드</a></li>
+  <li><a href="#네이버클라우드-4" id="toc-네이버클라우드-4" class="nav-link" data-scroll-target="#네이버클라우드-4"><code>#</code>. 네이버클라우드</a></li>
+  <li><a href="#네이버클라우드-5" id="toc-네이버클라우드-5" class="nav-link" data-scroll-target="#네이버클라우드-5"><code>#</code>. 네이버클라우드</a></li>
+  <li><a href="#lg-cns-a그룹" id="toc-lg-cns-a그룹" class="nav-link" data-scroll-target="#lg-cns-a그룹"><code>#</code> LG-CNS A그룹</a></li>
+  <li><a href="#lg-cns-a그룹-1" id="toc-lg-cns-a그룹-1" class="nav-link" data-scroll-target="#lg-cns-a그룹-1"><code>#</code> LG-CNS A그룹</a></li>
+  <li><a href="#lg-cns-a그룹-2" id="toc-lg-cns-a그룹-2" class="nav-link" data-scroll-target="#lg-cns-a그룹-2"><code>#</code> LG-CNS A그룹</a></li>
+  <li><a href="#lg-cns-a그룹-3" id="toc-lg-cns-a그룹-3" class="nav-link" data-scroll-target="#lg-cns-a그룹-3"><code>#</code> LG-CNS A그룹</a></li>
+  <li><a href="#lg-cns-a그룹-4" id="toc-lg-cns-a그룹-4" class="nav-link" data-scroll-target="#lg-cns-a그룹-4"><code>#</code> LG-CNS A그룹</a></li>
+  <li><a href="#lg-cns-a그룹-5" id="toc-lg-cns-a그룹-5" class="nav-link" data-scroll-target="#lg-cns-a그룹-5"><code>#</code> LG-CNS A그룹</a></li>
+  <li><a href="#lg-cns-a그룹-6" id="toc-lg-cns-a그룹-6" class="nav-link" data-scroll-target="#lg-cns-a그룹-6"><code>#</code> LG-CNS A그룹</a></li>
+  <li><a href="#lg-cns-a그룹-7" id="toc-lg-cns-a그룹-7" class="nav-link" data-scroll-target="#lg-cns-a그룹-7"><code>#</code> LG-CNS A그룹</a></li>
+  <li><a href="#lg-cns-a그룹-8" id="toc-lg-cns-a그룹-8" class="nav-link" data-scroll-target="#lg-cns-a그룹-8"><code>#</code> LG-CNS A그룹</a></li>
+  <li><a href="#lg-cns-a그룹-9" id="toc-lg-cns-a그룹-9" class="nav-link" data-scroll-target="#lg-cns-a그룹-9"><code>#</code> LG-CNS A그룹</a></li>
+  <li><a href="#lg-cns-a그룹-10" id="toc-lg-cns-a그룹-10" class="nav-link" data-scroll-target="#lg-cns-a그룹-10"><code>#</code> LG-CNS A그룹</a></li>
+  <li><a href="#lg-cns-a그룹-11" id="toc-lg-cns-a그룹-11" class="nav-link" data-scroll-target="#lg-cns-a그룹-11"><code>#</code> LG-CNS A그룹</a></li>
+  <li><a href="#lg-cns-b그룹" id="toc-lg-cns-b그룹" class="nav-link" data-scroll-target="#lg-cns-b그룹"><code>#</code> LG-CNS B그룹</a></li>
+  <li><a href="#lg-cns-b그룹-1" id="toc-lg-cns-b그룹-1" class="nav-link" data-scroll-target="#lg-cns-b그룹-1"><code>#</code> LG-CNS B그룹</a></li>
+  <li><a href="#lg-cns-b그룹-2" id="toc-lg-cns-b그룹-2" class="nav-link" data-scroll-target="#lg-cns-b그룹-2"><code>#</code> LG-CNS B그룹</a></li>
+  <li><a href="#lg-cns-b그룹-3" id="toc-lg-cns-b그룹-3" class="nav-link" data-scroll-target="#lg-cns-b그룹-3"><code>#</code> LG-CNS B그룹</a></li>
+  <li><a href="#lg-cns-b그룹-4" id="toc-lg-cns-b그룹-4" class="nav-link" data-scroll-target="#lg-cns-b그룹-4"><code>#</code> LG-CNS B그룹</a></li>
+  <li><a href="#lg-cns-b그룹-5" id="toc-lg-cns-b그룹-5" class="nav-link" data-scroll-target="#lg-cns-b그룹-5"><code>#</code> LG-CNS B그룹</a></li>
+  <li><a href="#lg-cns-b그룹-6" id="toc-lg-cns-b그룹-6" class="nav-link" data-scroll-target="#lg-cns-b그룹-6"><code>#</code> LG-CNS B그룹</a></li>
+  <li><a href="#lg-cns-b그룹-7" id="toc-lg-cns-b그룹-7" class="nav-link" data-scroll-target="#lg-cns-b그룹-7"><code>#</code> LG-CNS B그룹</a></li>
+  <li><a href="#lg-cns-b그룹-8" id="toc-lg-cns-b그룹-8" class="nav-link" data-scroll-target="#lg-cns-b그룹-8"><code>#</code> LG-CNS B그룹</a></li>
+  <li><a href="#lg-cns-b그룹-9" id="toc-lg-cns-b그룹-9" class="nav-link" data-scroll-target="#lg-cns-b그룹-9"><code>#</code> LG-CNS B그룹</a></li>
+  <li><a href="#lg-cns-b그룹-10" id="toc-lg-cns-b그룹-10" class="nav-link" data-scroll-target="#lg-cns-b그룹-10"><code>#</code> LG-CNS B그룹</a></li>
+  <li><a href="#lg-cns-b그룹-11" id="toc-lg-cns-b그룹-11" class="nav-link" data-scroll-target="#lg-cns-b그룹-11"><code>#</code> LG-CNS B그룹</a></li>
+  <li><a href="#lg-cns-b그룹-12" id="toc-lg-cns-b그룹-12" class="nav-link" data-scroll-target="#lg-cns-b그룹-12"><code>#</code> LG-CNS B그룹</a></li>
+  <li><a href="#lg-cns-b그룹-13" id="toc-lg-cns-b그룹-13" class="nav-link" data-scroll-target="#lg-cns-b그룹-13"><code>#</code> LG-CNS B그룹</a></li>
+  <li><a href="#베가스" id="toc-베가스" class="nav-link" data-scroll-target="#베가스"><code>#</code> 베가스</a></li>
+  <li><a href="#베가스-1" id="toc-베가스-1" class="nav-link" data-scroll-target="#베가스-1"><code>#</code> 베가스</a></li>
+  <li><a href="#베가스-2" id="toc-베가스-2" class="nav-link" data-scroll-target="#베가스-2"><code>#</code> 베가스</a></li>
+  <li><a href="#베가스-3" id="toc-베가스-3" class="nav-link" data-scroll-target="#베가스-3"><code>#</code> 베가스</a></li>
+  <li><a href="#베가스-4" id="toc-베가스-4" class="nav-link" data-scroll-target="#베가스-4"><code>#</code> 베가스</a></li>
+  <li><a href="#베가스-5" id="toc-베가스-5" class="nav-link" data-scroll-target="#베가스-5"><code>#</code> 베가스</a></li>
+  <li><a href="#베가스-6" id="toc-베가스-6" class="nav-link" data-scroll-target="#베가스-6"><code>#</code> 베가스</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="A1.out.ipynb" download="A1.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">산업계가 원하는 데이터 과학 인재상</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>최규빈 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 12, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<pre><code>---
+title: "산업계가 원하는 데이터 과학 인재상"
+author: "최규빈"
+date: "12/12/2024"
+title-block-style: default
+title-block-banner: true
+draft: true
+format:
+  revealjs:
+    chalkboard: true
+    slide-number: true
+    suppress-bibliography: false
+    smaller: true
+    scrollable: true 
+---</code></pre>
+<section id="intro" class="level2">
+<h2 class="anchored" data-anchor-id="intro"><code>#</code>. Intro</h2>
+<p><code>ref</code>: 데이터사이언스 시대 미래인재 양성을 위한 학부 교육과정 재설계 가이드라인 (통계교육혁신위원회)</p>
+<ul>
+<li><a href="https://github.com/guebin/MP2024/blob/main/posts/MP2024-A1.pdf" class="uri">https://github.com/guebin/MP2024/blob/main/posts/MP2024-A1.pdf</a></li>
+</ul>
+<p><code>-</code> 본 가이드는 교수님들 보라고 만든 것.</p>
+<p><code>-</code> 그렇지만 학생들이 봐도 도움이 될 것 같음.</p>
+</section>
+<section id="활용방법1" class="level2">
+<h2 class="anchored" data-anchor-id="활용방법1"><code>#</code>. 활용방법1</h2>
+<p><code>-</code> 활용방법1: 수업 or 교수님께 질문 or GPT를 이용한 완벽한 이해 + 자기화</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">설문지 내용</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">이해</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>머신러닝 모델을 만들거나 활용할 때 현실적인 문제에 대해 고민이 부족함 예를 들어 모델의 성능을 개선하기 위해 여러 파생변수들을 만드는 과정에서 교호작용 변수를 만들어 RandomForest에 넣거나..</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><code>-</code> 수업을 통한 이해: 작년 기계학습활용 강의노트</p>
+<ul>
+<li><a href="https://guebin.github.io/MP2023/posts/07wk-30.html" class="uri">https://guebin.github.io/MP2023/posts/07wk-30.html</a></li>
+<li><a href="https://guebin.github.io/MP2023/posts/07wk-31.html" class="uri">https://guebin.github.io/MP2023/posts/07wk-31.html</a></li>
+<li><a href="https://guebin.github.io/MP2023/posts/07wk-32.html" class="uri">https://guebin.github.io/MP2023/posts/07wk-32.html</a></li>
+</ul>
+<p><code>-</code> GPT를 통한 이해</p>
+<blockquote class="blockquote">
+<p>Random Forest는 변수 간 비선형적 관계와 교호작용을 자동으로 포착하는 특성이 있어 교호작용 변수를 별도로 생성하는 것은 불필요하며, 오히려 계산 비용 증가와 모델 복잡도 상승을 초래할 수 있습니다. 이는 과적합 위험을 높이고, 결과 해석을 어렵게 만들며, 모델의 특성과 특성 공학 방향성이 불일치하는 문제가 발생합니다. Random Forest의 변수 중요도 기능이나 모델 해석 도구를 활용해 중요한 변수에 집중하는 것이 더 효과적이며, 교호작용 변수가 필요한 경우에는 선형 모델 등 적합한 모델을 선택하는 것이 좋습니다.</p>
+</blockquote>
+</div>
+</div>
+</div>
+</section>
+<section id="활용방법2" class="level2">
+<h2 class="anchored" data-anchor-id="활용방법2"><code>#</code>. 활용방법2</h2>
+<p><code>-</code> 활용방법2: 자기소개서, 면접</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">설문지 내용</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">가상 자기소개서</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<ul>
+<li>경영학이나 산업공학 전공자들은 나름대로 업무가 주어지면 이를 해결하는 방법이나 엔지니어 고용 등의 그들만의 해결 프로세스에 대한 문제 해결 생태계를 갖 고 있음</li>
+<li>반면 통계학 기초의 일들을 하는 사람들은 고립되는 경우가 많음 방법론에 대한 순수과학적인 통계학 측면에서의 옳지 않음 만을 판단한 후 문제 해결 노력을 회피하는 경향이 있음 이는 통계학 전공자가 문제 해결의 과정에서 고립되는 결과를 낳게 됨</li>
+</ul>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>통계학 전공자로서 데이터를 탐구하며 종종 마주한 것은 “방법론적 옳음”만을 강조하던 과거의 저 자신이었습니다. 하지만 여러 실습과 프로젝트 경험을 통해 방법론적으로 정확한 결과가 실제로 문제를 해결하지 못하는 경우를 겪으며, 새로운 방향성을 설정하게 되었습니다. 이제는 방법론의 정합성뿐 아니라 데이터와 비즈니스 맥락을 연결해 실질적인 가치를 창출하는 데 초점을 맞추고 있습니다.</p>
+<blockquote class="blockquote">
+<p>그런데 이런말을 하기 위해선 최소한 “여러 실습” 과 “프로젝트 경험” 이 있어야 하지 않겠어요?? <span class="math inline">\(\to\)</span> 앞으로 하면 됩니다…</p>
+</blockquote>
+</div>
+</div>
+</div>
+</section>
+<section id="활용방법3" class="level2">
+<h2 class="anchored" data-anchor-id="활용방법3"><code>#</code>. 활용방법3</h2>
+<p><code>-</code> 활용방법3: 로드맵</p>
+<ul>
+<li>활용방법2에서.. 여러실습, 프로젝트 경험 이라는 말을 하기 위해서는 앞으로 몇번은 해봐야한다.</li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">설문지 내용</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">로드맵</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<ul>
+<li>교육 직무와 기업에 따른 차이는 있겠지만 최근 들어 데이터 분석업무의 결과가 보고서를 작성하는 것으로 끝나는 것이 아닌 반복사용을 위해 기업시스 템과 연계되는 경우가 많기에 Dashboard, MLOps 등을 개발할 때에는 통계분석을 위해 만들어진 보다는 태생이 개발언어인 이 압도적으로 우위에 있음</li>
+<li>프로그래밍 스킬이 부족한 경우가 간혹 있으며 파이썬 클래스를 이해하고 이를 기반으로 모듈을 만드는 것은 현장에서 필수적임</li>
+<li>LLM과 같은 신기술에 빠르게 적응할 수 있는 코딩역량 관심과 호기심이 필요하며, AutoEncoder, RNN, LSTM과 같은 딥러닝 모델을 만들고 실행해 본 경험이 있어야 함.</li>
+</ul>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<ul>
+<li>Dashboard 만들어 보기</li>
+<li>파이썬으로 모듈 만들어 보기 + 패키지 만들고 Git으로 배포하는 방법 익혀보기</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="활용방법4" class="level2">
+<h2 class="anchored" data-anchor-id="활용방법4"><code>#</code>. 활용방법4</h2>
+<p><code>-</code> 활용방법4: 면접예상질문 작성</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">설문지 내용</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">면접질문</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<ul>
+<li>학교에서 배우는 기법들을 특히 머신러닝 모델들을 너무 기계적으로 사용하는 경향이 있음 예를 들어 차이를 비교 하는 상황이 나오면 무조건 T-test 를 적용한다던가, classification 상황이 나오면 무조건 cross-entropy를 사용하는 경우</li>
+<li>데이터의 분포를 보지 않고 현재 수집되지 않은 데이터에 대해 생각해 보지 않고 기계적으로 train/test 를 나누고 모델을 적용하는 경우를 자주 목격함</li>
+<li>실제 데이터의 모호한 상황을 보고 판단할 수 있는 눈썰미가 필요하므로 다양한 데이터의 경험이 필요함</li>
+<li>대용량 데이터에서 차근차근 정보를 요약해 가는 insigh를 도출해 가는 역량이 많이 부족하다고 생각됨. 이 역량은 통계학 전공자가 강점을 가질 수 있는 부분이 나 실제로는 그런 경향이 보이지 않음 (통계전공자가 강점을 가지지 못하고 있음)</li>
+</ul>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p>통계학과가 다른학과대비 가질 수 있는 장점은 무엇인가?</p>
+</div>
+</div>
+</div>
+</section>
+<section id="네이버클라우드" class="level2">
+<h2 class="anchored" data-anchor-id="네이버클라우드"><code>#</code>. 네이버클라우드</h2>
+<p><img src="A1_files/figure-html/e84e6e1d-dae4-47d8-ae83-7bfe78cbd54c-1-c57b1dd4-29e9-4d62-bc18-9aad34770c7d.png" class="img-fluid"></p>
+</section>
+<section id="네이버클라우드-1" class="level2">
+<h2 class="anchored" data-anchor-id="네이버클라우드-1"><code>#</code>. 네이버클라우드</h2>
+<p><img src="A1_files/figure-html/82a0d061-c5a0-4d16-b596-90e981d0443e-1-69c0426e-d535-484f-81bb-40ea620b0f55.png" class="img-fluid"></p>
+</section>
+<section id="네이버클라우드-2" class="level2">
+<h2 class="anchored" data-anchor-id="네이버클라우드-2"><code>#</code>. 네이버클라우드</h2>
+<p><img src="A1_files/figure-html/6d2c2013-846f-42b8-8796-9096a07d8d11-1-c14738f3-3028-4623-8a43-ef627f9f1924.png" class="img-fluid"></p>
+</section>
+<section id="네이버클라우드-3" class="level2">
+<h2 class="anchored" data-anchor-id="네이버클라우드-3"><code>#</code>. 네이버클라우드</h2>
+<p><img src="A1_files/figure-html/5aae76fd-286b-45a3-b3f1-e068e0d0e2d7-1-2e6c9c8a-aae3-474c-8c47-011b3ccaaf32.png" class="img-fluid"></p>
+</section>
+<section id="네이버클라우드-4" class="level2">
+<h2 class="anchored" data-anchor-id="네이버클라우드-4"><code>#</code>. 네이버클라우드</h2>
+<p><img src="A1_files/figure-html/ad0a6cea-cc50-4d67-b6d3-1ee864801ba5-1-25192164-334f-4bca-9abb-10980c124b9b.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/ae3bb113-9296-462f-929f-177901def7b5-1-5fbdd95c-75ad-4c84-b5d5-735562fffbcb.png" class="img-fluid"></p>
+</section>
+<section id="네이버클라우드-5" class="level2">
+<h2 class="anchored" data-anchor-id="네이버클라우드-5"><code>#</code>. 네이버클라우드</h2>
+<p><img src="A1_files/figure-html/7a14b5a3-3b98-4059-9a2c-f85ad9f8b984-1-7614c92c-a96e-472b-8f97-5ad6dec295af.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-a그룹" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-a그룹"><code>#</code> LG-CNS A그룹</h2>
+<p><img src="A1_files/figure-html/5f6eda37-236b-496f-9c31-9125fdb0edb9-1-b338f0eb-96bf-406b-b7fe-7deb1a8669b9.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/559682ff-bfa0-4e63-843d-d2f6f71e1758-1-0bdb44c5-0f0a-49bc-b70b-75750ee3169c.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-a그룹-1" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-a그룹-1"><code>#</code> LG-CNS A그룹</h2>
+<p><img src="A1_files/figure-html/281439ac-41b7-4ae3-9ebf-ea7f68b559bc-1-b338f0eb-96bf-406b-b7fe-7deb1a8669b9.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/25b2e6a4-75a7-4f89-9390-cbc97e7ea122-1-8d989714-02a1-4535-a86c-646da173da6a.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-a그룹-2" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-a그룹-2"><code>#</code> LG-CNS A그룹</h2>
+<p><img src="A1_files/figure-html/64b63501-3a51-4a9b-a1cd-41362908d708-1-b338f0eb-96bf-406b-b7fe-7deb1a8669b9.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/ee41c83d-4b92-42eb-88c9-d892d2b63d57-1-ae87203b-eb21-415c-ba54-58eff39d02a3.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-a그룹-3" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-a그룹-3"><code>#</code> LG-CNS A그룹</h2>
+<p><img src="A1_files/figure-html/eb62124f-95f2-4b61-9030-e3a0437cc0d9-1-477c249b-413a-4b2e-ad01-595d78580634.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/7713c875-5854-45b5-83bc-989ca706e4c4-1-738ce330-6cf9-4f8e-83dc-d871652f8035.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-a그룹-4" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-a그룹-4"><code>#</code> LG-CNS A그룹</h2>
+<p><img src="A1_files/figure-html/9770ac40-1745-4279-a27e-0a24080edeee-1-477c249b-413a-4b2e-ad01-595d78580634.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/8d993b8b-157b-43a0-8c57-95aa28731d16-1-f4f15f45-140a-48a7-9639-b90a78c33e0e.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-a그룹-5" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-a그룹-5"><code>#</code> LG-CNS A그룹</h2>
+<p><img src="A1_files/figure-html/73da51d5-3af2-4cf9-88e6-993ebcfa7680-1-477c249b-413a-4b2e-ad01-595d78580634.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/6cf06a51-bd63-4647-9baf-e6f0da988ef4-1-7cf31ec7-29f5-43b2-a74e-50f8e3bd2165.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-a그룹-6" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-a그룹-6"><code>#</code> LG-CNS A그룹</h2>
+<p><img src="A1_files/figure-html/81a5e22f-85ad-4bf3-a54b-0262f854a428-1-477c249b-413a-4b2e-ad01-595d78580634.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/48f2db78-f75c-4590-ad93-3f598697e90f-1-6171e5c1-ef43-47c3-982e-f1e29f470ef0.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-a그룹-7" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-a그룹-7"><code>#</code> LG-CNS A그룹</h2>
+<p><img src="A1_files/figure-html/afca1600-6112-48a0-a41a-eb684b8f128f-1-e789962a-6806-4ffc-b9fb-3dd5103c7268.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/d78e8045-5ada-43d3-bfea-a4714546d040-1-6fb8e765-6f63-4e65-be3f-b59523bdd9ed.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-a그룹-8" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-a그룹-8"><code>#</code> LG-CNS A그룹</h2>
+<p><img src="A1_files/figure-html/6cd11911-099b-44b0-9e77-88e8027a26a5-1-e789962a-6806-4ffc-b9fb-3dd5103c7268.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/9d8534ec-1dfc-417c-8a4b-45b2e41a5c29-1-57b509b9-1e6e-4da5-94df-aac76f89f6db.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-a그룹-9" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-a그룹-9"><code>#</code> LG-CNS A그룹</h2>
+<p><img src="A1_files/figure-html/b0bc022b-ffc2-4aae-8b5b-ed92f5741e30-1-04af4c2e-656f-466d-b57b-21df417657b1.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/da09e353-26e2-4b25-9f45-d2e9ce7ec850-1-116288d8-c0b3-4c1d-9798-1ecdbc73492b.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-a그룹-10" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-a그룹-10"><code>#</code> LG-CNS A그룹</h2>
+<p><img src="A1_files/figure-html/a97a815d-bb37-4b66-a7eb-1c3fe9bcf70b-1-04af4c2e-656f-466d-b57b-21df417657b1.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/88573c35-43c9-4c59-89f0-ec926b9e8316-1-cdae4b92-946f-43bf-847e-3f8b54ef3a99.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-a그룹-11" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-a그룹-11"><code>#</code> LG-CNS A그룹</h2>
+<p><img src="A1_files/figure-html/89094f4f-382f-4140-8b51-ec264d65f24c-1-04af4c2e-656f-466d-b57b-21df417657b1.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/7309b44f-c692-4b4a-bc5a-d19d0a981f32-1-0327e5b3-f318-4d07-bca4-0bab9db6f990.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-b그룹" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-b그룹"><code>#</code> LG-CNS B그룹</h2>
+<p><img src="A1_files/figure-html/3fb4c964-1f9d-4d0f-98c6-af807dc91985-1-4a3934ce-7f0a-42ab-838f-6d85fbbaa35f.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/f842d5e2-b63a-476f-97ae-a3ccf8a6c9aa-1-f916bff0-0b9e-4987-b5e9-822df4c83dbe.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-b그룹-1" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-b그룹-1"><code>#</code> LG-CNS B그룹</h2>
+<p><img src="A1_files/figure-html/07e46f23-6f0f-4acb-8636-e647c6d00eaf-1-e51baf02-bbe9-4b2e-962e-4a36b59ead50.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/ed8bb4a9-2f74-423d-8530-8c9c1c3d2949-1-e3341ab9-ee2d-4650-a8b8-f55b107d05b8.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-b그룹-2" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-b그룹-2"><code>#</code> LG-CNS B그룹</h2>
+<p><img src="A1_files/figure-html/270b2464-391a-4576-9c8e-f1d35f4a4380-1-d1a51a5e-6dbd-4949-affe-7c9815fd8f66.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/845cdefc-864a-4a8c-975b-6a0567895298-1-77c1f5be-6b40-454f-877c-e428b8d0f878.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-b그룹-3" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-b그룹-3"><code>#</code> LG-CNS B그룹</h2>
+<p><img src="A1_files/figure-html/1abfd40a-d45c-4a89-b9a4-50d51e5af496-1-d1a51a5e-6dbd-4949-affe-7c9815fd8f66.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/e919837f-4992-479f-bdeb-f89296625761-1-22a249d5-1533-419e-a56f-65f36099ed81.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-b그룹-4" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-b그룹-4"><code>#</code> LG-CNS B그룹</h2>
+<p><img src="A1_files/figure-html/5b4616ee-dbb2-4949-baef-73c068695a71-1-d1a51a5e-6dbd-4949-affe-7c9815fd8f66.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/2b4d407d-96f7-4890-87bf-75ec46a10e8c-1-9ffde22e-64e3-4278-a9ab-26cf2cc7a3d4.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-b그룹-5" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-b그룹-5"><code>#</code> LG-CNS B그룹</h2>
+<p><img src="A1_files/figure-html/b4a53354-3680-4dde-be68-8ee8e8636252-1-a73083b5-9ee4-4aca-b6ed-36621e7c8b20.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/96f0eac4-337c-47a3-af51-86a19de5fafb-1-f943996e-607e-4769-ab37-6f5dd35888bb.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-b그룹-6" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-b그룹-6"><code>#</code> LG-CNS B그룹</h2>
+<p><img src="A1_files/figure-html/65bd2ab2-81b4-423a-83f1-23b357d1554d-1-a73083b5-9ee4-4aca-b6ed-36621e7c8b20.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/c19a2351-f6bc-4c71-8c03-fd77658b14f2-1-f943996e-607e-4769-ab37-6f5dd35888bb.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-b그룹-7" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-b그룹-7"><code>#</code> LG-CNS B그룹</h2>
+<p><img src="A1_files/figure-html/bd7abfeb-d00d-435b-9d0c-c3d540d85c40-1-a73083b5-9ee4-4aca-b6ed-36621e7c8b20.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/64345609-1e80-4219-bff3-6053ed786bc5-1-3a53ed9b-93f0-4c52-9aff-ac8096ed38d2.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-b그룹-8" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-b그룹-8"><code>#</code> LG-CNS B그룹</h2>
+<p><img src="A1_files/figure-html/607b67f6-7a88-4e12-b2d9-3622164de56b-1-70b8ea5a-de96-4f92-971e-4955f65c2301.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/b2cb3a3e-572b-4cf6-8f80-4ac19c044af0-1-6ae4499c-83b9-4d89-8435-15e304f1c7dc.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-b그룹-9" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-b그룹-9"><code>#</code> LG-CNS B그룹</h2>
+<p><img src="A1_files/figure-html/7ff3a4a6-706f-4621-9112-33ac3c300901-1-70b8ea5a-de96-4f92-971e-4955f65c2301.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/0144a506-f7ad-456e-9cc6-a656618baf23-1-14e8b038-4b81-494e-8c4c-71f6586a5d38.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-b그룹-10" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-b그룹-10"><code>#</code> LG-CNS B그룹</h2>
+<p><img src="A1_files/figure-html/5f253b15-7acb-4cba-b081-8a52c8eb79e7-1-051f7684-baed-43a2-bad9-c124a0bc3e81.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/9ac9ed08-da89-4657-8e8c-f8818eba4c9d-1-ac1919a5-1a5a-4de2-8cd8-1fcebe18ae3d.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-b그룹-11" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-b그룹-11"><code>#</code> LG-CNS B그룹</h2>
+<p><img src="A1_files/figure-html/a260d31a-a65d-4af8-a189-6205bcf283b0-1-051f7684-baed-43a2-bad9-c124a0bc3e81.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/ae8b8b5a-2ced-4855-b21e-ba9117f37efb-1-ab28410e-e17a-425f-8313-302d01a0efb4.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-b그룹-12" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-b그룹-12"><code>#</code> LG-CNS B그룹</h2>
+<p><img src="A1_files/figure-html/d0e84ba7-1ee5-4c93-b168-663251e5194a-1-051f7684-baed-43a2-bad9-c124a0bc3e81.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/0a6e779a-64e6-483f-b1e4-46faadb1b615-1-c9352ab5-82e3-4f21-be73-68c1483ef89b.png" class="img-fluid"></p>
+</section>
+<section id="lg-cns-b그룹-13" class="level2">
+<h2 class="anchored" data-anchor-id="lg-cns-b그룹-13"><code>#</code> LG-CNS B그룹</h2>
+<p><img src="A1_files/figure-html/5ee418cc-9756-49c0-8f16-7ab5b39c20f6-1-051f7684-baed-43a2-bad9-c124a0bc3e81.png" class="img-fluid"></p>
+<p><img src="A1_files/figure-html/8a5ad917-6c5b-491e-aa97-a323900483a5-1-b7a527c6-8a0c-4764-ac49-af8af68f485a.png" class="img-fluid"></p>
+</section>
+<section id="베가스" class="level2">
+<h2 class="anchored" data-anchor-id="베가스"><code>#</code> 베가스</h2>
+<p><img src="A1_files/figure-html/49545589-1670-4061-b76d-232285673692-1-8c89b6a3-b533-4723-9a81-0b8fee93f8be.png" class="img-fluid"></p>
+</section>
+<section id="베가스-1" class="level2">
+<h2 class="anchored" data-anchor-id="베가스-1"><code>#</code> 베가스</h2>
+<p><img src="A1_files/figure-html/69cfd722-b689-4954-bcb0-f095e318f15b-1-8c89b6a3-b533-4723-9a81-0b8fee93f8be.png" class="img-fluid"></p>
+</section>
+<section id="베가스-2" class="level2">
+<h2 class="anchored" data-anchor-id="베가스-2"><code>#</code> 베가스</h2>
+<p><img src="A1_files/figure-html/7a457417-5c97-461c-a557-6ce3b2b7e26b-1-8f4a2a8e-86f3-49ac-a512-07578d2bdc3e.png" class="img-fluid"></p>
+</section>
+<section id="베가스-3" class="level2">
+<h2 class="anchored" data-anchor-id="베가스-3"><code>#</code> 베가스</h2>
+<p><img src="A1_files/figure-html/e17551c3-6d6e-4a4f-b085-8ce1bb842115-1-066518ca-5348-42c5-971d-97744c0e7ce7.png" class="img-fluid"></p>
+</section>
+<section id="베가스-4" class="level2">
+<h2 class="anchored" data-anchor-id="베가스-4"><code>#</code> 베가스</h2>
+<p><img src="A1_files/figure-html/d3a274a1-e630-471b-a393-d62e8790c2a8-1-53380171-adb6-464d-9e53-09c4c234e4eb.png" class="img-fluid"></p>
+</section>
+<section id="베가스-5" class="level2">
+<h2 class="anchored" data-anchor-id="베가스-5"><code>#</code> 베가스</h2>
+<p><img src="A1_files/figure-html/cfdd82d8-566d-4cc8-b8c4-f41eaa14beb2-1-30e04824-9d86-4aae-bde1-2cd4d9a28b87.png" class="img-fluid"></p>
+</section>
+<section id="베가스-6" class="level2">
+<h2 class="anchored" data-anchor-id="베가스-6"><code>#</code> 베가스</h2>
+<p><img src="A1_files/figure-html/1d6e89e7-540e-472a-977d-bfebe3fcbbde-1-d50ad40f-513a-4b62-b030-83f88bbbeb7d.png" class="img-fluid"></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="guebin/MP2023" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,2372 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.533">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="최규빈">
+<meta name="dcterms.date" content="2024-11-22">
+
+<title>MP2024 - 11wk-1: data_collator</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">MP2024</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../quiz.html"> 
+<span class="menu-text"><strong>Quiz &amp; Report</strong></span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/guebin/MP2024"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.youtube.com/channel/UCQk9RyBNgXc7ORIsYlOfQrg/playlists?view=50&amp;sort=dd&amp;shelf_id=2"> <i class="bi bi-youtube" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#강의영상" id="toc-강의영상" class="nav-link active" data-scroll-target="#강의영상">1. 강의영상</a></li>
+  <li><a href="#imports" id="toc-imports" class="nav-link" data-scroll-target="#imports">2. Imports</a></li>
+  <li><a href="#data_collator-이해" id="toc-data_collator-이해" class="nav-link" data-scroll-target="#data_collator-이해">3. <code>data_collator</code> 이해</a>
+  <ul class="collapse">
+  <li><a href="#a.-외우세요-starstarstar" id="toc-a.-외우세요-starstarstar" class="nav-link" data-scroll-target="#a.-외우세요-starstarstar">A. 외우세요 <span class="math inline">\((\star\star\star)\)</span></a></li>
+  <li><a href="#b.-imdb-복습" id="toc-b.-imdb-복습" class="nav-link" data-scroll-target="#b.-imdb-복습">B. IMDB – 복습</a></li>
+  <li><a href="#c.-food101-복습" id="toc-c.-food101-복습" class="nav-link" data-scroll-target="#c.-food101-복습">C. FOOD101 – 복습</a></li>
+  <li><a href="#d.-food101-defaultdatacollator-구현" id="toc-d.-food101-defaultdatacollator-구현" class="nav-link" data-scroll-target="#d.-food101-defaultdatacollator-구현">D. FOOD101 – DefaultDataCollator 구현</a></li>
+  <li><a href="#e.-imdb-datacollatorwithpadding-구현" id="toc-e.-imdb-datacollatorwithpadding-구현" class="nav-link" data-scroll-target="#e.-imdb-datacollatorwithpadding-구현">E. IMDB – DataCollatorWithPadding 구현</a></li>
+  </ul></li>
+  <li><a href="#연습-sms_spam" id="toc-연습-sms_spam" class="nav-link" data-scroll-target="#연습-sms_spam">4. 연습 – <code>sms_spam</code></a>
+  <ul class="collapse">
+  <li><a href="#a.-방법1-고정패딩-collate_fn" id="toc-a.-방법1-고정패딩-collate_fn" class="nav-link" data-scroll-target="#a.-방법1-고정패딩-collate_fn">A. 방법1: 고정패딩, <code>collate_fn</code></a></li>
+  <li><a href="#b.-방법2-고정패딩-defaultdatacollator" id="toc-b.-방법2-고정패딩-defaultdatacollator" class="nav-link" data-scroll-target="#b.-방법2-고정패딩-defaultdatacollator">B. 방법2: 고정패딩, DefaultDataCollator</a></li>
+  <li><a href="#c.-방법3-동적패딩-datacollatorwithpadding" id="toc-c.-방법3-동적패딩-datacollatorwithpadding" class="nav-link" data-scroll-target="#c.-방법3-동적패딩-datacollatorwithpadding">C. 방법3: 동적패딩, <code>DataCollatorWithPadding</code></a></li>
+  <li><a href="#d.-방법4-동적패딩-전처리x-star" id="toc-d.-방법4-동적패딩-전처리x-star" class="nav-link" data-scroll-target="#d.-방법4-동적패딩-전처리x-star">D. 방법4: 동적패딩, 전처리X <span class="math inline">\((\star)\)</span></a></li>
+  </ul></li>
+  <li><a href="#a1.-공지" id="toc-a1.-공지" class="nav-link" data-scroll-target="#a1.-공지">A1. 공지</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="11wk-1.out.ipynb" download="11wk-1.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">11wk-1: <code>data_collator</code></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>최규빈 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 22, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="https://colab.research.google.com/github/guebin/MP2024/blob/main/posts/11wk-1.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" style="text-align: left"></a></p>
+<section id="강의영상" class="level1">
+<h1>1. 강의영상</h1>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/playlist?list=PLQqh36zP38-yntkaNrZmlqWVX-ineTf4k&amp;si=xZ1WZainJuXiHheC" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
+<section id="imports" class="level1">
+<h1>2. Imports</h1>
+<div id="dad4c88c-28b7-4606-aede-bec8621faa8b" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">"WANDB_MODE"</span>] <span class="op">=</span> <span class="st">"offline"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="31afc0f9-ad5d-4919-847c-9b89fcd87c55" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datasets </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> transformers</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.utils</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> evaluate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/cgb3/anaconda3/envs/hf/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm</code></pre>
+</div>
+</div>
+</section>
+<section id="data_collator-이해" class="level1 page-columns page-full">
+<h1>3. <code>data_collator</code> 이해</h1>
+<section id="a.-외우세요-starstarstar" class="level2">
+<h2 class="anchored" data-anchor-id="a.-외우세요-starstarstar">A. 외우세요 <span class="math inline">\((\star\star\star)\)</span></h2>
+<p><code>-</code> <code>data_collator</code>를 잘 설계하는 방법: <code>trainer_input</code>과 <code>model</code>이 주어졌을때 <code>data_collator</code>는 아래의 코드가 동작하도록 설계하면 된다.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>trainer_input <span class="op">=</span> <span class="op">~~~</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> <span class="op">~~~~</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#---#</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>batch_maker <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    data_collator <span class="op">=</span> <span class="kw">lambda</span> x: x</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>) <span class="co"># 이 과정에서 model이 cuda로 감 </span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>_batched_data <span class="op">=</span> batch_maker.get_test_dataloader(trainer_input) <span class="co"># 이 과정에서 trainer_input이 cuda로 감</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>batched_data <span class="op">=</span> <span class="bu">list</span>(_batched_data)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>single_batch <span class="op">=</span> batched_data[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>model.to(<span class="st">"cpu"</span>) <span class="co"># 경우에 따라 생략해야할수도있음</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>data_collator(single_batch))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>-</code> 위의 코드가 오류없이 실행되었다면 아래의 코드를 사용할 수 있다.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    data_collator <span class="op">=</span> data_collator</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>trainer.predict(trainer_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<blockquote class="blockquote">
+<p>이걸 어떻게 알았냐고요? 코드뜯어봤습니다.. <span class="math inline">\(\to\)</span> 숙제</p>
+</blockquote>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>코랩사용자의 경우 아래와 같이 wandb(Weights &amp; Biases) 로그인을 요구하는 문제가 있습니다.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">wandb:</span> WARNING The <span class="kw">`</span><span class="ex">run_name</span><span class="kw">`</span> is currently set to the same value as <span class="kw">`</span><span class="ex">TrainingArguments.output_dir</span><span class="kw">`</span>. If this was not intended, please specify a different run name by setting the <span class="kw">`</span><span class="ex">TrainingArguments.run_name</span><span class="kw">`</span> parameter.</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">wandb:</span> Using wandb-core as the SDK backend.  Please refer to https://wandb.me/wandb-core for more information.</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">wandb:</span> Logging into wandb.ai. <span class="er">(</span><span class="ex">Learn</span> how to deploy a W<span class="kw">&amp;</span><span class="ex">B</span> server locally: https://wandb.me/wandb-server<span class="kw">)</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">wandb:</span> You can find your API key in your browser here: https://wandb.ai/authorize</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">wandb:</span> Paste an API key from your profile and hit enter, or press ctrl+c to quit:</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>이를 해결하기 위해서는 아래의 코드를 코랩처음에 실행하면 됩니다.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">"WANDB_MODE"</span>] <span class="op">=</span> <span class="st">"offline"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>주의: <code>trainer_input</code>의 type이 꼭 <code>Dataset</code> 일 필요는 없다..</p>
+</div>
+</div>
+</section>
+<section id="b.-imdb-복습" class="level2">
+<h2 class="anchored" data-anchor-id="b.-imdb-복습">B. IMDB – 복습</h2>
+<p>ref: <a href="https://huggingface.co/docs/transformers/tasks/sequence_classification" class="uri">https://huggingface.co/docs/transformers/tasks/sequence_classification</a></p>
+<p><em>1. 데이터준비: <code>"guebin/imdb-tiny"</code> <span class="math inline">\(\to\)</span> <code>trainer_input</code></em></p>
+<div id="71cd490d-ae86-4920-b487-79c7c45fec7b" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>imdb <span class="op">=</span> datasets.load_dataset(<span class="st">"guebin/imdb-tiny"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>) </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> preprocess_function(examples):</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tokenizer(examples[<span class="st">"text"</span>], truncation<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>tokenized_imdb <span class="op">=</span> imdb.<span class="bu">map</span>(preprocess_function,batched<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>trainer_input <span class="op">=</span> tokenized_imdb[<span class="st">'train'</span>]</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>trainer_input</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Map: 100%|█████████████████████████████| 10/10 [00:00&lt;00:00, 1694.39 examples/s]</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>Dataset({
+    features: ['text', 'label', 'input_ids', 'attention_mask'],
+    num_rows: 10
+})</code></pre>
+</div>
+</div>
+<p><em>2. 모델준비: <code>"distilbert/distilbert-base-uncased"</code> <span class="math inline">\(\to\)</span><code>model</code></em></p>
+<div id="0610264c-a333-4ea1-9e1d-8108817eea00" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Some weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
+</div>
+</div>
+<p><em>3. 데이터콜렉터: <code>DataCollatorWithPadding()</code> <span class="math inline">\(\to\)</span> <code>data_collator</code></em></p>
+<div id="87136dce-a4be-4a18-9db6-8f346a989d78" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data_collator <span class="op">=</span> transformers.DataCollatorWithPadding(tokenizer<span class="op">=</span>tokenizer)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>data_collator</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>DataCollatorWithPadding(tokenizer=DistilBertTokenizerFast(name_or_path='distilbert/distilbert-base-uncased', vocab_size=30522, model_max_length=512, is_fast=True, padding_side='right', truncation_side='right', special_tokens={'unk_token': '[UNK]', 'sep_token': '[SEP]', 'pad_token': '[PAD]', 'cls_token': '[CLS]', 'mask_token': '[MASK]'}, clean_up_tokenization_spaces=False),  added_tokens_decoder={
+    0: AddedToken("[PAD]", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+    100: AddedToken("[UNK]", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+    101: AddedToken("[CLS]", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+    102: AddedToken("[SEP]", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+    103: AddedToken("[MASK]", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+}, padding=True, max_length=None, pad_to_multiple_of=None, return_tensors='pt')</code></pre>
+</div>
+</div>
+<hr>
+<p>데이터콜렉터가 올바로 설정되었는지 체크하고, 적당한 <code>trainer</code>를 만들어</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>trainer.predict(trainer_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>이 정상동작하는지 확인하라.</p>
+<p><code>(풀이)</code></p>
+<div id="483da651-055e-4807-b126-fd510eb4f931" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>batch_maker <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    data_collator <span class="op">=</span> <span class="kw">lambda</span> x: x</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>) <span class="co"># 이 과정에서 model이 cuda로 감 </span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>_batched_data <span class="op">=</span> batch_maker.get_test_dataloader(trainer_input) <span class="co"># 이 과정에서 trainer_input이 cuda로 감</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>batched_data <span class="op">=</span> <span class="bu">list</span>(_batched_data)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>single_batch <span class="op">=</span> batched_data[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>model.to(<span class="st">"cpu"</span>) <span class="co"># 경우에 따라 생략해야할수도있음</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>data_collator(single_batch))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>SequenceClassifierOutput(loss=tensor(0.7085, grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[-0.0543,  0.0011],
+        [-0.0405, -0.0351]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<ul>
+<li>잘 돌아갔음. (=여기에서 사용된 데이터콜렉터는 잘 설계된 <code>data_collator</code> 라는 의미)</li>
+</ul>
+<div id="c6a72b78-ddbb-4945-a1ae-19651f01427c" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    data_collator <span class="op">=</span> data_collator</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> trainer.predict(trainer_input)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>out </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+</div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>PredictionOutput(predictions=array([[-0.24347985,  0.03874021],
+       [-0.26586303,  0.06817057],
+       [-0.2564777 ,  0.04826375],
+       [-0.2534306 ,  0.06623521],
+       [-0.23762025,  0.05738585],
+       [-0.25557715,  0.07033838],
+       [-0.19689777,  0.07268588],
+       [-0.20918864,  0.05981901],
+       [-0.2526626 ,  0.10021226],
+       [-0.24273753,  0.05700814]], dtype=float32), label_ids=array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), metrics={'test_loss': 0.8574765920639038, 'test_model_preparation_time': 0.0011, 'test_runtime': 0.038, 'test_samples_per_second': 263.415, 'test_steps_per_second': 52.683})</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+<p><code>-</code> 관찰1: <code>batched_data[-1]</code> 는 하나의배치(single_batch)를 의미함. 모델의 입력으로는 부적절한 형식임.</p>
+<div id="4c813562-c818-4365-af02-11dcd5c8ea25" class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># batched_data[-1] -- 부적절해보이는 모델입력..</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="8d87a224-68ce-4a3d-9be3-1404224e5e39" class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>batched_data[<span class="op">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>TypeError: DistilBertForSequenceClassification(
+  (distilbert): DistilBertModel(
+    (embeddings): Embeddings(
+      (word_embeddings): Embedding(30522, 768, padding_idx=0)
+      (position_embeddings): Embedding(512, 768)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (transformer): Transformer(
+      (layer): ModuleList(
+        (0-5): 6 x TransformerBlock(
+          (attention): DistilBertSdpaAttention(
+            (dropout): Dropout(p=0.1, inplace=False)
+            (q_lin): Linear(in_features=768, out_features=768, bias=True)
+            (k_lin): Linear(in_features=768, out_features=768, bias=True)
+            (v_lin): Linear(in_features=768, out_features=768, bias=True)
+            (out_lin): Linear(in_features=768, out_features=768, bias=True)
+          )
+          (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+          (ffn): FFN(
+            (dropout): Dropout(p=0.1, inplace=False)
+            (lin1): Linear(in_features=768, out_features=3072, bias=True)
+            (lin2): Linear(in_features=3072, out_features=768, bias=True)
+            (activation): GELUActivation()
+          )
+          (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+        )
+      )
+    )
+  )
+  (pre_classifier): Linear(in_features=768, out_features=768, bias=True)
+  (classifier): Linear(in_features=768, out_features=2, bias=True)
+  (dropout): Dropout(p=0.2, inplace=False)
+) argument after ** must be a mapping, not list</code></pre>
+</div>
+</div>
+<p><code>-</code> 관찰2: <code>data_collator(batched_data[-1])</code> 역시 하나의배치(single_batch)를 의미함. 그런데 이것은 모델의 입력으로도 적절한 형식.</p>
+<div id="d481e53e-4099-4fc0-b3f4-7c400d99fb7a" class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>data_collator(batched_data[<span class="op">-</span><span class="dv">1</span>]) <span class="co"># 모델의 입력으로 매우 바람직해 보이는 형식임 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="59">
+<pre><code>{'input_ids': tensor([[  101,  2040,  2024,  ..., 22132,  7847,   102],
+        [  101,  2023,  2003,  ...,     0,     0,     0]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 0])}</code></pre>
+</div>
+</div>
+<div id="c0fef91b-a769-40f3-9682-69111b7f99f8" class="cell" data-execution_count="65">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>model.to(<span class="st">"cpu"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>data_collator(batched_data[<span class="dv">1</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="65">
+<pre><code>SequenceClassifierOutput(loss=tensor(0.8696, grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[-0.2527,  0.1002],
+        [-0.2427,  0.0570]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>data_collator</code> – 심화이해
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>아래의 형식으로 정리된 배치화된 자료가 있다고 하자. (주의: <code>batched_data</code>는 항상 list비슷한 오브젝트이어야함)</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>batched_data <span class="op">=</span> [batch_1, batch_2, ...,batch_n]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>data_collator</code> 는 각각의 <code>single_batch</code>, 즉 <code>batch_1</code>, <code>batch_2</code> 등을 <code>model</code>이 처리가능한 형태로 “형식”을 맞춰주는 역할을 한다. 즉 아래가 실행되도록 만들어주는 역할을 한다.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>data_collator(batch_1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>trainer</code>와 <code>model</code>의 자료처리과정 비교
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong><em>#. <code>model</code>의 자료처리과정</em></strong></p>
+<p>-코드: <code>model.forward(model_input)</code></p>
+<p>-처리과정: <code>model_input</code>에 정리된 입력을 단순히 <code>model.forward()</code> 함수가 처리.</p>
+<p><strong><em>#. <code>trainer</code>의 자료처리과정</em></strong></p>
+<p>-코드: <code>trainer.predict(trainer_input)</code></p>
+<p>-처리과정: 배치화 <span class="math inline">\(\to\)</span> 데이터콜렉팅 <span class="math inline">\(\to\)</span> 추론의 3단계를 거친다.</p>
+<ol type="1">
+<li><code>trainer_input</code>을 배치(batch)로 나눈다.</li>
+<li>각 배치(=<code>single_batch</code>)를 <code>data_collator</code>를 통해 형식을 맞춘다.</li>
+<li>형식이 조정된 데이터를 <code>model.forward</code>의 입력으로 전달한다.</li>
+</ol>
+<p>-슈도코드:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 이 코드는.. </span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>trainer.predict(trainer_input)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">## 대략 아래의 느낌으로 해석하면 된다.. (동일X. 결과정리, GPU처리 등 세부로직이 더 있음)</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>batched_data <span class="op">=</span> some_function(trainer_input)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> single_batch <span class="kw">in</span> batched_data:</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    collated_data <span class="op">=</span> data_collator(single_batch)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    model(<span class="op">**</span>collated_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>trainer.predict()</code> 의 분해
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>trainer.predict()</code>의 동작은 개념적으로 (1) 배치화 (2) 데이터콜렝팅 (3) 추론의 과정으로 분해할 수 있지만, 실제이러한 과정으로 코드를 정확하게 분리하는건 어렵다. (그리고 저 사이사이에는 다른 자잘한 과정들이 많다..) 하지만 이해를 위해서 코드조각을 억지로 분리해본다면 아래 3개의 코드조각으로 분리할 수 있을것이다.</p>
+<p><code>1</code>. 배치화: <code>trainer_input</code> <span class="math inline">\(\to\)</span> <code>batched_data</code></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>batch_maker <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    data_collator <span class="op">=</span> <span class="kw">lambda</span> x: x</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>_batched_data <span class="op">=</span> batch_maker.get_test_dataloader(trainer_input)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>batched_data <span class="op">=</span> <span class="bu">list</span>(_batched_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>2</code>. 데이터콜렉팅: <code>single_batch</code> <span class="math inline">\(\to\)</span> <code>collated_data</code></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#for single_batch in batched_data:</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    collated_data <span class="op">=</span> data_collator(single_batch)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>3</code>. 추론: <code>collated_data</code> <span class="math inline">\(\to\)</span> <code>model_out</code></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#for single_batch in batched_data:</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#collated_data = data_collator(single_batch)</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    model_out <span class="op">=</span> model(<span class="op">**</span>collated_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="c.-food101-복습" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="c.-food101-복습">C. FOOD101 – 복습</h2>
+<p>ref: <a href="https://huggingface.co/docs/transformers/tasks/image_classification" class="uri">https://huggingface.co/docs/transformers/tasks/image_classification</a></p>
+<p><em>1. 데이터준비: <code>"guebin/food101-tiny"</code> <span class="math inline">\(\to\)</span> <code>trainer_input</code></em></p>
+<div id="8c095a8f-c132-4ed2-8413-1d7e2d08198a" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>food <span class="op">=</span> datasets.load_dataset(<span class="st">"guebin/food101-tiny"</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>image_processor <span class="op">=</span> transformers.AutoImageProcessor.from_pretrained(<span class="st">"google/vit-base-patch16-224-in21k"</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>normalize <span class="op">=</span> torchvision.transforms.Normalize(mean<span class="op">=</span>image_processor.image_mean, std<span class="op">=</span>image_processor.image_std)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>size <span class="op">=</span> (</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    image_processor.size[<span class="st">"shortest_edge"</span>]</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"shortest_edge"</span> <span class="kw">in</span> image_processor.size</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> (image_processor.size[<span class="st">"height"</span>], image_processor.size[<span class="st">"width"</span>])</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>_transforms <span class="op">=</span> torchvision.transforms.Compose([</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.RandomResizedCrop(size), </span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.ToTensor(), </span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    normalize</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> transforms(examples):</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>    examples[<span class="st">"pixel_values"</span>] <span class="op">=</span> [_transforms(img.convert(<span class="st">"RGB"</span>)) <span class="cf">for</span> img <span class="kw">in</span> examples[<span class="st">"image"</span>]]</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">del</span> examples[<span class="st">"image"</span>]</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> examples</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>trainer_input <span class="op">=</span> food[<span class="st">'train'</span>].with_transform(transforms)</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>trainer_input</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Fast image processor class &lt;class 'transformers.models.vit.image_processing_vit_fast.ViTImageProcessorFast'&gt; is available for this model. Using slow image processor class. To use the fast image processor class set `use_fast=True`.</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>Dataset({
+    features: ['image', 'label'],
+    num_rows: 10
+})</code></pre>
+</div>
+</div>
+<p><em>2. 모델준비: <code>"google/vit-base-patch16-224-in21k"</code> <span class="math inline">\(\to\)</span><code>model</code></em></p>
+<div id="de8bcc77-0431-4a6f-80d1-27b838cc947b" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> food[<span class="st">"train"</span>].features[<span class="st">"label"</span>].names</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>label2id, id2label <span class="op">=</span> <span class="bu">dict</span>(), <span class="bu">dict</span>()</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, label <span class="kw">in</span> <span class="bu">enumerate</span>(labels):</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    label2id[label] <span class="op">=</span> <span class="bu">str</span>(i)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    id2label[<span class="bu">str</span>(i)] <span class="op">=</span> label</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForImageClassification.from_pretrained(</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"google/vit-base-patch16-224-in21k"</span>,</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    num_labels<span class="op">=</span><span class="bu">len</span>(labels),</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    id2label<span class="op">=</span>id2label,</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    label2id<span class="op">=</span>label2id,</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Some weights of ViTForImageClassification were not initialized from the model checkpoint at google/vit-base-patch16-224-in21k and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
+</div>
+</div>
+<p><em>3. 데이터콜렉터: <code>DefaultDataCollator()</code> <span class="math inline">\(\to\)</span> <code>data_collator</code></em></p>
+<div id="b9cbb38e-0504-4cd9-a28d-1f85eb100d9a" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>data_collator <span class="op">=</span> transformers.DefaultDataCollator()</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>data_collator</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>DefaultDataCollator(return_tensors='pt')</code></pre>
+</div>
+</div>
+<hr>
+<p>데이터콜렉터가 올바로 설정되었는지 체크하고, 적당한 <code>trainer</code>를 만들어</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>trainer.predict(trainer_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>이 정상동작하는지 확인하라.</p>
+<p><code>(풀이1)</code> – 실패</p>
+<div id="71c727a7-7799-4c1d-a1cb-e385e32ca26d" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>batch_maker <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model,</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    data_collator <span class="op">=</span> <span class="kw">lambda</span> x: x </span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>_batched_data <span class="op">=</span> batch_maker.get_test_dataloader(trainer_input)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>batched_data <span class="op">=</span> <span class="bu">list</span>(_batched_data)</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>single_batch <span class="op">=</span> batched_data[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>data_collator(single_batch))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>KeyError: 'image'</code></pre>
+</div>
+</div>
+<p><code>-</code> 왜 실패했지?? (예전에는 분명히 되었던 것 같은뎅..)</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>&lt;에러메시지의 해석&gt;</strong></p>
+<p><code>-</code> 아래가 동작하지 않음.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>batched_data <span class="op">=</span> <span class="bu">list</span>(_batched_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>-</code> 그 이유는 아래가 동작하지 않기 때문임.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="bu">next</span>(dataloader_iter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>-</code> …(생략)…</p>
+<p><code>-</code> 최종적으로는 아래가 동작하지 않기 때문에 생긴 문제였음. (그런데 이건 <code>.with_transform()</code>에 있는 코드인데?)</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>examples[<span class="st">"pixel_values"</span>] <span class="op">=</span> [_transforms(img.convert(<span class="st">"RGB"</span>)) <span class="cf">for</span> img <span class="kw">in</span> examples[<span class="st">"image"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>-</code> 결국</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>[_transforms(img.convert(<span class="st">"RGB"</span>)) <span class="cf">for</span> img <span class="kw">in</span> examples[<span class="st">"image"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>를 실행하는 시점에서 <code>examples["image"]</code>가 없었다는 의미.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>눈치: <code>with_transform</code>이 지금 실행되는거였어?</p>
+</blockquote>
+<p><code>-</code> 왜 이런일이 생기지?</p>
+<p><code>-</code> 배치화를 하는 코드</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>_batched_data <span class="op">=</span> batch_maker.get_test_dataloader(trainer_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>에서 아래의 column_names:</p>
+<ul>
+<li><code>pixel_values</code></li>
+<li><code>head_mask</code></li>
+<li><code>labels</code></li>
+<li><code>output_attentions</code></li>
+<li><code>output_hidden_states</code></li>
+<li><code>interpolate_pos_encoding</code></li>
+<li><code>return_dict</code></li>
+</ul>
+<p>를 제외하고는 모두 트레이너(<code>batch_maker = trainer</code>)가 강제로 제거하는 로직이 있음.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;왜 이런 로직이 있을까? 이런 로직이 없다면 model의 args를 강제로 외우고 있어야 하니까..</p></li></div><p><code>-</code> <code>image</code>라는 column_name은 위에 해당되지 않으므로 제거됨.</p>
+<p><code>-</code> 그리고 <code>image</code> 칼럼이 제거된 이후에 <code>with_transform</code> 이 나중에 실행되면서 (지연실행) 문제가 발생.</p>
+<blockquote class="blockquote">
+<p>이걸 어떻게 알았냐고요? 코드뜯어봤습니다.. <span class="math inline">\(\to\)</span> 숙제</p>
+</blockquote>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+중간정리
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>trainer.predict()</code> 은 (1) 배치화 (2) 데이터콜렉팅 (3) 추론의 과정을 거친다. 그리고 배치화와 데이터콜렉팅 사이에 “싱글배치”를 만드는 과정이 있다.</p>
+<ul>
+<li>세부사항1: 그런데 “<strong>배치화</strong>”단계에서 <code>model.forward()</code>의 입력으로 사용되지 않는 columns는 지워지는 내부로직이 존재한다.</li>
+<li>세부사항2: <code>trainer_input</code>에 걸려있는 <code>.with_transform()</code>은 “<strong>배치화</strong>”이후 싱글배치가 만들어지는 과정에서 실행된다.</li>
+</ul>
+<p>따라서 <code>.with_transform()</code> 에서 특정컬럼의 변화시키는 동작이 약속된 경우, 그 컬럼이 <strong>배치화</strong>의 단계에서 자동제거되어 코드가 돌아가지 않을 수 있는 위험성이 존재한다.</p>
+</div>
+</div>
+<p><code>(풀이2)</code> – <code>image</code>를 <code>return_dict</code> 로 위장.. // 완전 테크니컬한 풀이</p>
+<p><code>-</code> 현재상황: <code>food['train']</code>에 <code>.with_transform(transforms)</code>을 걸어두고(?) <code>trainer_input</code>을 만든상황</p>
+<p><code>-</code> 문제: <code>trainer.predict()</code> 내부동작에서 <code>.with_transform(transform)</code> 이 실현될때</p>
+<div id="9208c47c-a073-4bbc-97f5-e77c440693c5" class="cell" data-execution_count="272">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>transforms??</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Signature: transforms(examples)
+Docstring: &lt;no docstring&gt;
+Source:   
+def transforms(examples):
+    examples["pixel_values"] = [_transforms(img.convert("RGB")) for img in examples["image"]]
+    del examples["image"]
+    return examples
+File:      /tmp/ipykernel_706133/1515420127.py
+Type:      function</code></pre>
+</div>
+</div>
+<p>이 내용이 실행되어야하는데, <code>image</code>는 model의 입력으로 유하하지 않은 키라서 트레이너가 이미 제거한 상태임.</p>
+<p><code>-</code> 전략: 제거가 안되게 막아보자..</p>
+<div id="557b831d-a9c0-4403-ba4e-12dba33f7989" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#model.forward?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="690817e9-aa83-45dd-b673-29a17c38f6ec" class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#trainer_input = food['train'].with_transform(transforms)</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>trainer_input2 <span class="op">=</span> trainer_input.rename_columns({<span class="st">'image'</span>:<span class="st">'return_dict'</span>})</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>trainer_input2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="49">
+<pre><code>Dataset({
+    features: ['return_dict', 'label'],
+    num_rows: 10
+})</code></pre>
+</div>
+</div>
+<div id="aea39a00-b799-4f67-bdee-812febf8f8eb" class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> transforms2(examples):</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>    examples[<span class="st">"pixel_values"</span>] <span class="op">=</span> [_transforms(img.convert(<span class="st">"RGB"</span>)) <span class="cf">for</span> img <span class="kw">in</span> examples[<span class="st">"return_dict"</span>]]</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">del</span> examples[<span class="st">"return_dict"</span>]</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> examples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="fe3a7a79-f6ef-44d2-be7f-7e105bf8357d" class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>trainer_input3 <span class="op">=</span> trainer_input2.with_transform(transforms2)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>trainer_input3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="55">
+<pre><code>Dataset({
+    features: ['return_dict', 'label'],
+    num_rows: 10
+})</code></pre>
+</div>
+</div>
+<div id="4e39e170-787a-404c-b81c-9538e42ccdf7" class="cell" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>batch_maker <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model,</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    data_collator <span class="op">=</span> <span class="kw">lambda</span> x: x </span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>_batched_data <span class="op">=</span> batch_maker.get_test_dataloader(trainer_input3)</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>batched_data <span class="op">=</span> <span class="bu">list</span>(_batched_data)</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>single_batch <span class="op">=</span> batched_data[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>data_collator(single_batch))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="56">
+<pre><code>ImageClassifierOutput(loss=tensor(4.5805, device='cuda:0', grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[-0.0258,  0.0340,  0.0493,  0.0371,  0.0371,  0.0636, -0.0353, -0.0416,
+          0.0061, -0.0304,  0.0127, -0.0633,  0.0532, -0.1117, -0.1657, -0.0810,
+          0.0022,  0.0071, -0.0947, -0.0831, -0.1189,  0.0783, -0.2383, -0.0486,
+          0.1039,  0.0115,  0.0054, -0.0113,  0.0740,  0.0783,  0.0188,  0.0618,
+          0.2759,  0.1308, -0.1028,  0.0198,  0.0032,  0.2006, -0.1247, -0.0512,
+         -0.0331, -0.0608, -0.1030,  0.0307,  0.2115,  0.1275, -0.1836, -0.2429,
+         -0.1090, -0.0293,  0.1010,  0.0847, -0.0655,  0.0416, -0.1167, -0.0598,
+          0.1333,  0.1627, -0.1722,  0.0046, -0.0842,  0.0161,  0.1583, -0.0403,
+         -0.0190, -0.1496,  0.0723, -0.0647, -0.1083, -0.1299,  0.0851, -0.1810,
+          0.0214,  0.2340, -0.0186, -0.1256,  0.0582,  0.1798,  0.1589, -0.0982,
+          0.0066,  0.0177,  0.0315,  0.0404,  0.1300, -0.0198,  0.0468, -0.0595,
+          0.2014,  0.0155, -0.0009,  0.1910, -0.0110,  0.1809,  0.0187,  0.0010,
+          0.0691,  0.2024,  0.1041, -0.1182,  0.0577],
+        [-0.0791,  0.0483, -0.0684,  0.0205,  0.0634,  0.0355,  0.1256,  0.0242,
+          0.0795, -0.1158,  0.1004, -0.0554,  0.1398,  0.0703, -0.0372, -0.0903,
+          0.0322, -0.1763, -0.0331,  0.0778,  0.0345,  0.0899,  0.0006, -0.1170,
+         -0.0303,  0.0620, -0.1490, -0.0589, -0.0060,  0.0266, -0.0812, -0.0497,
+         -0.0114,  0.0981, -0.0686,  0.0337,  0.0196,  0.0132, -0.1738, -0.0574,
+         -0.0434,  0.0773,  0.0020,  0.1212,  0.1227, -0.0150, -0.0698, -0.1568,
+          0.0644, -0.1053,  0.0420, -0.1292, -0.1032, -0.1744, -0.1242, -0.0229,
+          0.1295,  0.0844, -0.1660, -0.0132, -0.0407,  0.1438, -0.0115, -0.0879,
+         -0.1188, -0.1644, -0.0454, -0.0449, -0.0555, -0.2129, -0.0220, -0.1480,
+         -0.0191,  0.2003,  0.0107,  0.1169,  0.0108,  0.0526,  0.1320, -0.2591,
+          0.0240, -0.0215,  0.2772,  0.0699,  0.0940,  0.0377,  0.0715,  0.1504,
+          0.0094, -0.0027,  0.1345,  0.2739,  0.0965,  0.1069, -0.0843,  0.0841,
+          0.0078,  0.1318,  0.1355,  0.0620, -0.0478]], device='cuda:0',
+       grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<div id="055cd7ea-3f07-46d9-a44d-4ce6b531360c" class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model,</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span> data_collator</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>trainer.predict(trainer_input3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+</div>
+<div class="cell-output cell-output-display" data-execution_count="59">
+<pre><code>PredictionOutput(predictions=array([[-0.05419738, -0.05692905,  0.02577981, ...,  0.06238552,
+        -0.08741985,  0.00835681],
+       [ 0.06003767,  0.03531971, -0.01702251, ...,  0.10187533,
+        -0.04111148, -0.11816782],
+       [-0.06362653, -0.06895374,  0.04998193, ...,  0.04436018,
+         0.09370279, -0.10635335],
+       ...,
+       [ 0.01029072,  0.00109556, -0.0853666 , ...,  0.117467  ,
+        -0.07630866,  0.04534987],
+       [-0.02582262,  0.03399263,  0.04932407, ...,  0.10409873,
+        -0.11815406,  0.05774596],
+       [-0.07906114,  0.04832995, -0.06836515, ...,  0.1355295 ,
+         0.06195256, -0.04780686]], dtype=float32), label_ids=array([6, 6, 6, 6, 6, 6, 6, 6, 6, 6]), metrics={'test_loss': 4.615988254547119, 'test_model_preparation_time': 0.0021, 'test_runtime': 0.122, 'test_samples_per_second': 81.994, 'test_steps_per_second': 16.399})</code></pre>
+</div>
+</div>
+<p><code>(풀이3)</code> – trainer_input 에 예약된 <code>with_transform</code>을 지연실행하지 않고 즉시 실행</p>
+<div id="eee109ec-36f1-4d2c-9433-2c27d5a007a6" class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>trainer_input</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="61">
+<pre><code>Dataset({
+    features: ['image', 'label'],
+    num_rows: 10
+})</code></pre>
+</div>
+</div>
+<div id="b7bce360-8f9c-4152-bd24-62d3dad7419a" class="cell" data-execution_count="69">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>trainer_input2 <span class="op">=</span> [l <span class="cf">for</span> l <span class="kw">in</span> trainer_input]</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="co">#trainer_input2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="5d96fe9a-4ec3-44b0-b6da-d5037d5493c7" class="cell" data-execution_count="71">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>batch_maker <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model,</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>    data_collator <span class="op">=</span> <span class="kw">lambda</span> x: x </span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>_batched_data <span class="op">=</span> batch_maker.get_test_dataloader(trainer_input2)</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>batched_data <span class="op">=</span> <span class="bu">list</span>(_batched_data)</span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>single_batch <span class="op">=</span> batched_data[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>data_collator(single_batch))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="71">
+<pre><code>ImageClassifierOutput(loss=tensor(4.5605, device='cuda:0', grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[-0.0081,  0.0617,  0.0638,  0.0713,  0.0144,  0.0612, -0.0130,  0.0154,
+         -0.0081, -0.0375,  0.0250, -0.0233,  0.0434, -0.1051, -0.1325, -0.0450,
+         -0.0049, -0.0313, -0.0842, -0.0833, -0.0892,  0.0594, -0.2713, -0.0347,
+          0.1534,  0.0343,  0.0183,  0.0157,  0.0553,  0.1003,  0.0007,  0.0441,
+          0.2778,  0.1277, -0.1301,  0.0467, -0.0503,  0.2478, -0.1140, -0.1092,
+         -0.0189, -0.0305, -0.1160,  0.0112,  0.2403,  0.1366, -0.1775, -0.2425,
+         -0.1163, -0.0243,  0.0992,  0.0648, -0.0584,  0.0718, -0.1058, -0.0473,
+          0.1545,  0.1715, -0.2551,  0.0352, -0.0359,  0.0221,  0.1607, -0.0603,
+         -0.0414, -0.1300,  0.1734, -0.0703, -0.1057, -0.1081,  0.0777, -0.1908,
+          0.0017,  0.3012, -0.0455, -0.1913,  0.0702,  0.1233,  0.1578, -0.0738,
+         -0.0173,  0.0552,  0.0420,  0.0655,  0.1074, -0.0273,  0.0485, -0.0461,
+          0.1798,  0.0381,  0.0032,  0.1604, -0.0975,  0.1537,  0.0042, -0.0461,
+          0.0601,  0.2107,  0.1335, -0.1295,  0.0352],
+        [-0.1044,  0.0104, -0.0422, -0.1469, -0.0117,  0.0846,  0.1661, -0.0103,
+          0.0525, -0.0917,  0.1212, -0.0444,  0.1618,  0.1138, -0.0373,  0.0542,
+          0.0429, -0.2012, -0.0207,  0.0457,  0.0667,  0.0972, -0.0717, -0.0703,
+          0.0701,  0.0540, -0.0171, -0.0794,  0.0547,  0.2083, -0.0065,  0.0393,
+          0.0592,  0.2466,  0.0027,  0.0328, -0.0566,  0.0978, -0.1787,  0.0818,
+         -0.0550,  0.0916,  0.0148,  0.1101,  0.1682,  0.0056, -0.0835, -0.2765,
+         -0.0238, -0.1956,  0.0127, -0.0766, -0.0920, -0.1452, -0.0421, -0.0560,
+          0.1438,  0.1189, -0.1660,  0.0936, -0.0736,  0.1523,  0.0853, -0.0591,
+         -0.0346, -0.1171,  0.0096, -0.0056,  0.0095, -0.2420,  0.0185, -0.0991,
+          0.1547,  0.2323,  0.0378,  0.0578,  0.0714,  0.1055,  0.1090, -0.2153,
+          0.1281,  0.0639,  0.1533, -0.0397,  0.2495,  0.0217,  0.0576,  0.1019,
+          0.2074,  0.0387,  0.1036,  0.3094,  0.1219,  0.0817, -0.0584,  0.0388,
+          0.0619,  0.0701,  0.0913,  0.0300, -0.0823]], device='cuda:0',
+       grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<div id="29fdb21c-bec8-4ee1-bc87-05d4df1562f6" class="cell" data-execution_count="72">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model,</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span> data_collator</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>trainer.predict(trainer_input2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+</div>
+<div class="cell-output cell-output-display" data-execution_count="72">
+<pre><code>PredictionOutput(predictions=array([[-0.11918398, -0.16509736,  0.0360051 , ..., -0.0015837 ,
+        -0.1649007 ,  0.06934457],
+       [ 0.02522344, -0.03897335,  0.14615731, ...,  0.14916745,
+        -0.08329906,  0.00363915],
+       [-0.03516109, -0.03787031,  0.06803481, ...,  0.0288963 ,
+         0.03937618, -0.04595642],
+       ...,
+       [ 0.05573866, -0.03177875, -0.12821546, ...,  0.08249602,
+        -0.12046868,  0.02415534],
+       [-0.00807494,  0.06173132,  0.06380235, ...,  0.13346131,
+        -0.1294754 ,  0.03517982],
+       [-0.10440043,  0.01043405, -0.04224908, ...,  0.09133518,
+         0.03001446, -0.08225137]], dtype=float32), label_ids=array([6, 6, 6, 6, 6, 6, 6, 6, 6, 6]), metrics={'test_loss': 4.626803398132324, 'test_model_preparation_time': 0.0022, 'test_runtime': 0.0629, 'test_samples_per_second': 159.085, 'test_steps_per_second': 31.817})</code></pre>
+</div>
+</div>
+<p><code>(풀이4)</code> – 트레이너가 가진 “사용하지 않는 column을 제거하는 기능”을 <code>False</code> 시킴..</p>
+<div id="3793d6db-8d64-4305-b884-440ffffa2ba0" class="cell" data-execution_count="79">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>trainer_input</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="79">
+<pre><code>Dataset({
+    features: ['image', 'label'],
+    num_rows: 10
+})</code></pre>
+</div>
+</div>
+<div id="199dec4b-139d-4104-b1a5-34f0abcf117d" class="cell" data-execution_count="80">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>batch_maker <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model,</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>    data_collator <span class="op">=</span> <span class="kw">lambda</span> x: x,</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>    args <span class="op">=</span> transformers.TrainingArguments(</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"asdf"</span>,</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>        remove_unused_columns<span class="op">=</span><span class="va">False</span></span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a>_batched_data <span class="op">=</span> batch_maker.get_test_dataloader(trainer_input)</span>
+<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a>batched_data <span class="op">=</span> <span class="bu">list</span>(_batched_data)</span>
+<span id="cb69-11"><a href="#cb69-11" aria-hidden="true" tabindex="-1"></a>single_batch <span class="op">=</span> batched_data[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb69-12"><a href="#cb69-12" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>data_collator(single_batch))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="80">
+<pre><code>ImageClassifierOutput(loss=tensor(4.5805, device='cuda:0', grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[-0.0258,  0.0340,  0.0493,  0.0371,  0.0371,  0.0636, -0.0353, -0.0416,
+          0.0061, -0.0304,  0.0127, -0.0633,  0.0532, -0.1117, -0.1657, -0.0810,
+          0.0022,  0.0071, -0.0947, -0.0831, -0.1189,  0.0783, -0.2383, -0.0486,
+          0.1039,  0.0115,  0.0054, -0.0113,  0.0740,  0.0783,  0.0188,  0.0618,
+          0.2759,  0.1308, -0.1028,  0.0198,  0.0032,  0.2006, -0.1247, -0.0512,
+         -0.0331, -0.0608, -0.1030,  0.0307,  0.2115,  0.1275, -0.1836, -0.2429,
+         -0.1090, -0.0293,  0.1010,  0.0847, -0.0655,  0.0416, -0.1167, -0.0598,
+          0.1333,  0.1627, -0.1722,  0.0046, -0.0842,  0.0161,  0.1583, -0.0403,
+         -0.0190, -0.1496,  0.0723, -0.0647, -0.1083, -0.1299,  0.0851, -0.1810,
+          0.0214,  0.2340, -0.0186, -0.1256,  0.0582,  0.1798,  0.1589, -0.0982,
+          0.0066,  0.0177,  0.0315,  0.0404,  0.1300, -0.0198,  0.0468, -0.0595,
+          0.2014,  0.0155, -0.0009,  0.1910, -0.0110,  0.1809,  0.0187,  0.0010,
+          0.0691,  0.2024,  0.1041, -0.1182,  0.0577],
+        [-0.0791,  0.0483, -0.0684,  0.0205,  0.0634,  0.0355,  0.1256,  0.0242,
+          0.0795, -0.1158,  0.1004, -0.0554,  0.1398,  0.0703, -0.0372, -0.0903,
+          0.0322, -0.1763, -0.0331,  0.0778,  0.0345,  0.0899,  0.0006, -0.1170,
+         -0.0303,  0.0620, -0.1490, -0.0589, -0.0060,  0.0266, -0.0812, -0.0497,
+         -0.0114,  0.0981, -0.0686,  0.0337,  0.0196,  0.0132, -0.1738, -0.0574,
+         -0.0434,  0.0773,  0.0020,  0.1212,  0.1227, -0.0150, -0.0698, -0.1568,
+          0.0644, -0.1053,  0.0420, -0.1292, -0.1032, -0.1744, -0.1242, -0.0229,
+          0.1295,  0.0844, -0.1660, -0.0132, -0.0407,  0.1438, -0.0115, -0.0879,
+         -0.1188, -0.1644, -0.0454, -0.0449, -0.0555, -0.2129, -0.0220, -0.1480,
+         -0.0191,  0.2003,  0.0107,  0.1169,  0.0108,  0.0526,  0.1320, -0.2591,
+          0.0240, -0.0215,  0.2772,  0.0699,  0.0940,  0.0377,  0.0715,  0.1504,
+          0.0094, -0.0027,  0.1345,  0.2739,  0.0965,  0.1069, -0.0843,  0.0841,
+          0.0078,  0.1318,  0.1355,  0.0620, -0.0478]], device='cuda:0',
+       grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<div id="11a793e7-e305-4ad1-a399-14edee7f59ea" class="cell" data-execution_count="82">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model,</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span> data_collator,</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>    args <span class="op">=</span> transformers.TrainingArguments(</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"asdf"</span>,</span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>        remove_unused_columns<span class="op">=</span><span class="va">False</span></span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>    )    </span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a>trainer.predict(trainer_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+</div>
+<div class="cell-output cell-output-display" data-execution_count="82">
+<pre><code>PredictionOutput(predictions=array([[-0.05419738, -0.05692905,  0.02577981, ...,  0.06238552,
+        -0.08741985,  0.00835681],
+       [ 0.06003767,  0.03531971, -0.01702251, ...,  0.10187533,
+        -0.04111148, -0.11816782],
+       [-0.06362653, -0.06895374,  0.04998193, ...,  0.04436018,
+         0.09370279, -0.10635335],
+       ...,
+       [ 0.01029072,  0.00109556, -0.0853666 , ...,  0.117467  ,
+        -0.07630866,  0.04534987],
+       [-0.02582262,  0.03399263,  0.04932407, ...,  0.10409873,
+        -0.11815406,  0.05774596],
+       [-0.07906114,  0.04832995, -0.06836515, ...,  0.1355295 ,
+         0.06195256, -0.04780686]], dtype=float32), label_ids=array([6, 6, 6, 6, 6, 6, 6, 6, 6, 6]), metrics={'test_loss': 4.615988254547119, 'test_model_preparation_time': 0.0021, 'test_runtime': 0.0794, 'test_samples_per_second': 125.968, 'test_steps_per_second': 25.194})</code></pre>
+</div>
+</div>
+<p><code>#</code></p>
+<p><code>(풀이5)</code> – 트레이너가 가진 “사용하지 않는 column을 제거하는 기능”을 <code>False</code> 시킬꺼면, <code>batch_maker</code>를 고려할 필요도 없이 아래와 같이 바로 <code>single_batch</code>를 얻을 수 있음.</p>
+<p><em>풀이4: 실제로 trainer가 싱글배치를 얻는 과정과 유사하게 얻는 방법</em></p>
+<div id="7659eb7c-82f7-4113-87ed-2aaa19d53290" class="cell" data-execution_count="89">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>batch_maker <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model,</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>    data_collator <span class="op">=</span> <span class="kw">lambda</span> x: x,</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>    args <span class="op">=</span> transformers.TrainingArguments(</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span> <span class="st">"asdf"</span>, <span class="co"># 아무거나 써야함. </span></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>        remove_unused_columns<span class="op">=</span> <span class="va">False</span> <span class="co"># 이 부분이 포인트!!</span></span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>    )        </span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>_batched_data <span class="op">=</span> batch_maker.get_test_dataloader(trainer_input)</span>
+<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a>batched_data <span class="op">=</span> <span class="bu">list</span>(_batched_data)</span>
+<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a>single_batch <span class="op">=</span> batched_data[<span class="dv">0</span>]</span>
+<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a><span class="co"># single_batch = [</span></span>
+<span id="cb73-13"><a href="#cb73-13" aria-hidden="true" tabindex="-1"></a><span class="co">#     {'label':int, 'pixel_values': 3d-tsr},</span></span>
+<span id="cb73-14"><a href="#cb73-14" aria-hidden="true" tabindex="-1"></a><span class="co">#     {'label':int, 'pixel_values': 3d-tsr},</span></span>
+<span id="cb73-15"><a href="#cb73-15" aria-hidden="true" tabindex="-1"></a><span class="co">#     {'label':int, 'pixel_values': 3d-tsr},</span></span>
+<span id="cb73-16"><a href="#cb73-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     {'label':int, 'pixel_values': 3d-tsr},</span></span>
+<span id="cb73-17"><a href="#cb73-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     {'label':int, 'pixel_values': 3d-tsr},</span></span>
+<span id="cb73-18"><a href="#cb73-18" aria-hidden="true" tabindex="-1"></a><span class="co">#     {'label':int, 'pixel_values': 3d-tsr},</span></span>
+<span id="cb73-19"><a href="#cb73-19" aria-hidden="true" tabindex="-1"></a><span class="co">#     {'label':int, 'pixel_values': 3d-tsr},</span></span>
+<span id="cb73-20"><a href="#cb73-20" aria-hidden="true" tabindex="-1"></a><span class="co">#     {'label':int, 'pixel_values': 3d-tsr},</span></span>
+<span id="cb73-21"><a href="#cb73-21" aria-hidden="true" tabindex="-1"></a><span class="co"># ]    </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<blockquote class="blockquote">
+<p>형식관찰: <code>single_batch</code>는 <code>[Dict, Dict, Dict, .... Dict]</code> 꼴임을 주목하라.</p>
+</blockquote>
+<p><em>풀이5: 형식관찰에 힌트를 얻어 무식하게 얻은 싱글배치</em></p>
+<div id="d43aae24-8606-4256-98d5-bbcdbfc00f2f" class="cell" data-execution_count="113">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>single_batch <span class="op">=</span> [</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>    trainer_input[<span class="dv">0</span>],</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>    trainer_input[<span class="dv">1</span>],</span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>    trainer_input[<span class="dv">2</span>],</span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>    trainer_input[<span class="dv">3</span>],</span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>    trainer_input[<span class="dv">4</span>],</span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>    trainer_input[<span class="dv">5</span>],</span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>    trainer_input[<span class="dv">6</span>],</span>
+<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>    trainer_input[<span class="dv">7</span>],</span>
+<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><em>아무튼 풀이5 스타일로 싱글배치를 얻었다면? 이후의 코드는 동일</em></p>
+<div id="18693c6e-fa15-499d-bb91-b71542ae5f79" class="cell" data-execution_count="114">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>model.to(<span class="st">"cpu"</span>)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>data_collator(single_batch))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="920e15ac-7809-4abd-b9dc-96b572c0e5f3" class="cell" data-execution_count="99">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model,</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span> data_collator,</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>    args <span class="op">=</span> transformers.TrainingArguments(</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"asdf"</span>,</span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>        remove_unused_columns<span class="op">=</span><span class="va">False</span></span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>    )    </span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a>trainer.predict(trainer_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+</div>
+<div class="cell-output cell-output-display" data-execution_count="99">
+<pre><code>PredictionOutput(predictions=array([[-0.05419738, -0.05692905,  0.02577981, ...,  0.06238552,
+        -0.08741985,  0.00835681],
+       [ 0.06003767,  0.03531971, -0.01702251, ...,  0.10187533,
+        -0.04111148, -0.11816782],
+       [-0.06362653, -0.06895374,  0.04998193, ...,  0.04436018,
+         0.09370279, -0.10635335],
+       ...,
+       [ 0.01029072,  0.00109556, -0.0853666 , ...,  0.117467  ,
+        -0.07630866,  0.04534987],
+       [-0.02582262,  0.03399263,  0.04932407, ...,  0.10409873,
+        -0.11815406,  0.05774596],
+       [-0.07906114,  0.04832995, -0.06836515, ...,  0.1355295 ,
+         0.06195256, -0.04780686]], dtype=float32), label_ids=array([6, 6, 6, 6, 6, 6, 6, 6, 6, 6]), metrics={'test_loss': 4.615988254547119, 'test_model_preparation_time': 0.0015, 'test_runtime': 0.0567, 'test_samples_per_second': 176.35, 'test_steps_per_second': 35.27})</code></pre>
+</div>
+</div>
+<p><em>참고1: 아래의 방식으로 싱글배치를 얻을 수 없음. – 이유? 지연실행때문에..</em></p>
+<div id="1ba8c39e-5b82-462a-86a2-e4917b016ed5" class="cell" data-execution_count="115">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co">#single_batch = trainer_input.to_list()[:8]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><em>참고2: 아래의 방식으로도 싱글배치를 얻을 수 없음.</em></p>
+<div id="8994af4b-8096-498d-8f19-6cc45554a036" class="cell" data-execution_count="116">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co">#single_batch = trainer_input[:8]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><em>이유?</em></p>
+<div id="f87f2e15-742a-4063-a979-d291334de790" class="cell" data-execution_count="108">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>trainer_input[:<span class="dv">2</span>] <span class="op">==</span> [trainer_input[<span class="dv">0</span>],trainer_input[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="108">
+<pre><code>False</code></pre>
+</div>
+</div>
+</section>
+<section id="d.-food101-defaultdatacollator-구현" class="level2">
+<h2 class="anchored" data-anchor-id="d.-food101-defaultdatacollator-구현">D. FOOD101 – DefaultDataCollator 구현</h2>
+<p><em>1. 데이터준비: <code>"guebin/food101-tiny"</code> <span class="math inline">\(\to\)</span> <code>trainer_input</code></em></p>
+<div id="b830cfc2-bb28-41f9-9968-9ef4cd7f9e21" class="cell" data-execution_count="117">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>food <span class="op">=</span> datasets.load_dataset(<span class="st">"guebin/food101-tiny"</span>)</span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>image_processor <span class="op">=</span> transformers.AutoImageProcessor.from_pretrained(<span class="st">"google/vit-base-patch16-224-in21k"</span>)</span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>normalize <span class="op">=</span> torchvision.transforms.Normalize(mean<span class="op">=</span>image_processor.image_mean, std<span class="op">=</span>image_processor.image_std)</span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>size <span class="op">=</span> (</span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>    image_processor.size[<span class="st">"shortest_edge"</span>]</span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"shortest_edge"</span> <span class="kw">in</span> image_processor.size</span>
+<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> (image_processor.size[<span class="st">"height"</span>], image_processor.size[<span class="st">"width"</span>])</span>
+<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>_transforms <span class="op">=</span> torchvision.transforms.Compose([</span>
+<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.RandomResizedCrop(size), </span>
+<span id="cb82-11"><a href="#cb82-11" aria-hidden="true" tabindex="-1"></a>    torchvision.transforms.ToTensor(), </span>
+<span id="cb82-12"><a href="#cb82-12" aria-hidden="true" tabindex="-1"></a>    normalize</span>
+<span id="cb82-13"><a href="#cb82-13" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb82-14"><a href="#cb82-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> transforms(examples):</span>
+<span id="cb82-15"><a href="#cb82-15" aria-hidden="true" tabindex="-1"></a>    examples[<span class="st">"pixel_values"</span>] <span class="op">=</span> [_transforms(img.convert(<span class="st">"RGB"</span>)) <span class="cf">for</span> img <span class="kw">in</span> examples[<span class="st">"image"</span>]]</span>
+<span id="cb82-16"><a href="#cb82-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">del</span> examples[<span class="st">"image"</span>]</span>
+<span id="cb82-17"><a href="#cb82-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> examples</span>
+<span id="cb82-18"><a href="#cb82-18" aria-hidden="true" tabindex="-1"></a>trainer_input <span class="op">=</span> food[<span class="st">'train'</span>].with_transform(transforms)</span>
+<span id="cb82-19"><a href="#cb82-19" aria-hidden="true" tabindex="-1"></a>trainer_input</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Fast image processor class &lt;class 'transformers.models.vit.image_processing_vit_fast.ViTImageProcessorFast'&gt; is available for this model. Using slow image processor class. To use the fast image processor class set `use_fast=True`.</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="117">
+<pre><code>Dataset({
+    features: ['image', 'label'],
+    num_rows: 10
+})</code></pre>
+</div>
+</div>
+<p><em>2. 모델준비: <code>"google/vit-base-patch16-224-in21k"</code> <span class="math inline">\(\to\)</span><code>model</code></em></p>
+<div id="c01621bd-0365-4636-8913-5b04512ad2b9" class="cell" data-execution_count="118">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> food[<span class="st">"train"</span>].features[<span class="st">"label"</span>].names</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>label2id, id2label <span class="op">=</span> <span class="bu">dict</span>(), <span class="bu">dict</span>()</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, label <span class="kw">in</span> <span class="bu">enumerate</span>(labels):</span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>    label2id[label] <span class="op">=</span> <span class="bu">str</span>(i)</span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>    id2label[<span class="bu">str</span>(i)] <span class="op">=</span> label</span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForImageClassification.from_pretrained(</span>
+<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"google/vit-base-patch16-224-in21k"</span>,</span>
+<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a>    num_labels<span class="op">=</span><span class="bu">len</span>(labels),</span>
+<span id="cb85-9"><a href="#cb85-9" aria-hidden="true" tabindex="-1"></a>    id2label<span class="op">=</span>id2label,</span>
+<span id="cb85-10"><a href="#cb85-10" aria-hidden="true" tabindex="-1"></a>    label2id<span class="op">=</span>label2id,</span>
+<span id="cb85-11"><a href="#cb85-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Some weights of ViTForImageClassification were not initialized from the model checkpoint at google/vit-base-patch16-224-in21k and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
+</div>
+</div>
+<p><em>3. 데이터콜렉터: <code>collate_fn</code> 직접설계</em></p>
+<div id="4ff687af-d42e-4b3e-ac7e-f3db3d181f34" class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data_collator = transformers.DefaultDataCollator()</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="co"># data_collator</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="8ea9b134-9f9a-4597-8038-0389165c9093" class="cell" data-execution_count="119">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> collate_fn(single_batch):</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>DefaultDataCollator()</code> 와 동일한 역할을 하는 <code>collate_fn</code>을 설계하라. 이를 이용하여 적당한 <code>trainer</code>를 만들어</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>trainer.predict(trainer_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>이 정상동작하는지 확인하라.</p>
+<p><code>(풀이)</code></p>
+<div id="293ba961-f650-42b8-8e50-447fecbceead" class="cell" data-execution_count="120">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>trainer_input</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="120">
+<pre><code>Dataset({
+    features: ['image', 'label'],
+    num_rows: 10
+})</code></pre>
+</div>
+</div>
+<div id="ea9418a6-b8ab-44a4-866c-39b399a85aed" class="cell" data-execution_count="132">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co"># batch_maker = transformers.Trainer(</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="co">#     model= model,</span></span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     data_collator= lambda x: x,</span></span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     args = transformers.TrainingArguments(</span></span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a><span class="co">#         output_dir="asdf",</span></span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a><span class="co">#         remove_unused_columns=False</span></span>
+<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     )</span></span>
+<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a><span class="co"># _batched_data = batch_maker.get_eval_dataloader(trainer_input)</span></span>
+<span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a><span class="co"># batched_data = list(_batched_data)</span></span>
+<span id="cb92-11"><a href="#cb92-11" aria-hidden="true" tabindex="-1"></a><span class="co"># single_batch = batched_data[-1]</span></span>
+<span id="cb92-12"><a href="#cb92-12" aria-hidden="true" tabindex="-1"></a><span class="co">#---#</span></span>
+<span id="cb92-13"><a href="#cb92-13" aria-hidden="true" tabindex="-1"></a>single_batch <span class="op">=</span> [trainer_input[<span class="op">-</span><span class="dv">2</span>],trainer_input[<span class="op">-</span><span class="dv">1</span>]]</span>
+<span id="cb92-14"><a href="#cb92-14" aria-hidden="true" tabindex="-1"></a>single_batch</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="132">
+<pre><code>[{'label': 6,
+  'pixel_values': tensor([[[ 0.9294,  0.9137,  0.9137,  ..., -0.0902, -0.1373, -0.1451],
+           [ 0.9216,  0.8902,  0.8824,  ..., -0.1059, -0.1451, -0.1216],
+           [ 0.9137,  0.8745,  0.8588,  ..., -0.1294, -0.1608, -0.1216],
+           ...,
+           [ 0.8902,  0.8824,  0.8588,  ...,  0.6471,  0.6941,  0.7490],
+           [ 0.8980,  0.9608,  0.9216,  ...,  0.6471,  0.6863,  0.7412],
+           [ 0.7961,  0.9294,  0.8980,  ...,  0.6863,  0.7569,  0.8275]],
+  
+          [[ 0.7882,  0.7725,  0.7725,  ..., -0.7020, -0.7490, -0.7569],
+           [ 0.7804,  0.7412,  0.7333,  ..., -0.7176, -0.7569, -0.7490],
+           [ 0.7725,  0.7255,  0.7098,  ..., -0.7412, -0.7725, -0.7490],
+           ...,
+           [ 0.6000,  0.6000,  0.5765,  ...,  0.3569,  0.4196,  0.4824],
+           [ 0.6078,  0.6784,  0.6549,  ...,  0.3647,  0.4275,  0.4824],
+           [ 0.5059,  0.6471,  0.6314,  ...,  0.4118,  0.5137,  0.5843]],
+  
+          [[ 0.3020,  0.2863,  0.2863,  ..., -0.8824, -0.9294, -0.9373],
+           [ 0.2941,  0.2784,  0.2627,  ..., -0.8980, -0.9373, -0.9294],
+           [ 0.3020,  0.2627,  0.2471,  ..., -0.9294, -0.9608, -0.9373],
+           ...,
+           [-0.0588, -0.0431, -0.0275,  ..., -0.2000, -0.1294, -0.0588],
+           [-0.0196,  0.0745,  0.0824,  ..., -0.1843, -0.1059, -0.0353],
+           [-0.1059,  0.0667,  0.0745,  ..., -0.1216, -0.0118,  0.0745]]])},
+ {'label': 6,
+  'pixel_values': tensor([[[ 0.2471,  0.2392,  0.2235,  ...,  0.5529,  0.5608,  0.5686],
+           [ 0.2784,  0.2706,  0.2549,  ...,  0.5137,  0.5216,  0.5294],
+           [ 0.2863,  0.2863,  0.2706,  ...,  0.5373,  0.5373,  0.5373],
+           ...,
+           [ 0.1843,  0.1843,  0.1922,  ...,  0.3961,  0.4039,  0.4039],
+           [ 0.1765,  0.1765,  0.1765,  ...,  0.3725,  0.3804,  0.3804],
+           [ 0.1843,  0.1843,  0.1843,  ...,  0.3412,  0.3490,  0.3490]],
+  
+          [[ 0.0196,  0.0118, -0.0039,  ...,  0.2392,  0.2471,  0.2549],
+           [ 0.0510,  0.0431,  0.0275,  ...,  0.2000,  0.2078,  0.2157],
+           [ 0.0431,  0.0353,  0.0275,  ...,  0.2235,  0.2235,  0.2235],
+           ...,
+           [ 0.0275,  0.0275,  0.0353,  ...,  0.2314,  0.2392,  0.2392],
+           [ 0.0196,  0.0196,  0.0275,  ...,  0.2078,  0.2157,  0.2157],
+           [ 0.0353,  0.0353,  0.0353,  ...,  0.1765,  0.1843,  0.1843]],
+  
+          [[-0.0275, -0.0353, -0.0510,  ...,  0.3020,  0.3098,  0.3176],
+           [ 0.0039, -0.0039, -0.0196,  ...,  0.2627,  0.2706,  0.2784],
+           [-0.0196, -0.0196, -0.0275,  ...,  0.2784,  0.2784,  0.2784],
+           ...,
+           [-0.0275, -0.0275, -0.0196,  ...,  0.2000,  0.2078,  0.2078],
+           [-0.0353, -0.0353, -0.0275,  ...,  0.1843,  0.1922,  0.1922],
+           [-0.0118, -0.0118, -0.0118,  ...,  0.1529,  0.1608,  0.1608]]])}]</code></pre>
+</div>
+</div>
+<div id="9a6f6c3e-0168-4a6b-9fae-e88f368885d5" class="cell" data-execution_count="153">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> collate_fn(single_batch):</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#single_batch = [Dict,Dict] </span></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Dict = {'label': 6, 'pixel_values': [3, 224, 224]-tensor</span></span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>    collated_data <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>    collated_data[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor([dct[<span class="st">'label'</span>] <span class="cf">for</span> dct <span class="kw">in</span> single_batch])    </span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>    collated_data[<span class="st">'pixel_values'</span>] <span class="op">=</span> torch.stack([dct[<span class="st">'pixel_values'</span>] <span class="cf">for</span> dct <span class="kw">in</span> single_batch])</span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> collated_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="a3657c6b-7843-487b-92be-10fd09c4a283" class="cell" data-execution_count="142">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>model.to(<span class="st">"cpu"</span>)</span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>collate_fn(single_batch))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="142">
+<pre><code>ImageClassifierOutput(loss=tensor(4.6879, grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[-0.0804,  0.0968,  0.0104,  0.0587,  0.0753, -0.1459, -0.0490,  0.0943,
+         -0.1302,  0.0035,  0.0278,  0.0814, -0.0322, -0.0997,  0.0074,  0.0590,
+          0.1447, -0.0570,  0.0402, -0.1111,  0.0828, -0.0466, -0.0744, -0.0126,
+         -0.0425,  0.1688, -0.0974, -0.0623,  0.0361,  0.0408,  0.0729, -0.0884,
+         -0.1466, -0.0140, -0.0014,  0.0648,  0.1264, -0.0280,  0.1474, -0.0689,
+         -0.1422,  0.0655,  0.0284, -0.0079, -0.0690, -0.0004,  0.1554,  0.2469,
+         -0.0823, -0.1235,  0.1127,  0.0328, -0.0263, -0.1717, -0.0735, -0.0631,
+         -0.0033,  0.0384,  0.0394, -0.0366, -0.0721, -0.1715, -0.1646,  0.1292,
+         -0.0584,  0.1022,  0.1657, -0.0345, -0.0113,  0.0878,  0.0139,  0.0916,
+          0.0486,  0.1362, -0.1265, -0.0859,  0.1684,  0.0747, -0.0101,  0.0710,
+          0.1240,  0.0428,  0.0963, -0.0619,  0.0882, -0.1248, -0.0710, -0.0345,
+         -0.0587,  0.0099, -0.0551,  0.0146,  0.0188, -0.0608, -0.0025, -0.0860,
+          0.0773, -0.0181,  0.0626, -0.0063,  0.1354],
+        [-0.1139,  0.1333,  0.0288,  0.1036,  0.0013, -0.1305, -0.0787, -0.0498,
+         -0.0068, -0.0083, -0.1182,  0.1121, -0.0138,  0.1194, -0.0208,  0.0663,
+          0.1040,  0.0072,  0.0234, -0.0689, -0.0308, -0.1163,  0.0537, -0.0286,
+         -0.0101,  0.0307, -0.0585, -0.0954,  0.0320, -0.0579,  0.0325, -0.0295,
+         -0.1303, -0.0086,  0.0865, -0.0150,  0.1053, -0.0445,  0.1173,  0.0385,
+         -0.0747, -0.0407,  0.0267,  0.0213, -0.0670, -0.0072,  0.1436,  0.2285,
+         -0.0249, -0.0071,  0.2300,  0.0438, -0.0619, -0.1296, -0.0915, -0.1184,
+         -0.0810, -0.0472,  0.0674, -0.0898, -0.2508,  0.0194, -0.1328,  0.0603,
+         -0.0573,  0.2025,  0.1324, -0.0234,  0.1049, -0.0662, -0.0686,  0.1090,
+          0.0918, -0.0061,  0.0338, -0.0134,  0.2654,  0.0237, -0.0282,  0.0598,
+          0.0974,  0.0358,  0.0761,  0.0540, -0.0830,  0.0899, -0.0992, -0.1714,
+         -0.1553,  0.0348,  0.0597, -0.0319,  0.0956,  0.0430, -0.0128,  0.0559,
+          0.1588, -0.0096,  0.0150, -0.0084, -0.0050]],
+       grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<div id="b8c4ede6-e568-44b5-b1b7-155d90f15143" class="cell" data-execution_count="145">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>collate_fn,</span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>transformers.TrainingArguments(</span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"asdf"</span>,</span>
+<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a>        remove_unused_columns<span class="op">=</span><span class="va">False</span></span>
+<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a>trainer.predict(trainer_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>PyTorch: setting up devices
+The default value for the training argument `--report_to` will change in v5 (from all installed integrations to none). In v5, you will need to use `--report_to all` to get the same behavior as now. You should start updating your code and make this info disappear :-).
+
+***** Running Prediction *****
+  Num examples = 10
+  Batch size = 8</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+</div>
+<div class="cell-output cell-output-display" data-execution_count="145">
+<pre><code>PredictionOutput(predictions=array([[-0.11636792, -0.0263294 ,  0.1064104 , ..., -0.04388852,
+        -0.07757819,  0.01414965],
+       [-0.07075333,  0.05525547,  0.0611947 , ..., -0.03989508,
+        -0.0375449 ,  0.12472424],
+       [-0.07043052,  0.12611614,  0.00971566, ...,  0.00761356,
+        -0.00533151,  0.02300033],
+       ...,
+       [-0.20117757,  0.09828947,  0.00724527, ..., -0.04101294,
+        -0.02915922,  0.21293962],
+       [-0.05230844,  0.08269425,  0.02642585, ...,  0.03440103,
+        -0.00195974,  0.12479743],
+       [-0.0799979 ,  0.02366202,  0.03927091, ...,  0.05246412,
+         0.07132983, -0.06526391]], dtype=float32), label_ids=array([6, 6, 6, 6, 6, 6, 6, 6, 6, 6]), metrics={'test_loss': 4.681787967681885, 'test_model_preparation_time': 0.0015, 'test_runtime': 0.0592, 'test_samples_per_second': 168.828, 'test_steps_per_second': 33.766})</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="e.-imdb-datacollatorwithpadding-구현" class="level2">
+<h2 class="anchored" data-anchor-id="e.-imdb-datacollatorwithpadding-구현">E. IMDB – DataCollatorWithPadding 구현</h2>
+<p>ref: <a href="https://huggingface.co/docs/transformers/tasks/sequence_classification" class="uri">https://huggingface.co/docs/transformers/tasks/sequence_classification</a></p>
+<p><em>1. 데이터준비: <code>"guebin/imdb-tiny"</code> <span class="math inline">\(\to\)</span> <code>trainer_input</code></em></p>
+<div id="222fed30-5759-4bd2-9921-bbd6734ee144" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>imdb <span class="op">=</span> datasets.load_dataset(<span class="st">"guebin/imdb-tiny"</span>)</span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>)</span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> preprocess_function(examples):</span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tokenizer(examples[<span class="st">"text"</span>], truncation<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a>tokenized_imdb <span class="op">=</span> imdb.<span class="bu">map</span>(preprocess_function,batched<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a>trainer_input <span class="op">=</span> tokenized_imdb[<span class="st">'train'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><em>2. 모델준비: <code>"distilbert/distilbert-base-uncased"</code> <span class="math inline">\(\to\)</span><code>model</code></em></p>
+<div id="2b403722-789e-453b-87be-9971c838ab75" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(</span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span></span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Some weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
+</div>
+</div>
+<p><em>3. 데이터콜렉터: <code>collate_fn</code> 직접설계</em></p>
+<div id="33d01cdf-2962-43cf-8b65-97817eb2504c" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data_collator = transformers.DataCollatorWithPadding(tokenizer=tokenizer)</span></span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="co"># data_collator</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="a69b5ba3-44fc-45d0-ac0a-06066250100c" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> collate_fn(single_batch):</span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+<p><code>DataCollatorWithPadding()</code> 와 동일한 역할을 하는 <code>collate_fn</code>을 설계하라. 이를 이용하여 적당한 <code>trainer</code>를 만들어</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>trainer.predict(trainer_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>이 정상동작하는지 확인하라.</p>
+<p><code>(풀이)</code></p>
+<div id="56ce3b1f-e0d0-4cab-9f3d-42a4d44b7568" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>trainer_input</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>Dataset({
+    features: ['text', 'label', 'input_ids', 'attention_mask'],
+    num_rows: 10
+})</code></pre>
+</div>
+</div>
+<div id="a78cb791-bd51-4132-8718-fdf4bf5afe66" class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>batch_maker <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span> model,</span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span> <span class="kw">lambda</span> x: x,</span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a>_batched_data <span class="op">=</span> batch_maker.get_eval_dataloader(trainer_input)</span>
+<span id="cb108-6"><a href="#cb108-6" aria-hidden="true" tabindex="-1"></a>batched_data <span class="op">=</span> <span class="bu">list</span>(_batched_data)</span>
+<span id="cb108-7"><a href="#cb108-7" aria-hidden="true" tabindex="-1"></a>single_batch <span class="op">=</span> batched_data[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="bbb4fcf9-3be1-42e2-a9b3-87559a7bb899" class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> torch.tensor([dct[<span class="st">'label'</span>] <span class="cf">for</span> dct <span class="kw">in</span> single_batch])</span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>labels</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="61">
+<pre><code>tensor([0, 0])</code></pre>
+</div>
+</div>
+<div id="17ddcdb8-58be-47cd-9137-936ca2c4a5b1" class="cell" data-execution_count="62">
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>input_ids <span class="op">=</span> torch.nn.utils.rnn.pad_sequence([torch.tensor(dct[<span class="st">'input_ids'</span>]) <span class="cf">for</span> dct <span class="kw">in</span> single_batch]).t()</span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>input_ids</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="62">
+<pre><code>tensor([[  101,  2040,  2024,  ..., 22132,  7847,   102],
+        [  101,  2023,  2003,  ...,     0,     0,     0]])</code></pre>
+</div>
+</div>
+<div id="ce76a9b2-96e0-4e5b-a91d-f463fee7e151" class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>attention_mask <span class="op">=</span> torch.nn.utils.rnn.pad_sequence([torch.tensor(dct[<span class="st">'attention_mask'</span>]) <span class="cf">for</span> dct <span class="kw">in</span> single_batch]).t()</span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>attention_mask</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="63">
+<pre><code>tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0]])</code></pre>
+</div>
+</div>
+<div id="403b9ed5-31e0-4c74-985f-3a0baebbf04e" class="cell" data-execution_count="64">
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="co"># single_batch = [Dict, Dict]</span></span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Dict = {</span></span>
+<span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     'label': int </span></span>
+<span id="cb115-4"><a href="#cb115-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     'input_ids': 1d-list </span></span>
+<span id="cb115-5"><a href="#cb115-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     'attention_mask': 1d-list </span></span>
+<span id="cb115-6"><a href="#cb115-6" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb115-7"><a href="#cb115-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> collate_fn(single_batch):</span>
+<span id="cb115-8"><a href="#cb115-8" aria-hidden="true" tabindex="-1"></a>    collated_data <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb115-9"><a href="#cb115-9" aria-hidden="true" tabindex="-1"></a>    collated_data[<span class="st">'input_ids'</span>] <span class="op">=</span> torch.nn.utils.rnn.pad_sequence([torch.tensor(dct[<span class="st">'input_ids'</span>]) <span class="cf">for</span> dct <span class="kw">in</span> single_batch]).t()    </span>
+<span id="cb115-10"><a href="#cb115-10" aria-hidden="true" tabindex="-1"></a>    collated_data[<span class="st">'attention_mask'</span>] <span class="op">=</span> torch.nn.utils.rnn.pad_sequence([torch.tensor(dct[<span class="st">'attention_mask'</span>]) <span class="cf">for</span> dct <span class="kw">in</span> single_batch]).t()</span>
+<span id="cb115-11"><a href="#cb115-11" aria-hidden="true" tabindex="-1"></a>    collated_data[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor([dct[<span class="st">'label'</span>] <span class="cf">for</span> dct <span class="kw">in</span> single_batch])</span>
+<span id="cb115-12"><a href="#cb115-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> collated_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="57f69284-1bdc-421c-a99f-2a46c97e4111" class="cell" data-execution_count="65">
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>collate_fn(single_batch)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="65">
+<pre><code>{'input_ids': tensor([[  101,  2040,  2024,  ..., 22132,  7847,   102],
+         [  101,  2023,  2003,  ...,     0,     0,     0]]),
+ 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+         [1, 1, 1,  ..., 0, 0, 0]]),
+ 'labels': tensor([0, 0])}</code></pre>
+</div>
+</div>
+<div id="05281a70-8b3c-4d2a-a3e6-2415b15930ea" class="cell" data-execution_count="66">
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>model.to(<span class="st">"cpu"</span>)</span>
+<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>collate_fn(single_batch))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="66">
+<pre><code>SequenceClassifierOutput(loss=tensor(0.6132, grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[0.1724, 0.0153],
+        [0.1978, 0.0212]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<div id="858e44c9-63ed-4f54-aeed-68fc254b1b05" class="cell" data-execution_count="78">
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
+<span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>collate_fn,</span>
+<span id="cb120-4"><a href="#cb120-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb120-5"><a href="#cb120-5" aria-hidden="true" tabindex="-1"></a>trainer.predict(trainer_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+</div>
+<div class="cell-output cell-output-display" data-execution_count="78">
+<pre><code>PredictionOutput(predictions=array([[ 0.18233198,  0.0185583 ],
+       [ 0.19031762,  0.02762305],
+       [ 0.19021928,  0.03987525],
+       [ 0.15878916, -0.00159456],
+       [ 0.18261112,  0.02069864],
+       [ 0.14113042, -0.00186965],
+       [ 0.17083615,  0.03911189],
+       [ 0.16111258,  0.01503472],
+       [ 0.17235444,  0.0153002 ],
+       [ 0.19777855,  0.02123523]], dtype=float32), label_ids=array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), metrics={'test_loss': 0.6185036897659302, 'test_model_preparation_time': 0.0011, 'test_runtime': 0.0378, 'test_samples_per_second': 264.573, 'test_steps_per_second': 52.915})</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="연습-sms_spam" class="level1">
+<h1>4. 연습 – <code>sms_spam</code></h1>
+<div id="0395f64b-c3a5-4deb-94c6-3e0730b8fe8b" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> transformers.AutoModelForSequenceClassification.from_pretrained(</span>
+<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"distilbert/distilbert-base-uncased"</span>, num_labels<span class="op">=</span><span class="dv">2</span></span>
+<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb122-4"><a href="#cb122-4" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> transformers.AutoTokenizer.from_pretrained(<span class="st">"distilbert/distilbert-base-uncased"</span>)</span>
+<span id="cb122-5"><a href="#cb122-5" aria-hidden="true" tabindex="-1"></a>spam <span class="op">=</span> datasets.load_dataset(<span class="st">'guebin/spam-tiny'</span>)</span>
+<span id="cb122-6"><a href="#cb122-6" aria-hidden="true" tabindex="-1"></a>spam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Some weights of DistilBertForSequenceClassification were not initialized from the model checkpoint at distilbert/distilbert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight', 'pre_classifier.bias', 'pre_classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>DatasetDict({
+    train: Dataset({
+        features: ['sms', 'label'],
+        num_rows: 10
+    })
+})</code></pre>
+</div>
+</div>
+<div id="108db8a9-0d44-46d5-8808-6b7395174874" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a>spam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>DatasetDict({
+    train: Dataset({
+        features: ['sms', 'label'],
+        num_rows: 10
+    })
+})</code></pre>
+</div>
+</div>
+<section id="a.-방법1-고정패딩-collate_fn" class="level2">
+<h2 class="anchored" data-anchor-id="a.-방법1-고정패딩-collate_fn">A. 방법1: 고정패딩, <code>collate_fn</code></h2>
+<div id="58affb00-6c85-4a18-9329-5aabb2b52b26" class="cell" data-execution_count="202">
+<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> m_trans(example_batch):</span>
+<span id="cb127-2"><a href="#cb127-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># example_batch = {'sms':[xxx,xxxx,...], 'label':[yyy,yyyy] </span></span>
+<span id="cb127-3"><a href="#cb127-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># example_batch = spam['train'][:8]</span></span>
+<span id="cb127-4"><a href="#cb127-4" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> tokenizer(example_batch[<span class="st">'sms'</span>],padding<span class="op">=</span><span class="va">True</span>,truncation<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb127-5"><a href="#cb127-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="2be22233-3cee-4f88-8bf8-2d0845df16f8" class="cell" data-execution_count="203">
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>spam2 <span class="op">=</span> spam.<span class="bu">map</span>(m_trans,batched<span class="op">=</span><span class="va">True</span>,batch_size<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a>spam2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Map: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:00&lt;00:00, 1538.07 examples/s]</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="203">
+<pre><code>DatasetDict({
+    train: Dataset({
+        features: ['sms', 'label', 'input_ids', 'attention_mask'],
+        num_rows: 10
+    })
+})</code></pre>
+</div>
+</div>
+<div id="f08a00a5-2afd-4bc8-8b37-8a94cd8ae8ed" class="cell" data-execution_count="204">
+<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a>spam2.set_format(<span class="st">"pt"</span>)</span>
+<span id="cb131-2"><a href="#cb131-2" aria-hidden="true" tabindex="-1"></a><span class="co">#spam2['train']['input_ids'] -- list of tensor with length 10 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="7786cde4-e7ef-4986-98e2-b6eeaf3704d5" class="cell" data-execution_count="205">
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>spam2[<span class="st">'train'</span>][<span class="dv">8</span>:][<span class="st">'input_ids'</span>] <span class="co"># 2d-tensor </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="205">
+<pre><code>tensor([[  101,  3453,   999,   999,  2004,  1037, 11126,  2897,  8013,  2017,
+          2031,  2042,  3479,  2000,  4374,  2050,  1069, 21057,  2692,  3396,
+         10377,   999,  2000,  4366,  2655,  5641,  2692,  2575, 16576, 24096,
+         21472,  2487,  1012,  4366,  3642,  1047,  2140, 22022,  2487,  1012,
+          9398,  2260,  2847,  2069,  1012,   102],
+        [  101,  2018,  2115,  4684,  2340,  2706,  2030,  2062,  1029,  1057,
+          1054,  4709,  2000, 10651,  2000,  1996,  6745,  6120,  4684,  2015,
+          2007,  4950,  2005,  2489,   999,  2655,  1996,  4684, 10651,  2522,
+          2489,  2006,  5511,  8889, 24594, 20842,  2692, 14142,   102,     0,
+             0,     0,     0,     0,     0,     0]])</code></pre>
+</div>
+</div>
+<div id="eb8cb797-2cdc-4dc1-a252-530d4bb6496c" class="cell" data-execution_count="206">
+<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>spam2[<span class="st">'train'</span>][<span class="dv">7</span>:][<span class="st">'input_ids'</span>] <span class="co"># list of 1d-tensor </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="206">
+<pre><code>[tensor([  101,  2004,  2566,  2115,  5227,  1005, 11463,  2571, 11463,  2571,
+          1006,  2030,  2226,  8117, 28987, 11231,  3070, 18447,  2063, 27617,
+          5575,  2226, 29525, 15464,  1007,  1005,  2038,  2042,  2275,  2004,
+          2115, 20587,  8525,  2638,  2005,  2035, 20587,  2015,  1012,  2811,
+          1008,  1023,  2000,  6100,  2115,  2814, 20587,  8525,  2638,   102,
+             0,     0,     0,     0,     0,     0]),
+ tensor([  101,  3453,   999,   999,  2004,  1037, 11126,  2897,  8013,  2017,
+          2031,  2042,  3479,  2000,  4374,  2050,  1069, 21057,  2692,  3396,
+         10377,   999,  2000,  4366,  2655,  5641,  2692,  2575, 16576, 24096,
+         21472,  2487,  1012,  4366,  3642,  1047,  2140, 22022,  2487,  1012,
+          9398,  2260,  2847,  2069,  1012,   102]),
+ tensor([  101,  2018,  2115,  4684,  2340,  2706,  2030,  2062,  1029,  1057,
+          1054,  4709,  2000, 10651,  2000,  1996,  6745,  6120,  4684,  2015,
+          2007,  4950,  2005,  2489,   999,  2655,  1996,  4684, 10651,  2522,
+          2489,  2006,  5511,  8889, 24594, 20842,  2692, 14142,   102,     0,
+             0,     0,     0,     0,     0,     0])]</code></pre>
+</div>
+</div>
+<div id="9074786d-b628-4fb6-be8e-73b38451c012" class="cell" data-execution_count="207">
+<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>trainer_input <span class="op">=</span> spam2[<span class="st">'train'</span>].remove_columns([<span class="st">'sms'</span>]).rename_columns({<span class="st">'label'</span>:<span class="st">'labels'</span>})</span>
+<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a>trainer_input</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="207">
+<pre><code>Dataset({
+    features: ['labels', 'input_ids', 'attention_mask'],
+    num_rows: 10
+})</code></pre>
+</div>
+</div>
+<div id="69a835e7-664f-4f4e-bf9a-c7957dfc097e" class="cell" data-execution_count="208">
+<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a>batch_maker <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb138-2"><a href="#cb138-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span> model,</span>
+<span id="cb138-3"><a href="#cb138-3" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span><span class="kw">lambda</span> x:x</span>
+<span id="cb138-4"><a href="#cb138-4" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb138-5"><a href="#cb138-5" aria-hidden="true" tabindex="-1"></a>_batched_data <span class="op">=</span> batch_maker.get_eval_dataloader(trainer_input)</span>
+<span id="cb138-6"><a href="#cb138-6" aria-hidden="true" tabindex="-1"></a>batched_data <span class="op">=</span> <span class="bu">list</span>(_batched_data)</span>
+<span id="cb138-7"><a href="#cb138-7" aria-hidden="true" tabindex="-1"></a>single_batch <span class="op">=</span> batched_data[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb138-8"><a href="#cb138-8" aria-hidden="true" tabindex="-1"></a>single_batch</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="208">
+<pre><code>[{'labels': tensor(1, device='cuda:0'),
+  'input_ids': tensor([  101,  3453,   999,   999,  2004,  1037, 11126,  2897,  8013,  2017,
+           2031,  2042,  3479,  2000,  4374,  2050,  1069, 21057,  2692,  3396,
+          10377,   999,  2000,  4366,  2655,  5641,  2692,  2575, 16576, 24096,
+          21472,  2487,  1012,  4366,  3642,  1047,  2140, 22022,  2487,  1012,
+           9398,  2260,  2847,  2069,  1012,   102], device='cuda:0'),
+  'attention_mask': tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+          1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+         device='cuda:0')},
+ {'labels': tensor(1, device='cuda:0'),
+  'input_ids': tensor([  101,  2018,  2115,  4684,  2340,  2706,  2030,  2062,  1029,  1057,
+           1054,  4709,  2000, 10651,  2000,  1996,  6745,  6120,  4684,  2015,
+           2007,  4950,  2005,  2489,   999,  2655,  1996,  4684, 10651,  2522,
+           2489,  2006,  5511,  8889, 24594, 20842,  2692, 14142,   102,     0,
+              0,     0,     0,     0,     0,     0], device='cuda:0'),
+  'attention_mask': tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+          1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+         device='cuda:0')}]</code></pre>
+</div>
+</div>
+<div id="7bafe764-bcca-4897-ad6f-b657c91f86d6" class="cell" data-execution_count="209">
+<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>torch.stack([single_batch[<span class="dv">0</span>][<span class="st">'labels'</span>],single_batch[<span class="dv">1</span>][<span class="st">'labels'</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="209">
+<pre><code>tensor([1, 1], device='cuda:0')</code></pre>
+</div>
+</div>
+<div id="c4d5117d-75b5-4bf7-aa93-e1ac062693ad" class="cell" data-execution_count="210">
+<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> collate_fn(single_batch):</span>
+<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb142-3"><a href="#cb142-3" aria-hidden="true" tabindex="-1"></a>    out[<span class="st">'labels'</span>] <span class="op">=</span> torch.stack([dct[<span class="st">'labels'</span>] <span class="cf">for</span> dct <span class="kw">in</span> single_batch])</span>
+<span id="cb142-4"><a href="#cb142-4" aria-hidden="true" tabindex="-1"></a>    out[<span class="st">'input_ids'</span>] <span class="op">=</span> torch.stack([dct[<span class="st">'input_ids'</span>] <span class="cf">for</span> dct <span class="kw">in</span> single_batch])</span>
+<span id="cb142-5"><a href="#cb142-5" aria-hidden="true" tabindex="-1"></a>    out[<span class="st">'attention_mask'</span>] <span class="op">=</span> torch.stack([dct[<span class="st">'attention_mask'</span>] <span class="cf">for</span> dct <span class="kw">in</span> single_batch])</span>
+<span id="cb142-6"><a href="#cb142-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="046f3ba6-748c-4f9a-bacd-9cf0b44bb392" class="cell" data-execution_count="211">
+<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>collate_fn(single_batch))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="211">
+<pre><code>SequenceClassifierOutput(loss=tensor(0.2875, device='cuda:0', grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[-0.4793,  0.6985],
+        [-0.4598,  0.5654]], device='cuda:0', grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<div id="ce2d70cd-b2f9-4523-a8d4-a853aee7b5b8" class="cell" data-execution_count="212">
+<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb145-2"><a href="#cb145-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span> model,</span>
+<span id="cb145-3"><a href="#cb145-3" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>collate_fn</span>
+<span id="cb145-4"><a href="#cb145-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb145-5"><a href="#cb145-5" aria-hidden="true" tabindex="-1"></a>trainer.predict(trainer_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+</div>
+<div class="cell-output cell-output-display" data-execution_count="212">
+<pre><code>PredictionOutput(predictions=array([[ 0.70305747, -0.7353085 ],
+       [ 0.7872642 , -0.77549946],
+       [-0.6230489 ,  0.72870666],
+       [ 0.7890144 , -0.74234533],
+       [ 0.6112454 , -0.5727863 ],
+       [-0.56530714,  0.636417  ],
+       [ 0.39937705, -0.28327113],
+       [ 0.45833465, -0.43777147],
+       [-0.6101986 ,  0.7738755 ],
+       [-0.48634416,  0.7041703 ]], dtype=float32), label_ids=array([0, 0, 1, 0, 0, 1, 0, 0, 1, 1]), metrics={'test_loss': 0.2599327564239502, 'test_model_preparation_time': 0.0011, 'test_runtime': 0.0119, 'test_samples_per_second': 842.754, 'test_steps_per_second': 168.551})</code></pre>
+</div>
+</div>
+<div id="3bd7329b-008f-458e-a3b9-20053070823e" class="cell" data-execution_count="213">
+<div class="sourceCode cell-code" id="cb147"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb147-2"><a href="#cb147-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
+<span id="cb147-3"><a href="#cb147-3" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>collate_fn,</span>
+<span id="cb147-4"><a href="#cb147-4" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>trainer_input,</span>
+<span id="cb147-5"><a href="#cb147-5" aria-hidden="true" tabindex="-1"></a>    args <span class="op">=</span> transformers.TrainingArguments(</span>
+<span id="cb147-6"><a href="#cb147-6" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"asdf"</span>,</span>
+<span id="cb147-7"><a href="#cb147-7" aria-hidden="true" tabindex="-1"></a>        remove_unused_columns<span class="op">=</span><span class="va">False</span></span>
+<span id="cb147-8"><a href="#cb147-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb147-9"><a href="#cb147-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb147-10"><a href="#cb147-10" aria-hidden="true" tabindex="-1"></a>trainer.train()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>RuntimeError: stack expects each tensor to be equal size, but got [56] at entry 0 and [46] at entry 3</code></pre>
+</div>
+</div>
+</section>
+<section id="b.-방법2-고정패딩-defaultdatacollator" class="level2">
+<h2 class="anchored" data-anchor-id="b.-방법2-고정패딩-defaultdatacollator">B. 방법2: 고정패딩, DefaultDataCollator</h2>
+<div id="563dc0cc-c97a-4fd6-8aeb-2fcfc1abcd0a" class="cell" data-execution_count="195">
+<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> m_trans(example_batch):</span>
+<span id="cb149-2"><a href="#cb149-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># example_batch = {'sms':[xxx,xxxx,...], 'label':[yyy,yyyy] </span></span>
+<span id="cb149-3"><a href="#cb149-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># example_batch = spam['train'][:8]</span></span>
+<span id="cb149-4"><a href="#cb149-4" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> tokenizer(example_batch[<span class="st">'sms'</span>],padding<span class="op">=</span><span class="va">True</span>,truncation<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb149-5"><a href="#cb149-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out </span>
+<span id="cb149-6"><a href="#cb149-6" aria-hidden="true" tabindex="-1"></a>spam2 <span class="op">=</span> spam.<span class="bu">map</span>(m_trans,batched<span class="op">=</span><span class="va">True</span>,batch_size<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb149-7"><a href="#cb149-7" aria-hidden="true" tabindex="-1"></a>spam2.set_format(<span class="st">"pt"</span>)</span>
+<span id="cb149-8"><a href="#cb149-8" aria-hidden="true" tabindex="-1"></a>trainer_input <span class="op">=</span> spam2[<span class="st">'train'</span>].remove_columns([<span class="st">'sms'</span>]).rename_columns({<span class="st">'label'</span>:<span class="st">'labels'</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Map: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:00&lt;00:00, 1685.61 examples/s]</code></pre>
+</div>
+</div>
+<div id="7991c069-f7dc-4bf4-8f6e-6f8ce6cd32b3" class="cell" data-execution_count="196">
+<div class="sourceCode cell-code" id="cb151"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a>batch_maker <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb151-2"><a href="#cb151-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span> model,</span>
+<span id="cb151-3"><a href="#cb151-3" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span><span class="kw">lambda</span> x:x</span>
+<span id="cb151-4"><a href="#cb151-4" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb151-5"><a href="#cb151-5" aria-hidden="true" tabindex="-1"></a>_batched_data <span class="op">=</span> batch_maker.get_eval_dataloader(trainer_input)</span>
+<span id="cb151-6"><a href="#cb151-6" aria-hidden="true" tabindex="-1"></a>batched_data <span class="op">=</span> <span class="bu">list</span>(_batched_data)</span>
+<span id="cb151-7"><a href="#cb151-7" aria-hidden="true" tabindex="-1"></a>single_batch <span class="op">=</span> batched_data[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb151-8"><a href="#cb151-8" aria-hidden="true" tabindex="-1"></a>single_batch</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="196">
+<pre><code>[{'labels': tensor(1, device='cuda:0'),
+  'input_ids': tensor([  101,  3453,   999,   999,  2004,  1037, 11126,  2897,  8013,  2017,
+           2031,  2042,  3479,  2000,  4374,  2050,  1069, 21057,  2692,  3396,
+          10377,   999,  2000,  4366,  2655,  5641,  2692,  2575, 16576, 24096,
+          21472,  2487,  1012,  4366,  3642,  1047,  2140, 22022,  2487,  1012,
+           9398,  2260,  2847,  2069,  1012,   102], device='cuda:0'),
+  'attention_mask': tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+          1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+         device='cuda:0')},
+ {'labels': tensor(1, device='cuda:0'),
+  'input_ids': tensor([  101,  2018,  2115,  4684,  2340,  2706,  2030,  2062,  1029,  1057,
+           1054,  4709,  2000, 10651,  2000,  1996,  6745,  6120,  4684,  2015,
+           2007,  4950,  2005,  2489,   999,  2655,  1996,  4684, 10651,  2522,
+           2489,  2006,  5511,  8889, 24594, 20842,  2692, 14142,   102,     0,
+              0,     0,     0,     0,     0,     0], device='cuda:0'),
+  'attention_mask': tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+          1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+         device='cuda:0')}]</code></pre>
+</div>
+</div>
+<div id="0e1c0c20-1ab2-4a6c-a94f-4a8bde92455c" class="cell" data-execution_count="197">
+<div class="sourceCode cell-code" id="cb153"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="co"># def collate_fn(single_batch):</span></span>
+<span id="cb153-2"><a href="#cb153-2" aria-hidden="true" tabindex="-1"></a><span class="co">#     out = dict()</span></span>
+<span id="cb153-3"><a href="#cb153-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     out['labels'] = torch.stack([dct['labels'] for dct in single_batch])</span></span>
+<span id="cb153-4"><a href="#cb153-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     out['input_ids'] = torch.stack([dct['input_ids'] for dct in single_batch])</span></span>
+<span id="cb153-5"><a href="#cb153-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     out['attention_mask'] = torch.stack([dct['attention_mask'] for dct in single_batch])</span></span>
+<span id="cb153-6"><a href="#cb153-6" aria-hidden="true" tabindex="-1"></a><span class="co">#     return out </span></span>
+<span id="cb153-7"><a href="#cb153-7" aria-hidden="true" tabindex="-1"></a>data_collator <span class="op">=</span> transformers.DefaultDataCollator()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="8037ca7f-7a42-486d-9a8d-fad91ca725b3" class="cell" data-execution_count="198">
+<div class="sourceCode cell-code" id="cb154"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>data_collator(single_batch))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="198">
+<pre><code>SequenceClassifierOutput(loss=tensor(0.2875, device='cuda:0', grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[-0.4793,  0.6985],
+        [-0.4598,  0.5654]], device='cuda:0', grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<div id="97b50ea9-c014-470d-bec0-16b0cf3d2fa4" class="cell" data-execution_count="199">
+<div class="sourceCode cell-code" id="cb156"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb156-2"><a href="#cb156-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span> model,</span>
+<span id="cb156-3"><a href="#cb156-3" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>data_collator</span>
+<span id="cb156-4"><a href="#cb156-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb156-5"><a href="#cb156-5" aria-hidden="true" tabindex="-1"></a>trainer.predict(trainer_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+</div>
+<div class="cell-output cell-output-display" data-execution_count="199">
+<pre><code>PredictionOutput(predictions=array([[ 0.70305747, -0.7353085 ],
+       [ 0.7872642 , -0.77549946],
+       [-0.6230489 ,  0.72870666],
+       [ 0.7890144 , -0.74234533],
+       [ 0.6112454 , -0.5727863 ],
+       [-0.56530714,  0.636417  ],
+       [ 0.39937705, -0.28327113],
+       [ 0.45833465, -0.43777147],
+       [-0.6101986 ,  0.7738755 ],
+       [-0.48634416,  0.7041703 ]], dtype=float32), label_ids=array([0, 0, 1, 0, 0, 1, 0, 0, 1, 1]), metrics={'test_loss': 0.2599327564239502, 'test_model_preparation_time': 0.0011, 'test_runtime': 0.0118, 'test_samples_per_second': 844.621, 'test_steps_per_second': 168.924})</code></pre>
+</div>
+</div>
+<div id="c15fbecc-4534-4688-a826-f5233f1beaef" class="cell" data-execution_count="201">
+<div class="sourceCode cell-code" id="cb158"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb158-2"><a href="#cb158-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
+<span id="cb158-3"><a href="#cb158-3" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>data_collator,</span>
+<span id="cb158-4"><a href="#cb158-4" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>trainer_input,</span>
+<span id="cb158-5"><a href="#cb158-5" aria-hidden="true" tabindex="-1"></a>    args <span class="op">=</span> transformers.TrainingArguments(</span>
+<span id="cb158-6"><a href="#cb158-6" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"asdf"</span>,</span>
+<span id="cb158-7"><a href="#cb158-7" aria-hidden="true" tabindex="-1"></a>        remove_unused_columns<span class="op">=</span><span class="va">False</span></span>
+<span id="cb158-8"><a href="#cb158-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb158-9"><a href="#cb158-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb158-10"><a href="#cb158-10" aria-hidden="true" tabindex="-1"></a>trainer.train()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>RuntimeError: stack expects each tensor to be equal size, but got [56] at entry 0 and [46] at entry 3</code></pre>
+</div>
+</div>
+</section>
+<section id="c.-방법3-동적패딩-datacollatorwithpadding" class="level2">
+<h2 class="anchored" data-anchor-id="c.-방법3-동적패딩-datacollatorwithpadding">C. 방법3: 동적패딩, <code>DataCollatorWithPadding</code></h2>
+<div id="97a969bd-7dd5-429e-80c4-36a004dffabd" class="cell" data-execution_count="187">
+<div class="sourceCode cell-code" id="cb160"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a>spam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="187">
+<pre><code>DatasetDict({
+    train: Dataset({
+        features: ['sms', 'label'],
+        num_rows: 10
+    })
+})</code></pre>
+</div>
+</div>
+<div id="ae148560-cc29-4e3e-8ff0-42d40d7303a7" class="cell" data-execution_count="188">
+<div class="sourceCode cell-code" id="cb162"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w_trans(examples):</span>
+<span id="cb162-2"><a href="#cb162-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># examples = spam['train'][:8] = {'sms': [xxx,xxxx,...], 'label':[yyy,yyyy,...]</span></span>
+<span id="cb162-3"><a href="#cb162-3" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> tokenizer(examples[<span class="st">'sms'</span>],truncation<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb162-4"><a href="#cb162-4" aria-hidden="true" tabindex="-1"></a>    out[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor(examples[<span class="st">'label'</span>])</span>
+<span id="cb162-5"><a href="#cb162-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="5ccad917-bba0-4b84-8e5e-5642b380c7b0" class="cell" data-execution_count="189">
+<div class="sourceCode cell-code" id="cb163"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a>trainer_input <span class="op">=</span> spam.with_transform(w_trans)[<span class="st">'train'</span>]</span>
+<span id="cb163-2"><a href="#cb163-2" aria-hidden="true" tabindex="-1"></a>trainer_input</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="189">
+<pre><code>Dataset({
+    features: ['sms', 'label'],
+    num_rows: 10
+})</code></pre>
+</div>
+</div>
+<div id="3bc25669-91a4-4239-8ec9-103ce4526691" class="cell" data-execution_count="190">
+<div class="sourceCode cell-code" id="cb165"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb165-1"><a href="#cb165-1" aria-hidden="true" tabindex="-1"></a>batch_maker <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb165-2"><a href="#cb165-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model,</span>
+<span id="cb165-3"><a href="#cb165-3" aria-hidden="true" tabindex="-1"></a>    data_collator <span class="op">=</span> <span class="kw">lambda</span> x: x,</span>
+<span id="cb165-4"><a href="#cb165-4" aria-hidden="true" tabindex="-1"></a>    args <span class="op">=</span> transformers.TrainingArguments(</span>
+<span id="cb165-5"><a href="#cb165-5" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"asdf"</span>,</span>
+<span id="cb165-6"><a href="#cb165-6" aria-hidden="true" tabindex="-1"></a>        remove_unused_columns<span class="op">=</span><span class="va">False</span></span>
+<span id="cb165-7"><a href="#cb165-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb165-8"><a href="#cb165-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb165-9"><a href="#cb165-9" aria-hidden="true" tabindex="-1"></a>single_batch <span class="op">=</span> <span class="bu">next</span>(<span class="bu">iter</span>(batch_maker.get_eval_dataloader(trainer_input)))</span>
+<span id="cb165-10"><a href="#cb165-10" aria-hidden="true" tabindex="-1"></a><span class="co">#sigle_batch</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="fb2db1de-78e6-4d6d-be0b-48b75376494a" class="cell" data-execution_count="191">
+<div class="sourceCode cell-code" id="cb166"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb166-1"><a href="#cb166-1" aria-hidden="true" tabindex="-1"></a>data_collator <span class="op">=</span> transformers.DataCollatorWithPadding(tokenizer)</span>
+<span id="cb166-2"><a href="#cb166-2" aria-hidden="true" tabindex="-1"></a>model.to(<span class="st">"cpu"</span>)</span>
+<span id="cb166-3"><a href="#cb166-3" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>data_collator(single_batch))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="191">
+<pre><code>SequenceClassifierOutput(loss=tensor(0.5369, grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[ 0.2340, -0.2688],
+        [ 0.2608, -0.2633],
+        [-0.1423,  0.2838],
+        [ 0.2734, -0.3063],
+        [ 0.3347, -0.1394],
+        [-0.0950,  0.1350],
+        [ 0.0552,  0.0188],
+        [ 0.1153,  0.0608]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<div id="a2c83652-2ea6-468d-b68b-7677771465a6" class="cell" data-execution_count="192">
+<div class="sourceCode cell-code" id="cb168"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb168-2"><a href="#cb168-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model,</span>
+<span id="cb168-3"><a href="#cb168-3" aria-hidden="true" tabindex="-1"></a>    data_collator <span class="op">=</span> data_collator,</span>
+<span id="cb168-4"><a href="#cb168-4" aria-hidden="true" tabindex="-1"></a>    args <span class="op">=</span> transformers.TrainingArguments(</span>
+<span id="cb168-5"><a href="#cb168-5" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"asdf"</span>,</span>
+<span id="cb168-6"><a href="#cb168-6" aria-hidden="true" tabindex="-1"></a>        remove_unused_columns<span class="op">=</span><span class="va">False</span></span>
+<span id="cb168-7"><a href="#cb168-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb168-8"><a href="#cb168-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb168-9"><a href="#cb168-9" aria-hidden="true" tabindex="-1"></a>trainer.predict(trainer_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+</div>
+<div class="cell-output cell-output-display" data-execution_count="192">
+<pre><code>PredictionOutput(predictions=array([[ 0.2797705 , -0.19910407],
+       [ 0.30945048, -0.2513666 ],
+       [-0.14997171,  0.28633246],
+       [ 0.30314386, -0.24964799],
+       [ 0.2884021 , -0.17398489],
+       [-0.07598098,  0.12895201],
+       [ 0.11931977, -0.05026204],
+       [ 0.08751589, -0.07571842],
+       [-0.13582245,  0.29102388],
+       [-0.06882622,  0.2479064 ]], dtype=float32), label_ids=array([0, 0, 1, 0, 0, 1, 0, 0, 1, 1]), metrics={'test_loss': 0.5247495770454407, 'test_model_preparation_time': 0.0007, 'test_runtime': 0.0093, 'test_samples_per_second': 1075.104, 'test_steps_per_second': 215.021})</code></pre>
+</div>
+</div>
+<div id="4b5f31d9-6f9b-4893-9d0b-f5b18d86793a" class="cell" data-execution_count="194">
+<div class="sourceCode cell-code" id="cb170"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb170-1"><a href="#cb170-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb170-2"><a href="#cb170-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
+<span id="cb170-3"><a href="#cb170-3" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>data_collator,</span>
+<span id="cb170-4"><a href="#cb170-4" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>trainer_input,</span>
+<span id="cb170-5"><a href="#cb170-5" aria-hidden="true" tabindex="-1"></a>    args <span class="op">=</span> transformers.TrainingArguments(</span>
+<span id="cb170-6"><a href="#cb170-6" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"asdf"</span>,</span>
+<span id="cb170-7"><a href="#cb170-7" aria-hidden="true" tabindex="-1"></a>        remove_unused_columns<span class="op">=</span><span class="va">False</span></span>
+<span id="cb170-8"><a href="#cb170-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb170-9"><a href="#cb170-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb170-10"><a href="#cb170-10" aria-hidden="true" tabindex="-1"></a>trainer.train()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+    <div>
+      
+      <progress value="6" max="6" style="width:300px; height:20px; vertical-align: middle;"></progress>
+      [6/6 00:01, Epoch 3/3]
+    </div>
+    
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Step</th>
+<th data-quarto-table-cell-role="th">Training Loss</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>
+</p></div>
+<div class="cell-output cell-output-display" data-execution_count="194">
+<pre><code>TrainOutput(global_step=6, training_loss=0.38783260186513263, metrics={'train_runtime': 1.0559, 'train_samples_per_second': 28.412, 'train_steps_per_second': 5.682, 'total_flos': 421204931664.0, 'train_loss': 0.38783260186513263, 'epoch': 3.0})</code></pre>
+</div>
+</div>
+</section>
+<section id="d.-방법4-동적패딩-전처리x-star" class="level2">
+<h2 class="anchored" data-anchor-id="d.-방법4-동적패딩-전처리x-star">D. 방법4: 동적패딩, 전처리X <span class="math inline">\((\star)\)</span></h2>
+<div id="4c7a52d1-83d9-4b5e-97ea-6066a7446490" class="cell" data-execution_count="166">
+<div class="sourceCode cell-code" id="cb172"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb172-1"><a href="#cb172-1" aria-hidden="true" tabindex="-1"></a>trainer_input <span class="op">=</span> spam[<span class="st">'train'</span>]</span>
+<span id="cb172-2"><a href="#cb172-2" aria-hidden="true" tabindex="-1"></a>trainer_input</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="166">
+<pre><code>Dataset({
+    features: ['sms', 'label'],
+    num_rows: 10
+})</code></pre>
+</div>
+</div>
+<div id="66d327a3-32b1-4630-abd9-7f13e4a40a30" class="cell" data-execution_count="167">
+<div class="sourceCode cell-code" id="cb174"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb174-1"><a href="#cb174-1" aria-hidden="true" tabindex="-1"></a>single_batch <span class="op">=</span> [trainer_input[<span class="op">-</span><span class="dv">2</span>],trainer_input[<span class="op">-</span><span class="dv">1</span>]]</span>
+<span id="cb174-2"><a href="#cb174-2" aria-hidden="true" tabindex="-1"></a>single_batch</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="167">
+<pre><code>[{'sms': 'WINNER!! As a valued network customer you have been selected to receivea £900 prize reward! To claim call 09061701461. Claim code KL341. Valid 12 hours only.\n',
+  'label': 1},
+ {'sms': 'Had your mobile 11 months or more? U R entitled to Update to the latest colour mobiles with camera for Free! Call The Mobile Update Co FREE on 08002986030\n',
+  'label': 1}]</code></pre>
+</div>
+</div>
+<div id="73dce43d-3b9c-442f-b44e-b3cf807f3bb1" class="cell" data-execution_count="181">
+<div class="sourceCode cell-code" id="cb176"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb176-1"><a href="#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> collate_fn(single_batch):</span>
+<span id="cb176-2"><a href="#cb176-2" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> tokenizer(</span>
+<span id="cb176-3"><a href="#cb176-3" aria-hidden="true" tabindex="-1"></a>        [dct[<span class="st">'sms'</span>] <span class="cf">for</span> dct <span class="kw">in</span> single_batch],</span>
+<span id="cb176-4"><a href="#cb176-4" aria-hidden="true" tabindex="-1"></a>        padding<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb176-5"><a href="#cb176-5" aria-hidden="true" tabindex="-1"></a>        truncation<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb176-6"><a href="#cb176-6" aria-hidden="true" tabindex="-1"></a>        return_tensors<span class="op">=</span><span class="st">"pt"</span>,</span>
+<span id="cb176-7"><a href="#cb176-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb176-8"><a href="#cb176-8" aria-hidden="true" tabindex="-1"></a>    out[<span class="st">'labels'</span>] <span class="op">=</span> torch.tensor([dct[<span class="st">'label'</span>] <span class="cf">for</span> dct <span class="kw">in</span> single_batch])</span>
+<span id="cb176-9"><a href="#cb176-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="ebf41195-f28c-41ca-969c-1ef5bf37d37c" class="cell" data-execution_count="182">
+<div class="sourceCode cell-code" id="cb177"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb177-1"><a href="#cb177-1" aria-hidden="true" tabindex="-1"></a>model.to(<span class="st">"cpu"</span>)</span>
+<span id="cb177-2"><a href="#cb177-2" aria-hidden="true" tabindex="-1"></a>model(<span class="op">**</span>collate_fn(single_batch))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="182">
+<pre><code>SequenceClassifierOutput(loss=tensor(0.6672, grad_fn=&lt;NllLossBackward0&gt;), logits=tensor([[0.0171, 0.1000],
+        [0.0605, 0.0832]], grad_fn=&lt;AddmmBackward0&gt;), hidden_states=None, attentions=None)</code></pre>
+</div>
+</div>
+<div id="017fe106-c414-4f91-9f0a-43c974324129" class="cell" data-execution_count="184">
+<div class="sourceCode cell-code" id="cb179"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb179-1"><a href="#cb179-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb179-2"><a href="#cb179-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
+<span id="cb179-3"><a href="#cb179-3" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>collate_fn,</span>
+<span id="cb179-4"><a href="#cb179-4" aria-hidden="true" tabindex="-1"></a>    args <span class="op">=</span> transformers.TrainingArguments(</span>
+<span id="cb179-5"><a href="#cb179-5" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"asdf"</span>,</span>
+<span id="cb179-6"><a href="#cb179-6" aria-hidden="true" tabindex="-1"></a>        remove_unused_columns<span class="op">=</span><span class="va">False</span></span>
+<span id="cb179-7"><a href="#cb179-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb179-8"><a href="#cb179-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb179-9"><a href="#cb179-9" aria-hidden="true" tabindex="-1"></a>trainer.predict(trainer_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+</div>
+<div class="cell-output cell-output-display" data-execution_count="184">
+<pre><code>PredictionOutput(predictions=array([[-0.02218767,  0.10636629],
+       [-0.01826159,  0.08857261],
+       [-0.01180449,  0.07579152],
+       [-0.03820946,  0.06749745],
+       [ 0.04095571,  0.06443821],
+       [ 0.0097203 ,  0.05986086],
+       [-0.01054696,  0.09217122],
+       [-0.02597055,  0.07729876],
+       [ 0.01710123,  0.09998252],
+       [ 0.06050469,  0.08315243]], dtype=float32), label_ids=array([0, 0, 1, 0, 0, 1, 0, 0, 1, 1]), metrics={'test_loss': 0.7104923725128174, 'test_model_preparation_time': 0.0011, 'test_runtime': 0.0109, 'test_samples_per_second': 919.985, 'test_steps_per_second': 183.997})</code></pre>
+</div>
+</div>
+<div id="db46e799-021a-4915-ba06-60fbab9808af" class="cell" data-execution_count="186">
+<div class="sourceCode cell-code" id="cb181"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb181-1"><a href="#cb181-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> transformers.Trainer(</span>
+<span id="cb181-2"><a href="#cb181-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model,</span>
+<span id="cb181-3"><a href="#cb181-3" aria-hidden="true" tabindex="-1"></a>    data_collator<span class="op">=</span>collate_fn,</span>
+<span id="cb181-4"><a href="#cb181-4" aria-hidden="true" tabindex="-1"></a>    train_dataset<span class="op">=</span>trainer_input,</span>
+<span id="cb181-5"><a href="#cb181-5" aria-hidden="true" tabindex="-1"></a>    args <span class="op">=</span> transformers.TrainingArguments(</span>
+<span id="cb181-6"><a href="#cb181-6" aria-hidden="true" tabindex="-1"></a>        output_dir<span class="op">=</span><span class="st">"asdf"</span>,</span>
+<span id="cb181-7"><a href="#cb181-7" aria-hidden="true" tabindex="-1"></a>        remove_unused_columns<span class="op">=</span><span class="va">False</span></span>
+<span id="cb181-8"><a href="#cb181-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb181-9"><a href="#cb181-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb181-10"><a href="#cb181-10" aria-hidden="true" tabindex="-1"></a>trainer.train()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+    <div>
+      
+      <progress value="6" max="6" style="width:300px; height:20px; vertical-align: middle;"></progress>
+      [6/6 00:00, Epoch 3/3]
+    </div>
+    
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Step</th>
+<th data-quarto-table-cell-role="th">Training Loss</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>
+</p></div>
+<div class="cell-output cell-output-display" data-execution_count="186">
+<pre><code>TrainOutput(global_step=6, training_loss=0.6373028755187988, metrics={'train_runtime': 1.0552, 'train_samples_per_second': 28.431, 'train_steps_per_second': 5.686, 'total_flos': 421204931664.0, 'train_loss': 0.6373028755187988, 'epoch': 3.0})</code></pre>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="a1.-공지" class="level1">
+<h1>A1. 공지</h1>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+강의시간 이슈
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>안녕하세요, 제가 촬영하고 강의시간을 살펴보니 원래 강의시간보다 약 20분정도 초과되었습니다. (3시간 분량인데 3시간20분 소요됨) 죄송합니다. 이후의 강의에서 이를 반영하여 조금 강의시간을 줄여서 올리도록하겠습니다.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+깊은복사 얕은복사
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>아래의 코드</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a>lst <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</span>
+<span id="cb183-2"><a href="#cb183-2" aria-hidden="true" tabindex="-1"></a>lst2 <span class="op">=</span> lst </span>
+<span id="cb183-3"><a href="#cb183-3" aria-hidden="true" tabindex="-1"></a>lst2.append(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>를 실행하였을 경우 <code>lst</code>와 <code>lst2</code>에 동일한 값이 저장되는 현상에 대한 설명은</p>
+<blockquote class="blockquote">
+<p><a href="https://guebin.github.io/PP2023/posts/2023-06-21-13wk-1.html" class="uri">https://guebin.github.io/PP2023/posts/2023-06-21-13wk-1.html</a></p>
+</blockquote>
+<p>에 있으니 관심있으신 학생들은 참고하시기 바랍니다. (이 수업에서는 저 내용을 몰라도 학점받는데 영향없습니다)</p>
+</div>
+</div>
+
+
+</section>
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="guebin/MP2023" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
